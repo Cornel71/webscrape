@@ -33,7 +33,7 @@ jobs:
       env:
         SERPAPI_API_KEY: ${{ secrets.SERPAPI_API_KEY }}
       run: |
-        python cloud_scraper.py
+        python web_scrape.py
         if [ -f ansible_python_dataset.json ]; then
           FILE_SIZE=$(du -sh ansible_python_dataset.json | cut -f1)
           echo "dataset_size=$FILE_SIZE" >> $GITHUB_OUTPUT

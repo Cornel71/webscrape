@@ -1,0 +1,46 @@
+github ansible code playbook examples
+ansible playbook automation best practices production
+github ansible playbook automation best practices production
+ansible avoid command shell changed_when false
+github ansible handlers
+github ansible tasks
+ansible yaml syntax validation standards lint
+github ci cd pipeline ansible vault automation
+secure ansible vault password gitlab runner environment variables
+ansible playbook vault-password-file secure temporary file
+ssh-agent setup gitlab ci yaml openssh-client
+secure ansible code testing in gitlab ci pipeline
+ansible docker installation and compose plugin
+community docker docker_container ansible example
+ansible playbook file permissions best practices mode 0600
+ansible nginx reverse proxy configuration template j2
+ansible certbot nginx ssl certificate automation
+ansible loop select map filters jinja2 advanced
+ansible ssh hardening disable password authentication port change
+ansible lineinfile sshd_config secure examples
+ansible create unix group user password_hash sha512
+ansible manage sudoers file securely visudo validation
+ansible control node security hardening best practices
+ansible secure ssh keys configuration ed25519 passphrases
+ansible privilege escalation become secure configuration
+ansible ufw firewalld multi os conditional playbooks
+ansible posix sysctl kernel parameters optimization
+ansible architecture cis benchmarks compliance automated remediation
+devsec hardening framework ansible roles github
+ansible playbooks openoscap compliance testing vulnerability management
+ansible lvm setup logical volume vg lvg filesystem ext4 mount
+community postgresql postgresql_user privileges database ansible
+ansible  postgres user creation production
+ansible vault best practices aes 256 encryption
+ansible lookup plugin hashicorp vault integration guide
+ansible aws secrets manager cyberark integration examples
+how to avoid exposing secrets in ansible logs no_log true
+ansible error handling block rescue fail examples
+ansible rolling update zero downtime serial strategy
+ansible performance tuning pipelining ssh_connection configuration
+ansible profile_tasks execution time tracking
+ansible execution environments security containers docker
+ansible automated incident response firewall block malicious ip
+ansible integration splunk qradar siem automated playbooks
+ansible network automation security compliance auditing
+red hat ansible automation for cyber security integration

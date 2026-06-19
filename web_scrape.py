@@ -55,6 +55,19 @@ def convert_to_raw_github_url(url: str) -> str:
         return url.replace('/blob/', '/raw/')
     return url
 
+# ---------------------------------------------------------------------------
+# YAML structure patterns
+# Accepted formats:
+#   1)  - name: <any>
+#         hosts: <any>
+#         vars: <any>
+#
+#   2)  ---
+#       - name: <any>
+#         hosts: <any>
+#         vars: <any>
+# ---------------------------------------------------------------------------
+
 _YAML_PATTERN_1 = re.compile(
     r"^- name:\s*.+\n\s+hosts:\s*.+\n\s+vars:\s*",
     re.MULTILINE,

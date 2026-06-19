@@ -12,6 +12,7 @@ HEADERS = {
 
 INPUT_FILE  = "saved_links.txt"
 OUTPUT_FILE = "ansible_python_dataset.json"
+
 _HTML_TAG_RE    = re.compile(r'<[a-zA-Z][^>]{0,200}>')
 _DOCTYPE_RE     = re.compile(r'<!DOCTYPE\s', re.IGNORECASE)
 _HTML_OPEN_RE   = re.compile(r'<html[\s>]', re.IGNORECASE)
@@ -55,23 +56,21 @@ def convert_to_raw_github_url(url: str) -> str:
         return url.replace('/blob/', '/raw/')
     return url
 
-_YAML_PATTERN_1 = re.compile(
-    r"^- name:\s*.+\n\s+hosts:\s*.+\n\s+vars:\s*",
-    re.MULTILINE,
-)
-_YAML_PATTERN_2 = re.compile(
-    r"^---\s*\n- name:\s*.+\n\s+hosts:\s*.+\n\s+vars:\s*",
-    re.MULTILINE,
-)
 
 def is_yaml_code(text: str) -> bool:
-    """Return True only if the text contains a valid Ansible play header."""
-    return bool(_YAML_PATTERN_1.search(text) or _YAML_PATTERN_2.search(text))
+    indicators = ['---', 'hosts:', 'tasks:', 'become:', 'register:',
+                  'when:', 'template:', 'package:', 'service:', 'vars:',
+                  'defaults:', 'handlers:']
+    matches = sum(1 for ind in indicators if ind in text)
+    return matches >= 4
+
 
 def is_python_code(text: str) -> bool:
     indicators = ['import ', 'def ', 'from ', 'print(', 'class ',
-                  'ansible.', 'module_utils', 'return ', 'if __name__']
-    return any(ind in text for ind in indicators)
+                  'module_utils', 'return ', 'if __name__']
+    matches = sum(1 for ind in indicators if ind in text)
+    return matches >= 3
+
 
 def clean_content(text: str) -> str:
     """Strip control characters, trailing whitespace, and normalize unicode."""
@@ -107,6 +106,7 @@ def scrape_url(url: str) -> dict | None:
                 {"from": "gpt",   "value": clean_content(raw_text)},
             ]}
         soup = BeautifulSoup(resp.text, 'html.parser')
+
         title_tag  = soup.find('title')
         page_title = title_tag.get_text(strip=True) if title_tag else "Ansible Guide"
         page_title = clean_text(re.sub(r'\s+', ' ', page_title)[:160])
@@ -129,16 +129,20 @@ def scrape_url(url: str) -> dict | None:
                         and not is_html_content(block)
                         and (is_yaml_code(block) or is_python_code(block))):
                     code_blocks.append(block)
+
         if not code_blocks:
             print(f"   ⚠️  Skipped: no YAML or Python code found → {page_title}")
             return None
+
         best_code = clean_content(max(code_blocks, key=len))
         if is_html_content(best_code):
             print(f"   ⚠️  Skipped: best block is HTML → {page_title}")
             return None
+
         prompt = (f"Ansible Playbook for: {page_title}"
                   if is_yaml_code(best_code)
                   else f"Python script for: {page_title}")
+
         print("   ✅ SUCCESS → YAML/Python code extracted from page")
         return {"conversations": [
             {"from": "human", "value": clean_text(prompt)},
@@ -157,7 +161,9 @@ if __name__ == "__main__":
     else:
         with open(INPUT_FILE, 'r', encoding='utf-8') as f:
             urls = [l.strip() for l in f if l.strip() and not l.strip().startswith('#')]
+
         print(f"📋 Loaded {len(urls)} URLs\n")
+
         dataset = []
         for i, url in enumerate(urls, 1):
             print(f"[{i}/{len(urls)}]")
@@ -165,6 +171,8 @@ if __name__ == "__main__":
             if result:
                 dataset.append(result)
             time.sleep(1.5)
+
         with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
             json.dump(dataset, f, indent=2, ensure_ascii=False)
+
         print(f"\n🎉 Done! Saved {len(dataset)} conversations → {OUTPUT_FILE}")

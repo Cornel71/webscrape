@@ -63,13 +63,13 @@ python web_scrape.py
 ---
 
 ## ⚙️ Project Architecture
-
+```
 ├── export_pages.py              # Main execution script to generate links based on search_subjects.txt
 ├── search_subjects.txt          # Input file for search subjects (Manual-generated)
 ├── web_scrape.py                # Main execution script to scrape web based on the links generated
 ├── saved_links.txt              # Input file for target URLs (Auto-generated)
 └── ansible_python_dataset.json  # Compiled training dataset (Auto-generated)
-
+```
 ### Script Configurations
 You can adjust these parameters globally directly inside `scraper.py`:
 

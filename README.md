@@ -63,6 +63,7 @@ python web_scrape.py
 ---
 
 ## ⚙️ Project Architecture
+
 ├── export_pages.py              # Main execution script to generate links based on search_subjects.txt
 ├── search_subjects.txt          # Input file for search subjects (Manual-generated)
 ├── web_scrape.py                # Main execution script to scrape web based on the links generated

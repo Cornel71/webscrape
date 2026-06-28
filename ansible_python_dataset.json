@@ -1959,18 +1959,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Use Ansible To Automate Logical Volume Manager (LVM) - OSTechNix"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n- name: LVM Testing\n hosts: localhost\n become: true\n gather_facts: False\n tasks:\n   - name: Partition /dev/sdd disk\n     community.general.parted:\n       device: /dev/sdd\n       number: 1\n       flags: [ lvm ]\n       state: present\n       part_end: 5GiB\n   - name: Task for PV and VG\n     community.general.lvg:\n         vg: ostechnixlab\n         pvs: /dev/sdd1\n   - name: Logical volume with 1GB size\n     community.general.lvol:\n       vg: ostechnixlab\n       lv: labpart1\n       size: 1G\n   - name: Format the volume with ext4 fs\n     community.general.filesystem:\n       fstype: ext4\n       dev: /dev/ostechnixlab/labpart1\n   - name: Target directory under /opt/\n     ansible.builtin.file:\n       path: /opt/lvm_test/\n       state: directory\n       mode: '0755'\n   - name: mount the lv on /data1\n     ansible.posix.mount:\n       path: /opt/lvm_test/\n       src: /dev/ostechnixlab/labpart1\n       fstype: ext4\n       state: mounted"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Python script for: postgresql_user: Create & Manage PostgreSQL Roles"
       },
       {
@@ -3423,6 +3411,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Python script for: Ansible"
+      },
+      {
+        "from": "gpt",
+        "value": "# On database \"library\":\n# GRANT SELECT, INSERT, UPDATE ON TABLE public.books, public.authors\n# TO librarian, reader WITH GRANT OPTION\n- name: Grant privs to librarian and reader on database library\n  community.postgresql.postgresql_privs:\n    database: library\n    state: present\n    privs: SELECT,INSERT,UPDATE\n    type: table\n    objs: books,authors\n    schema: public\n    roles: librarian,reader\n    grant_option: yes\n- name: Same as above leveraging default values\n  community.postgresql.postgresql_privs:\n    db: library\n    privs: SELECT,INSERT,UPDATE\n    objs: books,authors\n    roles: librarian,reader\n    grant_option: yes\n# REVOKE GRANT OPTION FOR INSERT ON TABLE books FROM reader\n# Note that role \"reader\" will be *granted* INSERT privilege itself if this\n# isn't already the case (since state: present).\n- name: Revoke privs from reader\n  community.postgresql.postgresql_privs:\n    db: library\n    state: present\n    priv: INSERT\n    obj: books\n    role: reader\n    grant_option: no\n# \"public\" is the default schema. This also works for PostgreSQL 8.x.\n- name: REVOKE INSERT, UPDATE ON ALL TABLES IN SCHEMA public FROM reader\n  community.postgresql.postgresql_privs:\n    db: library\n    state: absent\n    privs: INSERT,UPDATE\n    objs: ALL_IN_SCHEMA\n    role: reader\n- name: GRANT ALL PRIVILEGES ON SCHEMA public, math TO librarian\n  community.postgresql.postgresql_privs:\n    db: library\n    privs: ALL\n    type: schema\n    objs: public,math\n    role: librarian\n# Note the separation of arguments with colons.\n- name: GRANT ALL PRIVILEGES ON FUNCTION math.add(int, int) TO librarian, reader\n  community.postgresql.postgresql_privs:\n    db: library\n    privs: ALL\n    type: function\n    obj: add(int:int)\n    schema: math\n    roles: librarian,reader\n# Note that group role memberships apply cluster-wide and therefore are not\n# restricted to database \"library\" here.\n- name: GRANT librarian, reader TO alice, bob WITH ADMIN OPTION\n  community.postgresql.postgresql_privs:\n    db: library\n    type: group\n    objs: librarian,reader\n    roles: alice,bob\n    admin_option: yes\n# Note that here \"db: postgres\" specifies the database to connect to, not the\n# database to grant privileges on (which is specified via the \"objs\" param)\n- name: GRANT ALL PRIVILEGES ON DATABASE library TO librarian\n  community.postgresql.postgresql_privs:\n    db: postgres\n    privs: ALL\n    type: database\n    obj: library\n    role: librarian\n# If objs is omitted for type \"database\", it defaults to the database\n# to which the connection is established\n- name: GRANT ALL PRIVILEGES ON DATABASE library TO librarian\n  community.postgresql.postgresql_privs:\n    db: library\n    privs: ALL\n    type: database\n    role: librarian\n# Available since version 2.7\n# Objs must be set, ALL_DEFAULT to TABLES/SEQUENCES/TYPES/FUNCTIONS\n# ALL_DEFAULT works only with privs=ALL\n# For specific\n- name: ALTER DEFAULT PRIVILEGES ON DATABASE library TO librarian\n  community.postgresql.postgresql_privs:\n    db: library\n    objs: ALL_DEFAULT\n    privs: ALL\n    type: default_privs\n    role: librarian\n    grant_option: yes\n# Available since version 2.7\n# Objs must be set, ALL_DEFAULT to TABLES/SEQUENCES/TYPES/FUNCTIONS\n# ALL_DEFAULT works only with privs=ALL\n# For specific\n- name: ALTER DEFAULT PRIVILEGES ON DATABASE library TO reader, step 1\n  community.postgresql.postgresql_privs:\n    db: library\n    objs: TABLES,SEQUENCES\n    privs: SELECT\n    type: default_privs\n    role: reader\n- name: ALTER DEFAULT PRIVILEGES ON DATABASE library TO reader, step 2\n  community.postgresql.postgresql_privs:\n    db: library\n    objs: TYPES\n    privs: USAGE\n    type: default_privs\n    role: reader\n# Available since version 2.8\n- name: GRANT ALL PRIVILEGES ON FOREIGN DATA WRAPPER fdw TO reader\n  community.postgresql.postgresql_privs:\n    db: test\n    objs: fdw\n    privs: ALL\n    type: foreign_data_wrapper\n    role: reader\n# Available since community.postgresql 0.2.0\n- name: GRANT ALL PRIVILEGES ON TYPE customtype TO reader\n  community.postgresql.postgresql_privs:\n    db: test\n    objs: customtype\n    privs: ALL\n    type: type\n    role: reader\n# Available since version 2.8\n- name: GRANT ALL PRIVILEGES ON FOREIGN SERVER fdw_server TO reader\n  community.postgresql.postgresql_privs:\n    db: test\n    objs: fdw_server\n    privs: ALL\n    type: foreign_server\n    role: reader\n# Available since version 2.8\n# Grant 'execute' permissions on all functions in schema 'common' to role 'caller'\n- name: GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA common TO caller\n  community.postgresql.postgresql_privs:\n    type: function\n    state: present\n    privs: EXECUTE\n    roles: caller\n    objs: ALL_IN_SCHEMA\n    schema: common\n# Available since collection version 1.3.0\n# Grant 'execute' permissions on all procedures in schema 'common' to role 'caller'\n# Needs PostreSQL 11 or higher and community.postgresql 1.3.0 or higher\n- name: GRANT EXECUTE ON ALL PROCEDURES IN SCHEMA common TO caller\n  community.postgresql.postgresql_privs:\n    type: prucedure\n    state: present\n    privs: EXECUTE\n    roles: caller\n    objs: ALL_IN_SCHEMA\n    schema: common\n# Available since version 2.8\n# ALTER DEFAULT PRIVILEGES FOR ROLE librarian IN SCHEMA library GRANT SELECT ON TABLES TO reader\n# GRANT SELECT privileges for new TABLES objects created by librarian as\n# default to the role reader.\n# For specific\n- name: ALTER privs\n  community.postgresql.postgresql_privs:\n    db: library\n    schema: library\n    objs: TABLES\n    privs: SELECT\n    type: default_privs\n    role: reader\n    target_roles: librarian\n# Available since version 2.8\n# ALTER DEFAULT PRIVILEGES FOR ROLE librarian IN SCHEMA library REVOKE SELECT ON TABLES FROM reader\n# REVOKE SELECT privileges for new TABLES objects created by librarian as\n# default from the role reader.\n# For specific\n- name: ALTER privs\n  community.postgresql.postgresql_privs:\n    db: library\n    state: absent\n    schema: library\n    objs: TABLES\n    privs: SELECT\n    type: default_privs\n    role: reader\n    target_roles: librarian\n# Available since community.postgresql 0.2.0\n- name: Grant type privileges for pg_catalog.numeric type to alice\n  community.postgresql.postgresql_privs:\n    type: type\n    roles: alice\n    privs: ALL\n    objs: numeric\n    schema: pg_catalog\n    db: acme"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Python script for: Ansible Automation Guide: Beginner to Production [2026]"
       },
       {
@@ -4227,6 +4227,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Python script for: Ansible Automation Security: 10 Critical Hardening & Revision Techniques Every DevOps Must Know + Video - Undercode Testing"
+      },
+      {
+        "from": "gpt",
+        "value": "</li>\n<li>name: Run script with API key from env\nshell: ./deploy.sh\nenvironment:\nAPI_KEY: \"{{ lookup('env', 'DEPLOY_API_KEY') }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Python script for: Automating Firewall Configs with Ansible + Python | by Samar Zemeer | Medium"
       },
       {
@@ -4316,6 +4328,258 @@
       {
         "from": "gpt",
         "value": "[root@gdev-kube01 ~]# kubectl logs -f deploy/awx-operator-controller-manager -n awx\nTASK [installer : Get the postgres pod information] ****************************\ntask path: /opt/ansible/roles/installer/tasks/database_configuration.yml:196\n-------------------------------------------------------------------------------\n{\"level\":\"info\",\"ts\":\"2025-04-21T14:29:53Z\",\"logger\":\"logging_event_handler\",\"msg\":\"[playbook task start]\",\"name\":\"awx\",\"namespace\":\"awx\",\"gvk\":\"awx.ansible.com/v1beta1, Kind=AWX\",\"event_type\":\"playbook_on_task_start\",\"job\":\"5421913118183412794\",\"EventData.Name\":\"installer : Get the postgres pod information\"}\n{\"level\":\"info\",\"ts\":\"2025-04-21T14:29:53Z\",\"logger\":\"proxy\",\"msg\":\"cache miss: /v1, Kind=PodList err-Index with name field:status.phase does not exist\"}\n{\"level\":\"info\",\"ts\":\"2025-04-21T14:29:53Z\",\"logger\":\"logging_event_handler\",\"msg\":\"[playbook task start]\",\"name\":\"awx\",\"namespace\":\"awx\",\"gvk\":\"awx.ansible.com/v1beta1, Kind=AWX\",\"event_type\":\"playbook_on_task_start\",\"job\":\"5421913118183412794\",\"EventData.Name\":\"installer : Wait for Database to initialize if managed DB\"}\n--------------------------- Ansible Task StdOut -------------------------------\nTASK [installer : Wait for Database to initialize if managed DB] ***************\ntask path: /opt/ansible/roles/installer/tasks/database_configuration.yml:206\n-------------------------------------------------------------------------------\n{\"level\":\"info\",\"ts\":\"2025-04-21T14:29:54Z\",\"logger\":\"proxy\",\"msg\":\"cache miss: /v1, Kind=PodList err-Index with name field:status.phase does not exist\"}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Testing Strategies -- Ansible Community Documentation"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- hosts: webservers\n  serial: 5\n  pre_tasks:\n    - name: take out of load balancer pool\n      ansible.builtin.command: /usr/bin/take_out_of_pool {{ inventory_hostname }}\n      delegate_to: 127.0.0.1\n  tasks:\n    - ansible.builtin.include_role:\n        name: \"{{ item }}\"\n      loop:\n        - common\n        - webserver\n    - name: run any notified handlers\n      ansible.builtin.meta: flush_handlers\n    - name: test the configuration\n      ansible.builtin.include_role:\n        name: apply_testing_checks\n  post_tasks:\n    - name: add back to load balancer pool\n      ansible.builtin.command: /usr/bin/add_back_to_pool {{ inventory_hostname }}\n      delegate_to: 127.0.0.1"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Playbooks - Ansible Best Practices"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n# Main playbook including all other playbooks\n- ansible.builtin.import_playbook: playbooks/database.yml # noqa name[play]\n- ansible.builtin.import_playbook: playbooks/webserver.yml # noqa name[play]\n- ansible.builtin.import_playbook: playbooks/loadbalancer.yml # noqa name[play]"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: General tips -- Ansible Community Documentation"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Use include_vars to include OS-specific variables and print them\n  hosts: all\n  tasks:\n    - name: Set OS distribution dependent variables\n      ansible.builtin.include_vars: \"os_{{ ansible_facts['distribution'] }}.yml\"\n    - name: Print the variable\n      ansible.builtin.debug:\n        var: asdf"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible troubleshooting - Error 301: no-changed-when"
+      },
+      {
+        "from": "gpt",
+        "value": "# ❌ Using command (triggers no-changed-when)\n- name: Install nginx\n  ansible.builtin.command: apt install -y nginx\n# ✅ Using the apt module (handles changed detection automatically)\n- name: Install nginx\n  ansible.builtin.apt:\n    name: nginx\n    state: present\n# ❌ Using shell for file operations\n- name: Create directory\n  ansible.builtin.shell: mkdir -p /opt/myapp\n# ✅ Using the file module\n- name: Create directory\n  ansible.builtin.file:\n    path: /opt/myapp\n    state: directory\n    mode: \"0755\"\n# ❌ Using command for user creation\n- name: Add user\n  ansible.builtin.command: useradd deploy\n# ✅ Using the user module\n- name: Add user\n  ansible.builtin.user:\n    name: deploy\n    state: present"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: ansible-playbook doesn't run handlers if play has different tag - Get Help - Ansible"
+      },
+      {
+        "from": "gpt",
+        "value": "utoddl@tango:~/ansible/alphabetical$ while read f ; do printf \"### %s ###\\n\" \"$f\" ; cat \"$f\" ; echo ; done < <(find . -type f)\n### ./roles/role1/tasks/main.yml ###\n---\n# ./roles/role1/tasks/main.yml\n- name: Role 1 Task\n  ansible.builtin.debug:\n  #  msg: \"role1/tasks/main.yml notifying 'Role 1 Handler'\"\n  changed_when: true\n  notify:\n    - Role 1 Handler\n### ./roles/role1/handlers/main.yml ###\n---\n# ./roles/role1/handlers/main.yml\n- name: Role 1 Handler\n  ansible.builtin.debug:\n    msg: \"Role 1 Handler ran.\"\n### ./site.yml ###\n---\n# ./site.yml\n- name: Plays with roles and tags\n  hosts: all\n  tags: [play1]\n  roles:\n    - role: role1\n      tags: [role1]\nutoddl@tango:~/ansible/alphabetical$ ansible-playbook site.yml -i localhost, --tags role1\nPLAY [Plays with roles and tags] *********************************************************************\nTASK [role1 : Role 1 Task] ***************************************************************************\nchanged: [localhost] => {\n    \"msg\": \"Hello world!\"\n}\nRUNNING HANDLER [role1 : Role 1 Handler] *************************************************************\nok: [localhost] => {\n    \"msg\": \"Role 1 Handler ran.\"\n}\nPLAY RECAP *******************************************************************************************\nlocalhost                  : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: ansible.builtin.file module - Manage files and file properties -- Ansible Community Documentation"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Change file ownership, group and permissions\n  ansible.builtin.file:\n    path: /etc/foo.conf\n    owner: foo\n    group: foo\n    mode: '0644'\n- name: Change file group using gid\n  ansible.builtin.file:\n    path: /etc/bar.conf\n    group: \"1000\"\n- name: Give insecure permissions to an existing file\n  ansible.builtin.file:\n    path: /work\n    owner: root\n    group: root\n    mode: '1777'\n- name: Create a symbolic link\n  ansible.builtin.file:\n    src: /file/to/link/to\n    dest: /path/to/symlink\n    owner: foo\n    group: foo\n    state: link\n- name: Create two hard links\n  ansible.builtin.file:\n    src: '/tmp/{{ item.src }}'\n    dest: '{{ item.dest }}'\n    state: hard\n  loop:\n    - { src: x, dest: y }\n    - { src: z, dest: k }\n- name: Touch a file, using symbolic modes to set the permissions (equivalent to 0644)\n  ansible.builtin.file:\n    path: /etc/foo.conf\n    state: touch\n    mode: u=rw,g=r,o=r\n- name: Touch the same file, but add/remove some permissions\n  ansible.builtin.file:\n    path: /etc/foo.conf\n    state: touch\n    mode: u+rw,g-wx,o-rwx\n- name: Touch again the same file, but do not change times this makes the task idempotent\n  ansible.builtin.file:\n    path: /etc/foo.conf\n    state: touch\n    mode: u+rw,g-wx,o-rwx\n    modification_time: preserve\n    access_time: preserve\n- name: Create a directory if it does not exist\n  ansible.builtin.file:\n    path: /etc/some_directory\n    state: directory\n    mode: '0755'\n- name: Update modification and access time of given file\n  ansible.builtin.file:\n    path: /etc/some_file\n    state: file\n    modification_time: now\n    access_time: now\n- name: Set access time based on seconds from epoch value\n  ansible.builtin.file:\n    path: /etc/another_file\n    state: file\n    access_time: '{{ \"%Y%m%d%H%M.%S\" | strftime(stat_var.stat.atime) }}'\n- name: Recursively change ownership of a directory\n  ansible.builtin.file:\n    path: /etc/foo\n    state: directory\n    recurse: yes\n    owner: foo\n    group: foo\n- name: Remove file (delete file)\n  ansible.builtin.file:\n    path: /etc/foo.txt\n    state: absent\n- name: Recursively remove directory\n  ansible.builtin.file:\n    path: /etc/foo\n    state: absent"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Loops -- Ansible Community Documentation"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: with_dict\n  ansible.builtin.debug:\n    msg: \"{{ item.key }} - {{ item.value }}\"\n  with_dict: \"{{ dictionary }}\"\n- name: with_dict -> loop (option 1)\n  ansible.builtin.debug:\n    msg: \"{{ item.key }} - {{ item.value }}\"\n  loop: \"{{ dictionary|dict2items }}\"\n- name: with_dict -> loop (option 2)\n  ansible.builtin.debug:\n    msg: \"{{ item.0 }} - {{ item.1 }}\"\n  loop: \"{{ dictionary|dictsort }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible create Users and Group - Stack Overflow"
+      },
+      {
+        "from": "gpt",
+        "value": "- hosts: appserver1\n      vars_files:\n        - secret.yml\n        - userlist.yml\n      tasks:\n        - name: \"create group\"\n          group:\n            name: \"{{ item  }}\"\n          loop:\n              - \"dev\"\n              - \"devops\"\n        - name: \"create user when Job=developer from userlist.yml file with password from secret.yml file and add to secondary group 'dev' \"\n          user:\n            name: \"{{ item['name'] }}\"\n            password: \"{{ user_password | password_hash('sha512')  }}\"\n            update_password: on_create\n            groups: \"dev\"\n            append: yes\n          loop: \"{{ users }}\"\n          when: \"item['job'] == 'developer'\"\n        - name: \"create user when Job=devops from userlist.yml file with password from secret.yml file and add to secondary group 'devops' \"\n          user:\n            name: \"{{ item['name']  }}\"\n            password: \"{{ user_password | password_hash('sha512')  }}\"\n            update_password: on_create\n            groups: \"devops\"\n            append: yes\n          loop: \"{{ users }}\"\n          when: \"item['job'] == 'devops'\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: OpenSCAP and DISA STIG: Compliance Hardening on RHEL | SPY's blog"
+      },
+      {
+        "from": "gpt",
+        "value": "# Generate Ansible remediation from your scan results\noscap xccdf generate fix \\\n  --fix-type ansible \\\n  --result-id \"\" \\\n  --output /tmp/stig-remediation.yml \\\n  /tmp/stig-results.xml\n# Review what will be changed BEFORE running\ncat /tmp/stig-remediation.yml"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: How to automatically pass vault password when running Ansible playbook? - Stack Overflow"
+      },
+      {
+        "from": "gpt",
+        "value": "name: Set VPN Configuration\n  hosts: all\n  connection: local\n  gather_facts: no\n  vars_files:\n    - \"{{ varsfilepath }}\"\n    - \"/etc/ansible/NetworkVars/passwords.yml\"\n  vars:\n    # ssh_auth credentials come from ansible vault\n    provider_rw:\n      username:  \"{{ credentials['svc_rhelsystemrw'].username }}\"\n      password:  \"{{ credentials['svc_rhelsystemrw'].password }}\"\n  tasks:\n  - name: Capture Pre-change Configuration\n    ios_command:\n      provider: \"{{ provider_rw }}\"\n      commands:\n        - show running-config\n    register: running_config_before\n    tags: vpn\n  - debug:\n      var: running_config_before.stdout\n    tags: vpn"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: CI/CD variables options in include Job - GitLab CI/CD - GitLab Forum"
+      },
+      {
+        "from": "gpt",
+        "value": ".options_feature:\n  ENVIRONMENT_FEATURE:\n    value: \"test\"\n    options:\n      - \"test\"\n      - \"dev\"\n    description: \"ENVIRONMENT для inventory, доступны test, dev. По умолчанию 'test'\"\n  ROLE_FEATURE:\n    value: \"N/A\"\n    options:\n      - \"N/A\"\n      - \"haproxy\"\n      - \"manticore\"\n      - \"nginx\"\n      - \"proxysql\"\n      - \"users\"\n      - \"xtradb\"\n    description: \"Ansible role для запуска\"\n  ANSIBLE_HOSTS_FEATURE:\n    value: \"\"\n    description: \"HOSTS для playbook. Может быть имя group/hostname (ansible_hostname). По умолчанию использует указанный в playbook hosts\"\n  ANSIBLE_TAGS_FEATURE:\n    value: \"\"\n    description: \"TAGS для playbook. Можно указать несколько 'tag1,tag2,tag3'. По умолчанию использует все в playbook (если не указаны исключения/условия)\"\n  ANSIBLE_TAGS_EXCLUDE_FEATURE:\n    value: \"\"\n    description: \"TAGS EXCLUDE для playbook, для исключения TASK с указанными TAG. Можно указать несколько 'tag1,tag2,tag3'\"\nvariables:\n  PIP_CACHE_DIR: \"$CI_PROJECT_DIR/.cache/pip\"\n  RICH_VERSION: 13.7.1\n  PYTHON_IMAGE: python:3.12-slim\n  ANSIBLE_LINT_VERSION: 24.7.0\n  ANSIBLE_SECRETS_DIR: \"./.secret\"\n  ANSIBLE_SSHKEY_FILE: devops\n  ANSIBLE_VAULTKEY_FILE: .vault_pass\n  ANSIBLE_CFG_FILE: \"./ansible.cfg\"\n  extends: .options_feature\nstages:\n  - stage\nAnsible-playbook run feature:\n  image: $PYTHON_IMAGE\n  stage: stage\n  environment:\n    name: stage\n  cache:\n    paths:\n      - $PIP_CACHE_DIR\n      - venv/\n  variables:\n    ENVIRONMENT: $ENVIRONMENT_FEATURE\n    ROLE: $ROLE_FEATURE\n    ANSIBLE_HOSTS: $ANSIBLE_HOSTS_FEATURE\n    ANSIBLE_TAGS: $ANSIBLE_TAGS_FEATURE\n    ANSIBLE_TAGS_EXCLUDE: $ANSIBLE_TAGS_EXCLUDE_FEATURE\n  before_script:\n    - python --version\n    - |\n      # Install and activate virtualenv\n      pip3 install virtualenv\n      virtualenv venv\n      source venv/bin/activate\n    - |\n      # INSTALL PACKAGES\n      # pip3 install packages\n      pip3 install rich==$RICH_VERSION\n      pip3 install ansible\n      pip3 install ansible_lint==$ANSIBLE_LINT_VERSION\n    - |\n      # VERSIONS\n      ansible --version\n      ansible-lint --version\n    - |\n      # Install openssh-client and openssl\n      apt-get update -yqq\n      apt-get install -yqq openssh-client openssl\n    - |\n      # ANSIBLE PREPARING\n      mkdir $ANSIBLE_SECRETS_DIR\n      chmod 700 $ANSIBLE_SECRETS_DIR\n      if ! [[ -v ${ANSIBLE_SSHKEY} ]] && ! [[ -z ${ANSIBLE_SSHKEY} ]]; then\n        cat $ANSIBLE_SSHKEY > $ANSIBLE_SECRETS_DIR/$ANSIBLE_SSHKEY_FILE\n        chmod 600 $ANSIBLE_SECRETS_DIR/$ANSIBLE_SSHKEY_FILE\n      else\n        echo -e \"\\e[31mERROR: ANSIBLE_SSHKEY variable or value is not defined!\"\n        exit 1\n      fi\n      if ! [[ -v ${ANSIBLE_VAULTKEY} ]] && ! [[ -z ${ANSIBLE_VAULTKEY} ]]; then\n        cat $ANSIBLE_VAULTKEY > $ANSIBLE_SECRETS_DIR/$ANSIBLE_VAULTKEY_FILE\n        chmod 400 $ANSIBLE_SECRETS_DIR/$ANSIBLE_VAULTKEY_FILE\n      else\n        echo -e \"\\e[31mERROR: ANSIBLE_VAULTKEY variable or value is not defined!\"\n        exit 1\n      fi\n      if ! [[ -v ${ANSIBLE_CFG} ]] && ! [[ -z ${ANSIBLE_CFG} ]]; then\n        cat $ANSIBLE_CFG > $ANSIBLE_CFG_FILE\n        export ANSIBLE_CONFIG=$ANSIBLE_CFG_FILE\n        chmod 400 $ANSIBLE_CFG_FILE\n      else\n        echo -e \"\\e[31mERROR: ANSIBLE_CFG variable or value is not defined!\"\n        exit 1\n      fi\n      # ssh-agent\n      eval $(ssh-agent)\n      ssh-add $ANSIBLE_SECRETS_DIR/$ANSIBLE_SSHKEY_FILE\n  script:\n    - |\n      # CHECK OPTIONS\n      if [ \"$ROLE\" = \"N/A\" ]; then\n        echo -e \"\\e[31mERROR: ROLE not selected from the list!\"\n        exit 1\n      fi\n      echo \"ENVIRONMENT: $ENVIRONMENT\"\n      echo \"ROLE: $ROLE\"\n      echo \"ANSIBLE_HOSTS: $ANSIBLE_HOSTS\"\n      echo \"ANSIBLE_TAGS: $ANSIBLE_TAGS\"\n      echo \"ANSIBLE_TAGS_EXCLUDE: $ANSIBLE_TAGS_EXCLUDE\"\n    - |\n      # DEFINE ansible_args\n      ansible_args=()\n      if [ -n \"$ANSIBLE_HOSTS\" ]; then\n        ansible_args+=(\"-l\" \"$ANSIBLE_HOSTS\")\n      fi\n      if [ -n \"$ANSIBLE_TAGS\" ]; then\n        ansible_args+=(\"--tags\" \"$ANSIBLE_TAGS\")\n      fi\n      if [ -n \"$ANSIBLE_TAGS_EXCLUDE\" ]; then\n        ansible_args+=(\"--skip-tags\" \"$ANSIBLE_TAGS_EXCLUDE\")\n      fi\n      echo \"ansible_args: ${ansible_args[@]}\"\n    - |\n      # OUTPUTS A LIST OF MATCHING HOSTS\n      ansible-playbook ./$ROLE.yml -i \"env/$ENVIRONMENT/hosts\" \"${ansible_args[@]}\" --list-hosts\n    - |\n      # PERFORM A SYNTAX CHECK ON THE PLAYBOOK\n      ansible-playbook ./$ROLE.yml -i \"env/$ENVIRONMENT/hosts\" \"${ansible_args[@]}\" --syntax-check\n    - |\n      # PLAYBOOK RUN\n      ansible-playbook ./$ROLE.yml -i \"env/$ENVIRONMENT/hosts\" \"${ansible_args[@]}\"\n  rules:\n    - if: $ENVIRONMENT_FEATURE && $ROLE_FEATURE != \"N/A\"\n      when: always\n    - when: never"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Securing SSH Access with Ansible and Dynamic Inventory"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Harden SSH configuration\n  hosts: all\n  become: yes\n  vars:\n    ssh_port: 22\n    allowed_users: \"deploy_user admin_user\"\n  tasks:\n    - name: Backup current sshd_config\n      ansible.builtin.copy:\n        src: /etc/ssh/sshd_config\n        dest: /etc/ssh/sshd_config.backup\n        remote_src: yes\n    - name: Configure SSH security settings\n      ansible.builtin.lineinfile:\n        path: /etc/ssh/sshd_config\n        regexp: \"{{ item.regexp }}\"\n        line: \"{{ item.line }}\"\n        state: present\n        validate: '/usr/sbin/sshd -t -f %s'\n      loop:\n        - { regexp: '^#?PermitRootLogin', line: 'PermitRootLogin no' }\n        - { regexp: '^#?PasswordAuthentication', line: 'PasswordAuthentication no' }\n        - { regexp: '^#?PubkeyAuthentication', line: 'PubkeyAuthentication yes' }\n        - { regexp: '^#?PermitEmptyPasswords', line: 'PermitEmptyPasswords no' }\n        - { regexp: '^#?X11Forwarding', line: 'X11Forwarding no' }\n        - { regexp: '^#?MaxAuthTries', line: 'MaxAuthTries 3' }\n        - { regexp: '^#?ClientAliveInterval', line: 'ClientAliveInterval 300' }\n        - { regexp: '^#?ClientAliveCountMax', line: 'ClientAliveCountMax 2' }\n        - { regexp: '^#?AllowUsers', line: \"AllowUsers {{ allowed_users }}\" }\n      notify: restart sshd\n    - name: Disable weak ciphers and MACs\n      ansible.builtin.blockinfile:\n        path: /etc/ssh/sshd_config\n        block: |\n          # Strong ciphers only\n          Ciphers [email protected],[email protected],[email protected],aes256-ctr,aes192-ctr,aes128-ctr\n          MACs [email protected],[email protected],hmac-sha2-512,hmac-sha2-256\n          KexAlgorithms curve25519-sha256,[email protected],diffie-hellman-group16-sha512,diffie-hellman-group18-sha512\n        validate: '/usr/sbin/sshd -t -f %s'\n      notify: restart sshd\n  handlers:\n    - name: restart sshd\n      ansible.builtin.service:\n        name: sshd\n        state: restarted"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible Conditionals and Loops Tutorial | ComputingForGeeks"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Cross-Platform Service Setup\n  hosts: all\n  become: true\n  vars:\n    common_packages:\n      - curl\n      - rsync\n    rhel_packages:\n      - vim-enhanced\n      - policycoreutils-python-utils\n      - firewalld\n    debian_packages:\n      - vim\n      - ufw\n      - apt-transport-https\n  tasks:\n    - name: Install common packages\n      ansible.builtin.package:\n        name: \"{{ item }}\"\n        state: present\n      loop: \"{{ common_packages }}\"\n    - name: Install RHEL-specific packages\n      ansible.builtin.dnf:\n        name: \"{{ item }}\"\n        state: present\n      loop: \"{{ rhel_packages }}\"\n      when: ansible_facts['os_family'] == \"RedHat\"\n    - name: Install Debian-specific packages\n      ansible.builtin.apt:\n        name: \"{{ item }}\"\n        state: present\n      loop: \"{{ debian_packages }}\"\n      when: ansible_facts['os_family'] == \"Debian\"\n    - name: Enable firewalld on RHEL\n      ansible.builtin.systemd:\n        name: firewalld\n        state: started\n        enabled: true\n      when: ansible_facts['os_family'] == \"RedHat\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Speed Up Ansible Playbooks -- 10 Performance Tips"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Parallel long operations\n  hosts: all\n  tasks:\n    - name: Update all packages (async)\n      ansible.builtin.yum:\n        name: \"*\"\n        state: latest\n      async: 600    # Allow up to 10 minutes\n      poll: 0       # Fire and forget\n      register: yum_job\n    - name: Do other quick tasks while packages update\n      ansible.builtin.copy:\n        src: motd.txt\n        dest: /etc/motd\n    - name: Wait for package update to finish\n      ansible.builtin.async_status:\n        jid: \"{{ yum_job.ansible_job_id }}\"\n      register: job_result\n      until: job_result.finished\n      retries: 60\n      delay: 10"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible HIPAA Compliance Guide: Practical Playbooks to Automate Controls, Audits, and Remediation"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Assess and remediate with OpenSCAP content\n  hosts: rhel_all\n  become: true\n  vars:\n    ssg_ds: \"/usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml\"\n    ssg_profile: \"xccdf_org.ssgproject.content_profile_stig\"\n  tasks:\n    - name: Install OpenSCAP and SCAP Security Guide\n      package:\n        name:\n          - openscap-scanner\n          - scap-security-guide\n        state: present\n    - name: Run OpenSCAP evaluation (report + results)\n      command: >\n        oscap xccdf eval\n        --profile {{ ssg_profile }}\n        --results /var/tmp/ssg-results.xml\n        --report  /var/tmp/ssg-report.html\n        {{ ssg_ds }}\n      register: oscap_eval\n      changed_when: false\n    - name: Generate Ansible remediation from SSG content\n      shell: >\n        oscap xccdf generate fix\n        --fix-type ansible\n        --profile {{ ssg_profile }}\n        {{ ssg_ds }} > /var/tmp/ssg-fix.yml\n      args: { warn: false }\n    - name: Apply remediation playbook generated by SSG\n      command: ansible-playbook /var/tmp/ssg-fix.yml -i /etc/ansible/hosts"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Managing Network Config Drift with Ansible Part 1 - Guides, FAQs & Howtos - Ansible"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Playbook to overwrite the intended config to the startup configuration\n  hosts: leaf_switches\n  gather_facts: false\n  vars_files:\n   - vars/push.yaml\n  tasks:\n  - name: Copy file over to startup-config\n    ansible.builtin.command: \"scp -o StrictHostKeyChecking=no intended/{{ inventory_hostname }}.cfg {{ ansible_user }}@{{ inventory_hostname }}:nvram:startup-config\"\n    delegate_to: localhost\n    when: inventory_hostname in _limit_overwrite\n    no_log: true\n    cisco.ios.ios_command:\n      commands:\n        - command: 'configure replace nvram:startup-config force'\n    when: inventory_hostname in _limit_overwrite\n  - name: Merge File to Running Config\n    cisco.ios.ios_config:\n      src: intended/{{ inventory_hostname }}.cfg\n      save_when: always\n    when: inventory_hostname in _limit_merge"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible for Compliance Automation: CIS | AnsiblePilot"
+      },
+      {
+        "from": "gpt",
+        "value": "# CIS 5.2 -- SSH Server Configuration\n- name: \"CIS 5.2 | Harden SSH configuration\"\n  ansible.builtin.lineinfile:\n    path: /etc/ssh/sshd_config\n    regexp: \"{{ item.regexp }}\"\n    line: \"{{ item.line }}\"\n  loop:\n    - { regexp: '^#?PermitRootLogin', line: 'PermitRootLogin no' }\n    - { regexp: '^#?PasswordAuthentication', line: 'PasswordAuthentication no' }\n    - { regexp: '^#?MaxAuthTries', line: 'MaxAuthTries 4' }\n    - { regexp: '^#?ClientAliveInterval', line: 'ClientAliveInterval 300' }\n    - { regexp: '^#?ClientAliveCountMax', line: 'ClientAliveCountMax 3' }\n    - { regexp: '^#?LoginGraceTime', line: 'LoginGraceTime 60' }\n    - { regexp: '^#?X11Forwarding', line: 'X11Forwarding no' }\n    - { regexp: '^#?AllowTcpForwarding', line: 'AllowTcpForwarding no' }\n    - { regexp: '^#?Protocol', line: 'Protocol 2' }\n  notify: restart sshd"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: dbi Blog"
+      },
+      {
+        "from": "gpt",
+        "value": "[ubuntu:~/my-builder-env]$ cd context\n[ubuntu:~/my-builder-env/context ]$ cat Containerfile\nARG EE_BASE_IMAGE=registry.redhat.io/ansible-automation-platform-20-early-access/ee-minimal-rhel8\nARG EE_BUILDER_IMAGE=registry.redhat.io/ansible-automation-platform-20-early-access/ansible-builder-rhel8\nFROM $EE_BASE_IMAGE as galaxy\nARG ANSIBLE_GALAXY_CLI_COLLECTION_OPTS=\nARG ANSIBLE_GALAXY_CLI_ROLE_OPTS=\nUSER root\nADD _build/ansible.cfg ~/.ansible.cfg\nADD _build /build\nWORKDIR /build\nRUN ansible-galaxy role install $ANSIBLE_GALAXY_CLI_ROLE_OPTS -r requirements.yml --roles-path \"/usr/share/ansible/roles\"\nRUN ANSIBLE_GALAXY_DISABLE_GPG_VERIFY=1 ansible-galaxy collection install $ANSIBLE_GALAXY_CLI_COLLECTION_OPTS -r requirements.yml --collections-path \"/usr/share/ansible/collections\"\nFROM $EE_BUILDER_IMAGE as builder\nCOPY --from=galaxy /usr/share/ansible /usr/share/ansible\nADD _build/requirements.txt requirements.txt\nADD _build/bindep.txt bindep.txt\nRUN ansible-builder introspect --sanitize --user-pip=requirements.txt --user-bindep=bindep.txt --write-bindep=/tmp/src/bindep.txt --write-pip=/tmp/src/requirements.txt\nRUN assemble\nFROM $EE_BASE_IMAGE\nUSER root\nCOPY --from=galaxy /usr/share/ansible /usr/share/ansible\nCOPY --from=builder /output/ /output/\nRUN /output/install-from-bindep && rm -rf /output/wheels\nLABEL ansible-execution-environment=true"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: deploy-nginx-web-server-proxy.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Install NGINX and configure a simple reverse proxy in front of two web servers\n  hosts: all\n  collections:\n    - nginxinc.nginx_core\n  tasks:\n    - name: Install NGINX\n      ansible.builtin.include_role:\n        name: nginx\n    - name: Configure NGINX\n      ansible.builtin.include_role:\n        name: nginx_config\n      vars:\n        nginx_config_http_template_enable: true\n        nginx_config_http_template:\n          - template_file: http/default.conf.j2\n            deployment_location: /etc/nginx/conf.d/default.conf\n            config:\n              upstreams:\n                - name: upstr\n                  least_conn: true\n                  servers:\n                    - address: 0.0.0.0:8081\n                    - address: 0.0.0.0:8082\n              servers:\n                - core:\n                    listen:\n                      - port: 80\n                    server_name: localhost\n                  log:\n                    access:\n                      - path: /var/log/nginx/access.log\n                        format: main\n                  locations:\n                    - location: /\n                      proxy:\n                        pass: http://upstr/\n                        set_header:\n                          field: Host\n                          value: $host\n                - core:\n                    listen:\n                      - port: 8081\n                    server_name: localhost\n                  log:\n                    access:\n                      - path: /var/log/nginx/access.log\n                        format: main\n                  locations:\n                    - location: /\n                      core:\n                        root: /usr/share/nginx/html\n                        index: server_one.html\n                  sub_filter:\n                    sub_filters:\n                      - string: server_hostname\n                        replacement: $hostname\n                      - string: server_address\n                        replacement: $server_addr:$server_port\n                      - string: server_url\n                        replacement: $request_uri\n                      - string: remote_addr\n                        replacement: '$remote_addr:$remote_port'\n                      - string: server_date\n                        replacement: $time_local\n                      - string: client_browser\n                        replacement: $http_user_agent\n                      - string: request_id\n                        replacement: $request_id\n                      - string: nginx_version\n                        replacement: $nginx_version\n                      - string: document_root\n                        replacement: $document_root\n                      - string: proxied_for_ip\n                        replacement: $http_x_forwarded_for\n                    once: false\n                - core:\n                    listen:\n                      - port: 8082\n                    server_name: localhost\n                  log:\n                    access:\n                      - path: /var/log/nginx/access.log\n                        format: main\n                  locations:\n                    - location: /\n                      core:\n                        root: /usr/share/nginx/html\n                        index: server_two.html\n                  sub_filter:\n                    sub_filters:\n                      - string: server_hostname\n                        replacement: $hostname\n                      - string: server_address\n                        replacement: $server_addr:$server_port\n                      - string: server_url\n                        replacement: $request_uri\n                      - string: remote_addr\n                        replacement: '$remote_addr:$remote_port'\n                      - string: server_date\n                        replacement: $time_local\n                      - string: client_browser\n                        replacement: $http_user_agent\n                      - string: request_id\n                        replacement: $request_id\n                      - string: nginx_version\n                        replacement: $nginx_version\n                      - string: document_root\n                        replacement: $document_root\n                      - string: proxied_for_ip\n                        replacement: $http_x_forwarded_for\n                    once: false\n        nginx_config_html_demo_template_enable: true\n        nginx_config_html_demo_template:\n          - template_file: www/index.html.j2\n            deployment_location: /usr/share/nginx/html/server_one.html\n            web_server_name: Ansible NGINX collection - Server one\n          - template_file: www/index.html.j2\n            deployment_location: /usr/share/nginx/html/server_two.html\n            web_server_name: Ansible NGINX collection - Server two"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ideas about how to automate initial configuration of certificates - Server - Let's Encrypt Community Support"
+      },
+      {
+        "from": "gpt",
+        "value": "location  /.well-known/acme-challenge  {\n\tif (-f /etc/nginx/_flags/certbot-8181) {\n\t\tproxy_set_header  X-Real-IP  $remote_addr;\n\t\tproxy_set_header  X-Forwarded-For  $proxy_add_x_forwarded_for;\n\t\tproxy_set_header  Host  $host;\n\t\tproxy_pass  http://127.0.0.1:8181;\n\t\tbreak;\n\t}\n\trewrite ^.*$ @acme_503 last;\n}\nlocation = @acme_503 {\n\tinternal;\n\treturn 503;\n}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible Playbook - LVM - EverythingShouldBeVirtual part of Methodical Cloud"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- hosts: db-vms\n  become: true\n  vars:\n    config_lvm: false          # master switch; nothing runs unless true\n    create: false              # create a new logical volume\n    extend: false              # add a disk and grow an existing volume\n    resize: false              # grow a volume to fill its volume group\n    new_disk: /dev/sdb\n    new_mntp: /var/lib/mysql\n    create_vgname: mysql-vg\n    create_lvname: mysql-lv\n    create_lvsize: 100%FREE\n    extend_vgname: test-vg\n    extend_lvname: test-lv\n    extend_disks: /dev/sda5,/dev/sdb   # existing disk first, new disk second\n    resize_vgname: test-vg\n    resize_lvname: test-lv\n    filesystem: ext4\n  tasks:\n    - name: Install LVM tooling\n      ansible.builtin.package:\n        name: lvm2\n        state: present\n      when: config_lvm\n    - name: Create the volume group\n      community.general.lvg:\n        vg: \"{{ create_vgname }}\"\n        pvs: \"{{ new_disk }}\"\n        state: present\n      when: create and config_lvm\n    - name: Create the logical volume\n      community.general.lvol:\n        vg: \"{{ create_vgname }}\"\n        lv: \"{{ create_lvname }}\"\n        size: \"{{ create_lvsize }}\"\n      when: create and config_lvm\n    - name: Create the filesystem\n      community.general.filesystem:\n        fstype: \"{{ filesystem }}\"\n        dev: \"/dev/{{ create_vgname }}/{{ create_lvname }}\"\n      when: create and config_lvm\n    - name: Mount the filesystem\n      ansible.posix.mount:\n        path: \"{{ new_mntp }}\"\n        src: \"/dev/{{ create_vgname }}/{{ create_lvname }}\"\n        fstype: \"{{ filesystem }}\"\n        state: mounted\n      when: create and config_lvm\n    - name: Add the new disk to the volume group\n      community.general.lvg:\n        vg: \"{{ extend_vgname }}\"\n        pvs: \"{{ extend_disks }}\"\n      when: extend and config_lvm\n    - name: Extend the logical volume and grow its filesystem\n      community.general.lvol:\n        vg: \"{{ extend_vgname }}\"\n        lv: \"{{ extend_lvname }}\"\n        size: +10G\n        resizefs: true\n      when: extend and config_lvm\n    - name: Grow a logical volume to fill its volume group\n      community.general.lvol:\n        vg: \"{{ resize_vgname }}\"\n        lv: \"{{ resize_lvname }}\"\n        size: 100%VG\n        resizefs: true\n      when: resize and config_lvm"
       }
     ]
   }

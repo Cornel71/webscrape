@@ -1985,3 +1985,67 @@ https://deepwiki.com/ansible/ansible-runner/5.2-container-execution
  📂 CATEGORY: PERFORMANCE & KERNEL OPTIMIZATION
 =========================================
 https://www.ansiblebyexample.com/articles/set-sysctl-kernel-parameters-ansible-module-sysctl
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://github.com/habisl/my-ansible-playground
+https://git.hubp.de/ahembree/ansible-hms-docker
+https://promptibus.com/prompt/ansible-playbook-server-config
+https://repos.ecosyste.ms/hosts/GitHub/repositories/joestewart/robo-ansible
+https://serverfault.com/questions/754860/how-can-i-reduce-the-verbosity-of-certain-ansible-tasks-to-not-leak-passwords-in
+https://github.com/OneUptime/blog/blob/master/posts/2026-02-21-how-to-validate-yaml-syntax-for-ansible/README.md
+https://reintech.io/blog/troubleshooting-ansible-errors-and-issues
+https://codezup.com/automating-security-compliance-with-ansible-playbooks/
+https://www.educba.com/ansible-file-module/
+https://www.digitalocean.com/community/tutorials/how-to-install-and-manage-system-packages-in-ansible-playbooks
+https://www.ansiblebyexample.com/articles/restart-services-on-remote-hosts-ansible-module-service
+https://www.bing.com/aclick?ld=e82pjePLTwOdinmJ64nh3vjTVUCUzsAkgYscuOklX0rm_rUau29nlHojS5mOT9x9N6bd6Xh55HPpwFM4q4Mi0LVclKnhx7aVJbk-zKnypSzncuJGXyBrmQFc115NWrxHMb0Glp06HZZxsVEx5vBGJH6xRX5PJm2XCgUi9I0xRi8ypVfaBXgn2FMd-a-imS8v6xKx4g-OpfYNePt_J9Yydg6obh7JA&u=aHR0cHMlM2ElMmYlMmZ3d3cubWFuYWdlZW5naW5lLmNvbSUyZmNsb3VkLXNpZW0lMmYlM2ZjYW1pZCUzZDQ3MDg5MTk5NSUyNmFkZ2lkJTNkMTI5NTIyNTg0NDQ2NjUyOCUyNmt3ZCUzZGNsb3VkJTI1MjBzaWVtJTI1MjB0b29sJTI2bWF0Y2h0eXBlJTNkcCUyNmFkaWQlM2QlMjZuZXR3b3JrJTNkbyUyNmFkcG9zaXRpb24lM2QlMjZsb2MlM2Q2NzExMyUyNnBsYWNlbWVudCUzZCUyNnRhcmdldCUzZCUyNnNlYXJjaHF1ZXJ5JTNkYW5zaWJsZSUyNTIwaW50ZWdyYXRpb24lMjUyMHNwbHVuayUyNTIwcXJhZGFyJTI1MjBzaWVtJTI1MjBhdXRvbWF0ZWQlMjZrd2RtYXRjaHR5cGUlM2RicCUyNm1zY2xraWQlM2RiMmVlMGQ3OTRiYTQxMDg5Mjc2ODY3MzBhN2ViZGQwZA&rlid=b2ee0d794ba4108927686730a7ebdd0d
+https://github.com/ansible-collections/ibm.qradar
+https://github.com/ansible-collections/community.qradar
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://thecodeforge.io/devops/ansible-cicd-jenkins/
+https://www.redhat.com/en/blog/cicd-gitlab-runner-ansible
+https://www.dmosk.ru/miniinstruktions.php?mini=gitlab-pipeline
+https://www.linkedin.com/posts/akash-talmale-335423132_devops-jenkins-ansible-activity-7448654887770566656-z444
+https://dashboard.lion-piper.site/
+https://www.bing.com/aclick?ld=e8qs1WmDraF9S0zMOz_2ToszVUCUwDHVUs-9PpcSTZiOSnCqVPe95p33T4cdbeQBn1KdV_sC5vOGJo67e6FHnvqKfO-P0t8yzxIAyF9LSm2GtwmeqiqISSeKyAG_dkBhUqLi1u5_cFCPB4sIsARTDOcyi9B4Z6hDyoAxVkS1suv68GNJkqmhrVTpUITaBDGa2VxWaBkx2qnjXsYOwSHqi98PAXJFU&u=aHR0cHMlM2ElMmYlMmZ3d3cubWFuYWdlZW5naW5lLmNvbSUyZnZ1bG5lcmFiaWxpdHktbWFuYWdlbWVudCUyZmludGVncmF0ZWQtdnVsbmVyYWJpbGl0eS1hbmQtcGF0Y2gtbWFuYWdlbWVudC5odG1sJTNmdXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fbWVkaXVtJTNkY3BjJTI2bmV0d29yayUzZG8lMjZkZXZpY2UlM2RjJTI2a2V5d29yZCUzZHZ1bG5lcmFiaWxpdHklMjUyMG1hbmFnZW1lbnQlMjUyMHNvZnR3YXJlJTI2Y2FtcGFpZ25pZCUzZDQwMTU4ODUxOSUyNmNyZWF0aXZlJTNkJTI2bWF0Y2h0eXBlJTNkcCUyNmFkcG9zaXRpb24lM2QlMjZwbGFjZW1lbnQlM2QlMjZhZGdyb3VwJTNkMTMwOTUxODY1ODA4NTU2NSUyNnRhcmdldGlkJTNka3dkLTgxODQ1MDgzMDIyNjQ5JTNhbG9jLTE5MCUyNmxvY2F0aW9uJTNkJTdibG9jYXRpb24lN2QlMjZzZWFyY2h0ZXJtJTNkYW5zaWJsZSUyNTIwbWFuYWdlJTI1MjBzdWRvZXJzJTI1MjBmaWxlJTI1MjBzZWN1cmVseSUyNTIwdmlzdWRvJTI2bXNjbGtpZCUzZDMxYjhlNTBmMmI3ZjFlNmQ5ZTU3OGY0NmMwOGU5OGE4JTI2dXRtX2NhbXBhaWduJTNkQklORy1WTVAtSU5SLVNlYXJjaC1VU0EtTDEtUGhyYXNlJTI2dXRtX3Rlcm0lM2R2dWxuZXJhYmlsaXR5JTI1MjBtYW5hZ2VtZW50JTI1MjBzb2Z0d2FyZSUyNnV0bV9jb250ZW50JTNkVnVsbmVyYWJpbGl0eSUyNTIwTWFuYWdlbWVudA&rlid=31b8e50f2b7f1e6d9e578f46c08e98a8
+https://www.techbloat.com/ansible-how-to-use-sudo.html
+https://maketecheasier.com/edit-sudoers-file-linux/
+https://github-cdn.pages.dev/topics/playbook
+https://github.com/LongTermSupport/ansible-role-vault-scripts
+https://devopsvoyager.hashnode.dev/encrypting-and-decrypting-files-with-ansible-vault
+https://www.ansiblepilot.com/articles/hashicorp-vault-integration-with-ansible-oidc-pki-and-dynamic-credentials-complete-guide
+https://speakerdeck.com/atosatto/scaling-ansible
+https://reintech.io/blog/ansible-for-network-automation
+https://www.bing.com/aclick?ld=e89RTOCWMNt6EZuppiIKkBwjVUCUw1vOoXYOMsMg2s0p36sNwc-hwrIC9p-ckJOKWaY9x6r6ZSUyZOB4wlC4kYT9xbP3L7kgrgMRna4MZOgf3Y3O2e9_kxIPQhZ-2MnYnsBs2rIV80zMrPOO1aik9TvqPcVnF9sAb9-qz6nmCAlj7obM5zJFirN2scmDyGGyCx2fYHpi9ZT1YNltPskRstkZnUE7M&u=aHR0cHMlM2ElMmYlMmZ3d3cubWFuYWdlZW5naW5lLmNvbSUyZnZ1bG5lcmFiaWxpdHktbWFuYWdlbWVudCUyZmludGVncmF0ZWQtdnVsbmVyYWJpbGl0eS1hbmQtcGF0Y2gtbWFuYWdlbWVudC5odG1sJTNmdXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fbWVkaXVtJTNkY3BjJTI2bmV0d29yayUzZG8lMjZkZXZpY2UlM2RjJTI2a2V5d29yZCUzZHZ1bG5lcmFiaWxpdHklMjUyMG1hbmFnZW1lbnQlMjUyMHNvZnR3YXJlJTI2Y2FtcGFpZ25pZCUzZDQwMTU4ODUxOSUyNmNyZWF0aXZlJTNkJTI2bWF0Y2h0eXBlJTNkcCUyNmFkcG9zaXRpb24lM2QlMjZwbGFjZW1lbnQlM2QlMjZhZGdyb3VwJTNkMTMwOTUxODY1ODA4NTU2NSUyNnRhcmdldGlkJTNka3dkLTgxODQ1MDgzMDIyNjQ5JTNhbG9jLTE5MCUyNmxvY2F0aW9uJTNkJTdibG9jYXRpb24lN2QlMjZzZWFyY2h0ZXJtJTNkYW5zaWJsZSUyNTIwbmV0d29yayUyNTIwYXV0b21hdGlvbiUyNTIwc2VjdXJpdHklMjUyMGNvbXBsaWFuY2UlMjUyMGF1ZGl0aW5nJTI2bXNjbGtpZCUzZDkzMDY4MTY3OWUwOTE1ZjYzZTYyZWIyZTcyNWMzZTk1JTI2dXRtX2NhbXBhaWduJTNkQklORy1WTVAtSU5SLVNlYXJjaC1VU0EtTDEtUGhyYXNlJTI2dXRtX3Rlcm0lM2R2dWxuZXJhYmlsaXR5JTI1MjBtYW5hZ2VtZW50JTI1MjBzb2Z0d2FyZSUyNnV0bV9jb250ZW50JTNkVnVsbmVyYWJpbGl0eSUyNTIwTWFuYWdlbWVudA&rlid=930681679e0915f63e62eb2e725c3e95
+https://github.com/ansible/awx
+https://www.perpetual-solutions.com/training-course/7779/managing-enterprise-automation-with-red-hat-ansible-automation-platform-virtual-training
+https://www.itls.at/en/product/redhat-do417
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://docs.gitlab.com/user/application_security/sast/
+https://www.linkedin.com/pulse/devops-automation-integrating-gitlab-cicd-ansible-molecule-ligabue-qbptc
+https://www.ansiblepilot.com/articles/ansible-infra-windows-ops-collection-disa-stig-and-cis-benchmark-drift-remediation
+https://www.commandinline.com/linux-automated-security-hardening-openscap-oscap/
+https://practicetestgeeks.com/ansible/ansible-automation-training
+https://www.ansiblepilot.com/articles/ansible-splunk-es-collection-automating-security-incident-response-workflows
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://stackoverflow.com/questions/79700251/ansibles-community-docker-docker-container-starts-a-container-only-visible-with
+https://awstip.com/setup-apache-web-server-in-a-docker-container-for-debian-like-systems-67ccdf69b4a
+https://thackmaster.com/blog/update-docker-containers-with-ansible/
+https://ansible-lockdown.readthedocs.io/en/devel/container-guide.html
+
+=========================================
+ 📂 CATEGORY: PERFORMANCE & KERNEL OPTIMIZATION
+=========================================
+https://weblog.antonnovikov.com/2026-02-03-ansible-k3s-install-playbook
+https://4sysops.com/archives/ansible-service-module-examples/

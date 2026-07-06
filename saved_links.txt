@@ -2049,3 +2049,83 @@ https://ansible-lockdown.readthedocs.io/en/devel/container-guide.html
 =========================================
 https://weblog.antonnovikov.com/2026-02-03-ansible-k3s-install-playbook
 https://4sysops.com/archives/ansible-service-module-examples/
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://github.com/iam-veeramalla/ansible-zero-to-hero
+https://forum.ansible.com/t/how-ai-can-help-the-ansible-community-development/44460
+https://blog.cloudmylab.com/best-practices-ansible-playbooks
+https://www.ansiblepilot.com/articles/improve-playbook-debugging-using-ansible-lint
+https://github.com/ansible/ansible/issues/85475
+https://tool.lu/en_US/skill/s/1D
+https://wildandfreetools.com/blog/yaml-validator-online-free-syntax-check/
+https://deepwiki.com/geerlingguy/ansible-role-gitlab/4.2-continuous-integration-pipeline
+https://aws.plainenglish.io/from-zero-to-web-app-automating-deployment-with-ansible-playbooks-47f43ac77f9e?source=collection_home---------9----------------------------
+https://linuxize.com/post/how-to-create-groups-in-linux/
+https://gitlab.com/nb-tech-support/devops/-/blob/master/Ansible/Ansible+Create+Users+and+Groups
+https://www.dmosk.ru/miniinstruktions.php?mini=ansible-examples
+https://specs.openstack.org/openstack/tacker-specs/specs/2025.1/enhancement-ansible-driver.html
+https://stackoverflow.com/questions/54309631/kubernetes-rolling-update-without-downtime
+https://blog.deimos.fr/2016/01/21/zero-downtime-upgrade-with-ansible-and-haproxy/
+https://www.linkedin.com/pulse/zero-downtime-upgrades-openstack-best-practices-rolling-ahmad-ullah-k271c
+https://samdoran.com/performance-tuning-ansible-playbooks
+https://www.manageengine.com/network-monitoring/help/integrate-ansible.html
+https://drsalbertspijkers.blogspot.com/2020/01/introducing-red-hat-ansible-automation.html
+https://steampunk.si/spotter/blog/inside-swifts-plan-to-modernize-thousands-of-ansible-playbooks/
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://gitlab.com/raulmad6600/ansible
+https://ulayer.net/blog/2019/08/02/how-to-harden-ssh-configs-with-ansible-on-linux/
+https://jgoutin.dev/ansible_home/roles/common/
+https://nosqlnest.com/from-bash-to-idempotence-architecting-a-zero-touch-secure-ansible-lab-3ab25e87b65c
+https://groups.google.com/g/ansible-project/c/8M66N9UTc-I
+https://discourse.roots.io/t/failed-task-syntax-error-users-add-web-user-sudoers-items-for-services/5190
+https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.4/html/automation_controller_administration_guide/controller-security-best-practices
+https://www.theseus.fi/bitstream/handle/10024/805686/Leiritie_Tommi.pdf?sequence=2
+https://www.rasikmhetre.com/p/automating-server-configuration-with-ansible-a-secure-scalable-guide-for-linux-devops-9a7e
+https://r4ven.me/en/automation/ansible-sistema-upravleniya-konfiguraciyami-znakomstvo/
+https://www.ansiblebyexample.com/articles/ssh-unknown-error-in-ansible-causes-and-fixes
+https://mikula.dev/posts/infrastructure/building-personal-website-part-2/
+https://stackoverflow.com/questions/79522617/ansible-firewalld-module-how-to-add-port-to-a-service
+https://docs.rockylinux.org/10/guides/security/firewalld-beginners/
+https://docs.ansible.com/projects/ansible/latest/porting_guides/porting_guide_12.html
+https://github.com/ReinerNippes/nextcloud
+https://docs.cyberark.com/secrets-manager-sh/13.9/en/content/integrations/ansible.html
+https://www.cyberark.com/resources/videos/solutions-demo-cyberark-secrets-manager
+https://forum.ansible.com/t/ssh-keys-retrieval-from-cyberark-through-awx/45269
+https://docs.openstack.org/kolla-ansible/2023.2/user/ansible-tuning.html
+https://github.com/Parsa-Ghourchian/Netbox-Network-Automation
+https://lucaberton.medium.com/meeting-mark-bolwell-principal-automation-engineer-at-mindpoint-group-4c7711fa183
+https://www.cellstream.com/2025/02/14/implementing-ai-in-network-automation-while-maintaining-human-expertise/
+
+=========================================
+ 📂 CATEGORY: PERFORMANCE & KERNEL OPTIMIZATION
+=========================================
+https://qiita.com/c_u/items/5d2f5a3ba8599862eaaa
+https://docs.redhat.com/en/documentation/red_hat_enterprise_linux_for_real_time/9/html/optimizing_rhel_9_for_real_time_for_low_latency_operation/setting-persistent-tuning-parameters_optimizing-rhel9-for-real-time-for-low-latency-operation
+https://thelinuxcluster.com/tag/ansible/
+
+=========================================
+ 📂 CATEGORY: STORAGE & LVM MANAGEMENT
+=========================================
+https://www.ucartz.com/clients/knowledgebase/1493/Creating-Logical-volume-based-file-system-using-Ansible.html
+
+=========================================
+ 📂 CATEGORY: POSTGRESQL DATABASE MANAGEMENT
+=========================================
+https://community.openhab.org/t/ansible-revisited/105754
+https://dev.to/lovestaco/from-scratch-to-restore-automating-postgresql-setup-backups-with-ansible-12h6
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://infohub.delltechnologies.com/p/creating-ansible-execution-environments-for-dell-technologies-storage/
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://connect.redhat.com/hydra/prm/v1/solutions/bd766ace78714780a506ffa3b70c8f5e/resources/14e073a21aaf42ec883f5505794a1ab7/content/public/view
+https://www.digitalocean.com/community/tutorials/how-to-use-ansible-to-automate-initial-server-setup-on-ubuntu-20-04

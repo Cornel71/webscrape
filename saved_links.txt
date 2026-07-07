@@ -2129,3 +2129,86 @@ https://infohub.delltechnologies.com/p/creating-ansible-execution-environments-f
 =========================================
 https://connect.redhat.com/hydra/prm/v1/solutions/bd766ace78714780a506ffa3b70c8f5e/resources/14e073a21aaf42ec883f5505794a1ab7/content/public/view
 https://www.digitalocean.com/community/tutorials/how-to-use-ansible-to-automate-initial-server-setup-on-ubuntu-20-04
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://medium.com/@devteam_40745/an-interactive-guide-to-ansible-best-practices-2025-7cfed8056e9a
+https://ansible-doc.readthedocs.io/en/latest/rst/playbooks_best_practices.html
+https://aws.plainenglish.io/mastering-azure-management-with-ansible-a-practical-guide-for-multi-environment-integration-48f2b8a86864
+https://www.linkedin.com/posts/avinash-joshi-1112aj_ansible-ansibleplaybook-yaml-activity-7433730240801079296-GR-J
+https://www.ansiblebyexample.com/articles/effective-techniques-to-clear-host-errors-in-ansible-playbooks
+https://www.tutorialpedia.org/blog/how-to-run-a-shell-command-in-ansible-s-check-mode/
+https://linuxtools.app/learn/ansible-loops
+https://serverfault.com/questions/940223/avoiding-jinja-templating-delimiter-in-when-statements
+https://www.libhunt.com/topic/ansible
+https://github.com/evgenyneu/ansible_tasks
+https://dev.to/labex/mastering-file-management-with-ansible-593o
+https://medium.com/@haroldfinch01/safely-limiting-ansible-playbooks-to-a-single-machine-ade35acc860d
+https://aws.plainenglish.io/from-zero-to-web-app-automating-deployment-with-ansible-playbooks-47f43ac77f9e?source=collection_home---------4----------------------------
+https://chromatichq.com/insights/untangling-ansible-loops/
+https://www.iditect.com/program-example/ansible--jinja2-filter-list-using-string-contains-test.html
+https://linuxhandbook.com/courses/ansible/ansible-loops/
+https://www.ansiblebyexample.com/articles/ansible-become-privilege-escalation-sudo
+https://blog.devops.dev/mastering-ansibles-become-feature-a-comprehensive-guide-7ccc7011113a
+https://www.ansiblepilot.com/articles/ansible-cfg
+https://www.ansiblebyexample.com/articles/ansible-playbook-example-emergency-cve-patch-rollout
+https://developers.redhat.com/articles/2024/06/25/generate-ansible-playbooks-using-natural-language-prompts
+https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/system_design_guide/scanning_the_system_for_security_compliance_and_vulnerabilities
+https://www.ansiblebyexample.com/articles/ansible-playbook-strategies-linear-free-serial
+https://www.ansiblepilot.com/articles/ansible-serial-rolling-updates-batch-deployment-guide
+https://www.fiverr.com/sajeeb_paul/setup-siem-wazuh-splunk-qradar-soar-suricata-elastic
+https://habr.com/ru/articles/906130/
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://blog.devgenius.io/docker-done-right-a-battle-tested-homelab-stack-for-solo-operators-d425ac3566af
+https://www.linkedin.com/posts/rajesh-voleti-9ba67620b_automating-devops-jenkins-github-cli-activity-7308182794197745664-wi5i
+https://deepwiki.com/ansible/ansible-navigator/5.3-cicd-pipeline
+https://docs.ansible.com/ansible/2.9/user_guide/vault.html
+https://www.vadosware.io/post/level-one-automated-k8s-deployments-with-gitlab-ci/
+https://docs.gitlab.com/runner/install/
+https://linuxgenie.net/fix-user-is-not-in-the-sudoers-file-error-on-linux/
+https://fdcservers.net/blog/complete-guide-to-setting-up-an-ansible-control-node
+https://thecodeforge.io/devops/ansible-performance-tuning/
+https://docs.ansible.com/projects/ansible/latest/collections/cyberark/pas/index.html
+https://nuventureconnect.com/blog/2023/11/16/red-hat-ansible-automation-platform-guide/
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://gitlab.com/jahontn/ansible-code
+https://steampunk.si/spotter/blog/steampunk-spotter-analyze-ansible-playbooks-enhance-automation/
+https://pypi.org/project/ansible-security-scanner/
+https://www.ansiblebyexample.com/articles/ansible-for-security-cis-benchmarks-and-hardening
+https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html-single/implementing_security_automation/index
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://www.typeerror.org/docs/ansible/collections/community/docker/docker_container_info_module
+https://awstip.com/setup-apache-web-server-in-a-docker-container-for-debian-like-systems-67ccdf69b4a?source=user_profile---------7-------------------------------
+https://www.sdnit.se/en/post/ansible-execution-environment
+
+=========================================
+ 📂 CATEGORY: NGINX & WEB REVERSE PROXY
+=========================================
+https://www.ansiblepilot.com/articles/ansible-on-ubuntu-26-04-lts-nginx-reverse-proxy-with-lets-encrypt-complete-guide
+
+=========================================
+ 📂 CATEGORY: PERFORMANCE & KERNEL OPTIMIZATION
+=========================================
+https://docs.ansible.com/ansible/6/collections/ansible/posix/sysctl_module.html
+https://www.redhat.com/de/blog/ansible-linux-server-security
+
+=========================================
+ 📂 CATEGORY: STORAGE & LVM MANAGEMENT
+=========================================
+https://docs.ansible.com/ansible/2.8//modules/lvol_module.html
+https://computingforgeeks.com/automated-logical-volume-manager-lvm-management-using-ansible/
+
+=========================================
+ 📂 CATEGORY: POSTGRESQL DATABASE MANAGEMENT
+=========================================
+https://github.com/ANXS/postgresql/discussions/535

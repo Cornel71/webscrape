@@ -2212,3 +2212,14 @@ https://computingforgeeks.com/automated-logical-volume-manager-lvm-management-us
  📂 CATEGORY: POSTGRESQL DATABASE MANAGEMENT
 =========================================
 https://github.com/ANXS/postgresql/discussions/535
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://stackoverflow.com/questions/52483054/ansible-result-shows-changed-when-running-safe-linux-ad-hoc-commands
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://git.raspot.in/olivier/vagrant-ansible-docker/commit/15db3565443db59b7b6a5f6b26760a51f644e6ed
+https://medium.com/@paperkite_hq/at-some-point-your-homelab-crosses-a-threshold-3b59c68035aa

@@ -2223,3 +2223,86 @@ https://stackoverflow.com/questions/52483054/ansible-result-shows-changed-when-r
 =========================================
 https://git.raspot.in/olivier/vagrant-ansible-docker/commit/15db3565443db59b7b6a5f6b26760a51f644e6ed
 https://medium.com/@paperkite_hq/at-some-point-your-homelab-crosses-a-threshold-3b59c68035aa
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://people.redhat.com/bhinson/presentations/ansible/archive/Red-Hat-Ansible-Automation-Platform-Best-Practices.pdf
+https://docs.ansible.com/projects/ansible/latest/tips_tricks/ansible_tips_tricks.html
+https://www.ansiblepilot.com/articles/ansible-modules-command-vs-shell
+https://github.com/ansible/ansible/issues/76010
+https://spacelift.io/blog/ansible-handlers
+https://github.com/dbeniteza/ansible-workshop/tree/main/solutions/03-conditionals-handlers-loops
+https://nirgeier.github.io/AnsibleLabs/015-handlers-blocks/
+https://regardsoss.github.io/docs/setup/ansible-tasks/
+https://www.golinuxcloud.com/ansible-yaml-syntax/
+https://www.educative.io/courses/automating-it-infrastructure-with-ansible/syntax-verification-tools
+https://foorshop.com/dev/ansible-tutorials-how-to-change-file-permission-using-ansible-playbook
+https://www.softwaretestinghelp.com/ansible-playbooks-ansible-vaults/
+https://www.golinuxcloud.com/ansible-manage-users-groups-ssh-sudo/
+https://www.ansiblepilot.com/articles/change-user-password-ansible-module-user
+https://bugzilla.redhat.com/show_bug.cgi?id=1592957
+https://www.ansiblebyexample.com/articles/ansible-playbook-example-rhel-patching-in-a-maintenance-window
+https://theworldthinks.com/the-top-secrets-you-should-never-reveal/
+https://greyjournal.net/play/learn-culture/culture/stop-oversharing-7-secrets-you-should-never-tell-anyone/
+https://www.hawkdive.com/it-security-4-strategies-to-avoid-unintentional-secret-leaks/
+https://groups.google.com/g/ansible-project/c/jt996zFU5nA
+https://kuryzhev.cloud/2026/06/01/ansible-rolling-deployment-with-zero-downtime-batch-control-and-automatic-rollback/
+https://www.typeerror.org/docs/ansible~2.9/plugins/callback/profile_tasks
+https://docs.w3cub.com/ansible/collections/ansible/posix/profile_tasks_callback
+https://github.com/roverflow/qradar
+https://docs.ansible.com/projects/ansible/latest/collections/splunk/es/index.html
+https://splunkbase.splunk.com/app/5874
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://github.com/aishugovindkar/aws-ansible-fastapi-cicd-vault
+https://www.redhat.com/en/blog/ansible-playbooks-secrets
+https://www.automatesql.com/blog/using-ansible-vault-with-environment-variables
+https://github.com/AEssam99/My_DevOps_Tools/blob/main/Ansible/Play3/README.md
+https://www.golinuxcloud.com/ansible-lineinfile-blockinfile-replace-template/
+https://github.com/Avryez/sshd_config_manager
+https://forum.ansible.com/t/lineinfile-how-to-hit-them-all/35846
+https://spacelift.io/blog/ansible-security
+https://sreschool.com/blog/🛡️-ansible-in-devsecops-a-comprehensive-tutorial/
+https://www.hostinger.com/tutorials/how-to-set-up-ssh-keys/
+https://github.com/noble-antwi/enterprise-security-homelab/blob/main/docs/ssh-configuration.md
+https://www.ansiblebyexample.com/articles/ansible-configure-firewall-rules-complete-guide
+https://insights.linuxfoundation.org/project/dev-sec-ansible-collection-hardening
+https://apiblog.cloudastra.co/2024/01/29/securing-sensitive-data-in-ansible-a-deep-dive-into-ansible-vault/
+https://www.ansiblebyexample.com/articles/ansible-terminology-what-is-an-ansible-vault
+https://stackoverflow.com/questions/53784380/hashicorp-vault-kv-store-version-2-inaccessible-using-hashi-vault-ansible-plugin
+https://static.carahsoft.com/concrete/files/6017/4068/8494/Enhance_Cyber_Resilience_in_the_DoD.pdf
+https://arctiq.com/expertise/ansible
+https://www.sentinelone.com/vulnerability-database/cve-2025-9907/
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://stackoverflow.com/questions/78633890/installing-docker-and-docker-compose-on-amazon-linux-2-with-ansible-fails-manu
+https://hsps.in/post/ansible-to-install-docker-and-docker-compose-on-new-lightsail-instance/
+
+=========================================
+ 📂 CATEGORY: NGINX & WEB REVERSE PROXY
+=========================================
+https://github.com/stuvusIT/reverse_proxy
+https://deepwiki.com/nginx/ansible-role-nginx-config/2.2-quick-start-examples
+https://geektechstuff.com/2020/05/05/installing-and-configuring-nginx-as-a-reverse-proxy-via-an-ansible-playbook/
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://gist.github.com/mddabhi93/25d4a58095e5b301807e371e886807a6
+https://www.steelcloud.com/cis-benchmarks-explained/
+https://p-avery.github.io/ansible-workshops/exercises/ansible_security/
+
+=========================================
+ 📂 CATEGORY: STORAGE & LVM MANAGEMENT
+=========================================
+https://www.golinuxcloud.com/ansible-lvm-filesystem-mount/
+
+=========================================
+ 📂 CATEGORY: POSTGRESQL DATABASE MANAGEMENT
+=========================================
+https://docs.ansible.com/ansible/3/collections/community/postgresql/postgresql_user_module.html

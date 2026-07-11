@@ -2306,3 +2306,67 @@ https://www.golinuxcloud.com/ansible-lvm-filesystem-mount/
  📂 CATEGORY: POSTGRESQL DATABASE MANAGEMENT
 =========================================
 https://docs.ansible.com/ansible/3/collections/community/postgresql/postgresql_user_module.html
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://github.com/shelleg/ansible-playbook-nexus3
+https://git.hubp.de/topics/playbook-ansible
+https://www.ansiblepilot.com/articles/deploy-a-web-server-apache-httpd-on-redhat-like-systems-ansible-modules-yum-copy-service-firewalld/
+https://docs.metalsoft.io/developer_resources/extensions/ansible_tasks/
+https://labex.io/tutorials/ansible-how-to-manage-file-permissions-on-a-remote-host-using-ansible-415827
+https://hatchjs.com/ansible-change-file-permissions/
+https://labex.io/tutorials/ansible-how-to-create-custom-jinja2-filters-for-ansible-415235
+https://kodekloud.com/community/t/ansible-create-users-and-groups-failed-with-no-information/10172/6
+https://reintech.io/blog/managing-users-permissions-ansible
+https://coderlegion.com/22079/ansible-installation-and-configuration-ubuntu
+https://medium.com/@nightfallai/4-important-steps-for-remediating-secrets-exposure-in-github-b74c0079890e
+https://devopsaitoolkit.com/blog/orchestrating-rolling-deploys-with-ansible-delegate-to-and-serial/
+https://www.humansecurity.com/tech-engineering-blog/zero-downtime-deployment-with-docker/?hs_amp=true
+https://www.bing.com/aclick?ld=e8YXmo71gxcmZJ5EFgocbKejVUCUz5l1baX-XA81E7cwm6g1RlPqaOIwLGY4duuCpaj8Wzslhe18Z6v-8ozIh0-y9ssi399dUvs2ruK2K38ugLRlARo77Gerff7q9Nlz6yBgtqQy18MgNIrsV89e5m2f63T2-YzAtT6acY9aDGiMagSLd2OefKRKIV3OaUzui2WOVtlwf49dNhAeTWbNTBRmEL-B4&u=aHR0cHMlM2ElMmYlMmZ3d3cubWFuYWdlZW5naW5lLmNvbSUyZmNsb3VkLXNpZW0lMmYlM2ZjYW1pZCUzZDQ3MDg5MTk5NSUyNmFkZ2lkJTNkMTI5NTIyNTg0NDQ2NjUyOCUyNmt3ZCUzZHNpZW0lMjUyMGNsb3VkJTI1MjBzb2x1dGlvbnMlMjZtYXRjaHR5cGUlM2RwJTI2YWRpZCUzZCUyNm5ldHdvcmslM2RvJTI2YWRwb3NpdGlvbiUzZCUyNmxvYyUzZDQ2MzEzJTI2cGxhY2VtZW50JTNkJTI2dGFyZ2V0JTNkJTI2c2VhcmNocXVlcnklM2RhbnNpYmxlJTI1MjBpbnRlZ3JhdGlvbiUyNTIwc3BsdW5rJTI1MjBxcmFkYXIlMjUyMHNpZW0lMjUyMGF1dG9tYXRlZCUyNmt3ZG1hdGNodHlwZSUzZGJwJTI2bXNjbGtpZCUzZDQ4Y2UwZDliMjcwZTFjYTllNzM4NjdjYWVlMWRhMzFh&rlid=48ce0d9b270e1ca9e73867caee1da31a
+https://www.bing.com/aclick?ld=e8JdaG2jfdraAADbAIGZRefTVUCUytek2Ai-O7Kbo75j_axLvUTt4s1CmRnQOhNyATjuyO-FpE5ZBhMz91hrRW3Z0rAbi6ZmIr0m1YyCZFkMMsDfUZaRAMKnTFWT9Ak5W-lEWTVn0Wrra-sHcGpbKeR3PuiorDXkJXNpXocZvPndViCQg1_2TK2aHGS003jJni_2qDP7Lb3Y82yihqE41bc8djz1s&u=aHR0cHMlM2ElMmYlMmZtb25pdG9yLmx1bmlvLmFpJTJmdjMuMCUyZnRlbXBsYXRlJTNmYWNjaWQlM2QxNjg5NiUyNnVybGRlY29kZSUzZDElMjZrdyUzZGNsb3VkJTI1MjBzaWVtJTI1MjBzb2Z0d2FyZSUyNm10JTNkcCUyNm53JTNkbyUyNmNwbiUzZDQyODMyOTI0MCUyNmRldmklM2RjJTI2ZGV2bSUzZCUyNmxvY3AlM2Q0NjMxMyUyNmxvY2klM2QlMjZwbCUzZCUyNmNyJTNkJTI2YWRwJTNkJTI2c2FkdCUzZCUyNnVybCUzZGh0dHBzJTI1M0ElMjUyRiUyNTJGd3d3LmRhdGFkb2docS5jb20lMjUyRmRnJTI1MkZzZWN1cml0eSUyNTJGc2llbS1zb2x1dGlvbiUyNTJGJTI1M0Z1dG1fc291cmNlJTI1M0RiaW5nJTI1MjZ1dG1fbWVkaXVtJTI1M0RwYWlkLXNlYXJjaCUyNTI2dXRtX2NhbXBhaWduJTI1M0RkZy1zZWN1cml0eS1uYS1zaWVtJTI1MjZ1dG1fa2V5d29yZCUyNTNEY2xvdWQlMjUyNTIwc2llbSUyNTI1MjBzb2Z0d2FyZSUyNTI2dXRtX21hdGNodHlwZSUyNTNEcCUyNTI2aWdhYWclMjUzRDEyOTk2MjMxMTQ2NjE4NDQlMjUyNmlnYWF0JTI1M0QlMjUyNmlnYWNtJTI1M0Q0MjgzMjkyNDAlMjUyNmlnYWNyJTI1M0QlMjUyNmlnYWt3JTI1M0RjbG91ZCUyNTI1MjBzaWVtJTI1MjUyMHNvZnR3YXJlJTI1MjZpZ2FtdCUyNTNEcCUyNTI2aWdhbnQlMjUzRG8lMjUyNnV0bV9jYW1wYWlnbmlkJTI1M0Q0MjgzMjkyNDAlMjUyNnV0bV9hZGdyb3VwaWQlMjUzRDEyOTk2MjMxMTQ2NjE4NDQlMjZtc2Nsa2lkJTNkYTlmNWU0YjlhZWE2MTRiYzBmNGM4ZWU4NjdiNWQ0YTk&rlid=a9f5e4b9aea614bc0f4c8ee867b5d4a9
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://github.com/oneuptime/blog/tree/master/posts/2026-02-21-how-to-use-ansible-vault-with-environment-variable-passwords
+https://www.devopsroles.com/ansible-vault-encrypt-zero-secrets-cicd/
+https://computingforgeeks.com/ansible-vault-cheat-sheet-reference-guide/
+https://github.com/HomeLabHD/ansible-glc
+https://stackoverflow.com/questions/56852576/how-to-setup-a-dynamic-gitlab-ci-file/57605762
+https://readmedium.com/automate-ssh-hardening-with-ansible-47589f91be1f
+https://www.akamai.com/cloud/guides/ansible-security-benefits/
+https://git.hubp.de/topics/role
+https://en.mycoding.id/use-ansible-vault-to-protect-sensitive-playbook-data-54314.html
+https://github.com/ramawahyuk/ansible-sap-rhel-automation-lab
+https://github.com/cyberark
+https://ansiblepilot.medium.com/meeting-mark-bolwell-principal-automation-engineer-at-mindpoint-group-4c7711fa183
+https://www.bing.com/aclick?ld=e85WLvP2A48YLd8DsZM6buTjVUCUy3ZUlvN2TBTzp_DnyYAZPEpoDZoxO1d1dOxtl4jHKWqTFyPi23w00erHvwCMVP6IWUJ46sBcvTpRNRlT9es7_VB8lYGj5IWMyW2NLo4VIpqmIOKj6yRpZEAvU99g76zoxivhZ9lqQ98353jz0PYiFgUqhdgCDADmmXI-8dpD-8HLSrgeqs4_D3F77CQ5ejMiU&u=aHR0cHMlM2ElMmYlMmZ3d3cudmFudGEuY29tJTJmbGFuZGluZyUyZmhvbWUlM2Z1dG1fdGVybSUzZGNvbXBsaWFuY2UlMjUyMGF1ZGl0JTI1MjBzb2Z0d2FyZSUyNnV0bV9jYW1wYWlnbiUzZG5hbWVyX25hbWVyX3NjaF9uYl9iaW5nX290aGVyX2VuJTI2dXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fbWVkaXVtJTNkY3BjJTI2dXRtX2FkZ3JvdXAlM2ROb25CcmFuZGVkJTI1MjAtJTI1MjBPdGhlcnMlMjUyMC0lMjUyME5BTUVSJTI1MjAtJTI1MjBDb21wbGlhbmNlJTI1MjBBdWRpdCUyNTIwU29mdHdhcmUlMjZtc2Nsa2lkJTNkMWUyNzczMmViN2Y4MWYxOThiYmMxOTdmN2VlM2YyOTAlMjZ1dG1fY29udGVudCUzZE5vbkJyYW5kZWQlMjUyMC0lMjUyME90aGVycyUyNTIwLSUyNTIwTkFNRVIlMjUyMC0lMjUyMENvbXBsaWFuY2UlMjUyMEF1ZGl0JTI1MjBTb2Z0d2FyZQ&rlid=1e27732eb7f81f198bbc197f7ee3f290
+https://www.qa.com/course-catalogue/courses/network-automation-with-red-hat-ansible-automation-platform-aap-22-red-hat-learning-subscription-course-do457ls/
+https://www-redhat-com.nproxy.org/en/topics/automation
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://pypi.org/project/ansible-security-scanner/0.1.13/
+https://www.libhunt.com/topic/cis-benchmark
+https://patchmon.net/features/compliance
+https://www.redhat.com/en/blog/using-kerberos-for-windows-in-ansible-automation-platform-2
+https://docs.openclaw.ai/install/ansible
+https://www.ansiblebyexample.com/articles/ansible-microsoftscom-module-example-alert-routing-to-eda
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://www.hostinger.com/in/tutorials/how-to-use-ansible-to-install-docker/
+
+=========================================
+ 📂 CATEGORY: NGINX & WEB REVERSE PROXY
+=========================================
+https://foorshop.com/dev/configure-reverse-proxy-using-ansible-playbook
+
+=========================================
+ 📂 CATEGORY: PERFORMANCE & KERNEL OPTIMIZATION
+=========================================
+https://www.fosslinux.com/158641/sysctl-kernel-tuning-linux.htm
+https://www.typeerror.org/docs/ansible/collections/ansible/posix/sysctl_module

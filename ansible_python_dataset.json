@@ -1275,7 +1275,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Ansible Security Automation: Risks & 7 Best Practices | by Spacelift | Spacelift | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -1335,7 +1335,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Streamlining Automation: Exploring Ansible Execution Environments for Efficient Configuration Management | by Amit Sharma | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -1419,7 +1419,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Ansible Playbook writing for beginners: Automate your morning routine | by XLAB Steampunk | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -1803,7 +1803,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Use Molecule & Gitlab-CI to Automate Testing of Ansible Roles | by Keir Whitlock | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -1887,7 +1887,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Let's Encrypt with Ansible. Generate your SSL certificates... | by Bryce Guinta | Level Up Coding"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -2024,6 +2024,18 @@
       {
         "from": "gpt",
         "value": "$ ansible-lint --ignore-file .ansible-lint-ignore ./playbooks --exclude .ansible\nWARNING  Listing 4 violation(s) that are fatal\nsyntax-check[unknown-module]: couldn't resolve module/action 'ansible.posix.synchronize'. This often indicates a misspelling, missing collection, or incorrect module path.\nplaybooks/99-copy-charts/tasks/main.yaml:8:7\nsyntax-check[unknown-module]: couldn't resolve module/action 'kubernetes.core.helm_repository'. This often indicates a misspelling, missing collection, or incorrect module path.\nplaybooks/roles/helm_charts_system/tasks/main.yaml:1:3\nsyntax-check[unknown-module]: couldn't resolve module/action 'kubernetes.core.helm_repository'. This often indicates a misspelling, missing collection, or incorrect module path.\nplaybooks/roles/helm_charts_search/tasks/main.yaml:1:3\nsyntax-check[unknown-module]: couldn't resolve module/action 'kubernetes.core.helm_repository'. This often indicates a misspelling, missing collection, or incorrect module path.\nplaybooks/roles/helm_charts_mapping/tasks/main.yaml:1:3\n# Rule Violation Summary\n  4 syntax-check profile:min tags:unskippable\nFailed: 4 failure(s), 0 warning(s) on 54 files."
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Best Practices - PCC-IT International"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: copy a file from a fileshare with custom credentials\n  ansible.windows.win_copy:\n    src: \\\\server\\share\\data\\file.txt\n    dest: C:\\temp\\file.txt\n    remote_src: yes\n  vars:\n    ansible_become: yes\n    ansible_become_method: runas\n    ansible_become_user: DOMAIN\\user\n    ansible_become_password: Password01\n    ansible_become_flags: logon_type=new_credentials logon_flags=netcredentials_only\n- name: run a command under a batch logon\n  ansible.windows.win_whoami:\n  become: yes\n  become_flags: logon_type=batch\n- name: run a command and not load the user profile\n  ansible.windows.win_whomai:\n  become: yes\n  become_flags: logon_flags="
       }
     ]
   },
@@ -2607,7 +2619,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Secure Secrets Management -- Using HashiCorp Vault with GitLab CI/CD | by Mohammed Abdul Khaliq | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -2631,7 +2643,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Medium"
+        "value": "Python script for: Day 23: Mastering Ansible Vault for Secure Automation 🔒🔑 | by Vinoth Subbiah | Medium"
       },
       {
         "from": "gpt",
@@ -2660,30 +2672,6 @@
       {
         "from": "gpt",
         "value": "# Example 2: Removing a user from the sudoers list using Ansible\n- name: Remove user from sudoers list\n  hosts: all\n  tasks:\n    - name: Remove user from sudoers list\n      become: yes\n      user:\n        name: myuser\n        groups: sudo\n        state: absent"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Python script for: Ansible Tutorial â SSH Key Setup -"
-      },
-      {
-        "from": "gpt",
-        "value": "# Test passwordless SSH\n$ ssh deploy@server1.example.com\n# You should connect without a password prompt\n# Type 'exit' to return\n# Test from Ansible\n$ ansible all -m ping\nserver1 | SUCCESS => {\n    \"changed\": false,\n    \"ping\": \"pong\"\n}"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Python script for: Ansible Tutorial â SSH Key Management -"
-      },
-      {
-        "from": "gpt",
-        "value": "# group_vars/all.yml\nteam_users:\n  - name: alice\n    groups: developers,docker\n    ssh_key: \"ssh-ed25519 AAAAC3... alice@work\"\n    state: present\n  - name: bob\n    groups: developers\n    ssh_key: \"ssh-ed25519 BBBBC3... bob@work\"\n    state: present\n  - name: charlie\n    groups: developers\n    ssh_key: \"\"\n    state: absent\n# tasks\n- name: Manage users\n  ansible.builtin.user:\n    name: \"{{ item.name }}\"\n    groups: \"{{ item.groups | default(omit) }}\"\n    state: \"{{ item.state }}\"\n    remove: \"{{ true if item.state == 'absent' else false }}\"\n  loop: \"{{ team_users }}\"\n- name: Manage SSH keys\n  ansible.posix.authorized_key:\n    user: \"{{ item.name }}\"\n    key: \"{{ item.ssh_key }}\"\n    state: present\n  loop: \"{{ team_users }}\"\n  when: item.state == 'present' and item.ssh_key != ''"
       }
     ]
   },
@@ -2787,7 +2775,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Automating Incident Response: Leveraging Grafana Alerts and Ansible Playbooks to Resolve Issues | by Ibukun Fadareak Balogun | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -2943,7 +2931,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Medium"
+        "value": "Python script for: Ansible troubleshooting -- Error no-free-form | by Luca Berton | Medium"
       },
       {
         "from": "gpt",
@@ -3147,7 +3135,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: SSH hardening. Bots methodically hammering port 22... | by Sgaunet | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -3279,7 +3267,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Docker containers with Ansible. Before the recent reign of containers... | by Oscar Oranagwa | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -3927,7 +3915,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Medium"
+        "value": "Python script for: How To Generate Linux User Encrypted Password for Ansible | by ComputingPost | Medium"
       },
       {
         "from": "gpt",
@@ -4179,7 +4167,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Medium"
+        "value": "Python script for: Automating Firewall Configs with Ansible + Python | by Samar Zemeer | Medium"
       },
       {
         "from": "gpt",
@@ -4616,18 +4604,6 @@
       {
         "from": "gpt",
         "value": "---\n- name: Create groups\n  ansible.builtin.group:\n    name: \"{{ item.name }}\"\n    gid: \"{{ item.gid | default(omit) }}\"\n    system: \"{{ item.system | default(false) }}\"\n    state: present\n  loop: \"{{ groups }}\"\n  tags: [groups]\n- name: Create user accounts\n  ansible.builtin.user:\n    name: \"{{ item.name }}\"\n    comment: \"{{ item.comment | default(omit) }}\"\n    uid: \"{{ item.uid | default(omit) }}\"\n    group: \"{{ item.primary_group | default(omit) }}\"\n    groups: \"{{ item.groups | default(omit) }}\"\n    append: yes\n    shell: \"{{ item.shell | default(default_shell) }}\"\n    create_home: \"{{ item.create_home | default(true) }}\"\n    system: \"{{ item.system | default(false) }}\"\n    password: \"{{ item.password | default(omit) }}\"\n    update_password: \"{{ item.update_password | default('on_create') }}\"\n    state: present\n  loop: \"{{ users }}\"\n  tags: [users]\n- name: Deploy SSH authorized keys\n  ansible.builtin.authorized_key:\n    user: \"{{ item.name }}\"\n    key: \"{{ item.ssh_key }}\"\n    state: present\n    exclusive: \"{{ item.ssh_exclusive | default(false) }}\"\n  loop: \"{{ users }}\"\n  when: item.ssh_key is defined\n  tags: [ssh]\n- name: Configure sudo access\n  ansible.builtin.copy:\n    content: \"{{ item.sudo }}\\n\"\n    dest: \"/etc/sudoers.d/{{ item.name }}\"\n    owner: root\n    group: root\n    mode: \"0440\"\n    validate: \"visudo -cf %s\"\n  loop: \"{{ users }}\"\n  when: item.sudo is defined\n  tags: [sudo]\n- name: Set password aging policies\n  ansible.builtin.command:\n    cmd: \"chage -M {{ password_max_days }} -m {{ password_min_days }} -W {{ password_warn_age }} {{ item.name }}\"\n  loop: \"{{ users }}\"\n  when: item.system | default(false) == false\n  changed_when: true\n  tags: [password-policy]\n- name: Remove decommissioned users\n  ansible.builtin.user:\n    name: \"{{ item }}\"\n    state: absent\n    remove: yes\n    force: yes\n  loop: \"{{ removed_users }}\"\n  tags: [cleanup]\n- name: Remove sudoers files for removed users\n  ansible.builtin.file:\n    path: \"/etc/sudoers.d/{{ item }}\"\n    state: absent\n  loop: \"{{ removed_users }}\"\n  tags: [cleanup]\n- name: Remove groups that are no longer needed\n  ansible.builtin.group:\n    name: \"{{ item }}\"\n    state: absent\n  loop: \"{{ removed_groups | default([]) }}\"\n  tags: [cleanup]"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Python script for: Ansible Advanced â Zero-Downtime Deployment -"
-      },
-      {
-        "from": "gpt",
-        "value": "- hosts: webservers\n  become: true\n  serial: \"25%\"                    # Update 25% at a time\n  max_fail_percentage: 0           # Stop if ANY host fails\n  pre_tasks:\n    - name: Deregister from ALB\n      community.aws.elb_target:\n        target_group_arn: \"{{ '{{ alb_target_group_arn }}' }}\"\n        target_id: \"{{ '{{ ec2_instance_id }}' }}\"\n        state: absent\n      delegate_to: localhost\n    - name: Wait for connections to drain\n      ansible.builtin.pause:\n        seconds: 30\n  roles:\n    - deploy-app\n  post_tasks:\n    - name: Wait for app to be healthy\n      ansible.builtin.uri:\n        url: \"http://localhost:{{ '{{ app_port }}' }}/health\"\n        status_code: 200\n      register: health\n      until: health.status == 200\n      retries: 30\n      delay: 5\n    - name: Re-register with ALB\n      community.aws.elb_target:\n        target_group_arn: \"{{ '{{ alb_target_group_arn }}' }}\"\n        target_id: \"{{ '{{ ec2_instance_id }}' }}\"\n        target_port: \"{{ '{{ app_port }}' }}\"\n        state: present\n      delegate_to: localhost\n    - name: Wait for ALB health check\n      ansible.builtin.pause:\n        seconds: 15"
       }
     ]
   },
@@ -5367,6 +5343,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Python script for: Day 28: Advanced Security Practices in Ansible 🔒🛡️ | by Vinoth Subbiah | Medium"
+      },
+      {
+        "from": "gpt",
+        "value": "---- hosts: webservers  vars_files:    - secrets.yml  tasks:    - name: Deploy application      ansible.builtin.copy:        src: /path/to/app        dest: /var/www/html    - name: Configure database      ansible.builtin.template:        src: db_config.j2        dest: /etc/myapp/db_config.yml        mode: '0600'"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Python script for: How to Use FirewallD on Linux Server 2026? - (Step by Step Install & Enable FirewallD Guide)"
       },
       {
@@ -5624,6 +5612,18 @@
       {
         "from": "gpt",
         "value": "# roles/system/tasks/main.yaml\n- name: Test ping\n  import_tasks: ping.yaml\n  tags: test\n- name: Create ansible user\n  import_tasks: create_user_ansible.yaml\n  tags: setup\n====================================================\n# roles/system/tasks/ping.yaml\n- name: test_ping\n  ping:\n====================================================\n# roles/system/tasks/create_user_ansible.yaml\n- name: Creating ansible user\n  tags: setup\n  user:\n    name: ansible\n    password: '<hash>'\n    groups: adm\n    state: present\n    shell: /bin/bash\n    system: no\n    createhome: yes\n    home: /home/ansible"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible Privilege Escalation (become, become_user)"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Orchestrate Application Services\n  hosts: webservers\n  become: false # Disabled by default for the entire play\n  tasks:\n    - name: Pull code from a public repository\n      ansible.builtin.git:\n        repo: 'https://github.com/example/app.git'\n        dest: /home/automation/app\n      # Runs safely as an unprivileged connection user\n    - name: Install system dependencies\n      ansible.builtin.apt:\n        name: libjpeg-dev\n        state: present\n      become: true # Explicitly enabled only for this administrative task"
       }
     ]
   },
@@ -6075,7 +6075,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: How to Build a Secure, Zero-Touch Ansible Lab | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -6368,18 +6368,6 @@
       {
         "from": "gpt",
         "value": "---\n- name: Async example\n  hosts: all\n  gather_facts: no\n  tasks:\n    - name: Long running task\n      ansible.builtin.command: sleep 30\n      async: 60\n      poll: 0\n      changed_when: false\n    - name: Check async status\n      ansible.builtin.async_status:\n        jid: \"{{ ansible_async_job_id }}\"\n      register: job_result\n      until: job_result.finished\n      retries: 30\n      delay: 1"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Python script for: ansible-security-scanner · PyPI"
-      },
-      {
-        "from": "gpt",
-        "value": "ansible-security-scanner/                      # repo root (hyphenated - matches PyPI)\n├── pyproject.toml                             # packaging + pytest + hatch-vcs\n├── README.md\n├── CONTRIBUTING.md\n├── RELEASING.md                               # maintainer release runbook\n├── LICENSE / NOTICE                           # Apache-2.0 + attribution terms\n├── main.py                                    # local dev entry point (py main.py ...)\n├── .github/workflows/                         # CI, release, docs workflows\n├── .hugo/                                     # Hugo documentation site\n│   ├── scripts/build_docs.py                  # Generates Hugo content from docs/ + patterns\n│   └── content/                               # Generated .md pages (do not edit by hand)\n├── docs/                                      # Long-form prose docs (source of truth)\n│   ├── assets/                                # Images & SVGs the README references\n│   ├── cli.md                                 # CLI Reference (and exit codes, suppressions, dedup)\n│   ├── environment.md                         # Environment Variables\n│   ├── api.md                                 # Programmatic API\n│   ├── output-formats.md\n│   ├── allowlist.md\n│   ├── ci-cd.md\n│   ├── mr-pr-comments.md\n│   ├── custom-patterns.md\n│   ├── scoring.md\n│   ├── testing.md\n│   ├── limitations.md\n│   └── releasing.md\n├── src/\n│   └── ansible_security_scanner/              # the Python package\n│       ├── cli.py                             # CLI (--directory, --fix, --compliance, ...)\n│       ├── scanner.py                         # Multi-pass orchestrator\n│       ├── file_scanner.py                    # Per-file rules (line patterns, AST walkers)\n│       ├── taint_tracker.py                   # Cross-file taint analysis\n│       ├── fix_proposer.py                    # Dry-run unified-diff patch generator\n│       ├── dependency_collector.py            # SBOM inventory\n│       ├── suppressions.py                    # Inline `# nosec` parser\n│       ├── models.py                          # SecurityFinding, ScanReport, SecurityScore\n│       ├── score_calculator.py                # Severity-weighted scoring\n│       ├── patterns_manager.py                # Loads pattern YAML plugins\n│       ├── patterns/                          # 29+ YAML pattern plugins (auto-discovered)\n│       ├── remediations/                      # One module per category\n│       └── formatters/                        # markdown, json, xml, yaml, csv, html, junit, sarif, gitlab_sast, cyclonedx\n└── tests/\n    ├── test_integration.py                    # End-to-end scanner tests\n    ├── test_formatters.py                     # Formatter unit tests\n    ├── test_remediations.py                   # Remediation generator unit tests\n    └── playbooks/\n        ├── bad_example.yml                    # Triggers every rule (100% coverage)\n        ├── clean_example.yml                  # Zero findings (false-positive guard)\n        ├── multi_example_bad/                 # 6-file role fixture (cross-file taint)\n        └── multi_example_clean/               # 6-file hardened role fixture (zero findings)"
       }
     ]
   },
@@ -6783,6 +6771,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Python script for: ansible-security-scanner · PyPI"
+      },
+      {
+        "from": "gpt",
+        "value": "ansible-security-scanner/                      # repo root (hyphenated - matches PyPI)\n├── pyproject.toml                             # packaging + pytest + hatch-vcs\n├── README.md\n├── CONTRIBUTING.md\n├── RELEASING.md                               # maintainer release runbook\n├── LICENSE / NOTICE                           # Apache-2.0 + attribution terms\n├── main.py                                    # local dev entry point (py main.py ...)\n├── .github/workflows/                         # CI, release, docs workflows\n├── .hugo/                                     # Hugo documentation site\n│   ├── scripts/build_docs.py                  # Generates Hugo content from docs/ + patterns\n│   └── content/                               # Generated .md pages (do not edit by hand)\n├── docs/                                      # Long-form prose docs (source of truth)\n│   ├── assets/                                # Images & SVGs the README references\n│   ├── cli.md                                 # CLI Reference (and exit codes, suppressions, dedup)\n│   ├── environment.md                         # Environment Variables\n│   ├── api.md                                 # Programmatic API\n│   ├── output-formats.md\n│   ├── allowlist.md\n│   ├── ci-cd.md\n│   ├── mr-pr-comments.md\n│   ├── custom-patterns.md\n│   ├── scoring.md\n│   ├── testing.md\n│   ├── limitations.md\n│   └── releasing.md\n├── src/\n│   └── ansible_security_scanner/              # the Python package\n│       ├── cli.py                             # CLI (--directory, --fix, --compliance, ...)\n│       ├── scanner.py                         # Multi-pass orchestrator\n│       ├── file_scanner.py                    # Per-file rules (line patterns, AST walkers)\n│       ├── taint_tracker.py                   # Cross-file taint analysis\n│       ├── fix_proposer.py                    # Dry-run unified-diff patch generator\n│       ├── dependency_collector.py            # SBOM inventory\n│       ├── suppressions.py                    # Inline `# nosec` parser\n│       ├── models.py                          # SecurityFinding, ScanReport, SecurityScore\n│       ├── score_calculator.py                # Severity-weighted scoring\n│       ├── patterns_manager.py                # Loads pattern YAML plugins\n│       ├── patterns/                          # 29+ YAML pattern plugins (auto-discovered)\n│       ├── remediations/                      # One module per category\n│       └── formatters/                        # markdown, json, xml, yaml, csv, html, junit, sarif, gitlab_sast, cyclonedx\n└── tests/\n    ├── test_integration.py                    # End-to-end scanner tests\n    ├── test_formatters.py                     # Formatter unit tests\n    ├── test_remediations.py                   # Remediation generator unit tests\n    └── playbooks/\n        ├── bad_example.yml                    # Triggers every rule (100% coverage)\n        ├── clean_example.yml                  # Zero findings (false-positive guard)\n        ├── multi_example_bad/                 # 6-file role fixture (cross-file taint)\n        └── multi_example_clean/               # 6-file hardened role fixture (zero findings)"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Python script for: Ansible microsoft.scom Module Example: Alert Routing to EDA"
       },
       {
@@ -6800,6 +6800,162 @@
       {
         "from": "gpt",
         "value": "# Set vm.swappiness to 5 in /etc/sysctl.conf\n- ansible.posix.sysctl:\n    name: vm.swappiness\n    value: '5'\n    state: present\n# Remove kernel.panic entry from /etc/sysctl.conf\n- ansible.posix.sysctl:\n    name: kernel.panic\n    state: absent\n    sysctl_file: /etc/sysctl.conf\n# Set kernel.panic to 3 in /tmp/test_sysctl.conf\n- ansible.posix.sysctl:\n    name: kernel.panic\n    value: '3'\n    sysctl_file: /tmp/test_sysctl.conf\n    reload: no\n# Set ip forwarding on in /proc and verify token value with the sysctl command\n- ansible.posix.sysctl:\n    name: net.ipv4.ip_forward\n    value: '1'\n    sysctl_set: yes\n# Set ip forwarding on in /proc and in the sysctl file and reload if necessary\n- ansible.posix.sysctl:\n    name: net.ipv4.ip_forward\n    value: '1'\n    sysctl_set: yes\n    state: present\n    reload: yes"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Working with Python scripts in Ansible - with examples"
+      },
+      {
+        "from": "gpt",
+        "value": "from __future__ import (absolute_import, division, print_function)\n__metaclass__ = type\nfrom ansible.module_utils.basic import AnsibleModule\ndef run_module():\n    # define available arguments/parameters a user can pass to the module\n    module_args = dict(\n        some_list=dict(type='list', required=True)\n    )\n    # seed the result dict in the object\n    # we primarily care about changed and state\n    # changed is if this module effectively modified the target\n    # state will include any data that you want your module to pass back\n    # for consumption, for example, in a subsequent task\n    result = dict(\n        output=[]\n    )\n    # the AnsibleModule object will be our abstraction working with Ansible\n    # this includes instantiation, a couple of common attr would be the\n    # args/params passed to the execution, as well as if the module\n    # supports check mode\n    module = AnsibleModule(\n        argument_spec=module_args,\n        supports_check_mode=True\n    )\n    # if the user is working with this module in only check mode we do not\n    # want to make any changes to the environment, just return the current\n    # state with no modifications\n    if module.check_mode:\n        module.exit_json(**result)\n    # during the execution of the module, if there is an exception or a\n    # conditional state that effectively causes a failure, run\n    # AnsibleModule.fail_json() to pass in the message and the result\n    if len(module.params['some_list']) <= 1:\n        module.fail_json(msg='some_list needs more than 1 item', **result)\n    # Code to modify input list - Our custom python code\n    for item in module.params['some_list']:\n        result['output'].append({\"value\": item, \"extra\": \"n/a\"})\n    # in the event of a successful module execution, you will want to\n    # simple AnsibleModule.exit_json(), passing the key/value results\n    module.exit_json(**result)\ndef main():\n    run_module()\nif __name__ == '__main__':\n    main()"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Is a correct YAML file enough for a correct ansible playbook, syntax errors aside? - Stack Overflow"
+      },
+      {
+        "from": "gpt",
+        "value": "ERROR! unexpected parameter type in action: <class 'ansible.parsing.yaml.objects.AnsibleSequence'>\nThe error appears to have been in '/root/myplaybook.yml': line 17, column 7, but may\nbe elsewhere in the file depending on the exact syntax problem.\nThe offending line appears to be:\n# configure rsyslog\n- name: configure rsyslog to expose events on port 42000\n  ^ here"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Bootstrap"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- hosts: localhost\n  tasks:\n  - name: find files containing 'foo' in the /tmp directory\n    ansible.builtin.find:\n      paths: /tmp\n      use_regex: true\n      patterns: (?i).*foo.*\n    register: foo\n  - name: update the owner/group/mode of the 'foo' files in the /tmp directory\n    ansible.builtin.file:\n      path: \"{{ item.path }}\"\n      owner: john.doe\n      group: admins\n      mode: '0770'\n    with_items: \"{{ foo.files }}\"\n    when: foo.files >= 1\n..."
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible Error Handling | Compile N Run"
+      },
+      {
+        "from": "gpt",
+        "value": "---- name: Rolling deployment with error handling  hosts: webservers  serial: 1  # Process one host at a time  max_fail_percentage: 25  # Allow 25% of hosts to fail before aborting    vars:    deployment_dir: /var/www/app      tasks:    - name: Check prerequisites      block:        - name: Verify disk space          ansible.builtin.shell: df -h / | grep -v Filesystem | awk '{ print $5 }' | sed 's/%//'          register: disk_space          failed_when: disk_space.stdout|int > 80                  - name: Check connectivity to repository          ansible.builtin.uri:            url: https://github.com/company/app            status_code: 200          register: repo_check                rescue:        - name: Log prerequisite check failure          ansible.builtin.shell: |            echo \"Deployment failed on prerequisite check for $(hostname) at $(date)\" >> /var/log/deployment_failures.log                    - name: Skip this host          ansible.builtin.meta: clear_host_errors              - name: Deploy application      block:        - name: Pull latest code          ansible.builtin.git:            repo: https://github.com/company/app.git            dest: \"{{ deployment_dir }}\"          register: git_result                  - name: Install dependencies          ansible.builtin.command: npm install          args:            chdir: \"{{ deployment_dir }}\"          when: git_result.changed                  - name: Run tests          ansible.builtin.command: npm test          args:            chdir: \"{{ deployment_dir }}\"          register: test_result          failed_when: test_result.rc != 0                  - name: Take server out of load balancer          ansible.builtin.uri:            url: \"https://loadbalancer.example.com/api/servers/{{ inventory_hostname }}/disable\"            method: POST            status_code: 200          register: lb_disable          retries: 3          delay: 5          until: lb_disable is succeeded                  - name: Restart application          ansible.builtin.service:            name: app-service            state: restarted                  - name: Verify application is running          ansible.builtin.uri:            url: \"http://localhost:8080/health\"            status_code: 200          register: app_health          retries: 5          delay: 10          until: app_health is succeeded                  - name: Add server back to load balancer          ansible.builtin.uri:            url: \"https://loadbalancer.example.com/api/servers/{{ inventory_hostname }}/enable\"            method: POST            status_code: 200          register: lb_enable          retries: 3          delay: 5          until: lb_enable is succeeded                rescue:        - name: Take server out of load balancer in case of failure          ansible.builtin.uri:            url: \"https://loadbalancer.example.com/api/servers/{{ inventory_hostname }}/disable\"            method: POST          ignore_errors: true                  - name: Restore previous version          ansible.builtin.git:            repo: https://github.com/company/app.git            dest: \"{{ deployment_dir }}\"            version: \"{{ previous_version }}\"          ignore_errors: true                  - name: Restart application with previous version          ansible.builtin.service:            name: app-service            state: restarted          ignore_errors: true                  - name: Send notification of deployment failure          ansible.builtin.debug:            msg: \"Deployment failed on {{ inventory_hostname }}, reverted to previous version\"                    - name: Log failure details          ansible.builtin.shell: |            echo \"Deployment failed on $(hostname) at $(date)\" >> /var/log/deployment_failures.log                  always:        - name: Ensure application is running          ansible.builtin.service:            name: app-service            state: started          ignore_errors: true                  - name: Clean up temporary files          ansible.builtin.file:            path: \"{{ deployment_dir }}/tmp\"            state: absent          ignore_errors: true"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Integrate with Ansible"
+      },
+      {
+        "from": "gpt",
+        "value": "ResourceModelSourceException: Cannot load yaml data coming from Ansible: Number of aliases for non-scalar nodes exceeds the specified max=1000."
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible Node Bootstrapping | Dicking with Docker"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n# ansible-playbook bootstrap-ansible-target.yml -b -e 'user=user'\n- hosts: \"{{ host }}\"\n  remote_user: \"{{ user | default('root') }}\"\n  gather_facts: no\n  pre_tasks:\n  - name: attempt to update apt's cache\n    raw: test -e /usr/bin/apt-get && apt-get update\n    ignore_errors: yes\n  - name: attempt to install Python on Debian-based systems\n    raw: test -e /usr/bin/apt-get && apt-get -y install python-simplejson python\n    ignore_errors: yes\n  - name: attempt to install Python on CentOS-based systems\n    raw: test -e /usr/bin/yum && yum -y install python-simplejson python\n    ignore_errors: yes\n  - setup:\n  tasks:\n  - name: Create admin user group\n    group:\n      name: admin\n      system: yes\n      state: present\n  - name: Ensure sudo is installed\n    package:\n      name: sudo\n      state: present\n  - name: Create Ansible user\n    user:\n      name: ansible\n      shell: /bin/bash\n      comment: \"Ansible management user\"\n      home: /home/ansible\n      createhome: yes\n  - name: Add Ansible user to admin group\n    user:\n      name: ansible\n      groups: admin\n      append: yes\n  - name: Add authorized key\n    authorized_key:\n      user: ansible\n      state: present\n      key: \"{{ lookup('file', '/etc/ansible/.ssh/id_rsa.pub') }}\"\n  - name: Copy sudoers file\n    command: cp -f /etc/sudoers /etc/sudoers.tmp\n  - name: Backup sudoers file\n    command: cp -f /etc/sudoers /etc/sudoers.bak\n  - name: Ensure admin group can sudo\n    lineinfile:\n      dest: /etc/sudoers.tmp\n      state: present\n      regexp: '^%admin'\n      line: '%admin ALL=(ALL) NOPASSWD: ALL'\n    when: ansible_os_family == 'Debian'\n  - name: Ensure admin group can sudo\n    lineinfile:\n      dest: /etc/sudoers.tmp\n      state: present\n      regexp: '^%admin'\n      insertafter: '^root'\n      line: '%admin ALL=(ALL) NOPASSWD: ALL'\n    when: ansible_os_family == 'RedHat'\n  - name: Replace sudoers file\n    shell: visudo -q -c -f /etc/sudoers.tmp && cp -f /etc/sudoers.tmp /etc/sudoers\n  - name: Test Ansible user's access\n    local_action: shell ssh ansible@{{ host }} \"sudo echo success\"\n    become: False\n    register: ansible_success\n  - name: Remove Ansible SSH key from bootstrap user's authorized keys\n    lineinfile:\n      path: \"{{ ansible_env.HOME }}/.ssh/authorized_keys\"\n      state: absent\n      regexp: '^ssh-rsa AAAAB3N'\n    when: ansible_success.stdout == \"success\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: 🎆 Strontium - Skriptiohjelmointi"
+      },
+      {
+        "from": "gpt",
+        "value": "# Copy our public key to the remote hosts\nmultipass transfer ~/.ssh/id_ed25519.pub ansible-1:/tmp/id_ed25519.pub\nmultipass transfer ~/.ssh/id_ed25519.pub ansible-2:/tmp/id_ed25519.pub\n# Append the public key to authorized_keys in /home/ubuntu/.ssh\nmultipass exec ansible-1 -- bash -c \"cat /tmp/id_ed25519.pub >> ~/.ssh/authorized_keys\"\nmultipass exec ansible-2 -- bash -c \"cat /tmp/id_ed25519.pub >> ~/.ssh/authorized_keys\"\n# Disable SSH host key checking.\nexport ANSIBLE_HOST_KEY_CHECKING=False\n# Create ansible user\nuv run ansible \\\n--inventory config/inventory/hosts.ini multipass \\\n--module-name ansible.builtin.user \\\n--args \"name=ansible create_home=yes groups=sudo append=yes\" \\\n--user ubuntu --become\n# Create the .ssh directory\nuv run ansible \\\n-i config/inventory/hosts.ini multipass \\\n-m ansible.builtin.file \\\n-a \"path=/home/ansible/.ssh state=directory owner=ansible group=ansible mode=0700\" \\\n-u ubuntu -b\n# Copy the public key to the authorized_keys file\nuv run ansible -i config/inventory/hosts.ini multipass \\\n-m ansible.builtin.copy \\\n-a \"src=~/.ssh/id_ed25519.pub dest=/home/ansible/.ssh/authorized_keys owner=ansible group=ansible mode=0600\" \\\n-u ubuntu -b\n# NOW you could run commands as the ansible user! 🎉\nuv run ansible -i config/inventory/hosts.ini multipass \\\n-m debug \\\n-a \"msg='Hello world!'\" \\\n-u ansible"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: How to Fix `UNREACHABLE! => {\"msg\": \"Failed to connect to the host via ssh\"}` [2026 Updated Guide] | ( ･∀･)つ〃∩ troubleshooting!!"
+      },
+      {
+        "from": "gpt",
+        "value": "# Playbook to manage SSH host keys\n- name: Manage SSH host keys\n  hosts: localhost\n  tasks:\n    - name: Add host keys to known_hosts\n      ansible.builtin.known_hosts:\n        name: \"{{ item }}\"\n        key: \"{{ lookup('pipe', 'ssh-keyscan -t ed25519 ' + item) }}\"\n        state: present\n      loop:\n        - web01.example.com\n        - web02.example.com\n        - db01.example.com"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: falcon_hosts | CrowdStrike Developer Center"
+      },
+      {
+        "from": "gpt",
+        "value": "# sample file: my_inventory.falcon_hosts.yml\n# required for all falcon_hosts inventory plugin configsplugin: crowdstrike.falcon.falcon_hosts\n# authentication credentials (required if not using environment variables)# client_id: 1234567890abcdef12345678# client_secret: 1234567890abcdef1234567890abcdef12345# cloud: us-1\n# authentication example using hashicorp vault lookup plugin# client_id: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=path/to/secret:client_id') }}\"# client_secret: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=path/to/secret:client_secret') }}\"# cloud: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=path/to/secret:cloud') }}\"\n# return all Windows hosts (authentication via environment variables)# filter: \"platform_name:'Windows'\"\n# return all Linux hosts in reduced functionality mode# filter: \"platform_name:'Linux' + reduced_functionality_mode:'yes'\"\n# return stale devices that haven't checked in for 15 days# filter: \"last_seen:<='now-15d'\"\n# return all Linux hosts running in eBPF User Mode# filter: \"linux_sensor_mode:'User Mode'\"\n# place hosts into dynamically created groups based on variable valueskeyed_groups:  # places host in a group named tag_<tags> for each tag on a host  - prefix: tag    key: tags  # places host in a group named platform_<platform_name> based on the  # platform name (Linux, Windows, etc.)  - prefix: platform    key: platform_name  # places host in a group named tag_<tags> for each tag on a host  - prefix: rfm    key: reduced_functionality_mode\n# place hosts into dynamically created groups based on conditional statementsgroups:  # places hosts in a group named windows_hosts if the platform_name is Windows  windows_hosts: \"platform_name == 'Windows'\"  # place hosts in a group named aws_us_west_2 if the zone_group is in us-west-2  aws_us_west_2: \"'us-west-2' in zone_group and 'Amazon' in system_manufacturer\"\n# compose inventory_hostname from Jinja2 expressions# hostnames:#   - hostname|lower\n# compose inventory_hostname from Jinja2 expressions with order of precedence# hostnames:#   - external_ip#   - local_ip#   - serial_number\n# use device_id as the inventory_hostname to prevent deduplication and set ansible_host# to a reachable attribute# hostnames:#   - device_id# compose:#   ansible_host: hostname | default(external_ip) | default(local_ip) | default(None)\n# compose connection variables for each host# compose:#   ansible_host: external_ip#   ansible_user: \"'root'\"#   ansible_ssh_private_key_file: \"'/path/to/private_key_file'\"\n# Use caching for the inventory# cache: true# cache_plugin: jsonfile# cache_connection: /tmp/falcon_inventory# cache_timeout: 1800# cache_prefix: falcon_hosts"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: README.md"
+      },
+      {
+        "from": "gpt",
+        "value": "# How to Use Ansible to Run Docker Compose\nAuthor: [nawazdhandala](https://www.github.com/nawazdhandala)\nTags: Ansible, Docker, Docker Compose, Container Orchestration, DevOps\nDescription: Learn how to deploy and manage Docker Compose applications with Ansible, covering the docker_compose_v2 module, templating, and production workflows.\n---\nDocker Compose is the go-to tool for defining and running multi-container applications. You describe your services, networks, and volumes in a YAML file, and a single command brings everything up. Ansible takes this further by letting you deploy Docker Compose projects across multiple servers, template compose files with environment-specific values, and integrate Compose deployments into larger automation workflows. In this post, we will cover everything from basic Compose deployments to production-grade workflows with Ansible.\n## Why Use Ansible with Docker Compose?\nYou might wonder why you would use Ansible if Docker Compose already handles multi-container deployments. Here are the reasons:\n- Deploy the same Compose project to multiple servers\n- Template compose files with environment-specific values\n- Manage the entire server setup (Docker installation, firewall, SSL, etc.) alongside the application deployment\n- Handle secrets securely with Ansible Vault instead of `.env` files\n- Roll back deployments by keeping previous compose files versioned\n## Prerequisites\n```bash\n# Install the community.docker collection\nansible-galaxy collection install community.docker\n# Confirm Docker Compose V2 is available\ndocker compose version\n```\nDocker and the Docker Compose CLI plugin must be installed on the target hosts. The `docker_compose_v2` module requires the Docker CLI with the Compose plugin version 2.18.0 or later.\n## Basic Docker Compose Deployment\nThe simplest approach is to copy a compose file to the server and use the `docker_compose_v2` module to bring it up.\n```yaml\n# deploy-compose.yml - Deploy a Docker Compose application\n---\n- name: Deploy Docker Compose Application\n  hosts: docker_hosts\n  become: true\n  tasks:\n    - name: Create application directory\n      ansible.builtin.file:\n        path: /opt/myapp\n        state: directory\n        mode: \"0755\"\n    - name: Copy docker-compose.yml to the server\n      ansible.builtin.copy:\n        content: |\n          services:\n            web:\n              image: nginx:1.25\n              ports:\n                - \"80:80\"\n              volumes:\n                - ./html:/usr/share/nginx/html:ro\n              depends_on:\n                - api\n              restart: unless-stopped\n            api:\n              image: node:20-slim\n              working_dir: /app\n              command: node server.js\n              ports:\n                - \"3000:3000\"\n              environment:\n                - NODE_ENV=production\n                - DATABASE_URL=postgres://user:pass@db:5432/myapp\n                - REDIS_URL=redis://redis:6379\n              depends_on:\n                - db\n                - redis\n              restart: unless-stopped\n            db:\n              image: postgres:16\n              environment:\n                - POSTGRES_USER=user\n                - POSTGRES_PASSWORD=pass\n                - POSTGRES_DB=myapp\n              volumes:\n                - postgres-data:/var/lib/postgresql/data\n              restart: unless-stopped\n            redis:\n              image: redis:7-alpine\n              command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru\n              volumes:\n                - redis-data:/data\n              restart: unless-stopped\n          volumes:\n            postgres-data:\n            redis-data:\n        dest: /opt/myapp/docker-compose.yml\n        mode: \"0644\"\n    - name: Deploy the Docker Compose application\n      community.docker.docker_compose_v2:\n        project_src: /opt/myapp\n        state: present\n      register: compose_result\n    - name: Show deployment status\n      ansible.builtin.debug:\n        msg: |\n          Deployment complete.\n          Containers: {{ compose_result.containers | length }}\n```\n## Templated Compose Files\nThe real power comes from templating. Use Jinja2 templates to inject environment-specific values.\n```yaml\n# deploy-templated.yml - Deploy with environment-specific values\n---\n- name: Deploy Templated Docker Compose\n  hosts: docker_hosts\n  become: true\n  vars:\n    app_name: \"myapp\"\n    app_version: \"2.5.0\"\n    db_password: \"{{ vault_db_password }}\"\n    redis_max_memory: \"512mb\"\n    api_workers: 4\n    environment: \"production\"\n    domain: \"app.example.com\"\n  tasks:\n    - name: Create application directory\n      ansible.builtin.file:\n        path: \"/opt/{{ app_name }}\"\n        state: directory\n        mode: \"0755\"\n    - name: Deploy docker-compose.yml from template\n      ansible.builtin.template:\n        src: docker-compose.yml.j2\n        dest: \"/opt/{{ app_name }}/docker-compose.yml\"\n        mode: \"0644\"\n    - name: Deploy the application\n      community.docker.docker_compose_v2:\n        project_src: \"/opt/{{ app_name }}\"\n        state: present\n      register: result\n    - name: Show status\n      ansible.builtin.debug:\n        msg: \"Deployed {{ app_name }}:{{ app_version }} to {{ environment }}\"\n```\nThe template file:\n```yaml\n# templates/docker-compose.yml.j2 - Jinja2 template for docker-compose\nservices:\n  web:\n    image: nginx:1.25\n    ports:\n      - \"80:80\"\n      - \"443:443\"\n    volumes:\n      - ./nginx.conf:/etc/nginx/nginx.conf:ro\n    depends_on:\n      api:\n        condition: service_healthy\n    restart: unless-stopped\n  api:\n    image: \"registry.example.com/{{ app_name }}-api:{{ app_version }}\"\n    environment:\n      NODE_ENV: \"{{ environment }}\"\n      DATABASE_URL: \"postgres://{{ app_name }}:{{ db_password }}@db:5432/{{ app_name }}\"\n      REDIS_URL: \"redis://redis:6379\"\n      WORKERS: \"{{ api_workers }}\"\n    healthcheck:\n      test: [\"CMD\", \"curl\", \"-f\", \"http://localhost:3000/health\"]\n      interval: 10s\n      timeout: 5s\n      retries: 5\n    depends_on:\n      db:\n        condition: service_healthy\n      redis:\n        condition: service_started\n    restart: unless-stopped\n  db:\n    image: postgres:16\n    environment:\n      POSTGRES_USER: \"{{ app_name }}\"\n      POSTGRES_PASSWORD: \"{{ db_password }}\"\n      POSTGRES_DB: \"{{ app_name }}\"\n    volumes:\n      - postgres-data:/var/lib/postgresql/data\n    healthcheck:\n      test: [\"CMD-SHELL\", \"pg_isready -U {{ app_name }}\"]\n      interval: 5s\n      timeout: 5s\n      retries: 10\n    restart: unless-stopped\n  redis:\n    image: redis:7-alpine\n    command: >\n      redis-server\n      --maxmemory {{ redis_max_memory }}\n      --maxmemory-policy allkeys-lru\n      --appendonly yes\n    volumes:\n      - redis-data:/data\n    restart: unless-stopped\nvolumes:\n  postgres-data:\n    labels:\n      backup: \"daily\"\n  redis-data:\n    labels:\n      backup: \"none\"\n```\n## Compose Deployment Flow\n```mermaid\ngraph TD\n    A[Ansible Playbook] --> B[Template docker-compose.yml]\n    B --> C[Copy to Target Server]\n    C --> D[docker_compose_v2 module]\n    D --> E{Services Changed?}\n    E -->|Yes| F[Pull New Images]\n    F --> G[Recreate Changed Containers]\n    G --> H[Start All Services]\n    E -->|No| I[No Changes Needed]\n    H --> J[Health Check Verification]\n    J --> K[Deployment Complete]\n```\n## Managing Compose Services\nYou can control individual services within a Compose project.\n```yaml\n# manage-services.yml - Control individual services in a Compose project\n---\n- name: Manage Docker Compose Services\n  hosts: docker_hosts\n  become: true\n  tasks:\n    # Bring up the entire project\n    - name: Start all services\n      community.docker.docker_compose_v2:\n        project_src: /opt/myapp\n        state: present\n    # Stop the entire project (keeps containers)\n    - name: Stop all services\n      community.docker.docker_compose_v2:\n        project_src: /opt/myapp\n        state: stopped\n    # Bring down the project (removes containers)\n    - name: Remove all services\n      community.docker.docker_compose_v2:\n        project_src: /opt/myapp\n        state: absent\n    # Restart specific services\n    - name: Restart just the API service\n      community.docker.docker_compose_v2:\n        project_src: /opt/myapp\n        state: restarted\n        services:\n          - api\n    # Scale a specific service\n    - name: Scale workers to 3 instances\n      community.docker.docker_compose_v2:\n        project_src: /opt/myapp\n        state: present\n        services:\n          - worker\n        scale:\n          worker: 3\n```\n## Deploying with Updates\nWhen deploying a new version, you want to pull the latest images and recreate only the changed containers.\n```yaml\n# update-deployment.yml - Deploy a new version of the application\n---\n- name: Update Docker Compose Deployment\n  hosts: docker_hosts\n  become: true\n  vars:\n    app_version: \"2.6.0\"\n    app_name: \"myapp\"\n  tasks:\n    - name: Update the compose file with new version\n      ansible.builtin.template:\n        src: docker-compose.yml.j2\n        dest: \"/opt/{{ app_name }}/docker-compose.yml\"\n        mode: \"0644\"\n      register: compose_file\n    - name: Pull new images\n      community.docker.docker_compose_v2:\n        project_src: \"/opt/{{ app_name }}\"\n        state: present\n        pull: always\n      register: deploy_result\n    - name: Show what changed\n      ansible.builtin.debug:\n        msg: |\n          Deployment of version {{ app_version }} complete.\n          Containers: {{ deploy_result.containers | length }}\n```\n## Health Check Verification After Deployment\nAfter deploying, verify that services are healthy.\n```yaml\n# verify-deployment.yml - Verify services are healthy after deploy\n---\n- name: Verify Docker Compose Deployment\n  hosts: docker_hosts\n  become: true\n  tasks:\n    - name: Wait for the API to be healthy\n      ansible.builtin.uri:\n        url: \"http://localhost:3000/health\"\n        return_content: true\n      register: health_check\n      until: health_check.status == 200\n      retries: 30\n      delay: 5\n    - name: Verify database connectivity\n      community.docker.docker_container_exec:\n        container: \"myapp-db-1\"\n        command: \"pg_isready -U myapp\"\n      register: db_check\n    - name: Check all container statuses\n      community.docker.docker_compose_v2:\n        project_src: /opt/myapp\n        state: present\n      register: compose_status\n    - name: Report health status\n      ansible.builtin.debug:\n        msg: |\n          API health: {{ health_check.status }}\n          Database: {{ 'healthy' if db_check.rc == 0 else 'unhealthy' }}\n          All services running: {{ compose_status.containers | length }} containers\n```\n## Rollback Strategy\nKeep previous compose files so you can roll back quickly.\n```yaml\n# deploy-with-rollback.yml - Deploy with automatic rollback on failure\n---\n- name: Deploy with Rollback Capability\n  hosts: docker_hosts\n  become: true\n  vars:\n    app_name: \"myapp\"\n    app_version: \"2.6.0\"\n  tasks:\n    - name: Backup current compose file\n      ansible.builtin.copy:\n        src: \"/opt/{{ app_name }}/docker-compose.yml\"\n        dest: \"/opt/{{ app_name }}/docker-compose.yml.backup\"\n        remote_src: true\n      ignore_errors: true\n    - name: Deploy new compose file\n      ansible.builtin.template:\n        src: docker-compose.yml.j2\n        dest: \"/opt/{{ app_name }}/docker-compose.yml\"\n        mode: \"0644\"\n    - name: Apply the new deployment\n      community.docker.docker_compose_v2:\n        project_src: \"/opt/{{ app_name }}\"\n        state: present\n        pull: always\n      register: deploy_result\n    - name: Verify deployment health\n      ansible.builtin.uri:\n        url: \"http://localhost:3000/health\"\n      register: health\n      until: health.status == 200\n      retries: 12\n      delay: 10\n      ignore_errors: true\n    # Rollback block\n    - name: Rollback if health check failed\n      when: health is failed\n      block:\n        - name: Restore previous compose file\n          ansible.builtin.copy:\n            src: \"/opt/{{ app_name }}/docker-compose.yml.backup\"\n            dest: \"/opt/{{ app_name }}/docker-compose.yml\"\n            remote_src: true\n        - name: Apply rollback\n          community.docker.docker_compose_v2:\n            project_src: \"/opt/{{ app_name }}\"\n            state: present\n        - name: Report rollback\n          ansible.builtin.debug:\n            msg: \"Deployment of {{ app_version }} failed. Rolled back to previous version.\"\n        - name: Fail the playbook\n          ansible.builtin.fail:\n            msg: \"Deployment failed health check. Rollback completed.\"\n```\n## Environment File Management\nInstead of hardcoding values, use environment files.\n```yaml\n# deploy-with-env.yml - Deploy using environment files\n---\n- name: Deploy with Environment Files\n  hosts: docker_hosts\n  become: true\n  vars:\n    app_name: \"myapp\"\n    db_password: \"{{ vault_db_password }}\"\n    api_secret: \"{{ vault_api_secret }}\"\n  tasks:\n    - name: Create environment file (secrets)\n      ansible.builtin.copy:\n        content: |\n          POSTGRES_PASSWORD={{ db_password }}\n          API_SECRET={{ api_secret }}\n          JWT_SECRET={{ vault_jwt_secret }}\n        dest: \"/opt/{{ app_name }}/.env\"\n        mode: \"0600\"\n      no_log: true\n    - name: Deploy compose with .env file\n      community.docker.docker_compose_v2:\n        project_src: \"/opt/{{ app_name }}\"\n        state: present\n        env_files:\n          - \".env\"\n```\n## Cleaning Up\n```yaml\n# cleanup-compose.yml - Tear down a Compose project completely\n---\n- name: Cleanup Docker Compose Project\n  hosts: docker_hosts\n  become: true\n  vars:\n    app_name: \"myapp\"\n  tasks:\n    - name: Bring down the compose project\n      community.docker.docker_compose_v2:\n        project_src: \"/opt/{{ app_name }}\"\n        state: absent\n        remove_volumes: true\n        remove_images: all\n    - name: Remove application directory\n      ansible.builtin.file:\n        path: \"/opt/{{ app_name }}\"\n        state: absent\n    - name: Prune unused Docker resources\n      community.docker.docker_prune:\n        containers: true\n        images: true\n        networks: true\n        volumes: false\n```\n## Best Practices\n1. **Template your compose files.** Hard-coding values in compose files makes them environment-specific. Use Jinja2 templates to generate compose files for each environment.\n2. **Use Ansible Vault for secrets.** Never store passwords in plain text compose files or `.env` files checked into version control.\n3. **Implement health checks.** Always verify that services are healthy after deployment. Automated rollback on health check failure prevents bad deployments from persisting.\n4. **Keep backup compose files.** Before every deployment, back up the current compose file so you can roll back quickly.\n5. **Use `restart: unless-stopped`** for all production services. This ensures containers come back after host reboots.\n6. **Pin image versions.** Never use `latest` in production compose files. Always specify exact version tags.\n7. **Separate data from configuration.** Use named volumes for data and bind mounts (or configs) for configuration files.\n## Conclusion\nCombining Ansible with Docker Compose gives you the best of both worlds: Compose's clean multi-container definitions and Ansible's cross-server automation, templating, and secret management. Whether you are deploying a simple web application or a complex microservices stack, this combination provides reliable, repeatable deployments with built-in rollback capabilities. The key is to treat your compose files as templates, manage secrets with Ansible Vault, and always verify deployment health before declaring success."
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible docker_volume Module -- Manage Docker Volumes"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Handle failures gracefully\n  block:\n    - name: Attempt configuration\n      community.docker.docker_volume:\n        name: example\n        state: present\n  rescue:\n    - name: Log failure\n      ansible.builtin.debug:\n        msg: \"Failed to configure docker_volume: {{ ansible_failed_result.msg }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible AWX Operator - Create A Custom E... | ByteGoblin.io"
+      },
+      {
+        "from": "gpt",
+        "value": "apiVersion: awx.ansible.com/v1\nkind: ExecutionEnvironment\nmetadata:\n  name: custom-ansible-env\nspec:\n  image: yourregistry/custom-ansible-env:latest"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Disable Kernel Parameter for IPv6 Forwarding by default"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Gather the package facts\n  package_facts:\n    manager: auto\n  tags:\n  - CCE-88884-2\n  - NIST-800-53-CM-6(b)\n  - NIST-800-53-CM-6.1(iv)\n  - disable_strategy\n  - low_complexity\n  - medium_disruption\n  - medium_severity\n  - reboot_required\n  - sysctl_net_ipv6_conf_default_forwarding\n- name: XCCDF Value sysctl_net_ipv6_conf_default_forwarding_value # promote to variable\n  set_fact:\n    sysctl_net_ipv6_conf_default_forwarding_value: !!str 0\n  tags:\n    - always\n- name: Disable Kernel Parameter for IPv6 Forwarding by default - Set fact for sysctl\n    paths\n  ansible.builtin.set_fact:\n    sysctl_paths:\n    - /etc/sysctl.d/\n    - /run/sysctl.d/\n    - /usr/local/lib/sysctl.d/\n  when: '\"kernel-core\" in ansible_facts.packages'\n  tags:\n  - CCE-88884-2\n  - NIST-800-53-CM-6(b)\n  - NIST-800-53-CM-6.1(iv)\n  - disable_strategy\n  - low_complexity\n  - medium_disruption\n  - medium_severity\n  - reboot_required\n  - sysctl_net_ipv6_conf_default_forwarding\n- name: Disable Kernel Parameter for IPv6 Forwarding by default - Find all files that\n    contain net.ipv6.conf.default.forwarding\n  ansible.builtin.shell:\n    cmd: find -L {{ sysctl_paths | join(\" \") }} -type f -name '*.conf' | xargs grep\n      -HP '^\\s*net.ipv6.conf.default.forwarding\\s*=\\s*.*$'\n  register: find_all_values\n  check_mode: false\n  changed_when: false\n  failed_when: false\n  when: '\"kernel-core\" in ansible_facts.packages'\n  tags:\n  - CCE-88884-2\n  - NIST-800-53-CM-6(b)\n  - NIST-800-53-CM-6.1(iv)\n  - disable_strategy\n  - low_complexity\n  - medium_disruption\n  - medium_severity\n  - reboot_required\n  - sysctl_net_ipv6_conf_default_forwarding\n- name: Disable Kernel Parameter for IPv6 Forwarding by default - Find all files that\n    set net.ipv6.conf.default.forwarding to correct value\n  ansible.builtin.shell:\n    cmd: find -L {{ sysctl_paths | join(\" \") }} -type f -name '*.conf' | xargs grep\n      -HP '^\\s*net.ipv6.conf.default.forwarding\\s*=\\s*{{ sysctl_net_ipv6_conf_default_forwarding_value\n      }}$'\n  register: find_correct_value\n  check_mode: false\n  changed_when: false\n  failed_when: false\n  when: '\"kernel-core\" in ansible_facts.packages'\n  tags:\n  - CCE-88884-2\n  - NIST-800-53-CM-6(b)\n  - NIST-800-53-CM-6.1(iv)\n  - disable_strategy\n  - low_complexity\n  - medium_disruption\n  - medium_severity\n  - reboot_required\n  - sysctl_net_ipv6_conf_default_forwarding\n- name: Disable Kernel Parameter for IPv6 Forwarding by default - Comment out any\n    occurrences of net.ipv6.conf.default.forwarding from config files\n  ansible.builtin.replace:\n    path: '{{ item | split(\":\") | first }}'\n    regexp: ^[\\s]*net.ipv6.conf.default.forwarding\n    replace: '#net.ipv6.conf.default.forwarding'\n  loop: '{{ find_all_values.stdout_lines }}'\n  when:\n  - '\"kernel-core\" in ansible_facts.packages'\n  - find_correct_value.stdout_lines | length == 0 or find_all_values.stdout_lines\n    | length > find_correct_value.stdout_lines | length\n  tags:\n  - CCE-88884-2\n  - NIST-800-53-CM-6(b)\n  - NIST-800-53-CM-6.1(iv)\n  - disable_strategy\n  - low_complexity\n  - medium_disruption\n  - medium_severity\n  - reboot_required\n  - sysctl_net_ipv6_conf_default_forwarding\n- name: Disable Kernel Parameter for IPv6 Forwarding by default - Comment out any\n    occurrences of net.ipv6.conf.default.forwarding from /etc/sysctl.conf\n  ansible.builtin.replace:\n    path: '{{ item }}'\n    regexp: ^[\\s]*net.ipv6.conf.default.forwarding\n    replace: '#net.ipv6.conf.default.forwarding'\n  with_fileglob:\n  - /etc/sysctl.conf\n  when: '\"kernel-core\" in ansible_facts.packages'\n  tags:\n  - CCE-88884-2\n  - NIST-800-53-CM-6(b)\n  - NIST-800-53-CM-6.1(iv)\n  - disable_strategy\n  - low_complexity\n  - medium_disruption\n  - medium_severity\n  - reboot_required\n  - sysctl_net_ipv6_conf_default_forwarding\n- name: Disable Kernel Parameter for IPv6 Forwarding by default - Ensure sysctl net.ipv6.conf.default.forwarding\n    is set\n  ansible.posix.sysctl:\n    name: net.ipv6.conf.default.forwarding\n    value: '{{ sysctl_net_ipv6_conf_default_forwarding_value }}'\n    sysctl_file: /etc/sysctl.d/net_ipv6_conf_default_forwarding.conf\n    state: present\n    reload: true\n  when: '\"kernel-core\" in ansible_facts.packages'\n  tags:\n  - CCE-88884-2\n  - NIST-800-53-CM-6(b)\n  - NIST-800-53-CM-6.1(iv)\n  - disable_strategy\n  - low_complexity\n  - medium_disruption\n  - medium_severity\n  - reboot_required\n  - sysctl_net_ipv6_conf_default_forwarding"
       }
     ]
   }

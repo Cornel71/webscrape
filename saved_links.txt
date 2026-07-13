@@ -2448,3 +2448,51 @@ https://docs.datadoghq.com/security/default_rules/def-000-1am/
 https://www.powershellgallery.com/packages?q=Tags:"cis"
 https://git.hubp.de/topics/group-policy
 https://foorshop.com/dev/automate-your-server-hardening-and-laugh-at-hackers-how-to-use-cis-build-kit
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://awesome-repositories.com/f/devops-infrastructure/ansible-playbooks/playbook-quality-analysis
+https://speakerdeck.com/svg/some-ansible-best-practices
+https://foorshop.com/dev/ansible-best-practices-how-to-install-nginx-using-ansible
+https://bugs.launchpad.net/openstack-ansible/+bug/1640144
+https://ansibledaily.com/author/berlic/
+https://opendev.org/openstack/openstack-ansible-lxc_hosts/commit/da4f62b006177d67d9f5089938b27482d70acfb0
+https://www.ansiblebyexample.com/articles/ansible-lint-validate-improve-playbooks
+https://www.cherryservers.com/blog/how-to-create-and-use-ansible-playbooks
+https://medium.com/@nikira8086/day-58-ansible-playbooks-7cb60b2fcbd9
+https://docs.ansible.com/ansible/4/collections/ansible/posix/profile_tasks_callback.html
+https://github.com/root4oz/SIEM-Analysis
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://itsfoss.gitlab.io/post/how-to-use-ansible-vault-to-protect-sensitive-playbook-data/
+https://www.geeksforgeeks.org/git/gitlab-ssh-key-setup/
+https://arenda-server.cloud/blog/nastrojka-ssh-autentifikacii-po-kljuchu-na-linux-servere/
+https://www.systemshardening.com/articles/cross-cutting/hardening-baseline-automation/
+https://medium.com/@gouravgmidya/how-i-logged-into-my-friends-laptop-without-a-password-securely-6faf0a371c02
+https://dev.co/security/open-source/ansible-role-hardening
+https://www.webkkk.net/dev-sec
+https://docs.digital.ai/release/docs/next/tags/plugin
+https://docs.openstack.org/kolla-ansible/latest/user/ansible-tuning.html
+https://teachmenetworking.tech/configuration-management-tools-ansible-chef-puppet/
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://www.eloxtech.com/blog/how-to-simplify-infrastructure-as-code-iac-with-terraform-and-ansible/
+https://www.decryptiondigest.com/blog/ansible-security-hardening-automation-cis-benchmark-guide
+https://github.com/ansible-lockdown/UBUNTU20-CIS
+https://foorshop.com/dev/cis-benchmark-testing-linux-hardening-omar-santos
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://www.hostinger.com/tutorials/how-to-use-ansible-to-install-docker/
+https://www.ansiblepilot.com/articles/using-docker-containers-with-molecule-for-ansible-testing
+
+=========================================
+ 📂 CATEGORY: POSTGRESQL DATABASE MANAGEMENT
+=========================================
+https://github.com/OneUptime/blog/blob/master/posts/2026-02-21-ansible-create-postgresql-users/README.md

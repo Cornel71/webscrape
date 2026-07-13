@@ -1263,19 +1263,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Ansible Performance & Optimization - Forks, Async & Strategies | Teach me Ansible"
-      },
-      {
-        "from": "gpt",
-        "value": "# Execution strategies\nstrategy: linear              # Default, sequential\nstrategy: free                # Parallel, independent\nstrategy: debug               # Interactive debugging\n# Parallelization\nforks = 50                    # In ansible.cfg\nansible-playbook -f 50        # Command line\n# Serial batches\nserial: 5                     # Fixed batch size\nserial: \"20%\"                 # Percentage\nserial: [1, 5, \"50%\"]         # Progressive\n# Async tasks\nasync: 3600                   # Max runtime\npoll: 0                       # Fire and forget\npoll: 30                      # Poll every 30s\n# Fact caching\ngathering = smart             # Use cache\nfact_caching = jsonfile       # Cache backend\nfact_caching_timeout = 86400  # 24 hours\n# SSH optimization\npipelining = True\nssh_args = -o ControlMaster=auto -o ControlPersist=60s\n# Profiling\ncallback_whitelist = profile_tasks,timer\n# Task controls\nthrottle: 5                   # Limit concurrency\nrun_once: true                # Run on one host only"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Python script for: Medium"
+        "value": "Python script for: Ansible Security Automation: Risks & 7 Best Practices | by Spacelift | Spacelift | Medium"
       },
       {
         "from": "gpt",
@@ -1803,23 +1791,11 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Medium"
+        "value": "Python script for: Use Molecule & Gitlab-CI to Automate Testing of Ansible Roles | by Keir Whitlock | Medium"
       },
       {
         "from": "gpt",
         "value": "...--> Executing Testinfra tests found in /Users/keirwhitlock/development/ansible.role.example/molecule/aws-ec2/tests/...    ============================= test session starts ==============================    platform darwin -- Python 3.6.2, pytest-5.3.2, py-1.8.0, pluggy-0.13.1    rootdir: /Users/keirwhitlock/development/ansible.role.example/molecule/aws-ec2    plugins: testinfra-3.3.0collected 2 itemstests/test_default.py ..                                                 [100%]============================== 2 passed in 3.64s ===============================Verifier completed successfully.--> Scenario: 'aws-ec2'--> Action: 'cleanup'Skipping, cleanup playbook not configured.--> Scenario: 'aws-ec2'--> Action: 'destroy'PLAY [Destroy] *****************************************************************TASK [Populate instance config] ************************************************    ok: [localhost]TASK [Destroy molecule instance(s)] ********************************************    changed: [localhost] => (item=None)    changed: [localhost]TASK [Wait for instance(s) deletion to complete] *******************************    FAILED - RETRYING: Wait for instance(s) deletion to complete (300 retries left).    changed: [localhost] => (item=None)    changed: [localhost]TASK [Populate instance config] ************************************************    ok: [localhost]TASK [Dump instance config] ****************************************************    changed: [localhost]PLAY RECAP *********************************************************************    localhost                  : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0--> Pruning extra files from scenario ephemeral directory"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Python script for: Ansible Security Automation: Automating Compliance & Remediation | Aicademy"
-      },
-      {
-        "from": "gpt",
-        "value": "1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n---\n- name: Remediate critical CVE-2026-1234\n  hosts: vulnerable_hosts  # Inventory group populated by the scanner/SOAR\n  become: true\n  vars:\n    vulnerable_package: \"openssl\"\n  tasks:\n    - name: \"Update  to the latest version\"\n      ansible.builtin.dnf:\n        name: \"\"\n        state: latest\n      when: ansible_os_family == \"RedHat\"\n    - name: \"Update  to the latest version on Debian systems\"\n      ansible.builtin.apt:\n        name: \"\"\n        state: latest\n        update_cache: yes\n      when: ansible_os_family == \"Debian\"\n    - name: Verify package version after update\n      ansible.builtin.command: \"rpm -q \"\n      register: package_version\n      when: ansible_os_family == \"RedHat\"\n    - name: Log the new version for audit\n      ansible.builtin.debug:\n        msg: \"Patched  with \""
       }
     ]
   },
@@ -1887,7 +1863,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Medium"
+        "value": "Python script for: Let's Encrypt with Ansible. Generate your SSL certificates... | by Bryce Guinta | Level Up Coding"
       },
       {
         "from": "gpt",
@@ -2439,7 +2415,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Medium"
+        "value": "Python script for: Creating PostgreSQL Database With Ansible | by Vince Sesto | Splunk User Developer Administrator | Medium"
       },
       {
         "from": "gpt",
@@ -2679,6 +2655,30 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Python script for: Ansible Tutorial â SSH Key Setup -"
+      },
+      {
+        "from": "gpt",
+        "value": "# Test passwordless SSH\n$ ssh deploy@server1.example.com\n# You should connect without a password prompt\n# Type 'exit' to return\n# Test from Ansible\n$ ansible all -m ping\nserver1 | SUCCESS => {\n    \"changed\": false,\n    \"ping\": \"pong\"\n}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible Tutorial â SSH Key Management -"
+      },
+      {
+        "from": "gpt",
+        "value": "# group_vars/all.yml\nteam_users:\n  - name: alice\n    groups: developers,docker\n    ssh_key: \"ssh-ed25519 AAAAC3... alice@work\"\n    state: present\n  - name: bob\n    groups: developers\n    ssh_key: \"ssh-ed25519 BBBBC3... bob@work\"\n    state: present\n  - name: charlie\n    groups: developers\n    ssh_key: \"\"\n    state: absent\n# tasks\n- name: Manage users\n  ansible.builtin.user:\n    name: \"{{ item.name }}\"\n    groups: \"{{ item.groups | default(omit) }}\"\n    state: \"{{ item.state }}\"\n    remove: \"{{ true if item.state == 'absent' else false }}\"\n  loop: \"{{ team_users }}\"\n- name: Manage SSH keys\n  ansible.posix.authorized_key:\n    user: \"{{ item.name }}\"\n    key: \"{{ item.ssh_key }}\"\n    state: present\n  loop: \"{{ team_users }}\"\n  when: item.state == 'present' and item.ssh_key != ''"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Python script for: Ansible Firewall -- firewalld & UFW | AnsibleByExample"
       },
       {
@@ -2775,7 +2775,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Medium"
+        "value": "Python script for: Automating Incident Response: Leveraging Grafana Alerts and Ansible Playbooks to Resolve Issues | by Ibukun Fadareak Balogun | Medium"
       },
       {
         "from": "gpt",
@@ -2931,7 +2931,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Ansible troubleshooting -- Error no-free-form | by Luca Berton | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -3027,7 +3027,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Medium"
+        "value": "Python script for: 🚀 Ansible Vault Explained with a Real AWS + Terraform + Ansible Demo | by Sabir Ali Shaik | AWS in Plain English"
       },
       {
         "from": "gpt",
@@ -3135,7 +3135,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Medium"
+        "value": "Python script for: SSH hardening. Bots methodically hammering port 22... | by Sgaunet | Medium"
       },
       {
         "from": "gpt",
@@ -3411,7 +3411,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Linting your Ansible Playbooks and make a Continuous Integration(CI) Solution | by Abhijeet Kamble | FAUN.dev() 🐾"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -4155,18 +4155,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Testing & Debugging Ansible - Molecule, Ansible-Test & Debugging | Teach me Ansible"
-      },
-      {
-        "from": "gpt",
-        "value": "# Install Testinfra\npip install molecule-plugins[docker] pytest-testinfra\n# molecule/default/tests/test_default.py\nimport os\nimport testinfra.utils.ansible_runner\ntestinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(\n    os.environ['MOLECULE_INVENTORY_FILE']\n).get_hosts('all')\ndef test_nginx_installed(host):\n    nginx = host.package('nginx')\n    assert nginx.is_installed\ndef test_nginx_running(host):\n    nginx = host.service('nginx')\n    assert nginx.is_running\n    assert nginx.is_enabled\ndef test_nginx_listening(host):\n    assert host.socket('tcp://0.0.0.0:80').is_listening"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Python script for: Automating Firewall Configs with Ansible + Python | by Samar Zemeer | Medium"
       },
       {
@@ -4611,6 +4599,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Python script for: Ansible Advanced â Zero-Downtime Deployment -"
+      },
+      {
+        "from": "gpt",
+        "value": "- hosts: webservers\n  become: true\n  serial: \"25%\"                    # Update 25% at a time\n  max_fail_percentage: 0           # Stop if ANY host fails\n  pre_tasks:\n    - name: Deregister from ALB\n      community.aws.elb_target:\n        target_group_arn: \"{{ '{{ alb_target_group_arn }}' }}\"\n        target_id: \"{{ '{{ ec2_instance_id }}' }}\"\n        state: absent\n      delegate_to: localhost\n    - name: Wait for connections to drain\n      ansible.builtin.pause:\n        seconds: 30\n  roles:\n    - deploy-app\n  post_tasks:\n    - name: Wait for app to be healthy\n      ansible.builtin.uri:\n        url: \"http://localhost:{{ '{{ app_port }}' }}/health\"\n        status_code: 200\n      register: health\n      until: health.status == 200\n      retries: 30\n      delay: 5\n    - name: Re-register with ALB\n      community.aws.elb_target:\n        target_group_arn: \"{{ '{{ alb_target_group_arn }}' }}\"\n        target_id: \"{{ '{{ ec2_instance_id }}' }}\"\n        target_port: \"{{ '{{ app_port }}' }}\"\n        state: present\n      delegate_to: localhost\n    - name: Wait for ALB health check\n      ansible.builtin.pause:\n        seconds: 15"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Python script for: README.md"
       },
       {
@@ -4791,7 +4791,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: CIS Benchmark of Ubuntu 22.04. OpenSCAP Security Guide | by Aizhamal Nazhimidinova | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -4887,7 +4887,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Medium"
+        "value": "Python script for: HashiCorp Vault with AWS KMS, Terraform, and Ansible: A Practical Guide | by Sabir Ali Shaik | AWS in Plain English"
       },
       {
         "from": "gpt",
@@ -5139,18 +5139,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: NETWORK-L2 Supplemental 207: ISP Automation with Ansible: Config at Scale | zerosday"
-      },
-      {
-        "from": "gpt",
-        "value": "- name: Configure OSPF\n  hosts: routers\n  gather_facts: false\n  vars:\n    ospf_process_id: 1\n    ospf_area: 0\n  tasks:\n    - name: Generate OSPF configuration\n      template:\n        src: templates/ospf_config.j2\n        dest: \"/home/ansible/configs/{{ inventory_hostname }}_ospf.conf\"\n      vars:\n        interface_ip: \"{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}\"\n        interface_wildcard_mask: \"0.0.0.0\" # Example, would be dynamic in real scenario\n        passive_interface: \"GigabitEthernet0/1\"\n        ospf_neighbors: \"{{ hostvars[inventory_hostname]['ospf_neighbor_ips'] | default([]) }}\" # Dynamic from facts or vars"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Ansible Playbook for: workshops | Training Course for Ansible Automation Platform"
       },
       {
@@ -5331,18 +5319,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: NETWORK-L2 Supplemental 247: ISP Automation with Ansible: Config at Scale | zerosday"
-      },
-      {
-        "from": "gpt",
-        "value": "#!/usr/bin/env python\nfrom scapy.all import IP, ICMP, sr1\ndef ping_host(target_ip, interface=\"eth0\"):\n    \"\"\"Pings a target IP address and returns True if successful, False otherwise.\"\"\"\n    try:\n        reply = sr1(IP(dst=target_ip)/ICMP(), timeout=2, verbose=False, iface=interface)\n        if reply:\n            return True\n        else:\n            return False\n    except Exception as e:\n        print(f\"Error during ping: {e}\")\n        return False\nif __name__ == \"__main__\":\n    import sys\n    if len(sys.argv) != 2:\n        print(\"Usage: python ping_script.py <target_ip>\")\n        sys.exit(1)\n    target = sys.argv[1]\n    if ping_host(target):\n        print(f\"Ping to {target} successful.\")\n        sys.exit(0)\n    else:\n        print(f\"Ping to {target} failed.\")\n        sys.exit(1)"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Python script for: Day 28: Advanced Security Practices in Ansible 🔒🛡️ | by Vinoth Subbiah | Medium"
       },
       {
@@ -5439,18 +5415,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: NETWORK-L2 Supplemental 143: ISP Automation with Ansible: Config at Scale | zerosday"
-      },
-      {
-        "from": "gpt",
-        "value": "# validate_arp.py\nfrom scapy.all import ARP, Ether, srp\ndef verify_arp_resolution(target_ip, source_ip, interface):\n    \"\"\"\n    Sends an ARP request and checks for a reply.\n    \"\"\"\n    try:\n        # Craft the ARP request\n        arp_request = ARP(pdst=target_ip)\n        # Craft the Ethernet frame\n        ether_frame = Ether(dst=\"ff:ff:ff:ff:ff:ff\") # Broadcast MAC\n        packet = ether_frame / arp_request\n        print(f\"Sending ARP request for {target_ip} from {source_ip} on {interface}...\")\n        # Send and receive packets, waiting for a response\n        answered, unanswered = srp(packet, timeout=2, verbose=False, iface=interface)\n        if answered:\n            print(f\"ARP reply received from {answered[0][1].hwsrc} ({answered[0][1].psrc})\")\n            return True\n        else:\n            print(f\"No ARP reply received for {target_ip}.\")\n            return False\n    except Exception as e:\n        print(f\"An error occurred: {e}\")\n        return False\nif __name__ == \"__main__\":\n    # These values would typically be passed from an Ansible playbook\n    # For demonstration, we'll hardcode them.\n    TARGET_IP = \"192.168.10.2\"  # The IP of the neighbor device\n    SOURCE_IP = \"192.168.10.1\"  # The IP configured on our device\n    NETWORK_INTERFACE = \"eth0\"  # The network interface on the Ansible control node\n    if verify_arp_resolution(TARGET_IP, SOURCE_IP, NETWORK_INTERFACE):\n        print(\"ARP resolution successful!\")\n    else:\n        print(\"ARP resolution failed.\")"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Python script for: Ansible - to be continuous"
       },
       {
@@ -5463,7 +5427,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Medium"
+        "value": "Python script for: Automating CI/CD Pipelines for Ansible with GitLab and Azure | by Alex Benavides | Medium"
       },
       {
         "from": "gpt",
@@ -5583,18 +5547,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Loops -- Ansible Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "- name: Fail if return code is not 0\n  fail:\n    msg: \"The command ({{ item.cmd }}) did not have a 0 return code\"\n  when: item.rc != 0\n  loop: \"{{ echo.results }}\""
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Python script for: Ansible selectattr Filter: Filter a List by Attribute Value"
       },
       {
@@ -5691,7 +5643,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Medium"
+        "value": "Python script for: Secure Ansible Automation: Are You Doing It Right? | by Kedar Pethe | Stackademic"
       },
       {
         "from": "gpt",
@@ -5780,18 +5732,6 @@
       {
         "from": "gpt",
         "value": "---\n- name: Rolling deployment\n  hosts: webservers\n  serial: 1\n  become: true\n  pre_tasks:\n    - name: Remove from load balancer\n      ansible.builtin.uri:\n        url: \"http://lb.internal/api/backends/{{ inventory_hostname }}\"\n        method: DELETE\n      delegate_to: localhost\n    - name: Wait for connections to drain\n      ansible.builtin.wait_for:\n        timeout: 30\n  tasks:\n    - name: Pull latest image\n      community.docker.docker_image:\n        name: myapp\n        tag: \"{{ app_version }}\"\n        source: pull\n    - name: Restart application\n      community.docker.docker_container:\n        name: myapp\n        image: \"myapp:{{ app_version }}\"\n        state: started\n        restart: true\n    - name: Wait for health check\n      ansible.builtin.uri:\n        url: \"http://localhost:8080/health\"\n        status_code: 200\n      register: health\n      until: health.status == 200\n      retries: 30\n      delay: 2\n  post_tasks:\n    - name: Add back to load balancer\n      ansible.builtin.uri:\n        url: \"http://lb.internal/api/backends\"\n        method: POST\n        body_format: json\n        body:\n          host: \"{{ inventory_hostname }}\"\n      delegate_to: localhost"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Python script for: Error Handling in Ansible - Blocks, Rescue & Failed When | Teach me Ansible"
-      },
-      {
-        "from": "gpt",
-        "value": "# Example 1: Database backup with rollback\n- block:\n    - name: Backup database\n      shell: pg_dump mydb > /backup/mydb.sql\n    - name: Apply migrations\n      command: /opt/app/migrate.sh\n    - name: Restart application\n      systemd:\n        name: myapp\n        state: restarted\n  rescue:\n    - name: Restore from backup\n      shell: psql mydb < /backup/mydb.sql\n    - name: Alert admins\n      debug:\n        msg: \"Migration failed, database restored from backup\"\n    - fail:\n        msg: \"Deployment aborted due to migration failure\"\n  always:\n    - name: Remove temporary files\n      file:\n        path: /tmp/migration_temp\n        state: absent\n# Example 2: Network configuration with rollback\n- block:\n    - name: Backup network config\n      copy:\n        src: /etc/network/interfaces\n        dest: /tmp/interfaces.backup\n        remote_src: yes\n    - name: Apply new network config\n      template:\n        src: interfaces.j2\n        dest: /etc/network/interfaces\n    - name: Restart networking\n      systemd:\n        name: networking\n        state: restarted\n    - name: Test connectivity\n      wait_for:\n        host: 8.8.8.8\n        port: 53\n        timeout: 10\n  rescue:\n    - name: Restore old config\n      copy:\n        src: /tmp/interfaces.backup\n        dest: /etc/network/interfaces\n        remote_src: yes\n    - name: Restart networking\n      systemd:\n        name: networking\n        state: restarted\n    - fail:\n        msg: \"Network configuration failed, reverted to backup\""
       }
     ]
   },
@@ -6255,7 +6195,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Medium"
+        "value": "Python script for: Mastering Azure Management with Ansible: A Practical Guide for Multi-Environment Integration | by Warley's CatOps | AWS in Plain English"
       },
       {
         "from": "gpt",
@@ -6771,18 +6711,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: ansible-security-scanner · PyPI"
-      },
-      {
-        "from": "gpt",
-        "value": "ansible-security-scanner/                      # repo root (hyphenated - matches PyPI)\n├── pyproject.toml                             # packaging + pytest + hatch-vcs\n├── README.md\n├── CONTRIBUTING.md\n├── RELEASING.md                               # maintainer release runbook\n├── LICENSE / NOTICE                           # Apache-2.0 + attribution terms\n├── main.py                                    # local dev entry point (py main.py ...)\n├── .github/workflows/                         # CI, release, docs workflows\n├── .hugo/                                     # Hugo documentation site\n│   ├── scripts/build_docs.py                  # Generates Hugo content from docs/ + patterns\n│   └── content/                               # Generated .md pages (do not edit by hand)\n├── docs/                                      # Long-form prose docs (source of truth)\n│   ├── assets/                                # Images & SVGs the README references\n│   ├── cli.md                                 # CLI Reference (and exit codes, suppressions, dedup)\n│   ├── environment.md                         # Environment Variables\n│   ├── api.md                                 # Programmatic API\n│   ├── output-formats.md\n│   ├── allowlist.md\n│   ├── ci-cd.md\n│   ├── mr-pr-comments.md\n│   ├── custom-patterns.md\n│   ├── scoring.md\n│   ├── testing.md\n│   ├── limitations.md\n│   └── releasing.md\n├── src/\n│   └── ansible_security_scanner/              # the Python package\n│       ├── cli.py                             # CLI (--directory, --fix, --compliance, ...)\n│       ├── scanner.py                         # Multi-pass orchestrator\n│       ├── file_scanner.py                    # Per-file rules (line patterns, AST walkers)\n│       ├── taint_tracker.py                   # Cross-file taint analysis\n│       ├── fix_proposer.py                    # Dry-run unified-diff patch generator\n│       ├── dependency_collector.py            # SBOM inventory\n│       ├── suppressions.py                    # Inline `# nosec` parser\n│       ├── models.py                          # SecurityFinding, ScanReport, SecurityScore\n│       ├── score_calculator.py                # Severity-weighted scoring\n│       ├── patterns_manager.py                # Loads pattern YAML plugins\n│       ├── patterns/                          # 29+ YAML pattern plugins (auto-discovered)\n│       ├── remediations/                      # One module per category\n│       └── formatters/                        # markdown, json, xml, yaml, csv, html, junit, sarif, gitlab_sast, cyclonedx\n└── tests/\n    ├── test_integration.py                    # End-to-end scanner tests\n    ├── test_formatters.py                     # Formatter unit tests\n    ├── test_remediations.py                   # Remediation generator unit tests\n    └── playbooks/\n        ├── bad_example.yml                    # Triggers every rule (100% coverage)\n        ├── clean_example.yml                  # Zero findings (false-positive guard)\n        ├── multi_example_bad/                 # 6-file role fixture (cross-file taint)\n        └── multi_example_clean/               # 6-file hardened role fixture (zero findings)"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Python script for: Ansible microsoft.scom Module Example: Alert Routing to EDA"
       },
       {
@@ -6956,6 +6884,78 @@
       {
         "from": "gpt",
         "value": "- name: Gather the package facts\n  package_facts:\n    manager: auto\n  tags:\n  - CCE-88884-2\n  - NIST-800-53-CM-6(b)\n  - NIST-800-53-CM-6.1(iv)\n  - disable_strategy\n  - low_complexity\n  - medium_disruption\n  - medium_severity\n  - reboot_required\n  - sysctl_net_ipv6_conf_default_forwarding\n- name: XCCDF Value sysctl_net_ipv6_conf_default_forwarding_value # promote to variable\n  set_fact:\n    sysctl_net_ipv6_conf_default_forwarding_value: !!str 0\n  tags:\n    - always\n- name: Disable Kernel Parameter for IPv6 Forwarding by default - Set fact for sysctl\n    paths\n  ansible.builtin.set_fact:\n    sysctl_paths:\n    - /etc/sysctl.d/\n    - /run/sysctl.d/\n    - /usr/local/lib/sysctl.d/\n  when: '\"kernel-core\" in ansible_facts.packages'\n  tags:\n  - CCE-88884-2\n  - NIST-800-53-CM-6(b)\n  - NIST-800-53-CM-6.1(iv)\n  - disable_strategy\n  - low_complexity\n  - medium_disruption\n  - medium_severity\n  - reboot_required\n  - sysctl_net_ipv6_conf_default_forwarding\n- name: Disable Kernel Parameter for IPv6 Forwarding by default - Find all files that\n    contain net.ipv6.conf.default.forwarding\n  ansible.builtin.shell:\n    cmd: find -L {{ sysctl_paths | join(\" \") }} -type f -name '*.conf' | xargs grep\n      -HP '^\\s*net.ipv6.conf.default.forwarding\\s*=\\s*.*$'\n  register: find_all_values\n  check_mode: false\n  changed_when: false\n  failed_when: false\n  when: '\"kernel-core\" in ansible_facts.packages'\n  tags:\n  - CCE-88884-2\n  - NIST-800-53-CM-6(b)\n  - NIST-800-53-CM-6.1(iv)\n  - disable_strategy\n  - low_complexity\n  - medium_disruption\n  - medium_severity\n  - reboot_required\n  - sysctl_net_ipv6_conf_default_forwarding\n- name: Disable Kernel Parameter for IPv6 Forwarding by default - Find all files that\n    set net.ipv6.conf.default.forwarding to correct value\n  ansible.builtin.shell:\n    cmd: find -L {{ sysctl_paths | join(\" \") }} -type f -name '*.conf' | xargs grep\n      -HP '^\\s*net.ipv6.conf.default.forwarding\\s*=\\s*{{ sysctl_net_ipv6_conf_default_forwarding_value\n      }}$'\n  register: find_correct_value\n  check_mode: false\n  changed_when: false\n  failed_when: false\n  when: '\"kernel-core\" in ansible_facts.packages'\n  tags:\n  - CCE-88884-2\n  - NIST-800-53-CM-6(b)\n  - NIST-800-53-CM-6.1(iv)\n  - disable_strategy\n  - low_complexity\n  - medium_disruption\n  - medium_severity\n  - reboot_required\n  - sysctl_net_ipv6_conf_default_forwarding\n- name: Disable Kernel Parameter for IPv6 Forwarding by default - Comment out any\n    occurrences of net.ipv6.conf.default.forwarding from config files\n  ansible.builtin.replace:\n    path: '{{ item | split(\":\") | first }}'\n    regexp: ^[\\s]*net.ipv6.conf.default.forwarding\n    replace: '#net.ipv6.conf.default.forwarding'\n  loop: '{{ find_all_values.stdout_lines }}'\n  when:\n  - '\"kernel-core\" in ansible_facts.packages'\n  - find_correct_value.stdout_lines | length == 0 or find_all_values.stdout_lines\n    | length > find_correct_value.stdout_lines | length\n  tags:\n  - CCE-88884-2\n  - NIST-800-53-CM-6(b)\n  - NIST-800-53-CM-6.1(iv)\n  - disable_strategy\n  - low_complexity\n  - medium_disruption\n  - medium_severity\n  - reboot_required\n  - sysctl_net_ipv6_conf_default_forwarding\n- name: Disable Kernel Parameter for IPv6 Forwarding by default - Comment out any\n    occurrences of net.ipv6.conf.default.forwarding from /etc/sysctl.conf\n  ansible.builtin.replace:\n    path: '{{ item }}'\n    regexp: ^[\\s]*net.ipv6.conf.default.forwarding\n    replace: '#net.ipv6.conf.default.forwarding'\n  with_fileglob:\n  - /etc/sysctl.conf\n  when: '\"kernel-core\" in ansible_facts.packages'\n  tags:\n  - CCE-88884-2\n  - NIST-800-53-CM-6(b)\n  - NIST-800-53-CM-6.1(iv)\n  - disable_strategy\n  - low_complexity\n  - medium_disruption\n  - medium_severity\n  - reboot_required\n  - sysctl_net_ipv6_conf_default_forwarding\n- name: Disable Kernel Parameter for IPv6 Forwarding by default - Ensure sysctl net.ipv6.conf.default.forwarding\n    is set\n  ansible.posix.sysctl:\n    name: net.ipv6.conf.default.forwarding\n    value: '{{ sysctl_net_ipv6_conf_default_forwarding_value }}'\n    sysctl_file: /etc/sysctl.d/net_ipv6_conf_default_forwarding.conf\n    state: present\n    reload: true\n  when: '\"kernel-core\" in ansible_facts.packages'\n  tags:\n  - CCE-88884-2\n  - NIST-800-53-CM-6(b)\n  - NIST-800-53-CM-6.1(iv)\n  - disable_strategy\n  - low_complexity\n  - medium_disruption\n  - medium_severity\n  - reboot_required\n  - sysctl_net_ipv6_conf_default_forwarding"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible lint -- Validate Playbooks | AnsibleByExample"
+      },
+      {
+        "from": "gpt",
+        "value": "# rules/check_tags.py\nfrom ansiblelint.rules import AnsibleLintRule\nclass CheckTagsRule(AnsibleLintRule):\n    id = \"custom-tags\"\n    shortdesc = \"All tasks must have tags\"\n    description = \"Every task should have at least one tag for selective execution\"\n    severity = \"MEDIUM\"\n    tags = [\"custom\"]\n    def matchtask(self, task, file=None):\n        if not task.get(\"tags\"):\n            return True\n        return False"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: How to Create and Use Ansible Playbooks | Cherry Servers"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Ansible list variable example\n  hosts: webserver\n  vars:\n  \toceans:\n  \t  - Indian\n      - Atlantic\n      - Pacific\n      - Artic\n      - Southern Antarctic\n  tasks:\n    - name: Ansible list variables example\n      debug:\n      \tmsg: \"The five oceans in the world are {{ oceans }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: ansible.posix.profile_tasks - adds time information to tasks -- Ansible Documentation"
+      },
+      {
+        "from": "gpt",
+        "value": "example: >\n  To enable, add this to your ansible.cfg file in the defaults block\n    [defaults]\n    callback_whitelist = ansible.posix.profile_tasks\nsample output: >\n#\n#    TASK: [ensure messaging security group exists] ********************************\n#    Thursday 11 June 2017  22:50:53 +0100 (0:00:00.721)       0:00:05.322 *********\n#    ok: [localhost]\n#\n#    TASK: [ensure db security group exists] ***************************************\n#    Thursday 11 June 2017  22:50:54 +0100 (0:00:00.558)       0:00:05.880 *********\n#    changed: [localhost]\n#"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Hardening Baseline Automation: Enforcing and Verifying Security Configuration at Scale"
+      },
+      {
+        "from": "gpt",
+        "value": "# roles/site-hardening/tasks/sysctl.yml\n---\n- name: Apply site-specific kernel hardening\n  ansible.posix.sysctl:\n    name: \"{{ item.key }}\"\n    value: \"{{ item.value }}\"\n    state: present\n    sysctl_file: /etc/sysctl.d/99-site-hardening.conf\n    reload: true\n  loop:\n    - { key: \"kernel.unprivileged_bpf_disabled\", value: \"1\" }\n    - { key: \"net.core.bpf_jit_harden\", value: \"2\" }\n    - { key: \"kernel.yama.ptrace_scope\", value: \"2\" }\n    - { key: \"vm.unprivileged_userfaultfd\", value: \"0\" }\n- name: Disable core dumps for setuid programs\n  ansible.posix.sysctl:\n    name: fs.suid_dumpable\n    value: \"0\"\n    sysctl_file: /etc/sysctl.d/99-site-hardening.conf\n    reload: true"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible Molecule Docker: Test Roles in Containers (Guide)"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Create\n  hosts: localhost\n  gather_facts: false\n  vars:\n    molecule_inventory:\n      all:\n        hosts: {}\n        molecule: {}\n  tasks:\n    - name: Create a container\n      community.docker.docker_container:\n        name: \"{{ item.name }}\"\n        image: \"{{ item.image }}\"\n        state: started\n        command: sleep 1d\n        log_driver: json-file\n      register: result\n      loop: \"{{ molecule_yml.platforms }}\"\n    - name: Print some info\n      ansible.builtin.debug:\n        msg: \"{{ result.results }}\"\n    - name: Fail if container is not running\n      when: >\n        item.container.State.ExitCode != 0 or\n        not item.container.State.Running\n      ansible.builtin.include_tasks:\n        file: tasks/create-fail.yml\n      loop: \"{{ result.results }}\"\n      loop_control:\n        label: \"{{ item.container.Name }}\"\n    - name: Add container to molecule_inventory\n      vars:\n        inventory_partial_yaml: |\n          all:\n            children:\n              molecule:\n                hosts:\n                  \"{{ item.name }}\":\n                    ansible_connection: community.docker.docker\n      ansible.builtin.set_fact:\n        molecule_inventory: >\n          {{ molecule_inventory | combine(inventory_partial_yaml | from_yaml, recursive=true) }}\n      loop: \"{{ molecule_yml.platforms }}\"\n      loop_control:\n        label: \"{{ item.name }}\"\n    - name: Dump molecule_inventory\n      ansible.builtin.copy:\n        content: |\n          {{ molecule_inventory | to_yaml }}\n        dest: \"{{ molecule_ephemeral_directory }}/inventory/molecule_inventory.yml\"\n        mode: \"0600\"\n    - name: Force inventory refresh\n      ansible.builtin.meta: refresh_inventory\n    - name: Fail if molecule group is missing\n      ansible.builtin.assert:\n        that: \"'molecule' in groups\"\n        fail_msg: |\n          molecule group was not found inside inventory groups: {{ groups }}\n      run_once: true # noqa: run-once[task]\n\t- name: Validate that inventory was refreshed\n\t  hosts: molecule\n\t  gather_facts: false\n\t  tasks:\n\t    - name: Check uname\n\t      ansible.builtin.raw: uname -a\n\t      register: result\n\t      changed_when: false\n\t    - name: Display uname info\n\t      ansible.builtin.debug:\n\t        msg: \"{{ result.stdout }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: README.md"
+      },
+      {
+        "from": "gpt",
+        "value": "# How to Use Ansible to Create PostgreSQL Users\nAuthor: [nawazdhandala](https://www.github.com/nawazdhandala)\nTags: Ansible, PostgreSQL, User Management, Security\nDescription: Automate PostgreSQL user and role creation with Ansible including password management, privileges, and connection limits.\n---\nManaging database users manually across multiple servers is tedious and error-prone. Forgetting to create a user on one server, or setting different passwords across environments, leads to application failures that are frustrating to debug. Ansible automates this with the `community.postgresql.postgresql_user` module, which creates users, sets passwords, assigns roles, and manages connection limits idempotently.\nThis post covers creating PostgreSQL users with Ansible, handling passwords securely, setting up application and read-only users, and managing user lifecycle across environments.\n## Prerequisites\nMake sure you have the PostgreSQL community collection installed.\n```bash\n# Install the PostgreSQL collection\nansible-galaxy collection install community.postgresql\n```\n## Creating a Basic User\nHere is the simplest way to create a PostgreSQL user.\n```yaml\n# playbooks/create-pg-users.yml\n# Create basic PostgreSQL users\n---\n- name: Create PostgreSQL users\n  hosts: databases\n  become: true\n  become_user: postgres\n  tasks:\n    - name: Create application user\n      community.postgresql.postgresql_user:\n        name: myapp_user\n        password: \"{{ vault_myapp_db_password }}\"\n        state: present\n```\nThe password should come from Ansible Vault or an external secrets manager. Never hardcode passwords in your playbooks.\n## Creating Multiple Users with Different Privileges\nReal applications need multiple users: an application user for reads and writes, a read-only user for reporting, and an admin user for migrations.\n```yaml\n# playbooks/create-pg-users.yml\n# Create multiple users with specific attributes and privileges\n---\n- name: Create PostgreSQL users\n  hosts: databases\n  become: true\n  become_user: postgres\n  vars:\n    postgresql_users:\n      - name: myapp_admin\n        password: \"{{ vault_myapp_admin_password }}\"\n        role_attr_flags: CREATEDB,CREATEROLE\n        connection_limit: 5\n        comment: \"Admin user for database migrations\"\n      - name: myapp_user\n        password: \"{{ vault_myapp_user_password }}\"\n        role_attr_flags: NOSUPERUSER,NOCREATEDB\n        connection_limit: 50\n        comment: \"Application read/write user\"\n      - name: myapp_readonly\n        password: \"{{ vault_myapp_readonly_password }}\"\n        role_attr_flags: NOSUPERUSER,NOCREATEDB,NOCREATEROLE\n        connection_limit: 20\n        comment: \"Read-only user for reporting\"\n      - name: myapp_backup\n        password: \"{{ vault_myapp_backup_password }}\"\n        role_attr_flags: NOSUPERUSER,NOCREATEDB\n        connection_limit: 2\n        comment: \"Backup user for pg_dump\"\n  tasks:\n    - name: Create PostgreSQL users\n      community.postgresql.postgresql_user:\n        name: \"{{ item.name }}\"\n        password: \"{{ item.password }}\"\n        role_attr_flags: \"{{ item.role_attr_flags | default('NOSUPERUSER') }}\"\n        conn_limit: \"{{ item.connection_limit | default(-1) }}\"\n        comment: \"{{ item.comment | default('') }}\"\n        state: present\n      loop: \"{{ postgresql_users }}\"\n      no_log: true\n```\nThe `no_log: true` directive prevents passwords from appearing in Ansible output.\n## Managing Passwords Securely\nStore passwords in Ansible Vault.\n```bash\n# Create an encrypted variables file for database passwords\nansible-vault create group_vars/databases/vault.yml\n```\n```yaml\n# group_vars/databases/vault.yml (encrypted)\n# Database user passwords - encrypted with ansible-vault\nvault_myapp_admin_password: \"s3cureAdm1nP@ss\"\nvault_myapp_user_password: \"appUs3rP@ssw0rd\"\nvault_myapp_readonly_password: \"r3adOnlyP@ss\"\nvault_myapp_backup_password: \"b@ckupP@ssw0rd\"\n```\nReference the vault variables in your regular variables.\n```yaml\n# group_vars/databases/main.yml\n# Reference encrypted passwords from vault\nmyapp_admin_password: \"{{ vault_myapp_admin_password }}\"\nmyapp_user_password: \"{{ vault_myapp_user_password }}\"\n```\n## Setting User Attributes\nPostgreSQL has several role attributes you can control.\n```yaml\n# Create a user with specific role attributes\n- name: Create superuser for emergencies\n  community.postgresql.postgresql_user:\n    name: emergency_admin\n    password: \"{{ vault_emergency_admin_password }}\"\n    role_attr_flags: SUPERUSER,CREATEDB,CREATEROLE,LOGIN\n    expires: \"2026-03-01T00:00:00+00:00\"\n    conn_limit: 1\n    state: present\n  no_log: true\n```\nAvailable role attributes include:\n- `SUPERUSER` / `NOSUPERUSER`\n- `CREATEDB` / `NOCREATEDB`\n- `CREATEROLE` / `NOCREATEROLE`\n- `LOGIN` / `NOLOGIN`\n- `REPLICATION` / `NOREPLICATION`\n## Password Expiration\nYou can set passwords to expire after a certain date.\n```yaml\n# Create user with password expiration\n- name: Create temporary contractor user\n  community.postgresql.postgresql_user:\n    name: contractor_jane\n    password: \"{{ vault_contractor_password }}\"\n    expires: \"2026-06-30T23:59:59+00:00\"\n    role_attr_flags: NOSUPERUSER,NOCREATEDB\n    state: present\n  no_log: true\n```\n## Granting Database Access\nAfter creating users, grant them access to specific databases.\n```yaml\n# Grant database ownership and access\n- name: Set database owner\n  community.postgresql.postgresql_db:\n    name: myapp_production\n    owner: myapp_admin\n    state: present\n- name: Grant connect privilege to application user\n  community.postgresql.postgresql_privs:\n    database: myapp_production\n    type: database\n    roles: myapp_user\n    privs: CONNECT\n    state: present\n- name: Grant connect privilege to read-only user\n  community.postgresql.postgresql_privs:\n    database: myapp_production\n    type: database\n    roles: myapp_readonly\n    privs: CONNECT\n    state: present\n```\n## Creating a Complete User Management Role\n```yaml\n# roles/postgresql_users/tasks/main.yml\n# Full user management role with creation, privileges, and validation\n---\n- name: Create PostgreSQL users\n  community.postgresql.postgresql_user:\n    name: \"{{ item.name }}\"\n    password: \"{{ item.password }}\"\n    role_attr_flags: \"{{ item.role_attr_flags | default('NOSUPERUSER,NOCREATEDB') }}\"\n    conn_limit: \"{{ item.conn_limit | default(-1) }}\"\n    expires: \"{{ item.expires | default(omit) }}\"\n    state: present\n  loop: \"{{ postgresql_users }}\"\n  no_log: true\n  become: true\n  become_user: postgres\n- name: Grant database access to users\n  community.postgresql.postgresql_privs:\n    login_db: \"{{ item.database }}\"\n    type: database\n    roles: \"{{ item.name }}\"\n    privs: CONNECT\n    state: present\n  loop: \"{{ postgresql_users | selectattr('database', 'defined') | list }}\"\n  become: true\n  become_user: postgres\n- name: Verify user creation\n  community.postgresql.postgresql_query:\n    query: \"SELECT usename, valuntil, usesuper, usecreatedb FROM pg_user WHERE usename = %s\"\n    positional_args:\n      - \"{{ item.name }}\"\n  register: user_info\n  loop: \"{{ postgresql_users }}\"\n  become: true\n  become_user: postgres\n  changed_when: false\n- name: Display user information\n  debug:\n    msg: \"User {{ item.item.name }}: {{ item.query_result }}\"\n  loop: \"{{ user_info.results }}\"\n  when: item.query_result | length > 0\n```\n## User Management Flow\n```mermaid\nflowchart TD\n    A[Define Users in Variables] --> B[Create Users with Passwords]\n    B --> C[Set Role Attributes]\n    C --> D[Set Connection Limits]\n    D --> E[Set Password Expiration]\n    E --> F[Grant Database Access]\n    F --> G[Verify User Creation]\n    G --> H[Update pg_hba.conf if needed]\n```\n## Rotating Passwords\nPassword rotation is a security best practice. Here is how to rotate passwords with Ansible.\n```yaml\n# playbooks/rotate-passwords.yml\n# Rotate database user passwords\n---\n- name: Rotate PostgreSQL passwords\n  hosts: databases\n  become: true\n  become_user: postgres\n  tasks:\n    - name: Update user password\n      community.postgresql.postgresql_user:\n        name: myapp_user\n        password: \"{{ new_myapp_user_password }}\"\n        state: present\n      no_log: true\n    - name: Verify new password works\n      community.postgresql.postgresql_query:\n        login_db: myapp_production\n        login_user: myapp_user\n        login_password: \"{{ new_myapp_user_password }}\"\n        login_host: \"127.0.0.1\"\n        query: \"SELECT 1\"\n      register: auth_test\n      no_log: true\n    - name: Confirm authentication succeeded\n      assert:\n        that: auth_test.query_result | length > 0\n        fail_msg: \"Password rotation failed - new password does not work\"\n```\n## Removing Users Safely\n```yaml\n# Remove a PostgreSQL user with reassignment of owned objects\n- name: Reassign owned objects before dropping user\n  community.postgresql.postgresql_owner:\n    login_db: myapp_production\n    new_owner: myapp_admin\n    reassign_owned_by: old_user\n  become: true\n  become_user: postgres\n- name: Drop the old user\n  community.postgresql.postgresql_user:\n    name: old_user\n    state: absent\n  become: true\n  become_user: postgres\n```\n## Conclusion\nAnsible makes PostgreSQL user management consistent and repeatable. Define your users in variables, store passwords in Ansible Vault, and let the `community.postgresql.postgresql_user` module handle the creation and updates. The `no_log` directive keeps passwords out of your CI/CD logs, and the idempotent nature means you can safely run the playbook repeatedly without side effects. Combine user creation with privilege management (covered in the next post) for a complete database access control pipeline."
       }
     ]
   }

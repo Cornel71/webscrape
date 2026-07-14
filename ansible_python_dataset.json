@@ -1023,6 +1023,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Python script for: Day 13: Error Handling in Playbooks -- Ensuring Robust Ansible Automation 🛠️🔧 | by Vinoth Subbiah | Medium"
+      },
+      {
+        "from": "gpt",
+        "value": "---- name: Update critical configuration safely  hosts: all  tasks:    - name: Backup current configuration      ansible.builtin.copy:        src: /etc/critical.conf        dest: /tmp/critical.conf.backup    - block:        - name: Update configuration file          ansible.builtin.copy:            src: /new/critical.conf            dest: /etc/critical.conf      rescue:        - name: Restore original configuration on failure          ansible.builtin.copy:            src: /tmp/critical.conf.backup            dest: /etc/critical.conf        - name: Notify failure          ansible.builtin.mail:            to: Admin <admin@example.com>            subject: Configuration update failed - reverted to backup            body: \"Update of critical configuration failed. Reverted to previous backup.\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Python script for: Implementing Zero Downtime Deployments with Ansible"
       },
       {
@@ -1263,7 +1275,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Ansible Security Automation: Risks & 7 Best Practices | by Spacelift | Spacelift | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -1323,7 +1335,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Medium"
+        "value": "Python script for: Streamlining Automation: Exploring Ansible Execution Environments for Efficient Configuration Management | by Amit Sharma | Medium"
       },
       {
         "from": "gpt",
@@ -1335,7 +1347,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Let's Encrypt with Ansible. Generate your SSL certificates... | by Bryce Guinta | Level Up Coding"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -1407,7 +1419,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Medium"
+        "value": "Python script for: Ansible Playbook writing for beginners: Automate your morning routine | by XLAB Steampunk | Medium"
       },
       {
         "from": "gpt",
@@ -1424,18 +1436,6 @@
       {
         "from": "gpt",
         "value": "ansible-project/\n├── ansible.cfg              # Project-level configuration\n├── inventory/\n│   └── hosts.yml            # Inventory with groups and host vars\n├── group_vars/\n│   ├── all.yml              # Variables for all hosts\n│   ├── webservers.yml       # Variables for webserver group\n│   └── dbservers.yml        # Variables for database group\n├── host_vars/\n│   └── web-prod-01.yml      # Variables for a specific host\n├── playbooks/\n│   ├── server-setup.yml     # Base provisioning\n│   ├── docker-install.yml   # Docker setup\n│   └── security-hardening.yml\n├── roles/\n│   └── common/\n│       ├── tasks/main.yml\n│       ├── handlers/main.yml\n│       ├── defaults/main.yml\n│       ├── templates/\n│       └── files/\n└── guides/\nEnter fullscreen mode\nExit fullscreen mode"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Python script for: Ansible Command vs Shell: The Gotcha That Broke Our Prod | TheCodeForge"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n- name: Combine modules for complex workflow\n  hosts: all\n  tasks:\n    - name: Download artifact\n      ansible.builtin.get_url:\n        url: https://example.com/app.tar.gz\n        dest: /tmp/app.tar.gz\n        checksum: sha256:abc123...\n    - name: Extract archive\n      ansible.builtin.unarchive:\n        src: /tmp/app.tar.gz\n        dest: /opt/app\n        remote_src: yes\n    - name: Run custom script with environment\n      ansible.builtin.shell: /opt/app/install.sh\n      args:\n        chdir: /opt/app\n      environment:\n        MODE: install\n      register: install_result\n    - name: Notify on success\n      ansible.builtin.uri:\n        url: https://hooks.slack.com/notify\n        method: POST\n        body: '{\"text\": \"Deploy complete\"}'"
       }
     ]
   },
@@ -1556,18 +1556,6 @@
       {
         "from": "gpt",
         "value": "- name: Deploy with rollback\n  block:\n    - name: Deploy new version\n      ansible.builtin.shell: /opt/deploy.sh {{ version }}\n    - name: Run smoke tests\n      ansible.builtin.uri:\n        url: http://localhost:8080/health\n        status_code: 200\n  rescue:\n    - name: Rollback on failure\n      ansible.builtin.shell: /opt/rollback.sh\n    - name: Notify team\n      ansible.builtin.uri:\n        url: \"{{ slack_webhook }}\"\n        method: POST\n        body_format: json\n        body:\n          text: \"Deploy failed on {{ inventory_hostname }}, rolled back\"\n  always:\n    - name: Clean up temp files\n      ansible.builtin.file:\n        path: /tmp/deploy-artifacts\n        state: absent\n    - name: Log result\n      ansible.builtin.shell: echo \"Deploy attempt at $(date)\" >> /var/log/deploys.log"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Python script for: Ansible Error Handling: Production Patterns from a 3AM | TheCodeForge"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n- name: Best practices for production\n  hosts: web\n  gather_facts: yes\n  vars:\n    deploy_version: \"1.2.3\"\n  tasks:\n    - name: Validate prerequisites\n      ansible.builtin.assert:\n        that:\n          - deploy_version is defined\n          - deploy_version is version('1.0.0', '>=')\n        fail_msg: \"Deploy version must be >= 1.0.0\"\n    - name: Deploy with retries\n      block:\n        - name: Deploy application\n          ansible.builtin.get_url:\n            url: \"https://example.com/app/{{ deploy_version }}/app.war\"\n            dest: /opt/tomcat/webapps/app.war\n          register: download\n          until: download is succeeded\n          retries: 3\n          delay: 5\n      rescue:\n        - name: Notify on failure\n          ansible.builtin.debug:\n            msg: \"Deployment failed after retries\"\n        - name: Fail play\n          ansible.builtin.fail:\n            msg: \"Deployment failed\""
       }
     ]
   },
@@ -1791,7 +1779,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Use Molecule & Gitlab-CI to Automate Testing of Ansible Roles | by Keir Whitlock | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -1947,7 +1935,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Ansible and GitOps: A Practical Guide | by Muhabbat Ali | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -2091,18 +2079,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: How to install OpenSCAP on Rocky Linux 9 | CentLinux"
-      },
-      {
-        "from": "gpt",
-        "value": "# oscap info /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml [\nDocument type: Source Data Stream\nImported: 2024-02-26T20:55:34\nStream: scap_org.open-scap_datastream_from_xccdf_ssg-rhel9-xccdf.xml\nGenerated: (null)\nVersion: 1.3\nChecklists:\n        Ref-Id: scap_org.open-scap_cref_ssg-rhel9-xccdf.xml\nWARNING: Datastream component 'scap_org.open-scap_cref_security-data-oval-v2-RHEL9-rhel-9.oval.xml.bz2' points out to the remote 'https://access.redhat.com/security/data/oval/v2/RHEL9/rhel-9.oval.xml.bz2'. Use '--fetch-remote-resources' option to download it.\nWARNING: Skipping 'https://access.redhat.com/security/data/oval/v2/RHEL9/rhel-9.oval.xml.bz2' file which is referenced from datastream\n                Status: draft\n                Generated: 2024-02-26\n                Resolved: true\n                Profiles:\n                        Title: ANSSI-BP-028 (enhanced)\n                                Id: xccdf_org.ssgproject.content_profile_anssi_bp28_enhanced\n                        Title: ANSSI-BP-028 (high)\n                                Id: xccdf_org.ssgproject.content_profile_anssi_bp28_high\n                        Title: ANSSI-BP-028 (intermediary)\n                                Id: xccdf_org.ssgproject.content_profile_anssi_bp28_intermediary\n                        Title: ANSSI-BP-028 (minimal)\n                                Id: xccdf_org.ssgproject.content_profile_anssi_bp28_minimal\n                        Title: CCN Red Hat Enterprise Linux 9 - Advanced\n                                Id: xccdf_org.ssgproject.content_profile_ccn_advanced\n                        Title: CCN Red Hat Enterprise Linux 9 - Basic\n                                Id: xccdf_org.ssgproject.content_profile_ccn_basic\n                        Title: CCN Red Hat Enterprise Linux 9 - Intermediate\n                                Id: xccdf_org.ssgproject.content_profile_ccn_intermediate\n                        Title: CIS Red Hat Enterprise Linux 9 Benchmark for Level 2 - Server\n                                Id: xccdf_org.ssgproject.content_profile_cis\n                        Title: CIS Red Hat Enterprise Linux 9 Benchmark for Level 1 - Server\n                                Id: xccdf_org.ssgproject.content_profile_cis_server_l1\n                        Title: CIS Red Hat Enterprise Linux 9 Benchmark for Level 1 - Workstation\n                                Id: xccdf_org.ssgproject.content_profile_cis_workstation_l1\n                        Title: CIS Red Hat Enterprise Linux 9 Benchmark for Level 2 - Workstation\n                                Id: xccdf_org.ssgproject.content_profile_cis_workstation_l2\n                        Title: DRAFT - Unclassified Information in Non-federal Information Systems and Organizations (NIST 800-171)\n                                Id: xccdf_org.ssgproject.content_profile_cui\n                        Title: Australian Cyber Security Centre (ACSC) Essential Eight\n                                Id: xccdf_org.ssgproject.content_profile_e8\n                        Title: Health Insurance Portability and Accountability Act (HIPAA)\n                                Id: xccdf_org.ssgproject.content_profile_hipaa\n                        Title: Australian Cyber Security Centre (ACSC) ISM Official\n                                Id: xccdf_org.ssgproject.content_profile_ism_o\n                        Title: Protection Profile for General Purpose Operating Systems\n                                Id: xccdf_org.ssgproject.content_profile_ospp\n                        Title: PCI-DSS v4.0 Control Baseline for Red Hat Enterprise Linux 9\n                                Id: xccdf_org.ssgproject.content_profile_pci-dss\n                        Title: DISA STIG for Red Hat Enterprise Linux 9\n                                Id: xccdf_org.ssgproject.content_profile_stig\n                        Title: DISA STIG with GUI for Red Hat Enterprise Linux 9\n                                Id: xccdf_org.ssgproject.content_profile_stig_gui\n                Referenced check files:\n                        ssg-rhel9-oval.xml\n                                system: http://oval.mitre.org/XMLSchema/oval-definitions-5\n                        ssg-rhel9-ocil.xml\n                                system: http://scap.nist.gov/schema/ocil/2\n                        security-data-oval-v2-RHEL9-rhel-9.oval.xml.bz2\n                                system: http://oval.mitre.org/XMLSchema/oval-definitions-5\nChecks:\n        Ref-Id: scap_org.open-scap_cref_ssg-rhel9-oval.xml\n        Ref-Id: scap_org.open-scap_cref_ssg-rhel9-ocil.xml\n        Ref-Id: scap_org.open-scap_cref_ssg-rhel9-cpe-oval.xml\n        Ref-Id: scap_org.open-scap_cref_security-data-oval-v2-RHEL9-rhel-9.oval.xml.bz2\nDictionaries:\n        Ref-Id: scap_org.open-scap_cref_ssg-rhel9-cpe-dictionary.xml"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Python script for: Want to avoid a data breach? Employ secrets detection - SEO | Snyk"
       },
       {
@@ -2163,7 +2139,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Medium"
+        "value": "Python script for: DevOps: Unleashing the Power of GitLab CI/CD, Docker, and Ansible | by Madhan Chinnasamy | Medium"
       },
       {
         "from": "gpt",
@@ -2415,7 +2391,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Creating PostgreSQL Database With Ansible | by Vince Sesto | Splunk User Developer Administrator | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -2655,30 +2631,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Ansible Tutorial â SSH Key Setup -"
-      },
-      {
-        "from": "gpt",
-        "value": "# Test passwordless SSH\n$ ssh deploy@server1.example.com\n# You should connect without a password prompt\n# Type 'exit' to return\n# Test from Ansible\n$ ansible all -m ping\nserver1 | SUCCESS => {\n    \"changed\": false,\n    \"ping\": \"pong\"\n}"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Python script for: Ansible Tutorial â SSH Key Management -"
-      },
-      {
-        "from": "gpt",
-        "value": "# group_vars/all.yml\nteam_users:\n  - name: alice\n    groups: developers,docker\n    ssh_key: \"ssh-ed25519 AAAAC3... alice@work\"\n    state: present\n  - name: bob\n    groups: developers\n    ssh_key: \"ssh-ed25519 BBBBC3... bob@work\"\n    state: present\n  - name: charlie\n    groups: developers\n    ssh_key: \"\"\n    state: absent\n# tasks\n- name: Manage users\n  ansible.builtin.user:\n    name: \"{{ item.name }}\"\n    groups: \"{{ item.groups | default(omit) }}\"\n    state: \"{{ item.state }}\"\n    remove: \"{{ true if item.state == 'absent' else false }}\"\n  loop: \"{{ team_users }}\"\n- name: Manage SSH keys\n  ansible.posix.authorized_key:\n    user: \"{{ item.name }}\"\n    key: \"{{ item.ssh_key }}\"\n    state: present\n  loop: \"{{ team_users }}\"\n  when: item.state == 'present' and item.ssh_key != ''"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Python script for: Ansible Firewall -- firewalld & UFW | AnsibleByExample"
       },
       {
@@ -2775,7 +2727,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Automating Incident Response: Leveraging Grafana Alerts and Ansible Playbooks to Resolve Issues | by Ibukun Fadareak Balogun | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -2888,18 +2840,6 @@
       {
         "from": "gpt",
         "value": "- name: Setup pgslave\nhosts: pgslave\nbecome: yes\nbecome_method: sudo\ngather_facts: yes\ntags: [pgslave]\nvars:\nreplica_password: 'replica123'\ntasks:\n- name: Stop PostgreSQL server\nsystemd:\nname: postgresql-9.6\nstate: stopped\n- name: Move data backup\nshell: mv data data-backup\nargs:\nchdir: /var/lib/pgsql/9.6/\n- name: Create data directory\nfile:\npath: /var/lib/pgsql/9.6/data\nmode: 0700\nowner: postgres\ngroup: postgres\nstate: directory\n- name: Backup initial data from master\nshell: su - postgres -c \"PGPASSWORD={{ replica_password }} pg_basebackup -w -h {{ hostvars['host1'].ansible_default_ipv4.address }} -U replica -D /var/lib/pgsql/9.6/data -P --xlog\"\n- name: Update /var/lib/pgsql/9.6/data/postgresql.conf\nlineinfile:\npath: /var/lib/pgsql/9.6/data/postgresql.conf\nregexp: \"{{ item.regexp }}\"\nline: \"{{ item.line }}\"\nwith_items:\n- { regexp: \"#listen_addresses = 'localhost'\", line: \"listen_addresses = '{{ ansible_default_ipv4.address }}'\" }\n- { regexp: \"#hot_standby = off\", line: \"hot_standby = on\" }\n- name: Create recovery.conf\nblockinfile:\npath: /var/lib/pgsql/9.6/data/recovery.conf\nblock: |\nstandby_mode = 'on'\nprimary_conninfo = 'host={{ hostvars['host1'].ansible_default_ipv4.address }} port=5432 user=replica password={{ replica_password }} application_name=slave01'\ntrigger_file = '/tmp/postgresql.trigger.5432'\nmode: 0600\nowner: postgres\ngroup: postgres\nstate: present\ncreate: yes\n- name: Start PostgreSQL server\nsystemd:\nname: postgresql-9.6\nstate: started"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Python script for: Ansible Playbooks â Handler Name Mismatches Fail Silently | TheCodeForge"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n# io.thecodeforge: Common mistakes and their correct alternatives\n# Each 'BAD' example shows what breaks in production and why.\n# Each 'GOOD' example shows the idempotent, production-safe alternative.\n- name: Best Practice Examples\n  hosts: all\n  become: true\n  tasks:\n    # ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ\n    # MISTAKE 1: shell module for directory creation\n    # BAD: runs mkdir -p every time, always reports 'changed'\n    # After 30 days of cron: 1440 identical 'changed' entries in your CI log\n    # ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ\n    # - name: Create log directory (BROKEN â not idempotent)\n    #   ansible.builtin.shell: mkdir -p /data/forge_logs\n    # GOOD: file module checks if directory exists with correct mode first\n    - name: Ensure log directory exists with correct permissions\n      ansible.builtin.file:\n        path: /data/forge_logs\n        state: directory\n        owner: www-data\n        group: www-data\n        mode: '0755'\n      # Reports 'ok' if directory exists with these exact permissions.\n      # Reports 'changed' only if directory is missing or permissions differ.\n    # ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ\n    # MISTAKE 2: shell module for package installation\n    # BAD: runs apt-get every time, always reports 'changed', logs are noise\n    # ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ\n    # - name: Install nginx (BROKEN)\n    #   ansible.builtin.shell: apt-get install -y nginx\n    # GOOD: apt module checks installed packages before acting\n    - name: Install Nginx at pinned version\n      ansible.builtin.apt:\n        name: nginx=1.24.*\n        state: present         # present = install if missing, never upgrade\n        update_cache: yes\n        cache_valid_time: 3600\n      # Pinning the version prevents silent upgrades on production servers.\n      # state: present + version pin = deterministic, auditable, safe.\n    # ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ\n    # MISTAKE 3: state: latest in production\n    # BAD: upgrades nginx on every run if a newer version exists in the repo.\n    # On a cron, this means random silent upgrades on random days.\n    # ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ\n    # - name: Install latest nginx (DANGEROUS in production)\n    #   ansible.builtin.apt:\n    #     name: nginx\n    #     state: latest\n    # GOOD: explicit version pin, separate upgrade playbook for controlled updates\n    - name: Manage nginx version explicitly\n      ansible.builtin.apt:\n        name: nginx=1.24.*\n        state: present\n      # Run upgrades via a separate, deliberately triggered playbook:\n      # ansible-playbook upgrade_nginx.yml -e nginx_version=1.26.*\n      # This gives you audit trail, staging validation, and manual approval.\n    # ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ\n    # MISTAKE 4: shell for file writes â appends on every run\n    # BAD: appends config line every time the cron runs.\n    # After 48 cron runs: 48 duplicate lines in the config file.\n    # ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ\n    # - name: Write config line (BROKEN â appends every run)\n    #   ansible.builtin.shell: echo 'max_connections=200' >> /etc/app/db.conf\n    # GOOD: lineinfile manages a specific line idempotently\n    - name: Set max_connections in database config\n      ansible.builtin.lineinfile:\n        path: /etc/app/db.conf\n        regexp: '^max_connections='\n        line: 'max_connections=200'\n        create: yes\n      # regexp: matches the existing line if present and replaces it.\n      # If no matching line exists, the line is appended exactly once.\n      # Running 100 times: always exactly one line in the file.\n    # ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ\n    # MISTAKE 5: shell when you genuinely have no module alternative\n    # If you must use shell, add changed_when with a condition or false\n    # ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ\n    - name: Rotate application logs (no dedicated module exists)\n      ansible.builtin.command:\n        cmd: /usr/sbin/logrotate -f /etc/logrotate.d/app\n      register: logrotate_result\n      changed_when: logrotate_result.rc != 0\n      # changed_when: false would suppress all change reporting.\n      # changed_when: condition ties reporting to actual outcome.\n      # Document in a comment why no dedicated module was available."
       }
     ]
   },
@@ -3135,23 +3075,11 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: SSH hardening. Bots methodically hammering port 22... | by Sgaunet | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
         "value": "sudo sshd -t                  # syntax check -- always do this firstsudo systemctl restart sshdssh -vvv user@server -p 2849  # verify from a second terminal"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Python script for: Install Ansible Control Node on CentOS 8 | CentLinux"
-      },
-      {
-        "from": "gpt",
-        "value": "Last metadata expiration check: 0:02:29 ago on Sat 16 May 2020 02:07:46 AM PKT.Available PackagesName         : ansibleVersion      : 2.9.7Release      : 1.el8Architecture : noarchSize         : 17 MSource       : ansible-2.9.7-1.el8.src.rpmRepository   : epelSummary      : SSH-based configuration management, deployment, and task             : execution systemURL          : http://ansible.comLicense      : GPLv3+Description  : Ansible is a radically simple model-driven configuration             : management, multi-node deployment, and remote task execution             : system. Ansible works over SSH and does not require any software             : or daemons to be installed on remote nodes. Extension modules can             : be written in any language and are transferred to managed             : machines automatically."
       }
     ]
   },
@@ -3267,7 +3195,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Medium"
+        "value": "Python script for: Docker containers with Ansible. Before the recent reign of containers... | by Oscar Oranagwa | Medium"
       },
       {
         "from": "gpt",
@@ -3507,18 +3435,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Ansible Vault Secrets: The Production Gotchas That Will Burn | TheCodeForge"
-      },
-      {
-        "from": "gpt",
-        "value": "[defaults]\n# Disable vault password caching in memory\nvault_password_cache = False\n# Use a dedicated vault password file with restricted permissions\nvault_password_file = /etc/ansible/vault_pass\n# Enable logging (but ensure logs don't contain secrets)\nlog_path = /var/log/ansible.log\n# Use vault IDs to separate environments\nvault_identity_list = dev@/etc/ansible/dev_vault_pass, prod@/etc/ansible/prod_vault_pass"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Python script for: Set up base configurations for Ansible automation controller using GitLab CI"
       },
       {
@@ -3572,18 +3488,6 @@
       {
         "from": "gpt",
         "value": "# provision_droplet.yml\n- name: Provision a DigitalOcean Droplet\n  hosts: localhost  # Run locally (Ansible controls DigitalOcean API)\n  gather_facts: false\n  vars:\n    do_token: \"{{ lookup('env', 'DO_API_TOKEN') }}\"  # Fetch token from env\n    droplet_name: \"ansible-workshop\"\n    droplet_region: \"nyc3\"  # New York region\n    droplet_size: \"s-1vcpu-1gb\"  # 1 vCPU, 1GB RAM\n    droplet_image: \"ubuntu-22-04-x64\"  # Ubuntu 22.04 LTS\n    ssh_key_name: \"your_ssh_key_name\"  # Name of your DigitalOcean SSH key\n  tasks:\n    - name: Create Droplet\n      community.digitalocean.digital_ocean_droplet:\n        oauth_token: \"{{ do_token }}\"\n        name: \"{{ droplet_name }}\"\n        region: \"{{ droplet_region }}\"\n        size: \"{{ droplet_size }}\"\n        image: \"{{ droplet_image }}\"\n        ssh_keys: [\"{{ ssh_key_name }}\"]  # Attach SSH key for access\n        wait: true  # Wait for Droplet to be active\n        state: present\n      register: droplet  # Store Droplet details in a variable\n    - name: Print Droplet IP\n      ansible.builtin.debug:\n        msg: \"Droplet created with IP: {{ droplet.data.ip_address }}\""
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Python script for: Using GitLab Runner as Ansible Control Node | C2 Platform"
-      },
-      {
-        "from": "gpt",
-        "value": "---\ndefault:\n  image: registry.gitlab.com/c2platform/rws/ansible-execution-environment:0.1.28\nvariables:\n  DOWNLOAD_SCRIPT: download.py\n  COLLECTIONS_DIR: ansible-collections-tarball\n  C2_PACKAGE_NAME: phx-ansible-collections\n  C2_PACKAGE_NAME_REPOS: c2-repositories\nbefore_script:\n  - python3 --version\n  - pip3 --version\n  - ansible --version\n  - ansible-lint --version\n  - yamllint --version\nworkflow:  # run the pipeline only on MRs and default branch\n  rules:\n    - if: $CI_PIPELINE_SOURCE == \"merge_request_event\"\n    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH\nstages:\n  - prepare\n  - linters\n  - package\n  - release\nyamllint:\n  stage: linters\n  script:\n    - yamllint -c .yamllint .\nansible-lint:\n  stage: linters\n  script:\n    - ansible-galaxy collection install -v -r collections/requirements.yml\n    - ansible-lint -c .ansible-lint\nprepare:\n  stage: prepare\n  script:\n    - C2_VERSION=$(grep -oP '\\d+\\.\\d+\\.\\d+' CHANGELOG.md | head -1)\n    - echo \"C2_VERSION=$C2_VERSION\" >> variables.env\n  artifacts:\n    reports:\n      dotenv: variables.env\npackage:\n  stage: package\n  when: manual\n  only:\n    - master\n  script:\n    # Download and package Ansible collections\n    - ansible-galaxy collection download -r collections/requirements.yml -p ./$COLLECTIONS_DIR\n    - cd $COLLECTIONS_DIR\n    - tar -czvf ../${C2_PACKAGE_NAME}-${C2_VERSION}.tar.gz .\n    - cd ..\n    # Clone repositories from repo.txt as bare repos and package them\n    - |\n      if [ ! -f repo.txt ]; then\n        echo \"Error: repo.txt not found!\"\n        exit 1\n      fi\n      mkdir -p repos\n      while IFS= read -r repo_url; do\n        if [ -z \"$repo_url\" ]; then continue; fi\n        path=\"${repo_url#https://gitlab.com/c2platform/}\"\n        group=\"${path%%/*}\"\n        repo=\"${path#*/}\"\n        repo=\"${repo%.git}\"\n        mkdir -p repos/$group\n        git clone --bare \"$repo_url\" \"repos/$group/${repo}.git\"\n      done < repo.txt\n      tar -czvf ${C2_PACKAGE_NAME_REPOS}-${C2_VERSION}.tar.gz -C repos .\n    # Create outer tarball with both inner tarballs\n    - tar -czvf phx-${C2_VERSION}.tar.gz ${C2_PACKAGE_NAME}-${C2_VERSION}.tar.gz ${C2_PACKAGE_NAME_REPOS}-${C2_VERSION}.tar.gz\n  artifacts:\n    paths:\n      - phx-${C2_VERSION}.tar.gz\npublish:\n  stage: package\n  only:\n    - master\n  needs:\n    - job: package\n    - job: prepare\n  script:\n    - |\n      env | grep C2\n      curl --header \"JOB-TOKEN: $CI_JOB_TOKEN\" --upload-file phx-${C2_VERSION}.tar.gz \\\n        ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/phx/${C2_VERSION}/phx-${C2_VERSION}.tar.gz\nrelease:\n  stage: release\n  only:\n    - master\n  image: registry.gitlab.com/gitlab-org/release-cli:latest\n  needs:\n    - job: prepare\n    - job: publish\n    - job: package\n  before_script: []\n  script:\n    - echo \"Create release for $C2_VERSION\"\n  release:\n    name: phx-inventory-$C2_VERSION\n    description: PHX Ansible Inventory Project\n    tag_name: $C2_VERSION\n    ref: $CI_COMMIT_SHA\n    assets:\n      links:\n        - name: \"phx-${C2_VERSION}.tar.gz\"\n          url: \"${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/phx/${C2_VERSION}/phx-${C2_VERSION}.tar.gz\""
       }
     ]
   },
@@ -3939,7 +3843,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: CIS Benchmark of Ubuntu 22.04. OpenSCAP Security Guide | by Aizhamal Nazhimidinova | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -3987,18 +3891,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Ansible Advanced â Serial & Rolling Updates -"
-      },
-      {
-        "from": "gpt",
-        "value": "# Default: linear â wait for all hosts in batch before next task\n- name: Linear strategy (default)\n  hosts: all\n  strategy: linear\n  tasks:\n    - name: Step 1\n      ansible.builtin.debug:\n        msg: \"All hosts do Step 1 before any host does Step 2\"\n# Free: each host proceeds independently\n- name: Free strategy\n  hosts: all\n  strategy: free\n  tasks:\n    - name: Step 1\n      ansible.builtin.debug:\n        msg: \"Fast hosts move ahead, slow hosts catch up\""
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Python script for: Learn Ansible in Y Minutes"
       },
       {
@@ -4028,18 +3920,6 @@
       {
         "from": "gpt",
         "value": "# .github/workflows/ansible.yml\nname: Deploy with Ansible\non:\n  push:\n    branches: [main]\njobs:\n  deploy:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Install Ansible\n        run: pip install ansible\n      - name: Create vault password file\n        run: echo \"${{ secrets.ANSIBLE_VAULT_PASSWORD }}\" > .vault_pass\n      - name: Run playbook\n        run: |\n          ansible-playbook \\\n            -i inventory/production \\\n            --vault-password-file .vault_pass \\\n            playbooks/deploy.yml\n        env:\n          ANSIBLE_HOST_KEY_CHECKING: \"false\"\n      - name: Cleanup\n        if: always()\n        run: rm -f .vault_pass"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Python script for: Securely Accessing Ansible Vault in Development | C2 Platform"
-      },
-      {
-        "from": "gpt",
-        "value": "#!/usr/bin/env bash\n# vault-client-keyring.sh - print the Ansible Vault password from Secret Service (GNOME Keyring/libsecret)\n#\n# Usage:\n#   1) Store password in keyring (attributes: ansible=vault):\n#        Interactive:  secret-tool store --label=\"Ansible Vault Password\" ansible vault\n#        Non-interactive (stdin):  printf '%s' 'YOUR_PASSWORD' | secret-tool store --label=\"Ansible Vault Password\" ansible vault\n#   2) Use with Ansible:\n#        ansible-playbook --vault-password-file /usr/local/bin/vault-client-keyring.sh play.yml\n#      or set in ansible.cfg:  vault_password_file = /usr/local/bin/vault-client-keyring.sh\n#\n# Requirements:\n#   - secret-tool (Debian/Ubuntu: package libsecret-tools; RHEL/Fedora: libsecret)\n#   - A running/unlocked Secret Service (e.g., GNOME Keyring). On headless hosts a valid D-Bus session is required.\n#\n# Security:\n#   - This script prints the password to stdout for Ansible; avoid running it manually unless needed.\nset -o nounset -o pipefail\nmain() {\n    if ! command -v secret-tool >/dev/null 2>&1; then\n    echo \"Error: secret-tool not found. Install libsecret-tools (Debian/Ubuntu) or libsecret (RHEL/Fedora).\" >&2\n    exit 2\n    fi\n    # Lookup attributes; defaults: ansible=vault. Override via env: KEYRING_VAULT_ATTR_KEY / KEYRING_VAULT_ATTR_VAL\n    local attr_key=\"${KEYRING_VAULT_ATTR_KEY:-ansible}\"\n    local attr_val=\"${KEYRING_VAULT_ATTR_VAL:-vault}\"\n    # Fetch secret; suppress secret-tool stderr\n    local pw\n    if ! pw=\"$(secret-tool lookup \"$attr_key\" \"$attr_val\" 2>/dev/null)\"; then\n    echo \"Error: no secret found for ${attr_key}=${attr_val}. Store it first with 'secret-tool store'.\" >&2\n    exit 3\n    fi\n    if [ -z \"${pw}\" ]; then\n    echo \"Error: secret is empty. Store a non-empty value.\" >&2\n    exit 4\n    fi\n    # Print without trailing newline; avoids accidental whitespace\n    printf '%s' \"${pw}\"\n}\nmain \"$@\""
       }
     ]
   },
@@ -4155,7 +4035,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Automating Firewall Configs with Ansible + Python | by Samar Zemeer | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -4599,18 +4479,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Ansible Advanced â Zero-Downtime Deployment -"
-      },
-      {
-        "from": "gpt",
-        "value": "- hosts: webservers\n  become: true\n  serial: \"25%\"                    # Update 25% at a time\n  max_fail_percentage: 0           # Stop if ANY host fails\n  pre_tasks:\n    - name: Deregister from ALB\n      community.aws.elb_target:\n        target_group_arn: \"{{ '{{ alb_target_group_arn }}' }}\"\n        target_id: \"{{ '{{ ec2_instance_id }}' }}\"\n        state: absent\n      delegate_to: localhost\n    - name: Wait for connections to drain\n      ansible.builtin.pause:\n        seconds: 30\n  roles:\n    - deploy-app\n  post_tasks:\n    - name: Wait for app to be healthy\n      ansible.builtin.uri:\n        url: \"http://localhost:{{ '{{ app_port }}' }}/health\"\n        status_code: 200\n      register: health\n      until: health.status == 200\n      retries: 30\n      delay: 5\n    - name: Re-register with ALB\n      community.aws.elb_target:\n        target_group_arn: \"{{ '{{ alb_target_group_arn }}' }}\"\n        target_id: \"{{ '{{ ec2_instance_id }}' }}\"\n        target_port: \"{{ '{{ app_port }}' }}\"\n        state: present\n      delegate_to: localhost\n    - name: Wait for ALB health check\n      ansible.builtin.pause:\n        seconds: 15"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Python script for: README.md"
       },
       {
@@ -4791,7 +4659,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Medium"
+        "value": "Python script for: CIS Benchmark of Ubuntu 22.04. OpenSCAP Security Guide | by Aizhamal Nazhimidinova | Medium"
       },
       {
         "from": "gpt",
@@ -4887,7 +4755,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: HashiCorp Vault with AWS KMS, Terraform, and Ansible: A Practical Guide | by Sabir Ali Shaik | AWS in Plain English"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -5079,18 +4947,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Gebruik van GitLab Runner als Ansible Control Node | C2 Platform"
-      },
-      {
-        "from": "gpt",
-        "value": "---\ndefault:\n  image: registry.gitlab.com/c2platform/rws/ansible-execution-environment:0.1.28\nvariables:\n  DOWNLOAD_SCRIPT: download.py\n  COLLECTIONS_DIR: ansible-collections-tarball\n  C2_PACKAGE_NAME: phx-ansible-collections\n  C2_PACKAGE_NAME_REPOS: c2-repositories\nbefore_script:\n  - python3 --version\n  - pip3 --version\n  - ansible --version\n  - ansible-lint --version\n  - yamllint --version\nworkflow:  # run the pipeline only on MRs and default branch\n  rules:\n    - if: $CI_PIPELINE_SOURCE == \"merge_request_event\"\n    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH\nstages:\n  - prepare\n  - linters\n  - package\n  - release\nyamllint:\n  stage: linters\n  script:\n    - yamllint -c .yamllint .\nansible-lint:\n  stage: linters\n  script:\n    - ansible-galaxy collection install -v -r collections/requirements.yml\n    - ansible-lint -c .ansible-lint\nprepare:\n  stage: prepare\n  script:\n    - C2_VERSION=$(grep -oP '\\d+\\.\\d+\\.\\d+' CHANGELOG.md | head -1)\n    - echo \"C2_VERSION=$C2_VERSION\" >> variables.env\n  artifacts:\n    reports:\n      dotenv: variables.env\npackage:\n  stage: package\n  when: manual\n  only:\n    - master\n  script:\n    # Download and package Ansible collections\n    - ansible-galaxy collection download -r collections/requirements.yml -p ./$COLLECTIONS_DIR\n    - cd $COLLECTIONS_DIR\n    - tar -czvf ../${C2_PACKAGE_NAME}-${C2_VERSION}.tar.gz .\n    - cd ..\n    # Clone repositories from repo.txt as bare repos and package them\n    - |\n      if [ ! -f repo.txt ]; then\n        echo \"Error: repo.txt not found!\"\n        exit 1\n      fi\n      mkdir -p repos\n      while IFS= read -r repo_url; do\n        if [ -z \"$repo_url\" ]; then continue; fi\n        path=\"${repo_url#https://gitlab.com/c2platform/}\"\n        group=\"${path%%/*}\"\n        repo=\"${path#*/}\"\n        repo=\"${repo%.git}\"\n        mkdir -p repos/$group\n        git clone --bare \"$repo_url\" \"repos/$group/${repo}.git\"\n      done < repo.txt\n      tar -czvf ${C2_PACKAGE_NAME_REPOS}-${C2_VERSION}.tar.gz -C repos .\n    # Create outer tarball with both inner tarballs\n    - tar -czvf phx-${C2_VERSION}.tar.gz ${C2_PACKAGE_NAME}-${C2_VERSION}.tar.gz ${C2_PACKAGE_NAME_REPOS}-${C2_VERSION}.tar.gz\n  artifacts:\n    paths:\n      - phx-${C2_VERSION}.tar.gz\npublish:\n  stage: package\n  only:\n    - master\n  needs:\n    - job: package\n    - job: prepare\n  script:\n    - |\n      env | grep C2\n      curl --header \"JOB-TOKEN: $CI_JOB_TOKEN\" --upload-file phx-${C2_VERSION}.tar.gz \\\n        ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/phx/${C2_VERSION}/phx-${C2_VERSION}.tar.gz\nrelease:\n  stage: release\n  only:\n    - master\n  image: registry.gitlab.com/gitlab-org/release-cli:latest\n  needs:\n    - job: prepare\n    - job: publish\n    - job: package\n  before_script: []\n  script:\n    - echo \"Create release for $C2_VERSION\"\n  release:\n    name: phx-inventory-$C2_VERSION\n    description: PHX Ansible Inventory Project\n    tag_name: $C2_VERSION\n    ref: $CI_COMMIT_SHA\n    assets:\n      links:\n        - name: \"phx-${C2_VERSION}.tar.gz\"\n          url: \"${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/phx/${C2_VERSION}/phx-${C2_VERSION}.tar.gz\""
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Python script for: Настройка CI/CD для Gitlab-репозитория: схемы и гайд по шагам / Хабр"
       },
       {
@@ -5132,6 +4988,18 @@
       {
         "from": "gpt",
         "value": "# How to Use Ansible SSH Connection Plugin Options\nAuthor: [nawazdhandala](https://www.github.com/nawazdhandala)\nTags: Ansible, SSH, Connection Options, Configuration\nDescription: Explore all the Ansible SSH connection plugin options available for tuning SSH behavior, authentication, timeouts, and performance.\n---\nThe SSH connection plugin is the workhorse of Ansible. It handles all communication between the control node and managed hosts. While the defaults work fine for simple setups, there are dozens of configuration options that let you tune authentication, performance, timeouts, and connection behavior. Knowing these options means you can handle any SSH environment, from simple lab setups to complex production infrastructures with bastion hosts and strict security requirements.\n## Where to Set SSH Options\nSSH connection options can be configured in several places, listed from lowest to highest precedence:\n```ini\n# 1. ansible.cfg configuration settings\n# 2. Environment variables\n# 3. Command-line flags (when available for the option)\n# 4. Playbook keywords (when available for the option)\n# 5. Inventory or playbook variables, such as ansible_ssh_* variables\n```\n## Core SSH Connection Options\n### ansible.cfg SSH Section\n```ini\n# ansible.cfg\n[ssh_connection]\n# Arguments passed to all SSH CLI tools\nssh_args = -o ControlMaster=auto -o ControlPersist=60s\n# Additional SSH arguments (appended to ssh_args)\nssh_extra_args =\n# Path pattern for ControlMaster sockets\ncontrol_path_dir = ~/.ansible/cp\ncontrol_path = %(directory)s/%%C\n# Enable pipelining (sends modules via stdin instead of file transfer)\npipelining = True\n# Transfer method: smart, sftp, scp, piped\ntransfer_method = smart\n# SCP extra args\nscp_extra_args =\n# SFTP extra args\nsftp_extra_args =\n# Number of times to retry SSH connection\nretries = 3\n# SSH executable to use\nssh_executable = ssh\n```\n## Authentication Options\n### Private Key Configuration\n```ini\n# ansible.cfg\n[defaults]\nprivate_key_file = ~/.ssh/ansible_key\nremote_user = deploy\n```\n```ini\n# inventory/hosts - Per host or group\n[webservers:vars]\nansible_ssh_private_key_file=~/.ssh/web_key\nansible_user=deploy\n[dbservers:vars]\nansible_ssh_private_key_file=~/.ssh/db_key\nansible_user=dbadmin\n```\n### Password Authentication\n```bash\n# Prompt for SSH password\nansible-playbook site.yml --ask-pass\n# Or set in inventory (not recommended for production)\n# Use ansible-vault to encrypt\n```\n```yaml\n# group_vars/legacy_servers.yml (encrypted with vault)\nansible_user: admin\nansible_password: !vault |\n  $ANSIBLE_VAULT;1.1;AES256\n  ...encrypted data...\n```\n### SSH Key Options via ssh_args\n```ini\n# ansible.cfg\n[ssh_connection]\n# Skip password auth, go straight to public key, and specify the identity file\nssh_args = -o PreferredAuthentications=publickey -o IdentityFile=~/.ssh/ansible_key -o IdentitiesOnly=yes\n# Try multiple auth methods in order\n# ssh_args = -o PreferredAuthentications=publickey,keyboard-interactive -o IdentityFile=~/.ssh/ansible_key -o IdentitiesOnly=yes\n```\n## Timeout Options\n```ini\n# ansible.cfg\n[defaults]\n# Overall connection timeout in seconds\ntimeout = 30\n[ssh_connection]\n# SSH connection timeout (passed to ssh -o ConnectTimeout)\n# This is controlled by the defaults timeout above\n# but can also be set in [ssh_connection] or via ssh_args\ntimeout = 30\nssh_args = -o ConnectTimeout=10 -o ServerAliveInterval=15 -o ServerAliveCountMax=3\n```\nThe `ServerAliveInterval` sends keepalive packets every 15 seconds. `ServerAliveCountMax=3` means the connection drops after 3 missed keepalives (45 seconds of unresponsiveness).\n## Transfer Methods\nAnsible needs to transfer module code to remote hosts (unless pipelining is enabled). The `transfer_method` controls how:\n```ini\n# ansible.cfg\n[ssh_connection]\n# smart: Try sftp first, fall back to scp\ntransfer_method = smart\n# sftp: Use SFTP only\ntransfer_method = sftp\n# scp: Use SCP only (some old systems need this; OpenSSH 9+ may need scp_extra_args = -O)\ntransfer_method = scp\n# piped: Use an SSH pipe with dd on either side for transfer\ntransfer_method = piped\n```\nWhen to use each:\n```ini\n# Modern systems - use smart (default)\ntransfer_method = smart\n# Systems with restricted SFTP - use scp\ntransfer_method = scp\n# Systems with restricted SCP and SFTP - use piped\ntransfer_method = piped\n```\n## SSH Executable\nYou can change which SSH binary Ansible uses:\n```ini\n# ansible.cfg\n[ssh_connection]\n# Use a custom SSH binary\nssh_executable = /usr/local/bin/ssh\n# Use a wrapper script\nssh_executable = /usr/local/bin/ssh-wrapper.sh\n```\nA wrapper script is useful for adding custom logic:\n```bash\n#!/bin/bash\n# /usr/local/bin/ssh-wrapper.sh\n# Log all SSH connections for auditing\necho \"$(date) SSH: $@\" >> /var/log/ansible-ssh.log\nexec /usr/bin/ssh \"$@\"\n```\n## Inventory-Level SSH Options\nThese variables can be set per host or per group in your inventory:\n```ini\n# inventory/hosts\n[webservers]\nweb01 ansible_host=10.0.1.10 ansible_port=22 ansible_user=deploy\nweb02 ansible_host=10.0.1.11 ansible_port=2222 ansible_user=deploy\n[webservers:vars]\nansible_ssh_private_key_file=~/.ssh/web_key\nansible_ssh_common_args=-o ProxyJump=bastion@jump.example.com\nansible_ssh_extra_args=-o StrictHostKeyChecking=no\nansible_ssh_pipelining=true\nansible_ssh_retries=3\n```\nCommon SSH inventory variables:\n```yaml\n# Common SSH-related inventory variables\nansible_host: 10.0.1.10              # Target hostname/IP\nansible_port: 22                      # SSH port\nansible_user: deploy                  # SSH username\nansible_password: secret              # SSH password (use vault!)\nansible_ssh_private_key_file: ~/.ssh/key  # Path to private key\nansible_ssh_common_args: \"\"           # Args for ssh, sftp, scp\nansible_ssh_extra_args: \"\"            # Extra args for ssh only\nansible_sftp_extra_args: \"\"           # Extra args for sftp only\nansible_scp_extra_args: \"\"            # Extra args for scp only\nansible_ssh_pipelining: true          # Enable pipelining\nansible_ssh_transfer_method: smart    # Transfer method: smart, sftp, scp, piped\nansible_ssh_retries: 3                # Retry SSH errors with return code 255\nansible_ssh_executable: /usr/bin/ssh  # SSH binary path\n```\n## Complete Performance-Tuned Configuration\nHere is a production-ready configuration combining all the performance options:\n```ini\n# ansible.cfg - Performance optimized\n[defaults]\nforks = 30\ntimeout = 30\nremote_user = deploy\nprivate_key_file = ~/.ssh/ansible_key\nhost_key_checking = False\ngathering = smart\nfact_caching = jsonfile\nfact_caching_connection = /tmp/ansible_facts\nfact_caching_timeout = 7200\ncallbacks_enabled = timer, profile_tasks\n[ssh_connection]\nssh_args = -o ControlMaster=auto -o ControlPersist=120s -o PreferredAuthentications=publickey -o ServerAliveInterval=30 -o ServerAliveCountMax=3 -o ConnectTimeout=10\ncontrol_path_dir = ~/.ansible/cp\ncontrol_path = %(directory)s/%%C\npipelining = True\nretries = 3\ntransfer_method = smart\n```\n## Complete Security-Focused Configuration\nFor environments where security is the priority:\n```ini\n# ansible.cfg - Security focused\n[defaults]\nforks = 10\ntimeout = 15\nremote_user = ansible\nprivate_key_file = ~/.ssh/ansible_ed25519_key\nhost_key_checking = True\n[ssh_connection]\nssh_args = -o ControlMaster=auto -o ControlPersist=30s -o PreferredAuthentications=publickey -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=~/.ssh/ansible_known_hosts\ncontrol_path_dir = ~/.ansible/cp\ncontrol_path = %(directory)s/%%C\npipelining = True\nretries = 1\n```\nKey security settings:\n- `IdentitiesOnly=yes` - Only use the specified key, do not try others\n- `StrictHostKeyChecking=yes` - Always verify host keys\n- Separate `UserKnownHostsFile` for Ansible\n- Lower `ControlPersist` to reduce window of connection reuse\n## Debugging SSH Options\nWhen something is not working, crank up the verbosity:\n```bash\n# Show SSH command being executed\nansible all -m ping -vvvv\n# The output includes the exact SSH command with all arguments\n# Look for lines starting with \"SSH: EXEC ssh\"\n```\nExample debug output:\n```text\n<web01> SSH: EXEC ssh -o ControlMaster=auto -o ControlPersist=60s -o PreferredAuthentications=publickey -o StrictHostKeyChecking=no -o 'IdentityFile=\"~/.ssh/ansible_key\"' -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User=\"deploy\"' -o ConnectTimeout=10 -o 'ControlPath=\"/home/user/.ansible/cp/abc123\"' 10.0.1.10 '/bin/sh -c '\"'\"'echo ~deploy && sleep 0'\"'\"''\n```\nThis shows you exactly what SSH arguments Ansible is using, which is invaluable for troubleshooting.\n## Environment Variable Overrides\nMany SSH options have a corresponding environment variable:\n```bash\n# Override SSH args\nexport ANSIBLE_SSH_ARGS=\"-o ControlMaster=auto -o ControlPersist=60s\"\n# Override pipelining\nexport ANSIBLE_SSH_PIPELINING=True\n# Override retries\nexport ANSIBLE_SSH_RETRIES=5\n# Override transfer method\nexport ANSIBLE_SSH_TRANSFER_METHOD=scp\n# Override control path directory\nexport ANSIBLE_SSH_CONTROL_PATH_DIR=~/.ansible/cp\n```\nThese are useful in CI/CD pipelines where you cannot modify `ansible.cfg`:\n```yaml\n# GitLab CI example\ndeploy:\n  script:\n    - ansible-playbook deploy.yml\n  variables:\n    ANSIBLE_SSH_ARGS: \"-o ControlMaster=auto -o ControlPersist=60s\"\n    ANSIBLE_SSH_PIPELINING: \"True\"\n    ANSIBLE_SSH_RETRIES: \"3\"\n```\n## Wrapping Up\nThe SSH connection plugin is highly configurable, and understanding its options lets you handle any environment. Start with the performance-optimized configuration (ControlMaster, pipelining, increased forks) and adjust based on your needs. Use inventory variables to handle per-host differences, and use the `-vvvv` flag to see exactly what SSH commands Ansible generates. The difference between a well-tuned SSH configuration and the defaults can be the difference between a 10-minute playbook run and a 3-minute one."
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: NETWORK-L2 Supplemental 207: ISP Automation with Ansible: Config at Scale | zerosday"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Configure OSPF\n  hosts: routers\n  gather_facts: false\n  vars:\n    ospf_process_id: 1\n    ospf_area: 0\n  tasks:\n    - name: Generate OSPF configuration\n      template:\n        src: templates/ospf_config.j2\n        dest: \"/home/ansible/configs/{{ inventory_hostname }}_ospf.conf\"\n      vars:\n        interface_ip: \"{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}\"\n        interface_wildcard_mask: \"0.0.0.0\" # Example, would be dynamic in real scenario\n        passive_interface: \"GigabitEthernet0/1\"\n        ospf_neighbors: \"{{ hostvars[inventory_hostname]['ospf_neighbor_ips'] | default([]) }}\" # Dynamic from facts or vars"
       }
     ]
   },
@@ -5319,11 +5187,11 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Day 28: Advanced Security Practices in Ansible 🔒🛡️ | by Vinoth Subbiah | Medium"
+        "value": "Python script for: NETWORK-L2 Supplemental 247: ISP Automation with Ansible: Config at Scale | zerosday"
       },
       {
         "from": "gpt",
-        "value": "---- hosts: webservers  vars_files:    - secrets.yml  tasks:    - name: Deploy application      ansible.builtin.copy:        src: /path/to/app        dest: /var/www/html    - name: Configure database      ansible.builtin.template:        src: db_config.j2        dest: /etc/myapp/db_config.yml        mode: '0600'"
+        "value": "#!/usr/bin/env python\nfrom scapy.all import IP, ICMP, sr1\ndef ping_host(target_ip, interface=\"eth0\"):\n    \"\"\"Pings a target IP address and returns True if successful, False otherwise.\"\"\"\n    try:\n        reply = sr1(IP(dst=target_ip)/ICMP(), timeout=2, verbose=False, iface=interface)\n        if reply:\n            return True\n        else:\n            return False\n    except Exception as e:\n        print(f\"Error during ping: {e}\")\n        return False\nif __name__ == \"__main__\":\n    import sys\n    if len(sys.argv) != 2:\n        print(\"Usage: python ping_script.py <target_ip>\")\n        sys.exit(1)\n    target = sys.argv[1]\n    if ping_host(target):\n        print(f\"Ping to {target} successful.\")\n        sys.exit(0)\n    else:\n        print(f\"Ping to {target} failed.\")\n        sys.exit(1)"
       }
     ]
   },
@@ -5408,6 +5276,18 @@
       {
         "from": "gpt",
         "value": "- name: Deploy application using HashiCorp Vault secrets\n  hosts: web_servers\n  gather_facts: false\n  vars:\n    vault_url: \"https://vault.example.com:8200\"\n    vault_token: \"{{ lookup('env', 'VAULT_TOKEN') }}\"\n  tasks:\n    - name: Retrieve database credentials from Vault\n      set_fact:\n        db_credentials: \"{{ lookup('hashi_vault', 'secret=database/creds/webapp token=' + vault_token + ' url=' + vault_url) }}\"\n    - name: Create database configuration\n      template:\n        src: db_config.j2\n        dest: /etc/webapp/database.conf\n        owner: webapp\n        group: webapp\n        mode: '0640'\n      vars:\n        db_user: \"{{ db_credentials.data.username }}\"\n        db_password: \"{{ db_credentials.data.password }}\"\n      no_log: true"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: NETWORK-L2 Supplemental 143: ISP Automation with Ansible: Config at Scale | zerosday"
+      },
+      {
+        "from": "gpt",
+        "value": "# validate_arp.py\nfrom scapy.all import ARP, Ether, srp\ndef verify_arp_resolution(target_ip, source_ip, interface):\n    \"\"\"\n    Sends an ARP request and checks for a reply.\n    \"\"\"\n    try:\n        # Craft the ARP request\n        arp_request = ARP(pdst=target_ip)\n        # Craft the Ethernet frame\n        ether_frame = Ether(dst=\"ff:ff:ff:ff:ff:ff\") # Broadcast MAC\n        packet = ether_frame / arp_request\n        print(f\"Sending ARP request for {target_ip} from {source_ip} on {interface}...\")\n        # Send and receive packets, waiting for a response\n        answered, unanswered = srp(packet, timeout=2, verbose=False, iface=interface)\n        if answered:\n            print(f\"ARP reply received from {answered[0][1].hwsrc} ({answered[0][1].psrc})\")\n            return True\n        else:\n            print(f\"No ARP reply received for {target_ip}.\")\n            return False\n    except Exception as e:\n        print(f\"An error occurred: {e}\")\n        return False\nif __name__ == \"__main__\":\n    # These values would typically be passed from an Ansible playbook\n    # For demonstration, we'll hardcode them.\n    TARGET_IP = \"192.168.10.2\"  # The IP of the neighbor device\n    SOURCE_IP = \"192.168.10.1\"  # The IP configured on our device\n    NETWORK_INTERFACE = \"eth0\"  # The network interface on the Ansible control node\n    if verify_arp_resolution(TARGET_IP, SOURCE_IP, NETWORK_INTERFACE):\n        print(\"ARP resolution successful!\")\n    else:\n        print(\"ARP resolution failed.\")"
       }
     ]
   },
@@ -5847,18 +5727,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Ansible in CI/CD: Vault Passwords, Check Mode Gates, and | TheCodeForge"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n- name: Deploy with audit logging\n  hosts: web\n  tasks:\n    - name: Log deployment start\n      ansible.builtin.uri:\n        url: https://logs.example.com/deploy\n        method: POST\n        body: '{\"status\":\"started\",\"host\":\"{{ inventory_hostname }}\"}'\n        headers:\n          Content-Type: application/json\n    - name: Deploy app\n      ansible.builtin.copy:\n        src: /tmp/app/\n        dest: /var/www/app/\n    - name: Log deployment end\n      ansible.builtin.uri:\n        url: https://logs.example.com/deploy\n        method: POST\n        body: '{\"status\":\"completed\",\"host\":\"{{ inventory_hostname }}\"}'\n        headers:\n          Content-Type: application/json"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Python script for: Set up base configurations for Ansible automation controller using GitLab CI"
       },
       {
@@ -6183,7 +6051,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Medium"
+        "value": "Python script for: An Interactive Guide to Ansible Best Practices 2025 | by Tchize Matias | Medium"
       },
       {
         "from": "gpt",
@@ -6303,11 +6171,11 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Ansible Performance Tuning: From 10x Slower to 10x Faster | TheCodeForge"
+        "value": "Python script for: ansible-security-scanner · PyPI"
       },
       {
         "from": "gpt",
-        "value": "---\n- name: Async example\n  hosts: all\n  gather_facts: no\n  tasks:\n    - name: Long running task\n      ansible.builtin.command: sleep 30\n      async: 60\n      poll: 0\n      changed_when: false\n    - name: Check async status\n      ansible.builtin.async_status:\n        jid: \"{{ ansible_async_job_id }}\"\n      register: job_result\n      until: job_result.finished\n      retries: 30\n      delay: 1"
+        "value": "ansible-security-scanner/                      # repo root (hyphenated - matches PyPI)\n├── pyproject.toml                             # packaging + pytest + hatch-vcs\n├── README.md\n├── CONTRIBUTING.md\n├── RELEASING.md                               # maintainer release runbook\n├── LICENSE / NOTICE                           # Apache-2.0 + attribution terms\n├── main.py                                    # local dev entry point (py main.py ...)\n├── .github/workflows/                         # CI, release, docs workflows\n├── .hugo/                                     # Hugo documentation site\n│   ├── scripts/build_docs.py                  # Generates Hugo content from docs/ + patterns\n│   └── content/                               # Generated .md pages (do not edit by hand)\n├── docs/                                      # Long-form prose docs (source of truth)\n│   ├── assets/                                # Images & SVGs the README references\n│   ├── cli.md                                 # CLI Reference (and exit codes, suppressions, dedup)\n│   ├── environment.md                         # Environment Variables\n│   ├── api.md                                 # Programmatic API\n│   ├── output-formats.md\n│   ├── allowlist.md\n│   ├── ci-cd.md\n│   ├── mr-pr-comments.md\n│   ├── custom-patterns.md\n│   ├── scoring.md\n│   ├── testing.md\n│   ├── limitations.md\n│   └── releasing.md\n├── src/\n│   └── ansible_security_scanner/              # the Python package\n│       ├── cli.py                             # CLI (--directory, --fix, --compliance, ...)\n│       ├── scanner.py                         # Multi-pass orchestrator\n│       ├── file_scanner.py                    # Per-file rules (line patterns, AST walkers)\n│       ├── taint_tracker.py                   # Cross-file taint analysis\n│       ├── fix_proposer.py                    # Dry-run unified-diff patch generator\n│       ├── dependency_collector.py            # SBOM inventory\n│       ├── suppressions.py                    # Inline `# nosec` parser\n│       ├── models.py                          # SecurityFinding, ScanReport, SecurityScore\n│       ├── score_calculator.py                # Severity-weighted scoring\n│       ├── patterns_manager.py                # Loads pattern YAML plugins\n│       ├── patterns/                          # 29+ YAML pattern plugins (auto-discovered)\n│       ├── remediations/                      # One module per category\n│       └── formatters/                        # markdown, json, xml, yaml, csv, html, junit, sarif, gitlab_sast, cyclonedx\n└── tests/\n    ├── test_integration.py                    # End-to-end scanner tests\n    ├── test_formatters.py                     # Formatter unit tests\n    ├── test_remediations.py                   # Remediation generator unit tests\n    └── playbooks/\n        ├── bad_example.yml                    # Triggers every rule (100% coverage)\n        ├── clean_example.yml                  # Zero findings (false-positive guard)\n        ├── multi_example_bad/                 # 6-file role fixture (cross-file taint)\n        └── multi_example_clean/               # 6-file hardened role fixture (zero findings)"
       }
     ]
   },
@@ -6956,6 +6824,102 @@
       {
         "from": "gpt",
         "value": "# How to Use Ansible to Create PostgreSQL Users\nAuthor: [nawazdhandala](https://www.github.com/nawazdhandala)\nTags: Ansible, PostgreSQL, User Management, Security\nDescription: Automate PostgreSQL user and role creation with Ansible including password management, privileges, and connection limits.\n---\nManaging database users manually across multiple servers is tedious and error-prone. Forgetting to create a user on one server, or setting different passwords across environments, leads to application failures that are frustrating to debug. Ansible automates this with the `community.postgresql.postgresql_user` module, which creates users, sets passwords, assigns roles, and manages connection limits idempotently.\nThis post covers creating PostgreSQL users with Ansible, handling passwords securely, setting up application and read-only users, and managing user lifecycle across environments.\n## Prerequisites\nMake sure you have the PostgreSQL community collection installed.\n```bash\n# Install the PostgreSQL collection\nansible-galaxy collection install community.postgresql\n```\n## Creating a Basic User\nHere is the simplest way to create a PostgreSQL user.\n```yaml\n# playbooks/create-pg-users.yml\n# Create basic PostgreSQL users\n---\n- name: Create PostgreSQL users\n  hosts: databases\n  become: true\n  become_user: postgres\n  tasks:\n    - name: Create application user\n      community.postgresql.postgresql_user:\n        name: myapp_user\n        password: \"{{ vault_myapp_db_password }}\"\n        state: present\n```\nThe password should come from Ansible Vault or an external secrets manager. Never hardcode passwords in your playbooks.\n## Creating Multiple Users with Different Privileges\nReal applications need multiple users: an application user for reads and writes, a read-only user for reporting, and an admin user for migrations.\n```yaml\n# playbooks/create-pg-users.yml\n# Create multiple users with specific attributes and privileges\n---\n- name: Create PostgreSQL users\n  hosts: databases\n  become: true\n  become_user: postgres\n  vars:\n    postgresql_users:\n      - name: myapp_admin\n        password: \"{{ vault_myapp_admin_password }}\"\n        role_attr_flags: CREATEDB,CREATEROLE\n        connection_limit: 5\n        comment: \"Admin user for database migrations\"\n      - name: myapp_user\n        password: \"{{ vault_myapp_user_password }}\"\n        role_attr_flags: NOSUPERUSER,NOCREATEDB\n        connection_limit: 50\n        comment: \"Application read/write user\"\n      - name: myapp_readonly\n        password: \"{{ vault_myapp_readonly_password }}\"\n        role_attr_flags: NOSUPERUSER,NOCREATEDB,NOCREATEROLE\n        connection_limit: 20\n        comment: \"Read-only user for reporting\"\n      - name: myapp_backup\n        password: \"{{ vault_myapp_backup_password }}\"\n        role_attr_flags: NOSUPERUSER,NOCREATEDB\n        connection_limit: 2\n        comment: \"Backup user for pg_dump\"\n  tasks:\n    - name: Create PostgreSQL users\n      community.postgresql.postgresql_user:\n        name: \"{{ item.name }}\"\n        password: \"{{ item.password }}\"\n        role_attr_flags: \"{{ item.role_attr_flags | default('NOSUPERUSER') }}\"\n        conn_limit: \"{{ item.connection_limit | default(-1) }}\"\n        comment: \"{{ item.comment | default('') }}\"\n        state: present\n      loop: \"{{ postgresql_users }}\"\n      no_log: true\n```\nThe `no_log: true` directive prevents passwords from appearing in Ansible output.\n## Managing Passwords Securely\nStore passwords in Ansible Vault.\n```bash\n# Create an encrypted variables file for database passwords\nansible-vault create group_vars/databases/vault.yml\n```\n```yaml\n# group_vars/databases/vault.yml (encrypted)\n# Database user passwords - encrypted with ansible-vault\nvault_myapp_admin_password: \"s3cureAdm1nP@ss\"\nvault_myapp_user_password: \"appUs3rP@ssw0rd\"\nvault_myapp_readonly_password: \"r3adOnlyP@ss\"\nvault_myapp_backup_password: \"b@ckupP@ssw0rd\"\n```\nReference the vault variables in your regular variables.\n```yaml\n# group_vars/databases/main.yml\n# Reference encrypted passwords from vault\nmyapp_admin_password: \"{{ vault_myapp_admin_password }}\"\nmyapp_user_password: \"{{ vault_myapp_user_password }}\"\n```\n## Setting User Attributes\nPostgreSQL has several role attributes you can control.\n```yaml\n# Create a user with specific role attributes\n- name: Create superuser for emergencies\n  community.postgresql.postgresql_user:\n    name: emergency_admin\n    password: \"{{ vault_emergency_admin_password }}\"\n    role_attr_flags: SUPERUSER,CREATEDB,CREATEROLE,LOGIN\n    expires: \"2026-03-01T00:00:00+00:00\"\n    conn_limit: 1\n    state: present\n  no_log: true\n```\nAvailable role attributes include:\n- `SUPERUSER` / `NOSUPERUSER`\n- `CREATEDB` / `NOCREATEDB`\n- `CREATEROLE` / `NOCREATEROLE`\n- `LOGIN` / `NOLOGIN`\n- `REPLICATION` / `NOREPLICATION`\n## Password Expiration\nYou can set passwords to expire after a certain date.\n```yaml\n# Create user with password expiration\n- name: Create temporary contractor user\n  community.postgresql.postgresql_user:\n    name: contractor_jane\n    password: \"{{ vault_contractor_password }}\"\n    expires: \"2026-06-30T23:59:59+00:00\"\n    role_attr_flags: NOSUPERUSER,NOCREATEDB\n    state: present\n  no_log: true\n```\n## Granting Database Access\nAfter creating users, grant them access to specific databases.\n```yaml\n# Grant database ownership and access\n- name: Set database owner\n  community.postgresql.postgresql_db:\n    name: myapp_production\n    owner: myapp_admin\n    state: present\n- name: Grant connect privilege to application user\n  community.postgresql.postgresql_privs:\n    database: myapp_production\n    type: database\n    roles: myapp_user\n    privs: CONNECT\n    state: present\n- name: Grant connect privilege to read-only user\n  community.postgresql.postgresql_privs:\n    database: myapp_production\n    type: database\n    roles: myapp_readonly\n    privs: CONNECT\n    state: present\n```\n## Creating a Complete User Management Role\n```yaml\n# roles/postgresql_users/tasks/main.yml\n# Full user management role with creation, privileges, and validation\n---\n- name: Create PostgreSQL users\n  community.postgresql.postgresql_user:\n    name: \"{{ item.name }}\"\n    password: \"{{ item.password }}\"\n    role_attr_flags: \"{{ item.role_attr_flags | default('NOSUPERUSER,NOCREATEDB') }}\"\n    conn_limit: \"{{ item.conn_limit | default(-1) }}\"\n    expires: \"{{ item.expires | default(omit) }}\"\n    state: present\n  loop: \"{{ postgresql_users }}\"\n  no_log: true\n  become: true\n  become_user: postgres\n- name: Grant database access to users\n  community.postgresql.postgresql_privs:\n    login_db: \"{{ item.database }}\"\n    type: database\n    roles: \"{{ item.name }}\"\n    privs: CONNECT\n    state: present\n  loop: \"{{ postgresql_users | selectattr('database', 'defined') | list }}\"\n  become: true\n  become_user: postgres\n- name: Verify user creation\n  community.postgresql.postgresql_query:\n    query: \"SELECT usename, valuntil, usesuper, usecreatedb FROM pg_user WHERE usename = %s\"\n    positional_args:\n      - \"{{ item.name }}\"\n  register: user_info\n  loop: \"{{ postgresql_users }}\"\n  become: true\n  become_user: postgres\n  changed_when: false\n- name: Display user information\n  debug:\n    msg: \"User {{ item.item.name }}: {{ item.query_result }}\"\n  loop: \"{{ user_info.results }}\"\n  when: item.query_result | length > 0\n```\n## User Management Flow\n```mermaid\nflowchart TD\n    A[Define Users in Variables] --> B[Create Users with Passwords]\n    B --> C[Set Role Attributes]\n    C --> D[Set Connection Limits]\n    D --> E[Set Password Expiration]\n    E --> F[Grant Database Access]\n    F --> G[Verify User Creation]\n    G --> H[Update pg_hba.conf if needed]\n```\n## Rotating Passwords\nPassword rotation is a security best practice. Here is how to rotate passwords with Ansible.\n```yaml\n# playbooks/rotate-passwords.yml\n# Rotate database user passwords\n---\n- name: Rotate PostgreSQL passwords\n  hosts: databases\n  become: true\n  become_user: postgres\n  tasks:\n    - name: Update user password\n      community.postgresql.postgresql_user:\n        name: myapp_user\n        password: \"{{ new_myapp_user_password }}\"\n        state: present\n      no_log: true\n    - name: Verify new password works\n      community.postgresql.postgresql_query:\n        login_db: myapp_production\n        login_user: myapp_user\n        login_password: \"{{ new_myapp_user_password }}\"\n        login_host: \"127.0.0.1\"\n        query: \"SELECT 1\"\n      register: auth_test\n      no_log: true\n    - name: Confirm authentication succeeded\n      assert:\n        that: auth_test.query_result | length > 0\n        fail_msg: \"Password rotation failed - new password does not work\"\n```\n## Removing Users Safely\n```yaml\n# Remove a PostgreSQL user with reassignment of owned objects\n- name: Reassign owned objects before dropping user\n  community.postgresql.postgresql_owner:\n    login_db: myapp_production\n    new_owner: myapp_admin\n    reassign_owned_by: old_user\n  become: true\n  become_user: postgres\n- name: Drop the old user\n  community.postgresql.postgresql_user:\n    name: old_user\n    state: absent\n  become: true\n  become_user: postgres\n```\n## Conclusion\nAnsible makes PostgreSQL user management consistent and repeatable. Define your users in variables, store passwords in Ansible Vault, and let the `community.postgresql.postgresql_user` module handle the creation and updates. The `no_log` directive keeps passwords out of your CI/CD logs, and the idempotent nature means you can safely run the playbook repeatedly without side effects. Combine user creation with privilege management (covered in the next post) for a complete database access control pipeline."
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Protect Secrets and Passwords with Ansible Vault: A Practical Guide with Examples - DEV Community"
+      },
+      {
+        "from": "gpt",
+        "value": "$ cat playbook.yaml\n---\n- hosts: localhost\n  vars:\n    api_user: serviceAccountUser\n    api_key: !vault |\n        $ANSIBLE_VAULT;1.1;AES256\n613838633038643139333530633066333034316239366263626539306130646431313664643132396639353465663932626432636239383331623631643833370a396231343231336132363832353761333061323637383962323363336166323537643738323739323766653831313063626336656535613135663364386336360a62313966323932373162646330376436353761633737316637376436663437363339656535653234376566393536383231373432656462383461376162623035\n  tasks:\n    - name: Make HTTP request\n    ansible.builtin.uri:\n        url: http://localhost:3000\n        user: \"{{ api_user }}\"\n        password: \"{{ api_key }}\"\n      method: POST\n    - name: Transfer encrypted configuration file\n    ansible.builtin.copy:\n        src: config.yaml\n        dest: /etc/application/config.yaml\n        owner: root\n        group: root\n        mode: 0600\nEnter fullscreen mode\nExit fullscreen mode"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Setting Up SSH from Your Brain Server to All Node Machines - Web Design | Internet Marketing | Automation"
+      },
+      {
+        "from": "gpt",
+        "value": "## SSH Access from Brain Server\n### Available Aliases\n- node-primary: [Primary scraper machine]\n- node-secondary: [Secondary scraper machine]\n- node-utility: [Utility machine]\n### Common Commands\nHealth checks:\n  ssh node-primary 'curl -s http://localhost:[YOUR-PORT]/health'\n  ssh node-secondary 'curl -s http://localhost:[YOUR-PORT]/health'\nView batch progress:\n  ssh node-primary 'cat /the/project/directory/epa_batch/checkpoint.txt && tail -3 /the/project/directory/epa_batch/output_a.log'\nPush fresh handler list from DB:\n  docker exec [DB_CONTAINER] psql -U [DB_USER] -d [DB_NAME] -t -A -c \"SELECT handler_id FROM epa_handlers WHERE status='active'\" | ssh node-primary 'cat > /the/project/directory/epa_batch/handler_id.txt && echo 0 > /the/project/directory/epa_batch/checkpoint.txt'\n### Key Recovery\nIf the Ed25519 key is lost or compromised:\n1. Generate a new key on the brain server: ssh-keygen -t ed25519 -C brain-server -f ~/.ssh/id_ed25519 -N ''\n2. Distribute the new public key to all target machines\n3. Remove the old public key from all authorized_keys files\n4. Test connectivity to each machine before marking complete"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Laptop Home Server Build · DominikBritz.com"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Disable sleep when closing the lid\n  lineinfile:\n    path: /etc/systemd/logind.conf\n    regexp: '^#?HandleLidSwitch='\n    line: 'HandleLidSwitch=ignore'\n    backup: yes\n###\n### Unbound\n###\n- name: systemd is listening on port 53. Remove that as we need the port for our Unbound DNS server later\n  ansible.builtin.lineinfile:\n    path: /etc/systemd/resolved.conf\n    regexp: '^#?DNSStubListener='\n    line: 'DNSStubListener=0'\n- name: Restart systemd-resolved service\n  ansible.builtin.service:\n    name: systemd-resolved\n    state: restarted\n- name: Update repositories cache and install \"unbound\" package\n  ansible.builtin.apt:\n    name: unbound\n    update_cache: yes\n###\n### Backup with restic and resticprofile\n###\n- name: Install \"restic\" package\n  ansible.builtin.apt:\n    name: restic\n    update_cache: no\n- name: Run restic self-update\n  command: restic self-update\n- name: Check if directory \"/usr/local/bin/resticprofile\" exists and store the result in the variable \"resticprofile_dir\"\n  ansible.builtin.stat:\n    path: /usr/local/bin/resticprofile\n  register: resticprofile_dir\n- name: Download resticprofile install.sh script\n  get_url:\n    url: https://raw.githubusercontent.com/creativeprojects/resticprofile/master/install.sh\n    dest: /tmp/install.sh\n  when: not resticprofile_dir.stat.exists # this ensures we only do this step in case resticprofile is not already installed\n- name: Change permissions of install.sh\n  file:\n    path: /tmp/install.sh\n    mode: 'u+x'\n  when: not resticprofile_dir.stat.exists # this ensures we only do this step in case resticprofile is not already installed\n- name: Run install.sh script\n  shell: /tmp/install.sh -b /usr/local/bin\n  args:\n    chdir: /tmp\n  when: not resticprofile_dir.stat.exists # this ensures we only do this step in case resticprofile is not already installed\n- name: Run resticprofile self-update\n  shell: resticprofile self-update\n###\n### Mount external drive\n###\n- name: Check if the external drive is already mounted\n  shell:\n    cmd: mount | grep '/media/18TB'\n  register: mount_check\n  ignore_errors: yes\n- name: Mount the drive if not already mounted and set it to mount at boot\n  mount:\n    path: '/media/18TB'\n    src: 'UUID=1c333c73-475d-4b3d-a82d-511321753eab'\n    fstype: auto\n    state: mounted\n    boot: true\n  when: mount_check.rc != 0\n- name: Set permissions for dockerlimited group on /media/18TB\n  acl:\n    path: /media/18TB\n    entity: dockerlimited\n    etype: group\n    permissions: 'rwx'\n    state: present\n    recursive: yes\n    default: true"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: How to use advanced Ansible techniques - Toxigon"
+      },
+      {
+        "from": "gpt",
+        "value": "#!/usr/bin/env python3\nimport json\nimport requests\ndef fetch_hosts():\n    response = requests.get('https://cmdb.example.com/api/hosts')\n    hosts = response.json()\n    inventory = {\n        '_meta': {'hostvars': {}},\n        'web_servers': {'hosts': []},\n        'db_servers': {'hosts': []}\n    }\n    for host in hosts:\n        if host['role'] == 'web':\n            inventory['web_servers']['hosts'].append(host['ip'])\n        elif host['role'] == 'db':\n            inventory['db_servers']['hosts'].append(host['ip'])\n        inventory['_meta']['hostvars'][host['ip']] = host\n    return inventory\nif __name__ == '__main__':\n    print(json.dumps(fetch_hosts()))"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Testing ansible-roles automatically on every git-push | FYHTECH"
+      },
+      {
+        "from": "gpt",
+        "value": "# This Dockerfile was tested with debian jessie\n#\n# Build with: docker build -t ansible/debian_jessie .\n#\nFROM debian\nMAINTAINER hoti\nENV DEBIAN_FRONTEND noninteractive\nRUN echo \"deb http://ftp.debian.org/debian jessie-backports main\" > /etc/apt/sources.list.d/backports.list\nRUN apt-get update && apt-get upgrade -y\nRUN apt-get install -y build-essential git python python-dev libffi-dev libssl-dev python-pip libyaml-dev libgmp-dev libgmp10 libyaml-0-2 apt-utils\nRUN apt-get install -y -t jessie-backports python-pyasn1 python-setuptools\nRUN git clone https://github.com/ansible/ansible.git /usr/local/src/ansible\nRUN cd /usr/local/src/ansible && git checkout v2.1.2.0-1 && git submodule update --init --recursive && make && make install\nUSER root\nWORKDIR /var/tmp"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible infra.windows_ops Role Example: Enforce CIS"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Enforce CIS benchmark baseline on Windows Server fleet\n  hosts: windows_servers\n  gather_facts: true\n  vars:\n    windows_ops_baseline: cis\n    windows_ops_cis_level: level1\n    windows_ops_target_os: windows_server_2022\n    windows_ops_remediate: true\n    windows_ops_report_path: C:\\ProgramData\\ansible\\cis_report.json\n    windows_ops_exceptions:\n      - rule_id: \"2.3.1.5\"\n        reason: \"Legacy monitoring agent requires local Guest account for one more quarter\"\n  roles:\n    - role: infra.windows_ops.cis_baseline\n  post_tasks:\n    - name: Fail the play if drift remains after remediation\n      ansible.builtin.fail:\n        msg: >-\n          CIS drift still present on {{ inventory_hostname }}:\n          {{ windows_ops_baseline_result.failed_rules | length }} rule(s) failing.\n      when:\n        - windows_ops_baseline_result.failed_rules is defined\n        - windows_ops_baseline_result.failed_rules | length > 0\n    - name: Fetch the compliance report for central storage\n      ansible.builtin.fetch:\n        src: \"{{ windows_ops_report_path }}\"\n        dest: \"reports/{{ inventory_hostname }}-cis-report.json\"\n        flat: true"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible splunk.es Module Example: Trigger Incident Response"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Trigger incident response workflow from Splunk ES\n  hosts: localhost\n  gather_facts: false\n  vars:\n    splunk_es_host: \"splunk-es.internal.example.com\"\n    splunk_es_port: 8089\n    notable_event_id: \"{{ es_notable_event_id }}\"\n  tasks:\n    - name: Look up the notable event in Splunk ES\n      splunk.es.notable_event_info:\n        server_host: \"{{ splunk_es_host }}\"\n        server_port: \"{{ splunk_es_port }}\"\n        server_username: \"{{ splunk_es_user }}\"\n        server_password: \"{{ splunk_es_password }}\"\n        event_id: \"{{ notable_event_id }}\"\n      register: notable_event\n    - name: Escalate severity if source is a known critical asset\n      splunk.es.notable_event:\n        server_host: \"{{ splunk_es_host }}\"\n        server_port: \"{{ splunk_es_port }}\"\n        server_username: \"{{ splunk_es_user }}\"\n        server_password: \"{{ splunk_es_password }}\"\n        event_id: \"{{ notable_event_id }}\"\n        urgency: critical\n        status: in_progress\n        owner: \"soc-tier2\"\n      when: notable_event.result.asset_criticality == \"high\"\n    - name: Trigger the incident response plan\n      splunk.es.response_plan:\n        server_host: \"{{ splunk_es_host }}\"\n        server_port: \"{{ splunk_es_port }}\"\n        server_username: \"{{ splunk_es_user }}\"\n        server_password: \"{{ splunk_es_password }}\"\n        event_id: \"{{ notable_event_id }}\"\n        plan_name: \"isolate-and-investigate\"\n        state: started\n      register: response_plan\n    - name: Show the response plan run ID\n      ansible.builtin.debug:\n        msg: \"Response plan started: {{ response_plan.plan_run_id }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible Error Guide: 'Unsupported parameters for module'"
+      },
+      {
+        "from": "gpt",
+        "value": "# List a module's valid parameters (from the installed version)\nansible-doc ansible.builtin.copy\n# Show installed collection versions\nansible-galaxy collection list\n# Syntax-check a playbook without running it\nansible-playbook -i inventory site.yml --syntax-check\n# Run with the constructed argument dict visible\nansible-playbook -i inventory site.yml --limit <host> -vvv"
       }
     ]
   }

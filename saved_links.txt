@@ -2496,3 +2496,83 @@ https://www.ansiblepilot.com/articles/using-docker-containers-with-molecule-for-
  📂 CATEGORY: POSTGRESQL DATABASE MANAGEMENT
 =========================================
 https://github.com/OneUptime/blog/blob/master/posts/2026-02-21-ansible-create-postgresql-users/README.md
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://github.com/creasty/ansible-playbooks-example
+https://thecodeforge.io/devops/ansible-best-practices/
+https://dev.to/envzero/protect-secrets-and-passwords-with-ansible-vault-a-practical-guide-with-examples-5ael
+https://www.linkedin.com/pulse/day-8-ansible-playbook-basics-example-shyam-kumar-khatri-hxvvc
+https://kodekloud.com/blog/ansible-playbook-example/
+https://blog.geralexgr.com/tag/ansible-create-users
+https://lucaberton.com/blog/fix-ansible-handler-not-found-error/
+https://patchmon.net/integrations/ansible
+https://www.appsecmaster.net/blog/owasp-secure-coding-practices-every-developer-should-know/
+https://www.slideshare.net/slideshow/error-handling-using-blocks-rescue-and-always-rhce/288531010
+https://cheatsheet.antonnovikov.com/ansible/per-task-timing-profile
+https://www.linkedin.com/posts/rafayzarar_splunk-siem-cybersecurity-activity-7307681602627690496-THoj
+https://wifitalents.com/best/situational-intelligence-software/
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://foorshop.com/dev/complete-devops-ci-cd-pipeline-on-aws-ec2-github-jenkins-docker-ansible-automation
+https://stackoverflow.com/questions/62690097/how-to-pass-ansible-vault-password-as-an-extra-var
+https://openillumi.com/en/en-ansible-vault-secure-pass-via-cat-pipe/
+https://serverfault.com/questions/835497/how-to-restart-a-systemd-service-without-a-tty
+https://notes.runtimeterror.dev/CICD/Gitlab-CI-YAML-Tricks.html
+https://www.cloudfolkshub.com/s/preview/courses/GIT-For-DevOPS-
+https://hellointern.in/blog/ansible-interview-questions-and-answers-for-experienced-63052
+https://www.fosslinux.com/158033/openssh-client-side-security-ubuntu.htm
+https://xtreamsolution.net/setting-up-ssh-from-your-brain-server-to-all-node-machines/
+https://dominikbritz.com/posts/2024-01-22-laptop-home-server/
+https://www.golinuxcloud.com/ufw-command-in-linux/
+https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands
+https://newreleases.io/project/github/dev-sec/ansible-collection-hardening/release/9.0.0
+https://toxigon.com/advanced-ansible-techniques-for-experts
+https://computecentral.in/ansible/volume-6-production-and-performance/01-security/
+https://habr.com/ru/companies/avito/articles/438740/
+https://www.strongdm.com/docs/admin/secret-stores/cyberark-pam/
+https://www.nuget.org/packages/Devon4Net.Infrastructure.AnsibleTower
+https://automatenetops.ai/posts/
+https://cyberriskleaders.com/red-hat-ansible-automation-platform-on-azure/
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://tech.feedyourhead.at/content/testing-ansible-roles-automatically-on-every-git-push
+https://www.ansiblebyexample.com/articles/ansible-infrawindowsops-role-example-enforce-cis-benchmark-baseline
+https://foorshop.com/dev/hardening-at-scale-with-cis-benchmarks-challenges-best-practices-and-automation
+https://fleetdm.com/articles/security-compliance-automation
+https://www.ansiblebyexample.com/articles/ansible-splunkes-module-example-trigger-incident-response-playbook
+https://devopsaitoolkit.com/blog/ansible-error-unsupported-parameters-for-module/
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://lucaberton.com/blog/install-docker-amazon-linux-2023/
+https://devopsaitoolkit.com/blog/ansible-execution-environments-and-collections-done-right/
+https://www-redhat-com.nproxy.org/en/technologies/management/ansible/automation-execution-environments
+
+=========================================
+ 📂 CATEGORY: NGINX & WEB REVERSE PROXY
+=========================================
+https://medium.com/@nanditasahu031/ansible-roles-for-prometheus-grafana-and-nginx-reverse-proxy-part-2-4660030be32f
+
+=========================================
+ 📂 CATEGORY: PERFORMANCE & KERNEL OPTIMIZATION
+=========================================
+https://awstip.com/set-sysctl-kernel-parameters-ansible-module-sysctl-83fc2b3f77f?source=post_internal_links---------6-------------------------------
+https://docs.w3cub.com/ansible/collections/ansible/posix/sysctl_module.html
+https://github.com/ansible-lockdown/RHEL8-CIS/issues/296
+
+=========================================
+ 📂 CATEGORY: STORAGE & LVM MANAGEMENT
+=========================================
+https://www.linuxquestions.org/questions/syndicated-linux-news-67/lxer-how-to-use-ansible-to-automate-logical-volume-manager-lvm-in-linux-4175722941/
+
+=========================================
+ 📂 CATEGORY: POSTGRESQL DATABASE MANAGEMENT
+=========================================
+https://www.wikieduonline.com/wiki/Community.postgresql.postgresql_user

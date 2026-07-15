@@ -2576,3 +2576,50 @@ https://www.linuxquestions.org/questions/syndicated-linux-news-67/lxer-how-to-us
  📂 CATEGORY: POSTGRESQL DATABASE MANAGEMENT
 =========================================
 https://www.wikieduonline.com/wiki/Community.postgresql.postgresql_user
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://steampunk.si/spotter/blog/five-best-ansible-playbook-scanning-tools/
+https://grimoire.carcano.ch/blog/ansible-playbooks-best-practices-caveats-and-pitfalls/
+https://forum.ansible.com/t/roles-purpose-best-practices/7125
+https://www.cloudthat.com/resources/blog/speed-up-your-ansible-playbook-creation-using-github-copilot/
+https://www.golinuxcloud.com/ansible-idempotency/
+https://stackoverflow.com/questions/71578834/using-block-in-handler-ansible
+https://github.com/geerlingguy/ansible-role-ansible
+https://stackoverflow.com/questions/78389033/running-ansible-script-hosted-in-my-github-repo
+https://github.com/ansible/ansible/issues/84503
+http://lib.ysu.am/disciplines_bk/4ada203e0d12ea50f002c261ce6d6317.pdf
+https://linux-zone.org/forums/upload/pdf/Pro_Linux_System_Administration.pdf
+https://www.linkedin.com/posts/gbahdeyboh_stop-exposing-secrets-secure-your-apis-in-activity-7303737021737398273-nM7x
+https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html
+https://blog.stackademic.com/i-automated-everything-with-ansible-in-20-steps-heres-how-8b938ea40c23
+https://docs.confluent.io/ansible/current/ansible-migrate-kraft.html
+https://www.manageengine.com/network-monitoring/siem-integration.html
+https://cybertron-tech.com/splunk-ibm-qradar/
+https://www.linkedin.com/posts/cyber-scale_siem-security-information-event-management-activity-7342416048580661248-yo2h
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://docs.ansible.com/projects/ansible/latest/collections/community/docker/docker_container_info_module.html
+https://networktocode.com/blog/ansible-builder-runner-ee/
+https://catalog.redhat.com/software/containers/ansible-automation-platform/ansible-builder-rhel9/6447e03d3270b32a256e4af6
+
+=========================================
+ 📂 CATEGORY: NGINX & WEB REVERSE PROXY
+=========================================
+https://takeondevops.com/?p=1828
+https://www.f5.com/company/blog/nginx/announcing-nginx-core-collection-ansible
+https://forum.ansible.com/t/automation-platform-2-5-reverse-proxy-to-gateway/39808
+https://community.ibm.com/community/user/ai-datascience/blogs/hiren-dave/2024/06/05/automating-ssl-certificate-management-with-ansible
+https://devops.stackexchange.com/questions/8722/what-are-some-reasons-for-using-an-ansible-role-for-certbot-vs-ansibles-native
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://unix.stackexchange.com/questions/707196/ansible-how-to-reboot-the-server-based-on-condition
+https://sigridjin.medium.com/ansible-basics-lab-a-hands-on-guide-for-infrastructure-automation-7bd6ec84e07c
+https://networktocode.com/blog/ansible-network-infrastructure-testing/
+https://www.researchgate.net/publication/389607944_Automating_Network_Security_with_Ansible_A_Guide_to_Secure_Network_Automation
+https://www.selector.ai/learning-center/network-automation-tools-key-features-and-top-8-options/

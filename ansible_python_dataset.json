@@ -1275,7 +1275,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Ansible Security Automation: Risks & 7 Best Practices | by Spacelift | Spacelift | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -1347,7 +1347,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Let's Encrypt with Ansible. Generate your SSL certificates... | by Bryce Guinta | Level Up Coding"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -1395,7 +1395,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Analyzing Postgresql Database for Ansible Automation Platform | by June Han | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -1419,7 +1419,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Ansible Playbook writing for beginners: Automate your morning routine | by XLAB Steampunk | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -1443,7 +1443,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Ansible Command vs Shell: The Gotcha That Broke Our Prod | TheCodeForge"
+        "value": "Python script for: Ansible Command and Shell Modules: Ansible Command vs Shell | TheCodeForge"
       },
       {
         "from": "gpt",
@@ -1959,7 +1959,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Ansible and GitOps: A Practical Guide | by Muhabbat Ali | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -2175,7 +2175,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: DevOps: Unleashing the Power of GitLab CI/CD, Docker, and Ansible | by Madhan Chinnasamy | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -2427,7 +2427,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Creating PostgreSQL Database With Ansible | by Vince Sesto | Splunk User Developer Administrator | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -2667,6 +2667,30 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Python script for: Ansible Tutorial â SSH Key Setup -"
+      },
+      {
+        "from": "gpt",
+        "value": "# Test passwordless SSH\n$ ssh deploy@server1.example.com\n# You should connect without a password prompt\n# Type 'exit' to return\n# Test from Ansible\n$ ansible all -m ping\nserver1 | SUCCESS => {\n    \"changed\": false,\n    \"ping\": \"pong\"\n}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible Tutorial â SSH Key Management -"
+      },
+      {
+        "from": "gpt",
+        "value": "# group_vars/all.yml\nteam_users:\n  - name: alice\n    groups: developers,docker\n    ssh_key: \"ssh-ed25519 AAAAC3... alice@work\"\n    state: present\n  - name: bob\n    groups: developers\n    ssh_key: \"ssh-ed25519 BBBBC3... bob@work\"\n    state: present\n  - name: charlie\n    groups: developers\n    ssh_key: \"\"\n    state: absent\n# tasks\n- name: Manage users\n  ansible.builtin.user:\n    name: \"{{ item.name }}\"\n    groups: \"{{ item.groups | default(omit) }}\"\n    state: \"{{ item.state }}\"\n    remove: \"{{ true if item.state == 'absent' else false }}\"\n  loop: \"{{ team_users }}\"\n- name: Manage SSH keys\n  ansible.posix.authorized_key:\n    user: \"{{ item.name }}\"\n    key: \"{{ item.ssh_key }}\"\n    state: present\n  loop: \"{{ team_users }}\"\n  when: item.state == 'present' and item.ssh_key != ''"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Python script for: Ansible Firewall -- firewalld & UFW | AnsibleByExample"
       },
       {
@@ -2763,7 +2787,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Automating Incident Response: Leveraging Grafana Alerts and Ansible Playbooks to Resolve Issues | by Ibukun Fadareak Balogun | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -2780,18 +2804,6 @@
       {
         "from": "gpt",
         "value": "---\n- name: Pull image and start the container\n  hosts: localhost\n  gather_facts: false\n  module_defaults:\n    group/community.docker.docker:\n      # Select Docker Daemon on other host\n      docker_host: tcp://192.0.2.23:2376\n      # Configure TLS\n      tls: true\n      validate_certs: true\n      tls_hostname: docker.example.com\n      ca_path: /path/to/cacert.pem\n      # Increase timeout\n      timeout: 120\n  tasks:\n    - name: Pull image\n      community.docker.docker_image_pull:\n        name: python\n        tag: 3.12\n    - name: Start container\n      community.docker.docker_container:\n        cleanup: true\n        command: python --version\n        detach: false\n        image: python:3.12\n        name: my-python-container\n        output_logs: true\n    - name: Show output\n      ansible.builtin.debug:\n        msg: \"{{ output.container.Output }}\""
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Python script for: Docker Security Tips for Container Hosts & Ansible Playbook - Virtualization Howto"
-      },
-      {
-        "from": "gpt",
-        "value": "### Ansible Playbook: Hardening Docker Hosts\n# Description: Implements host and Docker security tasks from the blog post.\n# Usage: ansible-playbook -i inventory docker_hardening.yml\n- name: Harden Docker Container Host\n  hosts: docker_hosts\n  become: yes\n  vars:\n    ssh_port: 2202\n    docker_tls:\n      ca_cert: /etc/docker/ssl/ca.pem\n      server_cert: /etc/docker/ssl/server-cert.pem\n      server_key: /etc/docker/ssl/server-key.pem\n  tasks:\n    - name: Host: Disable unnecessary services\n      systemd:\n        name: \"{{ item }}\"\n        enabled: no\n        state: stopped\n      loop:\n        - bluetooth.service\n        - avahi-daemon.service\n    - name: Host: Install and configure unattended-upgrades\n      apt:\n        name: unattended-upgrades\n        state: latest\n      notify: enable-unattended\n    - name: Host: Ensure SSH root login is disabled\n      lineinfile:\n        path: /etc/ssh/sshd_config\n        regexp: '^PermitRootLogin'\n        line: 'PermitRootLogin no'\n        state: present\n      notify: restart-sshd\n    - name: Host: Disable SSH password authentication\n      lineinfile:\n        path: /etc/ssh/sshd_config\n        regexp: '^PasswordAuthentication'\n        line: 'PasswordAuthentication no'\n        state: present\n      notify: restart-sshd\n    - name: Host: Change SSH port\n      lineinfile:\n        path: /etc/ssh/sshd_config\n        regexp: '^#?Port'\n        line: 'Port {{ ssh_port }}'\n        state: present\n      notify: restart-sshd\n    - name: Host: Create dockeradmin user\n      user:\n        name: dockeradmin\n        groups: docker\n        shell: /bin/bash\n        state: present\n        create_home: yes\n    - name: Docker: Ensure TLS certificates directory exists\n      file:\n        path: /etc/docker/ssl\n        state: directory\n        owner: root\n        mode: '0750'\n    - name: Docker: Copy TLS certificate files\n      copy:\n        src: \"files/{{ item }}\"\n        dest: \"{{ docker_tls[item] }}\"\n        owner: root\n        mode: '0640'\n      loop:\n        - ca_cert\n        - server_cert\n        - server_key\n      vars:\n        docker_tls:\n          ca_cert: /etc/docker/ssl/ca.pem\n          server_cert: /etc/docker/ssl/server-cert.pem\n          server_key: /etc/docker/ssl/server-key.pem\n      notify: restart-docker\n    - name: Docker: Configure daemon.json\n      copy:\n        dest: /etc/docker/daemon.json\n        content: |\n          {\n            \"hosts\": [\"unix:///var/run/docker.sock\", \"tcp://0.0.0.0:2376\"],\n            \"tlsverify\": true,\n            \"tlscacert\": \"{{ docker_tls.ca_cert }}\",\n            \"tlscert\": \"{{ docker_tls.server_cert }}\",\n            \"tlskey\": \"{{ docker_tls.server_key }}\",\n            \"seccomp-profile\": \"/etc/docker/seccomp.json\"\n          }\n      notify: restart-docker\n    - name: Docker: Place custom seccomp profile\n      template:\n        src: templates/seccomp.json.j2\n        dest: /etc/docker/seccomp.json\n        owner: root\n        mode: '0644'\n      notify: restart-docker\n    - name: Docker: Create custom bridge network (internal)\n      community.docker.docker_network:\n        name: internal_net\n        driver: bridge\n        internal: yes\n    - name: Docker: Create macvlan network (public)\n      community.docker.docker_network:\n        name: public_net\n        driver: macvlan\n        driver_options:\n          parent: eth0.40\n        ipam_options:\n          subnet: 10.0.40.0/24\n          gateway: 10.0.40.1\n    - name: Firewall: Allow SSH on custom port\n      ufw:\n        rule: allow\n        port: \"{{ ssh_port }}\"\n        proto: tcp\n        from_ip: 10.0.10.0/24\n    - name: Firewall: Deny all on docker0\n      ufw:\n        rule: deny\n        in_interface: docker0\n  handlers:\n    - name: restart-sshd\n      systemd:\n        name: sshd\n        state: restarted\n    - name: restart-docker\n      systemd:\n        name: docker\n        state: restarted\n    - name: enable-unattended\n      command: dpkg-reconfigure --frontend=noninteractive unattended-upgrades\n      async: 600\n      poll: 0"
       }
     ]
   },
@@ -2883,7 +2895,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Ansible Playbooks â Handler Name Mismatches Fail Silently | TheCodeForge"
+        "value": "Python script for: Ansible Playbooks Explained: Ansible Playbooks â Handler | TheCodeForge"
       },
       {
         "from": "gpt",
@@ -3399,7 +3411,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Linting your Ansible Playbooks and make a Continuous Integration(CI) Solution | by Abhijeet Kamble | FAUN.dev() 🐾"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -3495,7 +3507,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Ansible Vault Secrets: The Production Gotchas That Will Burn | TheCodeForge"
+        "value": "Python script for: Ansible Vault for Secrets Management: Ansible Vault Secrets | TheCodeForge"
       },
       {
         "from": "gpt",
@@ -3975,6 +3987,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Python script for: Ansible Advanced â Serial & Rolling Updates -"
+      },
+      {
+        "from": "gpt",
+        "value": "# Default: linear â wait for all hosts in batch before next task\n- name: Linear strategy (default)\n  hosts: all\n  strategy: linear\n  tasks:\n    - name: Step 1\n      ansible.builtin.debug:\n        msg: \"All hosts do Step 1 before any host does Step 2\"\n# Free: each host proceeds independently\n- name: Free strategy\n  hosts: all\n  strategy: free\n  tasks:\n    - name: Step 1\n      ansible.builtin.debug:\n        msg: \"Fast hosts move ahead, slow hosts catch up\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Python script for: Learn Ansible in Y Minutes"
       },
       {
@@ -4143,7 +4167,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Automating Firewall Configs with Ansible + Python | by Samar Zemeer | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -4580,6 +4604,18 @@
       {
         "from": "gpt",
         "value": "---\n- name: Create groups\n  ansible.builtin.group:\n    name: \"{{ item.name }}\"\n    gid: \"{{ item.gid | default(omit) }}\"\n    system: \"{{ item.system | default(false) }}\"\n    state: present\n  loop: \"{{ groups }}\"\n  tags: [groups]\n- name: Create user accounts\n  ansible.builtin.user:\n    name: \"{{ item.name }}\"\n    comment: \"{{ item.comment | default(omit) }}\"\n    uid: \"{{ item.uid | default(omit) }}\"\n    group: \"{{ item.primary_group | default(omit) }}\"\n    groups: \"{{ item.groups | default(omit) }}\"\n    append: yes\n    shell: \"{{ item.shell | default(default_shell) }}\"\n    create_home: \"{{ item.create_home | default(true) }}\"\n    system: \"{{ item.system | default(false) }}\"\n    password: \"{{ item.password | default(omit) }}\"\n    update_password: \"{{ item.update_password | default('on_create') }}\"\n    state: present\n  loop: \"{{ users }}\"\n  tags: [users]\n- name: Deploy SSH authorized keys\n  ansible.builtin.authorized_key:\n    user: \"{{ item.name }}\"\n    key: \"{{ item.ssh_key }}\"\n    state: present\n    exclusive: \"{{ item.ssh_exclusive | default(false) }}\"\n  loop: \"{{ users }}\"\n  when: item.ssh_key is defined\n  tags: [ssh]\n- name: Configure sudo access\n  ansible.builtin.copy:\n    content: \"{{ item.sudo }}\\n\"\n    dest: \"/etc/sudoers.d/{{ item.name }}\"\n    owner: root\n    group: root\n    mode: \"0440\"\n    validate: \"visudo -cf %s\"\n  loop: \"{{ users }}\"\n  when: item.sudo is defined\n  tags: [sudo]\n- name: Set password aging policies\n  ansible.builtin.command:\n    cmd: \"chage -M {{ password_max_days }} -m {{ password_min_days }} -W {{ password_warn_age }} {{ item.name }}\"\n  loop: \"{{ users }}\"\n  when: item.system | default(false) == false\n  changed_when: true\n  tags: [password-policy]\n- name: Remove decommissioned users\n  ansible.builtin.user:\n    name: \"{{ item }}\"\n    state: absent\n    remove: yes\n    force: yes\n  loop: \"{{ removed_users }}\"\n  tags: [cleanup]\n- name: Remove sudoers files for removed users\n  ansible.builtin.file:\n    path: \"/etc/sudoers.d/{{ item }}\"\n    state: absent\n  loop: \"{{ removed_users }}\"\n  tags: [cleanup]\n- name: Remove groups that are no longer needed\n  ansible.builtin.group:\n    name: \"{{ item }}\"\n    state: absent\n  loop: \"{{ removed_groups | default([]) }}\"\n  tags: [cleanup]"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible Advanced â Zero-Downtime Deployment -"
+      },
+      {
+        "from": "gpt",
+        "value": "- hosts: webservers\n  become: true\n  serial: \"25%\"                    # Update 25% at a time\n  max_fail_percentage: 0           # Stop if ANY host fails\n  pre_tasks:\n    - name: Deregister from ALB\n      community.aws.elb_target:\n        target_group_arn: \"{{ '{{ alb_target_group_arn }}' }}\"\n        target_id: \"{{ '{{ ec2_instance_id }}' }}\"\n        state: absent\n      delegate_to: localhost\n    - name: Wait for connections to drain\n      ansible.builtin.pause:\n        seconds: 30\n  roles:\n    - deploy-app\n  post_tasks:\n    - name: Wait for app to be healthy\n      ansible.builtin.uri:\n        url: \"http://localhost:{{ '{{ app_port }}' }}/health\"\n        status_code: 200\n      register: health\n      until: health.status == 200\n      retries: 30\n      delay: 5\n    - name: Re-register with ALB\n      community.aws.elb_target:\n        target_group_arn: \"{{ '{{ alb_target_group_arn }}' }}\"\n        target_id: \"{{ '{{ ec2_instance_id }}' }}\"\n        target_port: \"{{ '{{ app_port }}' }}\"\n        state: present\n      delegate_to: localhost\n    - name: Wait for ALB health check\n      ansible.builtin.pause:\n        seconds: 15"
       }
     ]
   },
@@ -5115,18 +5151,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: NETWORK-L2 Supplemental 207: ISP Automation with Ansible: Config at Scale | zerosday"
-      },
-      {
-        "from": "gpt",
-        "value": "- name: Configure OSPF\n  hosts: routers\n  gather_facts: false\n  vars:\n    ospf_process_id: 1\n    ospf_area: 0\n  tasks:\n    - name: Generate OSPF configuration\n      template:\n        src: templates/ospf_config.j2\n        dest: \"/home/ansible/configs/{{ inventory_hostname }}_ospf.conf\"\n      vars:\n        interface_ip: \"{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}\"\n        interface_wildcard_mask: \"0.0.0.0\" # Example, would be dynamic in real scenario\n        passive_interface: \"GigabitEthernet0/1\"\n        ospf_neighbors: \"{{ hostvars[inventory_hostname]['ospf_neighbor_ips'] | default([]) }}\" # Dynamic from facts or vars"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Ansible Playbook for: workshops | Training Course for Ansible Automation Platform"
       },
       {
@@ -5307,18 +5331,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: NETWORK-L2 Supplemental 247: ISP Automation with Ansible: Config at Scale | zerosday"
-      },
-      {
-        "from": "gpt",
-        "value": "#!/usr/bin/env python\nfrom scapy.all import IP, ICMP, sr1\ndef ping_host(target_ip, interface=\"eth0\"):\n    \"\"\"Pings a target IP address and returns True if successful, False otherwise.\"\"\"\n    try:\n        reply = sr1(IP(dst=target_ip)/ICMP(), timeout=2, verbose=False, iface=interface)\n        if reply:\n            return True\n        else:\n            return False\n    except Exception as e:\n        print(f\"Error during ping: {e}\")\n        return False\nif __name__ == \"__main__\":\n    import sys\n    if len(sys.argv) != 2:\n        print(\"Usage: python ping_script.py <target_ip>\")\n        sys.exit(1)\n    target = sys.argv[1]\n    if ping_host(target):\n        print(f\"Ping to {target} successful.\")\n        sys.exit(0)\n    else:\n        print(f\"Ping to {target} failed.\")\n        sys.exit(1)"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Python script for: How to Use FirewallD on Linux Server 2026? - (Step by Step Install & Enable FirewallD Guide)"
       },
       {
@@ -5396,18 +5408,6 @@
       {
         "from": "gpt",
         "value": "- name: Deploy application using HashiCorp Vault secrets\n  hosts: web_servers\n  gather_facts: false\n  vars:\n    vault_url: \"https://vault.example.com:8200\"\n    vault_token: \"{{ lookup('env', 'VAULT_TOKEN') }}\"\n  tasks:\n    - name: Retrieve database credentials from Vault\n      set_fact:\n        db_credentials: \"{{ lookup('hashi_vault', 'secret=database/creds/webapp token=' + vault_token + ' url=' + vault_url) }}\"\n    - name: Create database configuration\n      template:\n        src: db_config.j2\n        dest: /etc/webapp/database.conf\n        owner: webapp\n        group: webapp\n        mode: '0640'\n      vars:\n        db_user: \"{{ db_credentials.data.username }}\"\n        db_password: \"{{ db_credentials.data.password }}\"\n      no_log: true"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Python script for: NETWORK-L2 Supplemental 143: ISP Automation with Ansible: Config at Scale | zerosday"
-      },
-      {
-        "from": "gpt",
-        "value": "# validate_arp.py\nfrom scapy.all import ARP, Ether, srp\ndef verify_arp_resolution(target_ip, source_ip, interface):\n    \"\"\"\n    Sends an ARP request and checks for a reply.\n    \"\"\"\n    try:\n        # Craft the ARP request\n        arp_request = ARP(pdst=target_ip)\n        # Craft the Ethernet frame\n        ether_frame = Ether(dst=\"ff:ff:ff:ff:ff:ff\") # Broadcast MAC\n        packet = ether_frame / arp_request\n        print(f\"Sending ARP request for {target_ip} from {source_ip} on {interface}...\")\n        # Send and receive packets, waiting for a response\n        answered, unanswered = srp(packet, timeout=2, verbose=False, iface=interface)\n        if answered:\n            print(f\"ARP reply received from {answered[0][1].hwsrc} ({answered[0][1].psrc})\")\n            return True\n        else:\n            print(f\"No ARP reply received for {target_ip}.\")\n            return False\n    except Exception as e:\n        print(f\"An error occurred: {e}\")\n        return False\nif __name__ == \"__main__\":\n    # These values would typically be passed from an Ansible playbook\n    # For demonstration, we'll hardcode them.\n    TARGET_IP = \"192.168.10.2\"  # The IP of the neighbor device\n    SOURCE_IP = \"192.168.10.1\"  # The IP configured on our device\n    NETWORK_INTERFACE = \"eth0\"  # The network interface on the Ansible control node\n    if verify_arp_resolution(TARGET_IP, SOURCE_IP, NETWORK_INTERFACE):\n        print(\"ARP resolution successful!\")\n    else:\n        print(\"ARP resolution failed.\")"
       }
     ]
   },
@@ -5859,7 +5859,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Ansible in CI/CD: Vault Passwords, Check Mode Gates, and | TheCodeForge"
+        "value": "Python script for: Ansible in CI/CD Pipelines: Ansible in CI/CD: Vault | TheCodeForge"
       },
       {
         "from": "gpt",
@@ -6027,7 +6027,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: How to Build a Secure, Zero-Touch Ansible Lab | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -6080,6 +6080,18 @@
       {
         "from": "gpt",
         "value": "# Remove old host key\nssh-keygen -R 192.168.1.10\n# Or disable host key checking (not recommended for production)\n# In ansible.cfg:\n[defaults]\nhost_key_checking = False"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Building My Personal Website: From Idea to Automated Deployment (Part 2) :: Danylo Mikula"
+      },
+      {
+        "from": "gpt",
+        "value": "locals {\n  project_slug = \"mikula-dev\"\n  common_labels = {\n    environment = \"production\"\n    project     = local.project_slug\n    managed_by  = \"terraform\"\n  }\n  resource_names = {\n    website = \"${local.project_slug}-web\"\n  }\n  cloud_init_config = templatefile(\"${path.module}/cloud-init.tpl\", {\n    ansible_ssh_public_key = var.ansible_user_ssh_public_key\n  })\n  cloudflare_ipv4_cidrs = split(\"\\n\", trimspace(data.http.cloudflare_ips_v4.response_body))\n  cloudflare_ipv6_cidrs = split(\"\\n\", trimspace(data.http.cloudflare_ips_v6.response_body))\n  cloudflare_all_ips    = concat(local.cloudflare_ipv4_cidrs, local.cloudflare_ipv6_cidrs)\n}\n# Fetch Cloudflare IP ranges for firewall rules\ndata \"http\" \"cloudflare_ips_v4\" {\n  url = \"https://www.cloudflare.com/ips-v4\"\n}\ndata \"http\" \"cloudflare_ips_v6\" {\n  url = \"https://www.cloudflare.com/ips-v6\"\n}\nmodule \"network\" {\n  source  = \"danylomikula/network/hcloud\"\n  version = \"1.0.0\"\n  create_network = true\n  name           = local.project_slug\n  ip_range       = \"10.100.0.0/16\"\n  labels = local.common_labels\n  subnets = {\n    web = {\n      type         = \"cloud\"\n      network_zone = \"eu-central\"\n      ip_range     = \"10.100.1.0/24\"\n    }\n  }\n}\nmodule \"ssh_key\" {\n  source  = \"danylomikula/ssh-key/hcloud\"\n  version = \"1.0.0\"\n  create_key = true\n  name       = local.project_slug\n  save_private_key_locally = true\n  local_key_directory      = path.module\n  labels = local.common_labels\n}\nmodule \"firewall\" {\n  source  = \"danylomikula/firewall/hcloud\"\n  version = \"1.0.0\"\n  firewalls = {\n    \"${local.resource_names.website}\" = {\n      rules = [\n        {\n          direction   = \"in\"\n          protocol    = \"tcp\"\n          port        = \"22\"\n          source_ips  = [var.my_homelab_ip]\n          description = \"allow ssh\"\n        },\n        {\n          direction   = \"in\"\n          protocol    = \"tcp\"\n          port        = \"80\"\n          source_ips  = local.cloudflare_all_ips\n          description = \"allow http from cloudflare\"\n        },\n        {\n          direction   = \"in\"\n          protocol    = \"tcp\"\n          port        = \"443\"\n          source_ips  = local.cloudflare_all_ips\n          description = \"allow https from cloudflare\"\n        },\n        {\n          direction   = \"in\"\n          protocol    = \"icmp\"\n          source_ips  = [\"0.0.0.0/0\", \"::/0\"]\n          description = \"allow ping\"\n        }\n      ]\n      labels = {\n        service = \"firewall\"\n      }\n    }\n  }\n  common_labels = local.common_labels\n}\nmodule \"servers\" {\n  source  = \"danylomikula/server/hcloud\"\n  version = \"1.0.0\"\n  servers = {\n    \"${local.resource_names.website}\" = {\n      server_type  = \"cx23\"\n      location     = \"hel1\"\n      image        = data.hcloud_image.rocky.name\n      user_data    = local.cloud_init_config\n      ssh_keys     = [module.ssh_key.ssh_key_id]\n      firewall_ids = [module.firewall.firewall_ids[local.resource_names.website]]\n      networks = [{\n        network_id = module.network.network_id\n        ip         = \"10.100.1.10\"\n      }]\n      labels = {\n        service = \"website\"\n      }\n    }\n  }\n  common_labels = local.common_labels\n}"
       }
     ]
   },
@@ -6183,7 +6195,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: An Interactive Guide to Ansible Best Practices 2025 | by Tchize Matias | Medium"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -6195,7 +6207,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Mastering Azure Management with Ansible: A Practical Guide for Multi-Environment Integration | by Warley's CatOps | AWS in Plain English"
+        "value": "Python script for: Medium"
       },
       {
         "from": "gpt",
@@ -6308,18 +6320,6 @@
       {
         "from": "gpt",
         "value": "---\n- name: Async example\n  hosts: all\n  gather_facts: no\n  tasks:\n    - name: Long running task\n      ansible.builtin.command: sleep 30\n      async: 60\n      poll: 0\n      changed_when: false\n    - name: Check async status\n      ansible.builtin.async_status:\n        jid: \"{{ ansible_async_job_id }}\"\n      register: job_result\n      until: job_result.finished\n      retries: 30\n      delay: 1"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Python script for: ansible-security-scanner · PyPI"
-      },
-      {
-        "from": "gpt",
-        "value": "ansible-security-scanner/                      # repo root (hyphenated - matches PyPI)\n├── pyproject.toml                             # packaging + pytest + hatch-vcs\n├── README.md\n├── CONTRIBUTING.md\n├── RELEASING.md                               # maintainer release runbook\n├── LICENSE / NOTICE                           # Apache-2.0 + attribution terms\n├── main.py                                    # local dev entry point (py main.py ...)\n├── .github/workflows/                         # CI, release, docs workflows\n├── .hugo/                                     # Hugo documentation site\n│   ├── scripts/build_docs.py                  # Generates Hugo content from docs/ + patterns\n│   └── content/                               # Generated .md pages (do not edit by hand)\n├── docs/                                      # Long-form prose docs (source of truth)\n│   ├── assets/                                # Images & SVGs the README references\n│   ├── cli.md                                 # CLI Reference (and exit codes, suppressions, dedup)\n│   ├── environment.md                         # Environment Variables\n│   ├── api.md                                 # Programmatic API\n│   ├── output-formats.md\n│   ├── allowlist.md\n│   ├── ci-cd.md\n│   ├── mr-pr-comments.md\n│   ├── custom-patterns.md\n│   ├── scoring.md\n│   ├── testing.md\n│   ├── limitations.md\n│   └── releasing.md\n├── src/\n│   └── ansible_security_scanner/              # the Python package\n│       ├── cli.py                             # CLI (--directory, --fix, --compliance, ...)\n│       ├── scanner.py                         # Multi-pass orchestrator\n│       ├── file_scanner.py                    # Per-file rules (line patterns, AST walkers)\n│       ├── taint_tracker.py                   # Cross-file taint analysis\n│       ├── fix_proposer.py                    # Dry-run unified-diff patch generator\n│       ├── dependency_collector.py            # SBOM inventory\n│       ├── suppressions.py                    # Inline `# nosec` parser\n│       ├── models.py                          # SecurityFinding, ScanReport, SecurityScore\n│       ├── score_calculator.py                # Severity-weighted scoring\n│       ├── patterns_manager.py                # Loads pattern YAML plugins\n│       ├── patterns/                          # 29+ YAML pattern plugins (auto-discovered)\n│       ├── remediations/                      # One module per category\n│       └── formatters/                        # markdown, json, xml, yaml, csv, html, junit, sarif, gitlab_sast, cyclonedx\n└── tests/\n    ├── test_integration.py                    # End-to-end scanner tests\n    ├── test_formatters.py                     # Formatter unit tests\n    ├── test_remediations.py                   # Remediation generator unit tests\n    └── playbooks/\n        ├── bad_example.yml                    # Triggers every rule (100% coverage)\n        ├── clean_example.yml                  # Zero findings (false-positive guard)\n        ├── multi_example_bad/                 # 6-file role fixture (cross-file taint)\n        └── multi_example_clean/               # 6-file hardened role fixture (zero findings)"
       }
     ]
   },
@@ -7172,6 +7172,78 @@
       {
         "from": "gpt",
         "value": "cat > block-example.yml <<'EOF'---- hosts: tnode2  vars:    logdir: /var/log/daily_log    logfile: todays.log  tasks:    - name: Configure Log Env      block:        - name: Find Directory          ansible.builtin.find:            paths: \"{{ logdir }}\"          register: result          failed_when: \"'Not all paths' in result.msg\"  rescue:        - name: Make Directory when Not found          ansible.builtin.file:            path: \"{{ logdir }}\"            state: directory            mode: '0755'  always:        - name: Create File          ansible.builtin.file:            path: \"{{ logdir }}/{{ logfile }}\"            state: touch            mode: '0644'EOF$ ansible-playbook block-example.yml"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible-Lint Error key-order: Fix YAML Key | AnsiblePilot"
+      },
+      {
+        "from": "gpt",
+        "value": "WARNING  Listing 3 violation(s) that are fatal\nkey-order[play]: You can improve the play key order to: name, hosts, tasks\nkey-order.yml:2\nkey-order[task]: You can improve the task key order to: name, when, block\nkey-order.yml:5 Task/Handler: A block\nfqcn[action-core]: Use FQCN for builtin module actions (debug).\nkey-order.yml:7 Use `ansible.builtin.debug` or `ansible.legacy.debug` instead.\nRead documentation for instructions on how to ignore specific rule violations.\n                 Rule Violation Summary\n count tag               profile    rule associated tags\n     1 key-order[play]   basic      formatting\n     1 key-order[task]   basic      formatting\n     1 fqcn[action-core] production formatting\nFailed: 3 failure(s), 0 warning(s) on 1 files. Last profile that met the validation criteria was 'min'."
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible Tags: --tags, --skip-tags, always, never, and Task Selection"
+      },
+      {
+        "from": "gpt",
+        "value": "cat > ~/ansible-project/playbooks/tags-demo.yml << 'EOF'\n---\n- name: Ansible tags demo\n  hosts: lab\n  gather_facts: false\n  tags:\n    - playtag\n  tasks:\n    - name: Always gather baseline\n      ansible.builtin.debug:\n        msg: \"always task runs unless skipped\"\n      tags:\n        - always\n    - name: Install packages slice\n      ansible.builtin.debug:\n        msg: \"install slice\"\n      tags:\n        - install\n    - name: Configure app slice\n      ansible.builtin.debug:\n        msg: \"config slice\"\n      tags:\n        - config\n    - name: Validate deployment\n      ansible.builtin.debug:\n        msg: \"verify slice\"\n      tags:\n        - verify\n    - name: Dangerous cleanup (opt-in)\n      ansible.builtin.debug:\n        msg: \"cleanup would run here\"\n      tags:\n        - cleanup\n        - never\n    - name: Block tagged tasks\n      tags:\n        - blocktag\n      block:\n        - name: Block inner one\n          ansible.builtin.debug:\n            msg: \"block inner one\"\n        - name: Block inner two\n          ansible.builtin.debug:\n            msg: \"block inner two\"\n    - name: Include role with tags\n      ansible.builtin.include_role:\n        name: tag_role\n      tags:\n        - role_install\nEOF"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible command vs shell vs raw: Differences, Idempotency, and Examples"
+      },
+      {
+        "from": "gpt",
+        "value": "Need to run something on the host?\n│\n├─ Is Python missing or is this a no-Python appliance?\n│   └─ Yes → raw (bootstrap only), then switch to normal modules\n│\n├─ Does the task need |, >, &&, $VAR, or shell builtins?\n│   ├─ Yes → shell (or refactor into a module + command)\n│   └─ No → command\n│\n└─ Does ansible.builtin.* already model this state?\n    └─ Yes → use that module instead"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible Troubleshooting Guide: SSH, sudo, Inventory and Playbook Errors"
+      },
+      {
+        "from": "gpt",
+        "value": "ansible --version\nansible-config dump --only-changed\nansible-inventory -i inventory/hosts --list\nansible-inventory -i inventory/hosts --graph\nansible-playbook -i inventory/hosts playbooks/ping-lab.yml --list-hosts\nansible-playbook -i inventory/hosts playbooks/ping-lab.yml --syntax-check\nansible-playbook -i inventory/hosts playbooks/ping-lab.yml --list-tasks\nansible-playbook -i inventory/hosts playbooks/file-demo.yml --check --diff\nansible -i inventory/hosts lab -m ansible.builtin.ping\nansible -i inventory/hosts rocky2 -m ansible.builtin.ping -vvvv\nansible-galaxy collection list\nansible-doc ansible.builtin.copy\nansible-vault view group_vars/all/vault.yml"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: README.md"
+      },
+      {
+        "from": "gpt",
+        "value": "# How to Configure Ansible SSH Pipelining for Performance\nAuthor: [nawazdhandala](https://www.github.com/nawazdhandala)\nTags: Ansible, SSH, Pipelining, Performance Optimization\nDescription: Enable SSH pipelining in Ansible to dramatically reduce task execution time by eliminating extra SSH operations per task.\n---\nIf you have ever watched an Ansible playbook run against dozens of hosts and thought \"this is slow,\" SSH pipelining might be the single biggest performance improvement available to you. By default, Ansible executes each task by creating a temporary file on the remote host, transferring the module code, executing it, and then cleaning up. Pipelining changes this by piping the module code directly to the Python interpreter over SSH, cutting out the file transfer steps entirely.\n## How Ansible Normally Executes Tasks\nWithout pipelining, here is what happens for every single task on every single host:\n```mermaid\nsequenceDiagram\n    participant A as Ansible Control Node\n    participant R as Remote Host\n    A->>R: SSH: Create temp directory\n    A->>R: SSH: Transfer module code\n    A->>R: SSH: Set permissions on module\n    A->>R: SSH: Execute module\n    R->>A: Return results\n    A->>R: SSH: Clean up temp files\n    Note over A,R: 5-6 SSH operations per task\n```\nThat is five or six separate SSH operations per task, per host. Multiply that by hundreds of tasks and dozens of hosts, and you can see why playbooks feel slow.\n## How Pipelining Changes Execution\nWith pipelining enabled, Ansible sends the module code directly through the SSH connection's stdin to the Python interpreter:\n```mermaid\nsequenceDiagram\n    participant A as Ansible Control Node\n    participant R as Remote Host\n    A->>R: SSH: Pipe module code to Python interpreter\n    R->>A: Return results\n    Note over A,R: 1 SSH operation per task\n```\nOne SSH operation per task instead of five or six. The performance difference is substantial.\n## Enabling Pipelining\nPipelining is disabled by default. Enable it in your `ansible.cfg`:\n```ini\n# ansible.cfg\n[ssh_connection]\npipelining = True\n```\nOr use an environment variable:\n```bash\n# Enable pipelining via environment variable\nexport ANSIBLE_PIPELINING=True\nansible-playbook site.yml\n```\nThat is it. One line change. But there is an important prerequisite to handle first.\n## The requiretty Problem\nThe most common reason pipelining fails is the `requiretty` setting in sudoers. Many Linux distributions ship with this line in `/etc/sudoers`:\n```text\nDefaults    requiretty\n```\nThis tells sudo to require a real TTY (terminal) for execution. Since pipelined commands do not have a TTY, sudo operations fail. You need to either remove this setting or add an exception.\n### Fixing requiretty Globally\n```bash\n# Check if requiretty is set\nansible all -m shell -a \"grep requiretty /etc/sudoers\" --become\n```\nIf it is present, disable it:\n```yaml\n# fix_requiretty.yml\n---\n- name: Disable requiretty for pipelining\n  hosts: all\n  become: yes\n  tasks:\n    # Comment out requiretty in sudoers\n    - name: Disable requiretty\n      lineinfile:\n        path: /etc/sudoers\n        regexp: '^Defaults\\s+requiretty'\n        line: '# Defaults    requiretty'\n        validate: 'visudo -cf %s'\n```\n### Fixing requiretty Per User\nA less invasive approach is to exempt only the Ansible user:\n```yaml\n- name: Exempt ansible user from requiretty\n  copy:\n    content: \"Defaults:ansible !requiretty\\n\"\n    dest: /etc/sudoers.d/ansible-no-requiretty\n    mode: '0440'\n    validate: 'visudo -cf %s'\n  become: yes\n```\n## Measuring the Performance Improvement\nLet us actually measure the difference. Create a simple playbook that runs multiple tasks:\n```yaml\n# benchmark.yml\n---\n- name: Performance benchmark\n  hosts: all\n  gather_facts: no\n  tasks:\n    - name: Task 1\n      command: echo \"task 1\"\n    - name: Task 2\n      command: echo \"task 2\"\n    - name: Task 3\n      command: echo \"task 3\"\n    - name: Task 4\n      command: echo \"task 4\"\n    - name: Task 5\n      command: echo \"task 5\"\n    - name: Task 6\n      command: echo \"task 6\"\n    - name: Task 7\n      command: echo \"task 7\"\n    - name: Task 8\n      command: echo \"task 8\"\n    - name: Task 9\n      command: echo \"task 9\"\n    - name: Task 10\n      command: echo \"task 10\"\n```\nRun it with and without pipelining:\n```bash\n# Without pipelining\nANSIBLE_PIPELINING=False time ansible-playbook benchmark.yml\n# With pipelining\nANSIBLE_PIPELINING=True time ansible-playbook benchmark.yml\n```\nIn my testing against 10 hosts with 10 tasks each, pipelining reduced execution time from 45 seconds to 18 seconds. That is a 60% improvement.\n## Enabling Ansible Callback Timer\nTo get task-level timing data, enable the timer callback:\n```ini\n# ansible.cfg\n[defaults]\ncallbacks_enabled = ansible.posix.timer, ansible.posix.profile_tasks\n[ssh_connection]\npipelining = True\n```\nThis adds timing information to every task and a summary at the end showing which tasks took the longest.\n## Combining Pipelining with Other Optimizations\nPipelining works best when combined with other SSH optimizations:\n```ini\n# ansible.cfg - Full performance configuration\n[defaults]\nforks = 20\ncallbacks_enabled = ansible.posix.timer, ansible.posix.profile_tasks\ngathering = smart\nfact_caching = jsonfile\nfact_caching_connection = /tmp/ansible_facts_cache\nfact_caching_timeout = 3600\n[ssh_connection]\npipelining = True\nssh_args = -o ControlMaster=auto -o ControlPersist=60s -o PreferredAuthentications=publickey\ncontrol_path_dir = ~/.ansible/cp\n```\nHere is what each setting does:\n- `forks = 20` - Process 20 hosts in parallel instead of the default 5\n- `gathering = smart` - Only gather facts when they have not been cached\n- `fact_caching` - Cache facts to avoid re-gathering them\n- `ControlMaster` and `ControlPersist` - Reuse SSH connections across tasks\n- `PreferredAuthentications=publickey` - Skip password auth negotiation\n## Pipelining and become_method\nPipelining works with the default `become_method: sudo` but requires that `requiretty` is not set. For other become methods:\n```ini\n# ansible.cfg\n[privilege_escalation]\nbecome = True\nbecome_method = sudo\nbecome_user = root\n```\nIf you use `su` instead of `sudo`, pipelining still works:\n```ini\n[privilege_escalation]\nbecome_method = su\n```\nHowever, `pbrun` and `pfexec` may have their own TTY requirements. Test each one individually.\n## When Pipelining Does Not Help\nPipelining helps most with tasks that execute Python modules without transferring files (command, shell, package, service, user, etc.). It does not significantly improve:\n- **File transfers** (using modules such as `copy`, `fetch`, or `template`) - These need the actual file content transferred\n- **Large template files** - The template still needs to be processed and transferred, and pipelining does not apply to that file transfer\n- **gather_facts** - The setup module still takes time regardless of pipelining\n## Verifying Pipelining Is Active\nTo confirm pipelining is actually being used:\n```bash\n# Run with maximum verbosity\nansible all -m ping -vvvv\n```\nLook for a line like this in the output:\n```text\n<web01> Pipelining is enabled.\n```\nWithout pipelining, you will see multiple EXEC lines for temp directory creation, file transfer, and execution. With pipelining, you will see fewer EXEC lines because the module is piped directly. If you see Ansible creating `~/.ansible/tmp/ansible-tmp-...` for a normal Python module, pipelining is not active for that task.\n## Per-Task Pipelining Control\nYou cannot enable or disable pipelining per task in Ansible. It is a connection-level setting that applies to all tasks in a play. However, you can use different plays within the same playbook:\n```yaml\n# mixed_pipelining.yml\n---\n# Play 1: Tasks that benefit from pipelining\n- name: Configuration tasks\n  hosts: all\n  vars:\n    ansible_ssh_pipelining: true\n  tasks:\n    - name: Set sysctl values\n      sysctl:\n        name: \"{{ item.key }}\"\n        value: \"{{ item.value }}\"\n      loop:\n        - { key: \"net.core.somaxconn\", value: \"65535\" }\n        - { key: \"vm.swappiness\", value: \"10\" }\n# Play 2: File transfer tasks (pipelining does not help much)\n- name: File transfer tasks\n  hosts: all\n  vars:\n    ansible_ssh_pipelining: false\n  tasks:\n    - name: Copy large application archive\n      copy:\n        src: /local/path/app.tar.gz\n        dest: /opt/app.tar.gz\n```\n## Troubleshooting Pipelining\nIf tasks fail after enabling pipelining, the usual culprit is `requiretty`. Check for these error messages:\n```text\n\"msg\": \"sudo: sorry, you must have a tty to run sudo\"\n```\nFix:\n```bash\n# Quick check from the control node\nansible all -m shell -a \"sudo grep requiretty /etc/sudoers\" --become\n```\nOther potential issues:\n- The remote Python interpreter path is wrong (set `ansible_python_interpreter`)\n- SELinux is blocking pipe operations\n- Custom sudo configurations that interfere with stdin\n```bash\n# Debug pipelining issues\nANSIBLE_PIPELINING=True ansible all -m ping -vvvv 2>&1 | grep -i \"pipeline\\|pipe\\|tty\"\n```\n## Wrapping Up\nSSH pipelining is one of those settings that should be enabled by default in every Ansible deployment but somehow is not. One line in `ansible.cfg`, a quick fix for `requiretty` on your managed hosts, and you get a 30-60% reduction in task execution time. Combine it with ControlMaster, increased forks, and fact caching, and your playbooks will run dramatically faster. There is really no good reason not to enable it once you have sorted out the `requiretty` requirement."
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: DRY Infrastructure: How to Architect Modular Ansible Playbooks for Next.js - DEV Community"
+      },
+      {
+        "from": "gpt",
+        "value": "# roles/nextjs-app/tasks/deploy.yml\n- name: Generate release timestamp\n  ansible.builtin.set_fact:\n    release_timestamp: \"{{ ansible_date_time.epoch }}\"\n  tags: [deploy]\n- name: Create release directory\n  ansible.builtin.file:\n    path: \"{{ app_releases_dir }}/{{ release_timestamp }}\"\n    state: directory\n    owner: \"{{ app_user }}\"\n    group: \"{{ app_group }}\"\n    mode: \"0755\"\n  tags: [deploy]\n- name: Upload Next.js standalone build\n  ansible.builtin.synchronize:\n    src: \"{{ local_build_path }}/.next/standalone/\"\n    dest: \"{{ app_releases_dir }}/{{ release_timestamp }}\"\n    delete: true\n    rsync_opts:\n      - \"--exclude=.git\"\n  tags: [deploy]\n- name: Upload static assets\n  ansible.builtin.synchronize:\n    src: \"{{ local_build_path }}/.next/static/\"\n    dest: \"{{ app_releases_dir }}/{{ release_timestamp }}/.next/static/\"\n  tags: [deploy]\n- name: Template environment file\n  ansible.builtin.template:\n    src: env.j2\n    dest: \"{{ app_releases_dir }}/{{ release_timestamp }}/.env.local\"\n    owner: \"{{ app_user }}\"\n    group: \"{{ app_group }}\"\n    mode: \"0640\"           # restrict read to app user only\n  tags: [deploy]\n- name: Update current symlink atomically\n  ansible.builtin.file:\n    src: \"{{ app_releases_dir }}/{{ release_timestamp }}\"\n    dest: \"{{ app_base_dir }}/current\"\n    state: link\n    owner: \"{{ app_user }}\"\n    group: \"{{ app_group }}\"\n  notify: Reload PM2\n  tags: [deploy]\nEnter fullscreen mode\nExit fullscreen mode"
       }
     ]
   }

@@ -2623,3 +2623,63 @@ https://sigridjin.medium.com/ansible-basics-lab-a-hands-on-guide-for-infrastruct
 https://networktocode.com/blog/ansible-network-infrastructure-testing/
 https://www.researchgate.net/publication/389607944_Automating_Network_Security_with_Ansible_A_Guide_to_Secure_Network_Automation
 https://www.selector.ai/learning-center/network-automation-tools-key-features-and-top-8-options/
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://github.com/rwowensv2/ansible_examples
+https://www.ansiblepilot.com/articles/ansible-troubleshooting-error-key-order/
+https://www.linkedin.com/posts/dhananjay-kulkarni-ba54a81b0_ansible-automation-devops-activity-7325497099049975808-IDS-
+https://www.golinuxcloud.com/ansible-tags/
+https://www.golinuxcloud.com/ansible-command-vs-shell-vs-raw/
+https://www.ansiblepilot.com/tags/ansible-troubleshooting
+https://web.archive.org/web/20210225143012/https://stackoverflow.com/questions/29955605/how-to-reboot-centos-7-with-ansible
+https://drdroid.io/stack-diagnosis/ansible-yaml-parsing-error
+https://www.golinuxcloud.com/ansible-troubleshooting/
+https://www.bing.com/aclick?ld=e85-trHkKymug_JLupdmB_QjVUCUyx_WVneeAg22frFEqO5eTy73vKd4Acwtda-BSVg_H-3QN7kAlAw42BH0WcAckJgFvTCKkRcuHZYUDy8-BP4UbRWpqYF3hXQe4OKnDwUbutTTteWsJP0dFUu3uZbZELG9mZzhNDTAI_DYt0lMUYWn8sNzdDdcUmaE-8smoIJynvvQ&u=aHR0cHMlM2ElMmYlMmZkZWxpbmVhLmNvbSUyZmRlbW9zJTJmcHJpdmlsZWdlLW1hbmFnZXItaW50ZXJhY3RpdmUtZGVtb3MlM2ZxZ2FkJTNkJTI2cWd0ZXJtJTNkbGVhc3QlMjUyMHByaXZpbGVnZSUyNTIwYWNjZXNzJTI1MjBjb250cm9sJTI2Z2Nsc3JjJTNkM3AuZHMlMjZ1dG1fbWVkaXVtJTNkUGFpZC1TZWFyY2glMjZ1dG1fc291cmNlJTNkQmluZyUyNnV0bV9jYW1wYWlnbiUzZERHLU5BTV9MZWFzdC1Qcml2aWxlZ2UtTWFuYWdlbWVudF9CaW5nJTI2dXRtX2NvbnRlbnQlM2RMZWFzdC1Qcml2aWxlZ2UlMjZ1dG1fdGVybSUzZCUyNm1zY2xraWQlM2QzNDc1YmIzOTU3YWMxYmE5OTJlOGQxNjEyMGI0YjgzMg&rlid=3475bb3957ac1ba992e8d16120b4b832
+https://www.bing.com/aclick?ld=e8sTFaeNDko1VS7oaOyRyaHDVUCUyBR3kmHVTzvbhEA7F0Uer75qJIHFIA-b5g0lDYJybEl0eA3H8-E0IP3tSLBdlEqwhRbFBVOOduwj2V4tuFNJFp-EfDu-1Lr-p_LB9Zfqrw26xmuL0PYriluVJ5YnBIUdQhqmdjCKjVceyrAVu-tawUoeCAfbZ_GfEXs6BMfYdgvQ&u=aHR0cHMlM2ElMmYlMmZ3d3cubWFuYWdlZW5naW5lLmNvbSUyZnByaXZpbGVnZWQtYWNjZXNzLW1hbmFnZW1lbnQlMmYlM2ZuZXR3b3JrJTNkbyUyNmRldmljZSUzZGMlMjZrZXl3b3JkJTNkcHJpdmlsZWdlZCUyNTIwYWNjZXNzJTI1MjBtYW5hZ2VtZW50JTI2Y2FtcGFpZ25pZCUzZDQ3MTIzMDU0MyUyNmNyZWF0aXZlJTNkJTI2bWF0Y2h0eXBlJTNkcCUyNnBsYWNlbWVudCUzZCUyNmFkZ3JvdXAlM2QxMzExNzE4NTQyNjEyMjIzJTI2dGFyZ2V0aWQlM2Rrd2QtODE5ODI2ODYxNDM3NDUlM2Fsb2MtMTkwJTI2bXNjbGtpZCUzZDM1YjBkODEyOWI5YzE0ZDJhMmE4YjI0YWVjODQ5ZWE0JTI2dXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fbWVkaXVtJTNkY3BjJTI2dXRtX2NhbXBhaWduJTNkQmluZyUyNTIwLSUyNTIwVVNBJTI1MjAtJTI1MjBQQU0zNjAlMjUyMC0lMjUyMEJyb2FkJTI2dXRtX3Rlcm0lM2Rwcml2aWxlZ2VkJTI1MjBhY2Nlc3MlMjUyMG1hbmFnZW1lbnQlMjZ1dG1fY29udGVudCUzZFVTQSUyNTIwLSUyNTIwUHJpdmlsZWdlZCUyNTIwQWNjZXNzJTI1MjBNYW5hZ2VtZW50JTI1MjAtJTI1MjBCb3JhZA&rlid=35b0d8129b9c14d2a2a8b24aec849ea4
+https://mcpmarket.com/server/prescryb
+https://learn.microsoft.com/en-us/azure/well-architected/security/application-secrets
+https://techslash.net/how-devops-teams-are-accidentally-exposing-secrets-through-ci-cd-pipelines/
+https://docs.w3cub.com/ansible/collections/ansible/posix/profile_tasks_callback.html
+https://practicum.yandex.ru/blog/pro-siem-sistema-chto-eto-i-kak-ona-rabotaet/
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://avcton.github.io/Resources/SSH-Configuration-for-GitLab-and-GitHub
+https://github.com/AEssam99/My_DevOps_Tools/tree/main/Ansible/Play3
+https://deepwiki.com/dev-sec/ansible-collection-hardening/2.2.2-ssh-authentication-and-access-control
+https://ru.linux-console.net/?p=9121
+https://www.bing.com/aclick?ld=e8oO9yjZ79EydZ-CynKnMgMjVUCUwJWOo5wSD-6w5TnICaOcVFkPgoyRVm1CBYTvBgiDx34gdFq8v75uv9vuPfzckhBQjolEEhw5A0EiKcQr0_yWKEWWUH4ztt_Md7NqwQpkUyjS0JVA-Dbbhy6-PMdzoLu-2mAQW6-k_qik52eSZlc7Eer2opMC9QlyORT5bSzcIv-w&u=aHR0cHMlM2ElMmYlMmZkZWxpbmVhLmNvbSUyZmRlbW9zJTJmcHJpdmlsZWdlLW1hbmFnZXItaW50ZXJhY3RpdmUtZGVtb3MlM2ZxZ2FkJTNkJTI2cWd0ZXJtJTNkbGVhc3QlMjUyMHByaXZpbGVnZSUyNTIwbWFuYWdlbWVudCUyNmdjbHNyYyUzZDNwLmRzJTI2dXRtX21lZGl1bSUzZFBhaWQtU2VhcmNoJTI2dXRtX3NvdXJjZSUzZEJpbmclMjZ1dG1fY2FtcGFpZ24lM2RERy1OQU1fTGVhc3QtUHJpdmlsZWdlLU1hbmFnZW1lbnRfQmluZyUyNnV0bV9jb250ZW50JTNkTGVhc3QtUHJpdmlsZWdlJTI2dXRtX3Rlcm0lM2QlMjZtc2Nsa2lkJTNkZDNhYWQ3NTEwYmUwMWE4NjY2M2JiZDA5N2NlZWI2ZWY&rlid=d3aad7510be01a86663bbd097ceeb6ef
+https://developer.cyberark.com/blog/securing-ansible-ssh-keys/
+https://giters.com/ansible/ansible/issues/82131
+https://docs.digital.ai/release/docs/tags/plugin
+https://github.com/OneUptime/blog/blob/master/posts/2026-02-21-how-to-configure-ansible-ssh-pipelining-for-performance/README.md
+https://www.slideshare.net/slideshow/network-automation-using-python-and-ansible-pptx/279626349
+https://www.amazon.com/Red-Ansible-Automation-Platform-Infrastructure/dp/9355518994
+https://www.slideshare.net/slideshow/red-hat-ansible-automation-technical-deck/196404565
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://docs.gitlab.com/user/application_security/
+https://github.com/AFP9272000/ansible-cis-hardening
+https://foorshop.com/dev/configure-and-apply-hardening-rules-in-minutes-with-ubuntu-cis-benchmark-tooling
+https://www.bing.com/aclick?ld=e8TrbePSK8vnqCij1UrXjejjVUCUyeKr1Bfu_xrqKHop67AmCNgf_e9YNSYbWMxzt8ZWvrUiJgGbUr2V5azcmW5EkMCShmp4W64s06FH82Gmu1ibIvjS0D680OEH0VeUEwJzZjRwkeFZWxF1jpzVmTmk8NG6wu1BV2oKlNmmuw6_HmZfcWn94F1POyu0i_ieSUnkY0pg&u=aHR0cHMlM2ElMmYlMmZtb25pdG9yLmx1bmlvLmFpJTJmdjMuMCUyZnRlbXBsYXRlJTNmYWNjaWQlM2QxNjg5NiUyNnVybGRlY29kZSUzZDElMjZrdyUzZGNpcyUyNTIwYmVuY2htYXJrJTI1MjB0b29sJTI2bXQlM2RwJTI2bnclM2RvJTI2Y3BuJTNkNDI4MzI5MjQwJTI2ZGV2aSUzZGMlMjZkZXZtJTNkJTI2bG9jcCUzZDY2NzgyJTI2bG9jaSUzZCUyNnBsJTNkJTI2Y3IlM2QlMjZhZHAlM2QlMjZzYWR0JTNkJTI2dXJsJTNkaHR0cHMlMjUzQSUyNTJGJTI1MkZ3d3cuZGF0YWRvZ2hxLmNvbSUyNTJGZGclMjUyRnNlY3VyaXR5JTI1MkZjaXMtYmVuY2htYXJraW5nJTI1MkYlMjUzRnV0bV9zb3VyY2UlMjUzRGJpbmclMjUyNnV0bV9tZWRpdW0lMjUzRHBhaWQtc2VhcmNoJTI1MjZ1dG1fY2FtcGFpZ24lMjUzRGRnLXNlY3VyaXR5LW5hLWNpc2JlbmNobWFyayUyNTI2dXRtX2tleXdvcmQlMjUzRGNpcyUyNTI1MjBiZW5jaG1hcmslMjUyNTIwdG9vbCUyNTI2dXRtX21hdGNodHlwZSUyNTNEcCUyNTI2aWdhYWclMjUzRDEzMDQwMjExNjEyOTM4MzIlMjUyNmlnYWF0JTI1M0QlMjUyNmlnYWNtJTI1M0Q0MjgzMjkyNDAlMjUyNmlnYWNyJTI1M0QlMjUyNmlnYWt3JTI1M0RjaXMlMjUyNTIwYmVuY2htYXJrJTI1MjUyMHRvb2wlMjUyNmlnYW10JTI1M0RwJTI1MjZpZ2FudCUyNTNEbyUyNTI2dXRtX2NhbXBhaWduaWQlMjUzRDQyODMyOTI0MCUyNTI2dXRtX2FkZ3JvdXBpZCUyNTNEMTMwNDAyMTE2MTI5MzgzMiUyNm1zY2xraWQlM2Q0YjJiZGQ5MDY3YTYxZTliZTZiYWI3YzgxMDgxOTk1NQ&rlid=4b2bdd9067a61e9be6bab7c810819955
+
+=========================================
+ 📂 CATEGORY: NGINX & WEB REVERSE PROXY
+=========================================
+https://dev.to/actocodes/dry-infrastructure-how-to-architect-modular-ansible-playbooks-for-nextjs-11h4
+
+=========================================
+ 📂 CATEGORY: PERFORMANCE & KERNEL OPTIMIZATION
+=========================================
+https://github.com/linux-system-roles/sap-hana-preconfigure/issues/201
+
+=========================================
+ 📂 CATEGORY: POSTGRESQL DATABASE MANAGEMENT
+=========================================
+https://deepwiki.com/ansible-collections/community.postgresql/1.2-quick-start-examples
+https://docs.w3cub.com/ansible/collections/community/postgresql/postgresql_privs_module

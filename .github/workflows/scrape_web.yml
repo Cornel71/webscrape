@@ -2,8 +2,8 @@ name: "Auto Web Scraping Only"
 
 on:
   schedule:
-    - cron: '30 1 * * *' # Rulează automat în fiecare dimineata la 04.30
-  workflow_dispatch:   # Permite pornirea manuală din interfața GitHub
+    - cron: '30 1 * * *'
+  workflow_dispatch:
 
 jobs:
   build_dataset:
@@ -51,11 +51,21 @@ jobs:
         git config --global user.email "41898282+github-actions[bot]@github.com"
         git add ansible_python_dataset.json saved_links.txt
         git commit -m "🤖 Auto-update raw dataset from cloud scraping [skip ci]" || echo "No changes to commit"
+        git pull --rebase -X theirs https://x-access-token:$RECON_TOKEN@github.com/$REPO_NAME.git $BRANCH_NAME
         git push https://x-access-token:$RECON_TOKEN@github.com/$REPO_NAME.git HEAD:$BRANCH_NAME
 
-    # ==========================================
-    # ALERTA 1: NOTIFICARE DE SUCCES (SLACK)
-    # ==========================================
+#    - name: Commit and Push Changes to Repository
+#      env:
+#        RECON_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        REPO_NAME: ${{ github.repository }}
+#        BRANCH_NAME: ${{ github.ref_name }}
+#      run: |
+#        git config --global user.name "github-actions[bot]"
+#        git config --global user.email "41898282+github-actions[bot]@github.com"
+#        git add ansible_python_dataset.json saved_links.txt
+#        git commit -m "🤖 Auto-update raw dataset from cloud scraping [skip ci]" || echo "No changes to commit"
+#        git push https://x-access-token:$RECON_TOKEN@github.com/$REPO_NAME.git HEAD:$BRANCH_NAME
+
     - name: Send Slack Success Notification
       if: success()
       uses: slackapi/slack-github-action@v1.26.0
@@ -88,9 +98,6 @@ jobs:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 
-    # ==========================================
-    # ALERTA 2: NOTIFICARE ÎN CAZ DE EROARE (SLACK)
-    # ==========================================
     - name: Send Slack Failure Notification
       if: failure()
       uses: slackapi/slack-github-action@v1.26.0

@@ -2683,3 +2683,55 @@ https://github.com/linux-system-roles/sap-hana-preconfigure/issues/201
 =========================================
 https://deepwiki.com/ansible-collections/community.postgresql/1.2-quick-start-examples
 https://docs.w3cub.com/ansible/collections/community/postgresql/postgresql_privs_module
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://www.mindg.cn/download/ansible-for-devops.pdf
+https://web.archive.org/web/20230727100037/https://stackoverflow.com/questions/29955605/how-to-reboot-centos-7-with-ansible
+https://devopsandinfra.com/tool/ansible/
+https://devtoolhub.com/what-are-ansible-handlers/
+https://permit-any-any.com/category/ansible-tasks/
+https://serverfault.com/questions/888200/loop-over-ansible-variable-array-in-jinja2-template
+https://docs.fortinet.com/document/fortisoar/7.6.0/playbooks-guide/767891/jinja-filters-and-functions
+https://readmedium.com/ansible-create-a-user-with-sudo-privileges-82806cc6c633
+https://www.bing.com/aclick?ld=e88n1JKbdAQfZKPWN-SLF_cjVUCUwRtvnZrjYYL76adfi8KSkiL9EqViwCId1_ieqYhPylEv_TvaJgSlw17Rk7z6-2nkpvdcmo3L8zJe_2F40X4uHYbNMCX1tvmpiU6sPalDA6nkxOejXFl-K3u91tYs4uT-yB_DBVOR9PrPx5vVUCclnadk1HjGuKM1TlBowbe8BB6g&u=aHR0cHMlM2ElMmYlMmZkZWxpbmVhLmNvbSUyZmRlbW9zJTJmcHJpdmlsZWdlLW1hbmFnZXItaW50ZXJhY3RpdmUtZGVtb3MlM2ZxZ2FkJTNkJTI2cWd0ZXJtJTNkbGVhc3QlMjUyMHByaXZpbGVnZSUyNTIwYWNjZXNzJTI1MjBjb250cm9sJTI2Z2Nsc3JjJTNkM3AuZHMlMjZ1dG1fbWVkaXVtJTNkUGFpZC1TZWFyY2glMjZ1dG1fc291cmNlJTNkQmluZyUyNnV0bV9jYW1wYWlnbiUzZERHLU5BTV9MZWFzdC1Qcml2aWxlZ2UtTWFuYWdlbWVudF9CaW5nJTI2dXRtX2NvbnRlbnQlM2RMZWFzdC1Qcml2aWxlZ2UlMjZ1dG1fdGVybSUzZCUyNm1zY2xraWQlM2QzZjc0ZTlhNjJhYjQxYjMxOWUxZjgzZmY5YmYwMWUwNA&rlid=3f74e9a62ab41b319e1f83ff9bf01e04
+https://www.bing.com/aclick?ld=e8BGNz-FeEnE8k36y3_GV-nTVUCUycaCCeGxBKKuoRQQ_-22XevG-q5n5qfI4_K2sYfRlqmLSnsJ6Ay3UTkbFn7DOHQ0g18bPEOLv1wHKB8cxkxu4Ry4B0vTumGAqmG3jHqxGI0D95QShwVTIMeZzV0ZILTJfQzz3ZrJTyN99AXAOPw2TPq5ipUXV40OFpA4O55L-02A&u=aHR0cHMlM2ElMmYlMmZ3d3cubWFuYWdlZW5naW5lLmNvbSUyZnByaXZpbGVnZWQtYWNjZXNzLW1hbmFnZW1lbnQlMmYlM2ZuZXR3b3JrJTNkbyUyNmRldmljZSUzZGMlMjZrZXl3b3JkJTNkcHJpdmlsZWdlZCUyNTIwYWNjZXNzJTI1MjBtYW5hZ2VtZW50JTI2Y2FtcGFpZ25pZCUzZDQ3MTIzMDU0MyUyNmNyZWF0aXZlJTNkJTI2bWF0Y2h0eXBlJTNkcCUyNnBsYWNlbWVudCUzZCUyNmFkZ3JvdXAlM2QxMzExNzE4NTQyNjEyMjIzJTI2dGFyZ2V0aWQlM2Rrd2QtODE5ODI2ODYxNDM3NDUlM2Fsb2MtMTkwJTI2bXNjbGtpZCUzZGZhMmEyMDI0MTg0YzE1MzI0YjAxNGE3ZGE5MDg5MjFjJTI2dXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fbWVkaXVtJTNkY3BjJTI2dXRtX2NhbXBhaWduJTNkQmluZyUyNTIwLSUyNTIwVVNBJTI1MjAtJTI1MjBQQU0zNjAlMjUyMC0lMjUyMEJyb2FkJTI2dXRtX3Rlcm0lM2Rwcml2aWxlZ2VkJTI1MjBhY2Nlc3MlMjUyMG1hbmFnZW1lbnQlMjZ1dG1fY29udGVudCUzZFVTQSUyNTIwLSUyNTIwUHJpdmlsZWdlZCUyNTIwQWNjZXNzJTI1MjBNYW5hZ2VtZW50JTI1MjAtJTI1MjBCb3JhZA&rlid=fa2a2024184c15324b014a7da908921c
+https://ngelinux.com/stop-ansible-from-leaving-your-ci-runner-in-a-weird-state/
+https://www.golinuxcloud.com/run-ansible-playbook-navigator/
+https://www.bing.com/aclick?ld=e89mzfxNujW2KBRTHura5BtzVUCUzdtQitOyqPe5votu-fgpiunS9MqfRhyjMzN0vxlXOywdRuZB0QxGH761VcBl_c89sT3SqfMYn-9mhlw7Gy-Gmo2do5ZIEu2Wggkfov-W6PoxA0fE2egHg57Sx6gEk_Os0mMFauwtCQi37mU9hclmaYhzaUoGv7_DkePT__rDQgO-47FuamlyxRhmb_uB3H29s&u=aHR0cHMlM2ElMmYlMmZ3d3cuYmFtYm9vaHIuY29tJTJmcGwtcGFnZXMlMmZoci10aW1lLXRyYWNraW5nJTNmc19rd2NpZCUzZEFMITE4MzMyITMhIXAhIW8hIXRpbWUlMjUyMHRyYWNraW5nJTI1MjBzb2Z0d2FyZSUyNnV0bV9jYW1wYWlnbiUzZEJBTUItREctU2VhcmNoLUNvbXBlbnNhdGlvbi0yMDI0RUctRUNMJTI2dXRtX21lZGl1bSUzZGNwYyUyNnV0bV9zb3VyY2UlM2RiaW5nJTI2dXRtX2NvbnRlbnQlM2RibGFuayUyNnV0bV90ZXJtJTNkYmxhbmslMjZDYW1wYWlnbklEJTNkNjA0OTk3OTg1JTI2QWRHcm91cElEJTNkMTI3ODczMzM2NzE1NzkzNyUyNkNsaWNrSUQlM2QlMjZNYXRjaFR5cGUlM2RwJTI2S2V5d29yZCUzZHRpbWUlMjUyMHRyYWNraW5nJTI1MjBzb2Z0d2FyZSUyNkRldmljZSUzZGMlMjZBZElEJTNkJTI2TmV0d29yayUzZG8lMjZidCUzZCUyNl9iayUzZHRpbWUlMjUyMHRyYWNraW5nJTI1MjBzb2Z0d2FyZSUyNl9ibSUzZHAlMjZfYm4lM2RvJTI2X2JnJTNkMTI3ODczMzM2NzE1NzkzNyUyNl9idCUzZDc5OTIwOTUzMDY0MTQ0JTI2bXNjbGtpZCUzZDRmN2VhM2QxMjE5NTE4ZWFkOTUwYzk4ODkwMWUyMTFm&rlid=4f7ea3d1219518ead950c988901e211f
+https://docs.devnet-academy.com/docs/Ansible_v2.9.26/plugins/callback/profile_tasks.html
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://github.com/behoof4mind/ansible-playbook-example
+https://docs.ansible.com/projects/ansible/latest/inventory_guide/intro_inventory.html
+https://slicker.me/netsec/ansible-security-compliance.html
+https://superuser.com/questions/1716202/ansible-ufw-allow-outgoing-deny-incoming
+https://git.hubp.de/dev-sec
+https://fosskit.com/ansible-become-password-failed/
+https://cybrensolution.com/ansible-network-automation/
+https://secure.businesswire.com/news/home/20260512097260/en/Red-Hat-Establishes-Ansible-Automation-Platform-as-the-Trusted-Execution-Layer-for-IT-Operations-in-an-Agentic-Era
+
+=========================================
+ 📂 CATEGORY: PERFORMANCE & KERNEL OPTIMIZATION
+=========================================
+https://github.com/oneuptime/blog/tree/master/posts/2026-02-21-how-to-use-ansible-to-manage-sysctl-parameters
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://calcomsoftware.com/what-are-cis-benchmarks-and-how-to-use-them/
+https://www.linkedin.com/pulse/architecture-ansible-automation-saurabh-gavali--c9guc
+https://www.redhat.com/en/blog/navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation
+
+=========================================
+ 📂 CATEGORY: POSTGRESQL DATABASE MANAGEMENT
+=========================================
+https://programming.gonevis.com/securing-postgresql-user-privileges-for-entity-framework-core-migrations-with-ansible/
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://ansible-cvp-forked.readthedocs.io/en/latest/docs/faq/containers/

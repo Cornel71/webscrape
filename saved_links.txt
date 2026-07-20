@@ -2875,3 +2875,86 @@ https://www.bing.com/aclick?ld=e8bJvw2ccMu04sHJYyQ6LRVzVUCUxZurVrPmo6nPq2jKuCDvb
 =========================================
 https://teachmeansible.com/learn/databases
 https://computingforgeeks.com/how-to-manage-postgresql-database-with-ansible/
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://github.com/Solinea/ansible-playbook-examples
+https://www.udemy.com/course/ansible-by-examples-devops/
+https://www.ansiblepilot.com/articles/mount-a-windows-share-in-linux-smb-or-cifs-ansible-module-mount/
+https://xlabsteampunk.medium.com/ansible-playbook-writing-for-beginners-automate-your-morning-routine-e2f61d1cb1e7
+https://subscription.packtpub.com/book/cloud_and_networking/9781803235417/3/ch03lvl1sec12/identifying-manual-tasks-to-be-automated
+https://medium.com/hashicorp-engineering/launch-jobs-on-ansible-automation-platform-with-terraform-actions-a08e7179b1fe
+https://imzye.com/IaC/Ansible/Ansible-Network-Automation-Use-Cases/
+https://airdata.gitlab.io/blog/blog/ansible-git-example/index.html
+https://serverfault.com/questions/830302/ensure-only-specific-list-of-users-exist-with-ansible
+https://public.tiozaodolinux.com/pdf/ansible-for-devops.pdf
+https://groups.google.com/g/ansible-project/c/-LMHCCDAn0w
+https://github.com/Modesta55/Ansible-Handlers-Demo
+https://www.datacadamia.com/infra/ansible/handler
+https://medium.com/cloudnloud/how-to-use-handlers-in-ansible-9e62e17c3b61
+https://medium.com/@sangeetv09/file-manipulation-using-ansible-playbook-b678f01d847e
+https://airdata.gitlab.io/blog/blog/ansible-split-examples/index.html
+https://www.golinuxcloud.com/ansible-playbook-structure/
+https://lucaberton.com/blog/fix-ansible-check-mode-not-working-as-expected/
+https://www.slideshare.net/slideshow/puppetconf-2016-nice-and-secure-good-opsec-hygiene-with-puppet-peter-souter-puppet/68073051
+https://habr.com/ru/articles/519774/
+https://forensicanvil.ru/forum/topic/tools/memory-forensics-volatility
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://gist.github.com/peterkowalski
+https://stackoverflow.com/questions/46030051/gitlab-pipeline-works-in-yml-fails-in-extracted-sh
+https://nxos-devops.ciscolive.com/lab/pod3/netdevops/gitlab-ci
+https://deepwiki.com/vivami/proxmox-automation/4.2-security-configuration
+https://tamirsuliman.medium.com/building-a-portable-ansible-controller-with-docker-3c079b74933b
+https://dev.to/ikoh_sylva/altschool-of-engineering-tinyuka24-month-12-week-3-3ilm
+https://groups.google.com/g/ansible-project/c/B6InYyGljNU
+https://labs.cd2h.org/gitforager/repository/repository.jsp?id=35051828
+https://www.decryptiondigest.com/blog/ansible-vault-secrets-management-playbook-encryption-guide
+https://docs.digital.ai/release/docs/24.1/tags/plugin
+https://www.nsauditor.com/network-security-audit-guide/
+https://www.citybiz.co/article/659438/qa-with-jeff-gray-ceo-of-gluware/
+https://www.qa.com/course-catalogue/courses/red-hat-ansible-for-network-automation-do457ls-do457ls/
+https://mainline.com/blog-red-hat-ansible-lightspeed-ai-capabilities-that-propel-it-automation/
+https://www.logitrain.com.au/courses/redhat-training/do710.html
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://gitlab.com/clementine42/ansible-postgres-patroni-test
+https://medium.com/passbolt/managing-secrets-in-ansible-using-passbolt-87af031ceab6
+https://www.linkedin.com/pulse/protecting-ansible-code-inventories-using-signing-magnus-glantz-wniwf
+https://www.freelancer.in/projects/bash/adhoc-rhel-hardening-using-cis
+https://tv.redhat.com/detail/6365958942112/from-observability-to-action-with-event-driven-ansible-and-bigpanda
+https://opennix.org/en/docs/wazuh/
+https://umatechnology.org/custom-alert-routing-in-bare-metal-bootloaders-provisioned-using-ansible/
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://explore.market.dev/ecosystems/ansible-role/projects/infra_docker_minimal
+https://github.cszszs.workers.dev/geerlingguy/ansible-role-docker
+https://www.typeerror.org/docs/ansible~2.10/collections/community/docker/docker_container_module
+https://www.docs4dev.com/docs/ansible/latest/collections/community/docker/docker_containers_inventory.html
+https://devops.stackexchange.com/questions/4440/applying-ansible-playbook-to-a-docker-container-on-a-remote-host/4442
+https://www.ansiblepilot.com/articles/aap-2-6-execution-environments-build-manage-deploy-custom-ees
+https://dev.to/edmundt/install-ansible-navigator-podman-on-ubuntu-li6
+
+=========================================
+ 📂 CATEGORY: NGINX & WEB REVERSE PROXY
+=========================================
+https://www.ansiblepilot.com/articles/ansible-on-debian-13-trixie-nginx-reverse-proxy-with-lets-encrypt-complete-guide
+https://zenn.dev/tjst_t/articles/260214-proxmox-keepalived-nginx?locale=en
+https://devbrains.tn/tutorials/https-configuration?autoplay=true
+
+=========================================
+ 📂 CATEGORY: PERFORMANCE & KERNEL OPTIMIZATION
+=========================================
+https://galaxy.ansible.com/ui/repo/published/ansible/posix/content/module/sysctl/
+
+=========================================
+ 📂 CATEGORY: POSTGRESQL DATABASE MANAGEMENT
+=========================================
+https://www.dbi-services.com/blog/getting-started-with-ansible-installing-os-packages-creating-groups-and-users/

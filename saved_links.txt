@@ -2958,3 +2958,44 @@ https://galaxy.ansible.com/ui/repo/published/ansible/posix/content/module/sysctl
  📂 CATEGORY: POSTGRESQL DATABASE MANAGEMENT
 =========================================
 https://www.dbi-services.com/blog/getting-started-with-ansible-installing-os-packages-creating-groups-and-users/
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_strategies.html
+https://cyberpanel.net/blog/ansible-handlers
+https://github.com/topics/ansible-playbook-tasks
+https://www.compilenrun.com/docs/devops/ansible/ansible-testing/ansible-syntax-checking/
+https://practicaldev-herokuapp-com.freetls.fastly.net/labex/mastering-file-management-with-ansible-593o
+https://docs.astra-automation.ru/2.0/hub/collections/
+https://labex.io/tutorials/ansible-how-to-elevate-privileges-in-ansible-playbooks-392722
+https://imzye.com/IaC/Ansible/how-to-switch-ansible-network-connections-to-libssh/
+https://www.bing.com/aclick?ld=e8U7KIBiP2ZGmxZ8WTxtPckTVUCUx7UAHB0elp8muXKFfTrcyZwUwyMenlrAXxvZ74nQQ8oAU7ggJqBtn14WkWAFescJcPa48qZB3C1Rk9C08S91PYR-RUT6m6N2oeiwJixVbK2n94tWdK5lJxcc3mdL0znwd0k2XR8zqYAFLPmUN8WbPYs2lpY6_rztpSNw66SLENRgCxDgBozcYp61wDGQ3KT0E&u=aHR0cHMlM2ElMmYlMmZ3d3cuc3BsdW5rLmNvbSUyZmVuX3VzJTJmZm9ybSUyZnRoZS1oaWRkZW4tY29zdHMtb2YtZG93bnRpbWUuaHRtbCUzZnV0bV9jYW1wYWlnbiUzZGJpbmdfYW1lcl9lbl9zZWFyY2hfZ2VuZXJpY19kb3dudGltZSUyNnV0bV9zb3VyY2UlM2RiaW5nJTI2dXRtX21lZGl1bSUzZGNwYyUyNnV0bV9jb250ZW50JTNkQ29zdF9vZl9Eb3dudGltZTI2X0VCJTI2dXRtX3Rlcm0lM2RyZWR1Y2UlMjUyMGRvd250aW1lJTI2ZGV2aWNlJTNkYyUyNl9idCUzZDcxNTM3MjYxNjc4NjM2JTI2X2JtJTNkcCUyNm1zY2xraWQlM2QxNzY2Njg4YTgwMGMxOTdlODEwYzAyZDQ3OTAxY2Y0OA&rlid=1766688a800c197e810c02d47901cf48
+https://www.ibm.com/docs/en/storage-defender/base?topic=connections-integrations
+https://documentation.suse.com/cloudnative/security/5.6/en/ibmqr.html
+https://www.bing.com/aclick?ld=e8EC6_IApwVHnUDboS_w1u7zVUCUxXaclV5Z2TMX9hLO_JjQYaBS72QjuvBE14BY0i_EjZgx48yqkMkvjLspPUDAil9foaZtxQm9peuf-icjbO1r4vkW50YlwBNRAB7AJMqZwK4CHhYwOZapUA8QlMEPBbbl685c7PKl_iOXFGdx3-z5sSAAMcTyYFRYRI7wGEbMnORYZjwAcpwuTOD9kyUJh5iQ4&u=aHR0cHMlM2ElMmYlMmZ3d3cubWFuYWdlZW5naW5lLmNvbSUyZmNsb3VkLXNpZW0lMmYlM2ZjYW1pZCUzZDQ3MDg5MTk5NSUyNmFkZ2lkJTNkMTI5NTIyNTg0NDQ2NjUyOCUyNmt3ZCUzZGNsb3VkJTI1MjBzaWVtJTI1MjBzZXJ2aWNlJTI2bWF0Y2h0eXBlJTNkcCUyNmFkaWQlM2QlMjZuZXR3b3JrJTNkbyUyNmFkcG9zaXRpb24lM2QlMjZsb2MlM2Q0MzQ2NiUyNnBsYWNlbWVudCUzZCUyNnRhcmdldCUzZCUyNnNlYXJjaHF1ZXJ5JTNkYW5zaWJsZSUyNTIwaW50ZWdyYXRpb24lMjUyMHNwbHVuayUyNTIwcXJhZGFyJTI1MjBzaWVtJTI1MjBhdXRvbWF0ZWQlMjZrd2RtYXRjaHR5cGUlM2RicCUyNm1zY2xraWQlM2Q2ZmEyMTRhODNkNjQxMzk0YzMyYjdlZjZjNDQyZDk2Zg&rlid=6fa214a83d641394c32b7ef6c442d96f
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://www.ansiblepilot.com/articles/ansible-docker-compose-guide
+https://gregsowell.com/?p=7086
+https://www.redhat.com/en/blog/ansible-execution-environment-automated-build
+https://www.libhunt.com/l/dockerfile/topic/ansible-execution-environment
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://github.com/OneUptime/blog/blob/master/posts/2026-02-21-how-to-use-ansible-to-manage-sudoers-file-safely/validation-summary.md
+https://groups.google.com/g/ansible-project/c/hJTw_IsXSqg
+
+=========================================
+ 📂 CATEGORY: PERFORMANCE & KERNEL OPTIMIZATION
+=========================================
+https://github.com/OneUptime/blog/blob/master/posts/2026-02-21-how-to-use-ansible-to-configure-kernel-security-parameters/README.md
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://www.bing.com/aclick?ld=e8mtQVtYXhMgUHqMdf19bUOTVUCUyFdIr6GdGiFsa3qDDEYoQ-8ZiRTHsnA6PB1iPR30rI9jyWSD70zZev75EoZBDqEc5icCRALSVcvnrGlbnakPdE4jvCasE-FV6QkFN_AQ2rWWVS7VhNEpSFgMditXTfjyx9OZOdgtTMOplcPK4iOTx04bLSpvQbTkulE8pp31lkSJXL4shhR7K8Zifqt5rttZY&u=aHR0cHMlM2ElMmYlMmZ3d3cuY2lzZWN1cml0eS5vcmclMmZjaXMtc2VjdXJlc3VpdGUlM2Z1dG1fc291cmNlJTNkYmluZyUyNnV0bV9tZWRpdW0lM2RwYWlkJTI2dXRtX2NhbXBhaWduJTNkc2VjdXJlc3VpdGUlMjZ1dG1fY29udGVudCUzZDI2LXNlY3VyZXN1aXRlLWV2LXNlY3VyZXN1aXRlX3NlYXJjaF9hcHBseV9ub3clMjZtc2Nsa2lkJTNkYTRjNmZlMjBlYTExMTgzNDNjMDI5NDdlMTJjNDg5NjU&rlid=a4c6fe20ea1118343c02947e12c48965
+https://github.com/ansible-lockdown/Windows-2025-CIS

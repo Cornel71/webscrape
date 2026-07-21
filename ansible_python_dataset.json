@@ -1263,18 +1263,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Ansible Performance & Optimization - Forks, Async & Strategies | Teach me Ansible"
-      },
-      {
-        "from": "gpt",
-        "value": "# Execution strategies\nstrategy: linear              # Default, sequential\nstrategy: free                # Parallel, independent\nstrategy: debug               # Interactive debugging\n# Parallelization\nforks = 50                    # In ansible.cfg\nansible-playbook -f 50        # Command line\n# Serial batches\nserial: 5                     # Fixed batch size\nserial: \"20%\"                 # Percentage\nserial: [1, 5, \"50%\"]         # Progressive\n# Async tasks\nasync: 3600                   # Max runtime\npoll: 0                       # Fire and forget\npoll: 30                      # Poll every 30s\n# Fact caching\ngathering = smart             # Use cache\nfact_caching = jsonfile       # Cache backend\nfact_caching_timeout = 86400  # 24 hours\n# SSH optimization\npipelining = True\nssh_args = -o ControlMaster=auto -o ControlPersist=60s\n# Profiling\ncallback_whitelist = profile_tasks,timer\n# Task controls\nthrottle: 5                   # Limit concurrency\nrun_once: true                # Run on one host only"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Python script for: Medium"
       },
       {
@@ -3039,6 +3027,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Python script for: Ansible Looping With Lists And Dictionaries With Advanced Filtering - Greg Sowell Saves The World"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: create variable in a jinja2 loop using selectattr\n    ansible.builtin.set_fact:\n      new_var: \"{% for result in dict3 | dict2items | selectattr('value.name','defined') | selectattr('value.name','search','^A.*') %}\\\n                {{ result.key }}: {{ result.value.name }}_{{ result.value.color }},\n                {% endfor %}\"\n  - name: print out new_var\n    ansible.builtin.debug:\n      var: new_var.split(',')"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Python script for: Medium"
       },
       {
@@ -4160,18 +4160,6 @@
       {
         "from": "gpt",
         "value": "</li>\n<li>name: Run script with API key from env\nshell: ./deploy.sh\nenvironment:\nAPI_KEY: \"{{ lookup('env', 'DEPLOY_API_KEY') }}\""
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Python script for: Testing & Debugging Ansible - Molecule, Ansible-Test & Debugging | Teach me Ansible"
-      },
-      {
-        "from": "gpt",
-        "value": "# Install Testinfra\npip install molecule-plugins[docker] pytest-testinfra\n# molecule/default/tests/test_default.py\nimport os\nimport testinfra.utils.ansible_runner\ntestinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(\n    os.environ['MOLECULE_INVENTORY_FILE']\n).get_hosts('all')\ndef test_nginx_installed(host):\n    nginx = host.package('nginx')\n    assert nginx.is_installed\ndef test_nginx_running(host):\n    nginx = host.service('nginx')\n    assert nginx.is_running\n    assert nginx.is_enabled\ndef test_nginx_listening(host):\n    assert host.socket('tcp://0.0.0.0:80').is_listening"
       }
     ]
   },
@@ -5763,18 +5751,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Error Handling in Ansible - Blocks, Rescue & Failed When | Teach me Ansible"
-      },
-      {
-        "from": "gpt",
-        "value": "# Example 1: Database backup with rollback\n- block:\n    - name: Backup database\n      shell: pg_dump mydb > /backup/mydb.sql\n    - name: Apply migrations\n      command: /opt/app/migrate.sh\n    - name: Restart application\n      systemd:\n        name: myapp\n        state: restarted\n  rescue:\n    - name: Restore from backup\n      shell: psql mydb < /backup/mydb.sql\n    - name: Alert admins\n      debug:\n        msg: \"Migration failed, database restored from backup\"\n    - fail:\n        msg: \"Deployment aborted due to migration failure\"\n  always:\n    - name: Remove temporary files\n      file:\n        path: /tmp/migration_temp\n        state: absent\n# Example 2: Network configuration with rollback\n- block:\n    - name: Backup network config\n      copy:\n        src: /etc/network/interfaces\n        dest: /tmp/interfaces.backup\n        remote_src: yes\n    - name: Apply new network config\n      template:\n        src: interfaces.j2\n        dest: /etc/network/interfaces\n    - name: Restart networking\n      systemd:\n        name: networking\n        state: restarted\n    - name: Test connectivity\n      wait_for:\n        host: 8.8.8.8\n        port: 53\n        timeout: 10\n  rescue:\n    - name: Restore old config\n      copy:\n        src: /tmp/interfaces.backup\n        dest: /etc/network/interfaces\n        remote_src: yes\n    - name: Restart networking\n      systemd:\n        name: networking\n        state: restarted\n    - fail:\n        msg: \"Network configuration failed, reverted to backup\""
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Python script for: Safe Ansible Rolling Update with Serial and Check Mode"
       },
       {
@@ -6087,7 +6063,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Ansible â configuration management system: getting to know it | Raven's Blog | Linux and IT"
+        "value": "Python script for: Ansible â configuration management system: getting to know it | Raven's Blog"
       },
       {
         "from": "gpt",
@@ -6759,18 +6735,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: ansible-security-scanner · PyPI"
-      },
-      {
-        "from": "gpt",
-        "value": "ansible-security-scanner/                      # repo root (hyphenated - matches PyPI)\n├── pyproject.toml                             # packaging + pytest + hatch-vcs\n├── README.md\n├── CONTRIBUTING.md\n├── RELEASING.md                               # maintainer release runbook\n├── LICENSE / NOTICE                           # Apache-2.0 + attribution terms\n├── main.py                                    # local dev entry point (py main.py ...)\n├── .github/workflows/                         # CI, release, docs workflows\n├── .hugo/                                     # Hugo documentation site\n│   ├── scripts/build_docs.py                  # Generates Hugo content from docs/ + patterns\n│   └── content/                               # Generated .md pages (do not edit by hand)\n├── docs/                                      # Long-form prose docs (source of truth)\n│   ├── assets/                                # Images & SVGs the README references\n│   ├── cli.md                                 # CLI Reference (and exit codes, suppressions, dedup)\n│   ├── environment.md                         # Environment Variables\n│   ├── api.md                                 # Programmatic API\n│   ├── output-formats.md\n│   ├── allowlist.md\n│   ├── ci-cd.md\n│   ├── mr-pr-comments.md\n│   ├── custom-patterns.md\n│   ├── scoring.md\n│   ├── testing.md\n│   ├── limitations.md\n│   └── releasing.md\n├── src/\n│   └── ansible_security_scanner/              # the Python package\n│       ├── cli.py                             # CLI (--directory, --fix, --compliance, ...)\n│       ├── scanner.py                         # Multi-pass orchestrator\n│       ├── file_scanner.py                    # Per-file rules (line patterns, AST walkers)\n│       ├── taint_tracker.py                   # Cross-file taint analysis\n│       ├── fix_proposer.py                    # Dry-run unified-diff patch generator\n│       ├── dependency_collector.py            # SBOM inventory\n│       ├── suppressions.py                    # Inline `# nosec` parser\n│       ├── models.py                          # SecurityFinding, ScanReport, SecurityScore\n│       ├── score_calculator.py                # Severity-weighted scoring\n│       ├── patterns_manager.py                # Loads pattern YAML plugins\n│       ├── patterns/                          # 29+ YAML pattern plugins (auto-discovered)\n│       ├── remediations/                      # One module per category\n│       └── formatters/                        # markdown, json, xml, yaml, csv, html, junit, sarif, gitlab_sast, cyclonedx\n└── tests/\n    ├── test_integration.py                    # End-to-end scanner tests\n    ├── test_formatters.py                     # Formatter unit tests\n    ├── test_remediations.py                   # Remediation generator unit tests\n    └── playbooks/\n        ├── bad_example.yml                    # Triggers every rule (100% coverage)\n        ├── clean_example.yml                  # Zero findings (false-positive guard)\n        ├── multi_example_bad/                 # 6-file role fixture (cross-file taint)\n        └── multi_example_clean/               # 6-file hardened role fixture (zero findings)"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Python script for: Ansible microsoft.scom Module Example: Alert Routing to EDA"
       },
       {
@@ -7371,6 +7335,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Python script for: Ansible Security & Compliance"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Run OpenSCAP scan and generate report\n  hosts: rhel_nodes\n  become: true\n  tasks:\n    - name: Install OpenSCAP scanner\n      ansible.builtin.package:\n        name: ['openscap-scanner', 'scap-security-guide']\n        state: present\n    - name: Execute STIG scan\n      ansible.builtin.command:\n        cmd: >\n          oscap xccdf eval\n          --profile xccdf_org.ssgproject.content_profile_stig\n          --results /tmp/scan_results.xml\n          --report /tmp/scan_report.html\n          /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml\n      register: scan_result\n      changed_when: false\n      failed_when: scan_result.rc not in [0, 2]\n    - name: Fetch report to control node\n      ansible.builtin.fetch:\n        src:  /tmp/scan_report.html\n        dest: reports/{{ inventory_hostname }}_stig.html\n        flat: true"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Python script for: Ansible Become Password Failed: 5 Proven Configuration Fixes"
       },
       {
@@ -7491,6 +7467,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Python script for: What Are Environment Variables: A Guide For Beginners - DreamHost"
+      },
+      {
+        "from": "gpt",
+        "value": "import os\n# Retrieve environment variable to determine the current environment (production or staging)\ncurrent_env = os.getenv('APP_ENV', 'staging')  # Default to 'staging' if not set\n# Production API key\nPROD_API_KEY = os.environ['PROD_API_KEY']\n# Staging API key\nSTG_API_KEY = os.environ['STG_API_KEY']\n# Logic that sets api_key based on the current environment\nif current_env == 'production':\n    api_key = PROD_API_KEY\nelse:\n    api_key = STG_API_KEY\n# Initialize API client with the appropriate API key\napi = ApiClient(api_key)"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Python script for: Deploy and remove a web server with Ansible"
       },
       {
@@ -7568,18 +7556,6 @@
       {
         "from": "gpt",
         "value": "# Checks Example\n[INFO] 1 Control Plane Security Configuration\n[INFO] 1.1 Control Plane Node Configuration Files\n[PASS] 1.1.1 Ensure that the API server pod specification file permissions are set to 644 or more restrictive (Automated)\n[PASS] 1.1.2 Ensure that the API server pod specification file ownership is set to root:root (Automated)\n# Remediations Example\n== Remediations master ==\n1.1.9 Run the below command (based on the file location on your system) on the control plane node.\nFor example, chmod 600 <path/to/cni/files>\n1.1.12 On the etcd server node, get the etcd data directory, passed as an argument --data-dir,\nfrom the command 'ps -ef | grep etcd'.\n# Summary Example\n== Summary master ==\n41 checks PASS\n9 checks FAIL\n11 checks WARN\n0 checks INFO"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Python script for: Database Management - MySQL, PostgreSQL & MongoDB | Teach me Ansible"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n- name: Setup PostgreSQL server\n  hosts: db_servers\n  become: true\n  tasks:\n    - name: Install PostgreSQL\n      ansible.builtin.yum:\n        name:\n          - postgresql-server\n          - postgresql-contrib\n          - python3-psycopg2\n        state: present\n      when: ansible_os_family == \"RedHat\"\n    - name: Initialize database\n      ansible.builtin.command: postgresql-setup initdb\n      args:\n        creates: /var/lib/pgsql/data/PG_VERSION\n    - name: Start PostgreSQL service\n      ansible.builtin.service:\n        name: postgresql\n        state: started\n        enabled: true\n    - name: Configure pg_hba.conf for remote access\n      ansible.builtin.lineinfile:\n        path: /var/lib/pgsql/data/pg_hba.conf\n        line: \"host    all    all    10.0.0.0/8    md5\"\n        insertafter: EOF\n      notify: restart postgresql\n    - name: Configure postgresql.conf\n      ansible.builtin.lineinfile:\n        path: /var/lib/pgsql/data/postgresql.conf\n        regexp: \"^#?listen_addresses\"\n        line: \"listen_addresses = '*'\"\n      notify: restart postgresql\n  handlers:\n    - name: restart postgresql\n      ansible.builtin.service:\n        name: postgresql\n        state: restarted"
       }
     ]
   },
@@ -7772,6 +7748,78 @@
       {
         "from": "gpt",
         "value": "[ansible@ansiblecontrol ansible]$ cat roles/postgresqldbserver/site.yml\n---\n# This playbook deploys a single PostgreSQL instance from the source code\n- hosts: postgresql-servers\n  become: true\n  become_user: root\n  roles:\n    - postgresqldbserver"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible Syntax Checking | Compile N Run"
+      },
+      {
+        "from": "gpt",
+        "value": "$ ansible-lint playbook.ymlapp.yml:5: command-instead-of-module [WARNING]: Consider using the command module with creates rather than the shell moduleapp.yml:8: deprecated-module [WARNING]: deprecated-module: Deprecated module, use ansible.builtin.apt or apt insteadapp.yml:8: key-equals [WARNING]: key=value is deprecated, use YAML format insteadapp.yml:13: risky-undefined-variable [MEDIUM]: Variables should be enclosed by spaces \"{{ app_user }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible Docker Compose: Manage Multi-Container Stacks Guide"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Install Docker\n  hosts: docker_hosts\n  become: true\n  tasks:\n    - name: Install prerequisites\n      ansible.builtin.apt:\n        name:\n          - apt-transport-https\n          - ca-certificates\n          - curl\n          - gnupg\n          - lsb-release\n        state: present\n        update_cache: true\n    - name: Add Docker GPG key\n      ansible.builtin.apt_key:\n        url: https://download.docker.com/linux/ubuntu/gpg\n        state: present\n    - name: Add Docker repository\n      ansible.builtin.apt_repository:\n        repo: \"deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable\"\n        state: present\n    - name: Install Docker\n      ansible.builtin.apt:\n        name:\n          - docker-ce\n          - docker-ce-cli\n          - containerd.io\n          - docker-compose-plugin\n        state: present\n    - name: Start and enable Docker\n      ansible.builtin.service:\n        name: docker\n        state: started\n        enabled: true\n    - name: Add user to docker group\n      ansible.builtin.user:\n        name: \"{{ ansible_user }}\"\n        groups: docker\n        append: true"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Creating And Using Execution Environments For The Ansible Automation Platform - Greg Sowell Saves The World"
+      },
+      {
+        "from": "gpt",
+        "value": "[root@aap aws_ee_supported]# pwd\n/root/ansible-execution-environments/aws_ee_supported\n[root@aap aws_ee_supported]# ls -l\n-rw-r--r-- 1 root root  404 May 26 14:16 ansible.cfg\n-rw-r--r-- 1 root root  598 May 27 15:30 execution-environment.yml\n-rw-r--r-- 1 root root 1935 May 27 12:31 pulp_webserver.crt\n-rw-r--r-- 1 root root  191 May 26 10:06 requirements.txt\n-rw-r--r-- 1 root root  214 May 27 15:23 requirements.yml\n-rw-r--r-- 1 root root 1899 May 27 12:35 root.crt\n[root@aap aws_ee_supported]# ansible-builder create\nFile context/_build/requirements.yml had modifications and will be rewritten\nComplete! The build context can be found at: /root/ansible-execution-environments/aws_ee_supported/context\n[root@aap aws_ee_supported]# ls -l\ntotal 24\n-rw-r--r-- 1 root root  404 May 26 14:16 ansible.cfg\ndrwxr-xr-x 3 root root   41 May 27 15:35 context\n-rw-r--r-- 1 root root  598 May 27 15:30 execution-environment.yml\n-rw-r--r-- 1 root root 1935 May 27 12:31 pulp_webserver.crt\n-rw-r--r-- 1 root root  191 May 26 10:06 requirements.txt\n-rw-r--r-- 1 root root  214 May 27 15:23 requirements.yml\n-rw-r--r-- 1 root root 1899 May 27 12:35 root.crt"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Automate execution environment builds with Ansible Automation Platform"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Playbook to create custom EE\n  hosts: all\n  gather_facts: false\n  collections:\n    - redhat_cop.ee_utilities\n  vars:\n    # For controller configuration definition\n    ee_reg_credential: Automation Hub Container Registry\n    ee_list:\n      - name: custom_ee\n        alt_name: Custom EE\n        tag: 1-11-21-2\n        # base_image\n        bindep:\n          - python38-requests [platform:centos-8 platform:rhel-8]\n          - python38-pyyaml [platform:centos-8 platform:rhel-8]\n        python:\n          - pytz  # for schedule_rrule lookup plugin\n          - python-dateutil>=2.7.0  # schedule_rrule\n          - awxkit  # For import and export modules\n        collections:\n          - name: awx.awx\n            version: 21.9.0\n          - name: redhat_cop.controller_configuration\n          - name: redhat_cop.ah_configuration\n        prepend:\n          - RUN whoami\n          - RUN cat /etc/os-release\n        append:\n          - RUN echo This is a post-install command!\n  roles:\n    - redhat_cop.ee_utilities.ee_builder"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: validation-summary.md"
+      },
+      {
+        "from": "gpt",
+        "value": "# Validation Summary: How to Use Ansible to Manage sudoers File Safely\n## Status\nvalidated\n## Post Type\nTutorial\n## Technologies Covered\n- Ansible\n- Linux sudoers\n- visudo\n- YAML\n- Jinja2 templates\n- cron\n## Sources Consulted\n- Ansible ansible.builtin.copy module documentation: https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/copy_module.html\n- Ansible ansible.builtin.template module documentation: https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/template_module.html\n- Ansible ansible.builtin.lineinfile module documentation: https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/lineinfile_module.html\n- Ansible ansible.builtin.cron module documentation: https://docs.ansible.com/ansible/latest/collections/ansible/builtin/cron_module.html\n- Sudo visudo manual: https://www.sudo.ws/docs/man/visudo.man/\n- Local sudoers(5) and visudo(8) manual pages available in the review environment\n## Issues Found\n- The examples used `visudo -cf %s`. This is valid syntax checking, but the official Ansible copy example uses `visudo -csf %s`, adding strict sudoers checks. Updated the Ansible validation examples and summary text to use `-csf`.\n- The sudoers.d section said a bad drop-in does not corrupt the main sudoers config. That is true for file contents, but sudo still parses included drop-ins and can fail on a bad included file. Clarified that drop-ins do not overwrite the main file and still require validation.\n- The post did not mention that validating an individual sudoers include file is not the same as checking the complete sudoers policy. Added a note to run `visudo -c` against the complete policy when drop-ins depend on aliases or defaults from other files.\n- The multi-team example used complex Jinja in `copy.content`. Ansible's official copy module documentation recommends using the template module for advanced formatting or variable content. Updated the example to use `ansible.builtin.template` with a separate Jinja2 template snippet.\n- The emergency recovery example only restored `/etc/sudoers`, which would not recover from a bad `/etc/sudoers.d` drop-in even though the validation command checks the whole policy. Updated the script and tasks to back up and restore `/etc/sudoers.d` as well.\n## Review Notes\n- Several sudoers command examples use shell-style wildcards in command arguments. This is syntactically valid sudoers syntax, but sudoers documentation warns that command-argument wildcards should be used carefully because they can match broader argument strings than expected.\n- Absolute command paths such as `/bin/systemctl` and `/usr/sbin/ss` vary by distribution. The examples are plausible on common Linux systems, but production sudoers rules should use the target host's actual command paths."
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: README.md"
+      },
+      {
+        "from": "gpt",
+        "value": "# How to Use Ansible to Configure Kernel Security Parameters\nAuthor: [nawazdhandala](https://www.github.com/nawazdhandala)\nTags: Ansible, Kernel Security, Sysctl, Linux Hardening, Security\nDescription: Harden your Linux kernel security parameters using Ansible to configure sysctl settings for network protection, memory safety, and exploit mitigation.\n---\nThe Linux kernel exposes hundreds of tunable parameters through sysctl, and many of them have direct security implications. Things like IP forwarding, SYN flood protection, address space layout randomization, and core dump handling are all kernel parameters that can make the difference between a secure server and a vulnerable one.\nManually tuning these parameters on each server is impractical. In this post, I will walk through how to use Ansible to deploy and enforce kernel security parameters consistently across your fleet.\n## Why Kernel Parameters Matter for Security\nDefault kernel settings are designed for general compatibility, not maximum security. For example, Linux host defaults accept ICMP redirects unless a distribution overrides them, which can be used for man-in-the-middle attacks. Some systems also allow ordinary process core dumps, which can leak sensitive data from memory.\n```mermaid\nflowchart TD\n    A[Kernel Parameters] --> B[Network Security]\n    A --> C[Memory Protection]\n    A --> D[File System Security]\n    A --> E[Process Security]\n    B --> B1[SYN flood protection]\n    B --> B2[ICMP hardening]\n    B --> B3[IP spoofing prevention]\n    C --> C1[ASLR]\n    C --> C2[Core dump restrictions]\n    C --> C3[Kernel pointer restrictions]\n    D --> D1[Symlink protection]\n    D --> D2[Hardlink protection]\n    E --> E1[ptrace restrictions]\n    E --> E2[dmesg restrictions]\n```\n## Basic Kernel Hardening Playbook\nLet's start with a playbook that applies the most important security-related sysctl settings.\nThis playbook sets fundamental kernel security parameters using the sysctl module:\n```yaml\n# kernel_hardening.yml - Apply kernel security parameters\n---\n- name: Configure kernel security parameters\n  hosts: all\n  become: true\n  tasks:\n    - name: Apply network security parameters\n      ansible.posix.sysctl:\n        name: \"{{ item.key }}\"\n        value: \"{{ item.value }}\"\n        sysctl_set: true\n        state: present\n        reload: true\n        sysctl_file: /etc/sysctl.d/99-security.conf\n      loop:\n        # Disable IP forwarding (unless this is a router)\n        - { key: \"net.ipv4.ip_forward\", value: \"0\" }\n        # Enable SYN flood protection\n        - { key: \"net.ipv4.tcp_syncookies\", value: \"1\" }\n        - { key: \"net.ipv4.tcp_max_syn_backlog\", value: \"2048\" }\n        - { key: \"net.ipv4.tcp_synack_retries\", value: \"2\" }\n        # Disable ICMP redirects\n        - { key: \"net.ipv4.conf.all.accept_redirects\", value: \"0\" }\n        - { key: \"net.ipv4.conf.default.accept_redirects\", value: \"0\" }\n        - { key: \"net.ipv4.conf.all.send_redirects\", value: \"0\" }\n        - { key: \"net.ipv4.conf.default.send_redirects\", value: \"0\" }\n        - { key: \"net.ipv4.conf.all.secure_redirects\", value: \"0\" }\n        - { key: \"net.ipv4.conf.default.secure_redirects\", value: \"0\" }\n        # Enable source address verification (anti-spoofing)\n        - { key: \"net.ipv4.conf.all.rp_filter\", value: \"1\" }\n        - { key: \"net.ipv4.conf.default.rp_filter\", value: \"1\" }\n        # Ignore ICMP broadcast requests\n        - { key: \"net.ipv4.icmp_echo_ignore_broadcasts\", value: \"1\" }\n        # Ignore bogus ICMP error responses\n        - { key: \"net.ipv4.icmp_ignore_bogus_error_responses\", value: \"1\" }\n        # Log suspicious packets (martians)\n        - { key: \"net.ipv4.conf.all.log_martians\", value: \"1\" }\n        - { key: \"net.ipv4.conf.default.log_martians\", value: \"1\" }\n        # Disable source routing\n        - { key: \"net.ipv4.conf.all.accept_source_route\", value: \"0\" }\n        - { key: \"net.ipv4.conf.default.accept_source_route\", value: \"0\" }\n```\n## Memory and Process Security Parameters\nBeyond network settings, several kernel parameters protect against memory-based attacks.\nThis playbook configures memory protection and process isolation settings:\n```yaml\n# memory_security.yml - Kernel memory and process security\n---\n- name: Configure memory security parameters\n  hosts: all\n  become: true\n  tasks:\n    - name: Apply memory and process security parameters\n      ansible.posix.sysctl:\n        name: \"{{ item.key }}\"\n        value: \"{{ item.value }}\"\n        sysctl_set: true\n        state: present\n        reload: true\n        sysctl_file: /etc/sysctl.d/99-memory-security.conf\n      loop:\n        # Enable ASLR (Address Space Layout Randomization)\n        # 2 = full randomization\n        - { key: \"kernel.randomize_va_space\", value: \"2\" }\n        # Restrict core dumps for setuid programs\n        - { key: \"fs.suid_dumpable\", value: \"0\" }\n        # Restrict access to kernel logs (dmesg)\n        - { key: \"kernel.dmesg_restrict\", value: \"1\" }\n        # Restrict access to kernel pointers in /proc\n        - { key: \"kernel.kptr_restrict\", value: \"2\" }\n        # Restrict ptrace to processes with CAP_SYS_PTRACE only\n        # 0 = no restrictions, 1 = parent only, 2 = admin only, 3 = disabled\n        - { key: \"kernel.yama.ptrace_scope\", value: \"2\" }\n        # Restrict loading of kernel modules\n        # Uncomment only after all needed modules are loaded\n        # - { key: \"kernel.modules_disabled\", value: \"1\" }\n        # Disable magic SysRq emergency commands\n        - { key: \"kernel.sysrq\", value: \"0\" }\n        # Restrict perf_event access\n        - { key: \"kernel.perf_event_paranoid\", value: \"3\" }\n        # Restrict unprivileged BPF\n        - { key: \"kernel.unprivileged_bpf_disabled\", value: \"1\" }\n        # Harden BPF JIT compiler\n        - { key: \"net.core.bpf_jit_harden\", value: \"2\" }\n```\n## File System Security Parameters\nThese parameters protect against symlink and hardlink attacks:\n```yaml\n# filesystem_security.yml - File system security parameters\n---\n- name: Configure filesystem security parameters\n  hosts: all\n  become: true\n  tasks:\n    - name: Apply filesystem security parameters\n      ansible.posix.sysctl:\n        name: \"{{ item.key }}\"\n        value: \"{{ item.value }}\"\n        sysctl_set: true\n        state: present\n        reload: true\n        sysctl_file: /etc/sysctl.d/99-filesystem-security.conf\n      loop:\n        # Protect against symlink attacks in world-writable dirs\n        - { key: \"fs.protected_symlinks\", value: \"1\" }\n        # Protect against hardlink attacks\n        - { key: \"fs.protected_hardlinks\", value: \"1\" }\n        # Protect FIFOs in world-writable directories\n        - { key: \"fs.protected_fifos\", value: \"2\" }\n        # Protect regular files in world-writable directories\n        - { key: \"fs.protected_regular\", value: \"2\" }\n        # Restrict the use of user namespaces (if not needed)\n        # Note: this breaks some container runtimes\n        # - { key: \"user.max_user_namespaces\", value: \"0\" }\n```\n## IPv6 Security Parameters\nIf your servers use IPv6, you should harden those settings too:\n```yaml\n# ipv6_security.yml - IPv6 kernel security parameters\n---\n- name: Configure IPv6 security parameters\n  hosts: all\n  become: true\n  vars:\n    ipv6_enabled: true\n  tasks:\n    - name: Apply IPv6 security parameters\n      ansible.posix.sysctl:\n        name: \"{{ item.key }}\"\n        value: \"{{ item.value }}\"\n        sysctl_set: true\n        state: present\n        reload: true\n        sysctl_file: /etc/sysctl.d/99-ipv6-security.conf\n      loop:\n        # Disable IPv6 router advertisements\n        - { key: \"net.ipv6.conf.all.accept_ra\", value: \"0\" }\n        - { key: \"net.ipv6.conf.default.accept_ra\", value: \"0\" }\n        # Disable IPv6 redirects\n        - { key: \"net.ipv6.conf.all.accept_redirects\", value: \"0\" }\n        - { key: \"net.ipv6.conf.default.accept_redirects\", value: \"0\" }\n        # Disable IPv6 source routing\n        - { key: \"net.ipv6.conf.all.accept_source_route\", value: \"-1\" }\n        - { key: \"net.ipv6.conf.default.accept_source_route\", value: \"-1\" }\n        # Use privacy extensions for IPv6\n        - { key: \"net.ipv6.conf.all.use_tempaddr\", value: \"2\" }\n        - { key: \"net.ipv6.conf.default.use_tempaddr\", value: \"2\" }\n      when: ipv6_enabled\n```\n## Building a Complete Sysctl Role\nFor production use, organize all of this into a role with variable-driven configuration:\n```yaml\n# roles/kernel_security/defaults/main.yml\n---\nkernel_security:\n  network:\n    ip_forward: 0\n    tcp_syncookies: 1\n    accept_redirects: 0\n    send_redirects: 0\n    rp_filter: 1\n    log_martians: 1\n    accept_source_route: 0\n  memory:\n    randomize_va_space: 2\n    suid_dumpable: 0\n    dmesg_restrict: 1\n    kptr_restrict: 2\n    ptrace_scope: 2\n    sysrq: 0\n  filesystem:\n    protected_symlinks: 1\n    protected_hardlinks: 1\n    protected_fifos: 2\n    protected_regular: 2\n# Set to true for routers/firewalls\nis_router: false\n```\nThe role's tasks file applies settings based on variables:\n```yaml\n# roles/kernel_security/tasks/main.yml\n---\n- name: Deploy security sysctl configuration\n  ansible.builtin.template:\n    src: security-sysctl.conf.j2\n    dest: /etc/sysctl.d/99-ansible-security.conf\n    owner: root\n    group: root\n    mode: '0644'\n- name: Apply sysctl settings immediately\n  ansible.builtin.command: sysctl --system\n  changed_when: true\n```\n## Verifying Parameters\nAfter applying settings, verify they took effect:\n```yaml\n# verify_sysctl.yml - Verify kernel security parameters\n---\n- name: Verify kernel security parameters\n  hosts: all\n  become: true\n  vars:\n    expected_values:\n      net.ipv4.tcp_syncookies: \"1\"\n      kernel.randomize_va_space: \"2\"\n      net.ipv4.conf.all.accept_redirects: \"0\"\n      kernel.dmesg_restrict: \"1\"\n      fs.protected_symlinks: \"1\"\n  tasks:\n    - name: Check each parameter\n      ansible.builtin.command: sysctl {{ item.key }}\n      loop: \"{{ expected_values | dict2items }}\"\n      register: sysctl_check\n      changed_when: false\n    - name: Verify values match expected\n      ansible.builtin.assert:\n        that:\n          - item.stdout.split('=')[1] | trim == expected_values[item.item.key]\n        fail_msg: \"{{ item.item.key }} is {{ item.stdout.split('=')[1] | trim }}, expected {{ expected_values[item.item.key] }}\"\n        success_msg: \"{{ item.item.key }} is correctly set\"\n      loop: \"{{ sysctl_check.results }}\"\n```\n## Important Considerations\n1. **IP forwarding.** If your server acts as a router, gateway, or runs containers with host networking, you need IP forwarding enabled. Do not blindly set it to 0.\n2. **ptrace restrictions.** Setting ptrace_scope to 2 or 3 breaks debuggers like gdb and strace for non-root users. This is fine for production servers but not development machines.\n3. **Kernel module restrictions.** Setting modules_disabled to 1 prevents loading any new kernel modules. Only do this after all required modules are loaded.\n4. **Test before production.** Some parameters can break applications. Always test in staging first.\n5. **Persistence.** The sysctl module writes to conf files, so changes survive reboots. But always verify after a reboot to be sure.\nKernel parameter hardening is one of the most impactful security measures you can take, and Ansible makes it manageable at scale. Start with the network settings, add memory protections, and gradually tighten things based on what your workloads actually need."
       }
     ]
   }

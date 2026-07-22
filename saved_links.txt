@@ -2999,3 +2999,69 @@ https://github.com/OneUptime/blog/blob/master/posts/2026-02-21-how-to-use-ansibl
 =========================================
 https://www.bing.com/aclick?ld=e8mtQVtYXhMgUHqMdf19bUOTVUCUyFdIr6GdGiFsa3qDDEYoQ-8ZiRTHsnA6PB1iPR30rI9jyWSD70zZev75EoZBDqEc5icCRALSVcvnrGlbnakPdE4jvCasE-FV6QkFN_AQ2rWWVS7VhNEpSFgMditXTfjyx9OZOdgtTMOplcPK4iOTx04bLSpvQbTkulE8pp31lkSJXL4shhR7K8Zifqt5rttZY&u=aHR0cHMlM2ElMmYlMmZ3d3cuY2lzZWN1cml0eS5vcmclMmZjaXMtc2VjdXJlc3VpdGUlM2Z1dG1fc291cmNlJTNkYmluZyUyNnV0bV9tZWRpdW0lM2RwYWlkJTI2dXRtX2NhbXBhaWduJTNkc2VjdXJlc3VpdGUlMjZ1dG1fY29udGVudCUzZDI2LXNlY3VyZXN1aXRlLWV2LXNlY3VyZXN1aXRlX3NlYXJjaF9hcHBseV9ub3clMjZtc2Nsa2lkJTNkYTRjNmZlMjBlYTExMTgzNDNjMDI5NDdlMTJjNDg5NjU&rlid=a4c6fe20ea1118343c02947e12c48965
 https://github.com/ansible-lockdown/Windows-2025-CIS
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://linuxhaxor.net/code/github-action-ansible.html
+https://www.syone.com/blog/automating-infrastructure-with-ansible-a-practical-playbook
+https://steampunk.si/spotter/blog/how-deutsche-telekom-mms-optimizes-ansible-playbooks-with-spotter/
+https://awesome-repositories.com/hi/f/devops-infrastructure/ansible-playbooks/playbook-quality-analysis
+https://subscription.packtpub.com/book/cloud-and-networking/9781803235417/3/ch03lvl1sec12/identifying-manual-tasks-to-be-automated
+https://stackoverflow.com/questions/72353322/ansible-playbook-error-conflicting-action-statements-with-hosts-and-tasks
+https://www.cherryservers.com/blog/how-to-define-and-use-handlers-in-ansible-playbooks
+https://b.hatena.ne.jp/entry/s/github.com/ansible/awx
+https://www.ansiblebyexample.com/articles/ansible-troubleshooting-not-a-valid-attribute-for-a-play-error
+https://developers.redhat.com/learning/learn:ansible:yaml-essentials-ansible/resource/resources:ansible-yaml-file-syntax-and-structure
+https://www.compilenrun.com/docs/devops/ansible/ansible-playbooks/ansible-yaml-syntax/
+https://spacelift.io/blog/ansible-copy
+https://labex.io/tutorials/ansible-how-to-fix-permission-denied-error-in-ansible-script-module-415726
+https://www.golinuxcloud.com/ansible-cfg/
+https://docs.datadoghq.com/security/code_security/iac_security/iac_rules/ansible-privilege-escalation-using-become-plugin-in-defaults/
+https://devopsaitoolkit.com/guides/ansible-playbook-and-module-errors/
+https://lucaberton.com/blog/fix-ansible-molecule-test-failure/
+https://linuxserverlab.com/how-to-manage-multiple-servers-with-ansible/
+https://wiki.freephile.org/wiki/Ansible/profiling
+https://wifitalents.com/best/website-activity-monitoring-software/
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://lucaberton.com/blog/how-to-install-ansible-on-github-actions/
+https://nelsa.cloud/blog/vps/gitops-in-practice-declarative-infrastructure-management
+https://journal.sweb.ru/article/gitlab-cicd-rukovodstvo-po-nastroyke
+https://www.iditect.com/program-example/yaml--gitlab-ci-syntax-to-write-for-loop-statement.html
+https://askubuntu.com/questions/334318/sudoers-file-enable-nopasswd-for-user-all-commands
+https://forum.exlends.ru/topic/517/oshibka-otsutstvuet-v-fajle-sudoers-kak-ispravit-v-linux-za-5-minut
+https://github.com/AnamayBrahme/Ansible-Config-Management-Toolkit
+https://pidiylab.com/raspberry-pi-ssh-setup/
+https://www.golinuxcloud.com/ansible-conditional-statements/
+https://threatport.com/docs/ansible-security-hardening-playbooks
+https://kbi.media/press-release/cyberark-launches-secrets-hub-for-aws-secrets-manager/
+https://rootops.ovh/
+https://www.foundit.sg/search/redhat-ansible-jobs
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://threatport.com/de/docs/gitlab-ci-cd-security-configuration
+https://johal.in/ansible-playbooks-for-automating-security-hardening-in-ai-infrastructures-2025
+https://www.cockroachlabs.com/blog/cis-benchmark-cockroachdb-security/
+https://awesome-repositories.com/ar/repository/dev-sec-ansible-collection-hardening
+https://pronteff.com/modern-security-automation-for-hybrid-it-with-red-hat-ansible/
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://ansible.fontein.de/collections/community/docker/docker_connection.html
+https://guide.arillso.io/containers/docker_ansible.html
+
+=========================================
+ 📂 CATEGORY: NGINX & WEB REVERSE PROXY
+=========================================
+https://teachmeansible.com/learn/webservers
+
+=========================================
+ 📂 CATEGORY: STORAGE & LVM MANAGEMENT
+=========================================
+https://groups.google.com/g/ansible-project/c/CHfeoM5oBtQ

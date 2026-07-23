@@ -3065,3 +3065,63 @@ https://teachmeansible.com/learn/webservers
  📂 CATEGORY: STORAGE & LVM MANAGEMENT
 =========================================
 https://groups.google.com/g/ansible-project/c/CHfeoM5oBtQ
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://readmedium.com/current-ansible-playbook-path-playbook-dir-magic-variable-ansible-tip-and-tricks-4d5b333feb88
+https://medium.com/@ahmadfarag/ansible-in-action-f2f17706931
+https://github.com/koddr/useful-playbooks
+https://dev.to/tungbq/ansible-basics-your-first-helloworld-playbook-3k6c
+https://arkit.co.in/aws-ec2-instance-creation-using-ansible/
+https://repos.ecosyste.ms/hosts/GitHub/repositories/aekrylov/teamcity-ansible
+https://gist.icoder.workers.dev/DevSecOpsGuy/7ed3494cc7504089f4833d49c256b47f
+https://lucaberton.com/blog/fix-ansible-when-conditional-error/
+https://r4ven.me/dots/tab-podstanovka-hostov-iz-ansible-inventory-dlya-ansible-ssh-scp-rsync/
+https://embargo.splunk.com/
+https://www.itprc.com/best-siem-tools/
+https://ai.techclick.in/syllabus/ibm-qradar
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://gitlab.com/nehasonawane1525/ansible-code-with-gitlab
+https://threatport.com/tr/docs/gitlab-ci-cd-security-configuration
+https://axveil.com/glossary/cis-benchmarks
+https://aws.amazon.com/what-is/cis-benchmarks/
+https://www.puppet.com/blog/cis-compliance
+https://umatechnology.org/custom-alert-routing-in-firewall-event-listeners-provisioned-using-ansible/
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://awesome.ecosyste.ms/projects/github.com/geerlingguy/ansible-role-docker
+https://ansible-collections.github.io/community.docker/branch/main/index.html
+https://www.ansiblepilot.com/articles/ansible-docker-container-module-manage-docker-containers-guide
+
+=========================================
+ 📂 CATEGORY: NGINX & WEB REVERSE PROXY
+=========================================
+https://medium.com/@pranavsb699/from-infrastructure-to-application-deploying-django-with-terraform-ansible-nginx-and-gunicorn-477255c39e5d
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://pendrivelinux.com/how-to-add-user-to-sudoers-list/
+https://thelinuxcode.com/manage-firewalls-ansible-ufw-module/
+https://hoop.dev/blog/how-to-configure-aws-secrets-manager-cyberark-for-secure-repeatable-access
+https://www.redhat.com/en/interactive-demo/network-automation-aap
+https://www.linkedin.com/posts/robert-rathbun_ansible-redhat-cybersecurity-activity-7470277654710231040-K6r4
+
+=========================================
+ 📂 CATEGORY: PERFORMANCE & KERNEL OPTIMIZATION
+=========================================
+https://github.com/iamenr0s/ansible-role-kernel-configuration
+https://docs.datadoghq.com/security/default_rules/def-000-3qd/
+
+=========================================
+ 📂 CATEGORY: POSTGRESQL DATABASE MANAGEMENT
+=========================================
+https://www.docs4dev.com/docs/ansible/2.11.0/collections/community/postgresql/postgresql_user_module.html
+https://stackoverflow.com/questions/43756065/failed-to-create-user-with-ansible-postgresql-user-module
+https://www.ansiblebyexample.com/articles/ansible-with-postgresql-complete-automation-guide

@@ -3125,3 +3125,55 @@ https://docs.datadoghq.com/security/default_rules/def-000-3qd/
 https://www.docs4dev.com/docs/ansible/2.11.0/collections/community/postgresql/postgresql_user_module.html
 https://stackoverflow.com/questions/43756065/failed-to-create-user-with-ansible-postgresql-user-module
 https://www.ansiblebyexample.com/articles/ansible-with-postgresql-complete-automation-guide
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://stackoverflow.com/questions/22649333/ansible-notify-handlers-in-another-role
+https://thecodeforge.io/devops/ansible-modules-file-management/
+https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html
+https://copyprogramming.com/howto/adding-new-sudo-user-using-ansible-password-not-logging-password-message
+https://www.freekb.net/Article?id=2538
+https://notes.kodekloud.com/docs/Ansible-Advanced-Course/Install-and-Configure/Privilege-Escalation
+https://www.jeffgeerling.com/blog/2017/fix-ansible-hanging-when-used-docker-and-tty/
+https://threatport.com/ar/docs/ansible-security-hardening-playbooks
+https://kestra.io/blueprints/ansible-render-templated-playbooks
+https://codeby.net/threads/importozameshcheniye-ib-resheniya-sravneniye-chestnyi-obzor-rossiiskikh-siem-edr-i-skanerov-glazami-pentestera.92895/
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://stackoverflow.com/questions/61778800/how-to-set-up-handshake-between-gitlab-and-ansible
+https://alishaikh.me/ansible-manage-users-ssh-sudo/
+https://www.commandlinefu.com/commands/view/3238/securely-edit-the-sudo-file-over-the-network
+https://medium.com/developersglobal/building-a-portable-ansible-controller-with-docker-3c079b74933b
+https://www.linkedin.com/advice/3/how-do-you-secure-ansible-communication-manage
+https://discourse.roots.io/t/i-really-want-to-love-trellis-but-ansible-is-in-the-way/17617/4
+https://acozine.github.io/html/modules/ufw_module.html
+https://sxz.io/ansible-vault-encrypt-secrets-tutorial/
+https://www.tpointtech.com/cyberark-identity-solutions
+https://www.rogerperkin.co.uk/faq/is-ansible-still-relevant-in-2026/
+https://amananet.com/course/network-automation-with-red-hat-ansible-automation-platform-do457
+https://www.g2.com/compare/azure-automation-vs-red-hat-ansible-automation-platform
+https://www.slideshare.net/slideshow/introducing-red-hat-ansible-automation-platform/271690994
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://stackoverflow.com/questions/32878795/run-command-inside-of-docker-container-using-ansible
+https://github.com/ansiblejunky/ansible-execution-environment/blob/main/README.md
+https://nofusscomputing.com/projects/ansible/execution_environment/
+https://www.wwt.com/lab/ansible-execution-environments
+
+=========================================
+ 📂 CATEGORY: PERFORMANCE & KERNEL OPTIMIZATION
+=========================================
+https://www.linkedin.com/pulse/automating-linux-buffer-tuning-ansible-udp-tcp-rhel8-abuallan-fxove
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://itorakul.com.ua/en/openscap/
+https://dev.to/shivam_agnihotri/monitoring-kubernetes-cis-benchmarking-tool-day-17-of-50-days-devops-tools-series-46l1
+https://edugusarov.com/ru/prompty-dlya-devops-inzhenera-ansible/
+https://openclawx.cloud/en/install/ansible

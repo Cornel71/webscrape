@@ -1263,6 +1263,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Python script for: Ansible Performance & Optimization - Forks, Async & Strategies | Teach me Ansible"
+      },
+      {
+        "from": "gpt",
+        "value": "# Execution strategies\nstrategy: linear              # Default, sequential\nstrategy: free                # Parallel, independent\nstrategy: debug               # Interactive debugging\n# Parallelization\nforks = 50                    # In ansible.cfg\nansible-playbook -f 50        # Command line\n# Serial batches\nserial: 5                     # Fixed batch size\nserial: \"20%\"                 # Percentage\nserial: [1, 5, \"50%\"]         # Progressive\n# Async tasks\nasync: 3600                   # Max runtime\npoll: 0                       # Fire and forget\npoll: 30                      # Poll every 30s\n# Fact caching\ngathering = smart             # Use cache\nfact_caching = jsonfile       # Cache backend\nfact_caching_timeout = 86400  # 24 hours\n# SSH optimization\npipelining = True\nssh_args = -o ControlMaster=auto -o ControlPersist=60s\n# Profiling\ncallback_whitelist = profile_tasks,timer\n# Task controls\nthrottle: 5                   # Limit concurrency\nrun_once: true                # Run on one host only"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Python script for: Medium"
       },
       {
@@ -1892,18 +1904,6 @@
       {
         "from": "gpt",
         "value": "# How to Use Ansible to Manage sysctl Parameters\nAuthor: [nawazdhandala](https://www.github.com/nawazdhandala)\nTags: Ansible, Linux, Performance Tuning, Networking\nDescription: Learn how to use the Ansible sysctl module to manage kernel parameters for performance tuning, security hardening, and network optimization.\n---\nLinux kernel parameters control everything from network buffer sizes to virtual memory behavior. Tuning these parameters is essential for high-performance servers, database hosts, and load balancers. The Ansible `sysctl` module manages these settings in `/etc/sysctl.conf` or `/etc/sysctl.d/` drop-in files, making the changes persistent across reboots and optionally applying them immediately.\n## Basic sysctl Management\nThe `sysctl` module sets a kernel parameter and applies it without requiring a reboot.\n```yaml\n# Increase the maximum number of open file descriptors system-wide\n- name: Set system-wide max open files\n  ansible.posix.sysctl:\n    name: fs.file-max\n    value: '2097152'\n    sysctl_set: yes\n    state: present\n    reload: yes\n```\nThe `sysctl_set: yes` parameter verifies the runtime value with `sysctl` and applies the setting immediately with `sysctl -w` if needed. The `reload: yes` parameter runs `/sbin/sysctl -p` for the configured `sysctl_file` when that file is updated.\n## Network Performance Tuning\nNetwork-heavy servers like load balancers, web servers, and proxy servers benefit from tuned network parameters.\n```yaml\n# Tune network parameters for a high-traffic web server\n- name: Increase TCP connection backlog\n  ansible.posix.sysctl:\n    name: net.core.somaxconn\n    value: '65535'\n    sysctl_set: yes\n    state: present\n- name: Increase network device backlog\n  ansible.posix.sysctl:\n    name: net.core.netdev_max_backlog\n    value: '65535'\n    sysctl_set: yes\n    state: present\n- name: Enable TCP fast open\n  ansible.posix.sysctl:\n    name: net.ipv4.tcp_fastopen\n    value: '3'\n    sysctl_set: yes\n    state: present\n- name: Increase local port range\n  ansible.posix.sysctl:\n    name: net.ipv4.ip_local_port_range\n    value: '10240 65535'\n    sysctl_set: yes\n    state: present\n- name: Decrease TCP FIN timeout\n  ansible.posix.sysctl:\n    name: net.ipv4.tcp_fin_timeout\n    value: '15'\n    sysctl_set: yes\n    state: present\n- name: Enable TCP window scaling\n  ansible.posix.sysctl:\n    name: net.ipv4.tcp_window_scaling\n    value: '1'\n    sysctl_set: yes\n    state: present\n```\n## Using Drop-in Files\nInstead of modifying the main `/etc/sysctl.conf`, you can use drop-in files in `/etc/sysctl.d/` for better organization.\n```yaml\n# Use a custom sysctl file for application-specific tuning\n- name: Set database server memory parameters\n  ansible.posix.sysctl:\n    name: \"{{ item.name }}\"\n    value: \"{{ item.value }}\"\n    sysctl_file: /etc/sysctl.d/90-database.conf\n    sysctl_set: yes\n    state: present\n    reload: yes\n  loop:\n    - { name: 'vm.swappiness', value: '10' }\n    - { name: 'vm.dirty_ratio', value: '40' }\n    - { name: 'vm.dirty_background_ratio', value: '10' }\n    - { name: 'vm.overcommit_memory', value: '2' }\n```\nDrop-in files are loaded in alphabetical order, so use numeric prefixes to control precedence.\n## Security Hardening Parameters\nNetwork security settings protect against common attacks.\n```yaml\n# Apply network security hardening\n- name: Disable IP source routing\n  ansible.posix.sysctl:\n    name: \"{{ item }}\"\n    value: '0'\n    sysctl_file: /etc/sysctl.d/10-security.conf\n    sysctl_set: yes\n    state: present\n  loop:\n    - net.ipv4.conf.all.accept_source_route\n    - net.ipv4.conf.default.accept_source_route\n- name: Enable reverse path filtering\n  ansible.posix.sysctl:\n    name: \"{{ item }}\"\n    value: '1'\n    sysctl_file: /etc/sysctl.d/10-security.conf\n    sysctl_set: yes\n    state: present\n  loop:\n    - net.ipv4.conf.all.rp_filter\n    - net.ipv4.conf.default.rp_filter\n- name: Ignore ICMP broadcast requests\n  ansible.posix.sysctl:\n    name: net.ipv4.icmp_echo_ignore_broadcasts\n    value: '1'\n    sysctl_file: /etc/sysctl.d/10-security.conf\n    sysctl_set: yes\n    state: present\n- name: Disable ICMP redirects\n  ansible.posix.sysctl:\n    name: \"{{ item }}\"\n    value: '0'\n    sysctl_file: /etc/sysctl.d/10-security.conf\n    sysctl_set: yes\n    state: present\n  loop:\n    - net.ipv4.conf.all.accept_redirects\n    - net.ipv4.conf.default.accept_redirects\n    - net.ipv4.conf.all.send_redirects\n    - net.ipv4.conf.default.send_redirects\n- name: Enable SYN flood protection\n  ansible.posix.sysctl:\n    name: net.ipv4.tcp_syncookies\n    value: '1'\n    sysctl_file: /etc/sysctl.d/10-security.conf\n    sysctl_set: yes\n    state: present\n- name: Log martian packets\n  ansible.posix.sysctl:\n    name: net.ipv4.conf.all.log_martians\n    value: '1'\n    sysctl_file: /etc/sysctl.d/10-security.conf\n    sysctl_set: yes\n    state: present\n```\n## Variable-Driven sysctl Management\nDefine all sysctl settings in variables for clean, reusable playbooks.\n```yaml\n---\n- name: Apply kernel tuning parameters\n  hosts: all\n  become: yes\n  vars:\n    sysctl_params:\n      - name: vm.swappiness\n        value: '10'\n        file: /etc/sysctl.d/90-vm.conf\n      - name: fs.file-max\n        value: '2097152'\n        file: /etc/sysctl.d/90-fs.conf\n      - name: fs.inotify.max_user_watches\n        value: '524288'\n        file: /etc/sysctl.d/90-fs.conf\n      - name: net.core.somaxconn\n        value: '65535'\n        file: /etc/sysctl.d/90-network.conf\n      - name: net.ipv4.tcp_max_syn_backlog\n        value: '65535'\n        file: /etc/sysctl.d/90-network.conf\n  tasks:\n    - name: Apply sysctl parameters\n      ansible.posix.sysctl:\n        name: \"{{ item.name }}\"\n        value: \"{{ item.value }}\"\n        sysctl_file: \"{{ item.file }}\"\n        sysctl_set: yes\n        state: present\n        reload: yes\n      loop: \"{{ sysctl_params }}\"\n```\n## Database Server Tuning\nDatabase servers have specific kernel tuning requirements.\n```yaml\n# Tune kernel for PostgreSQL\n- name: Apply PostgreSQL kernel tuning\n  ansible.posix.sysctl:\n    name: \"{{ item.name }}\"\n    value: \"{{ item.value }}\"\n    sysctl_file: /etc/sysctl.d/90-postgresql.conf\n    sysctl_set: yes\n    state: present\n    reload: yes\n  loop:\n    # Reduce swap usage - databases manage their own cache\n    - { name: 'vm.swappiness', value: '1' }\n    # System V shared memory - usually only needed for sysv shared memory or low defaults\n    - { name: 'kernel.shmmax', value: '{{ (ansible_memtotal_mb * 1024 * 1024 * 0.75) | int }}' }\n    - { name: 'kernel.shmall', value: '{{ (ansible_memtotal_mb * 1024 * 1024 * 0.75 / 4096) | int }}' }\n    # Dirty page settings for write-heavy workloads\n    - { name: 'vm.dirty_ratio', value: '40' }\n    - { name: 'vm.dirty_background_ratio', value: '10' }\n    - { name: 'vm.dirty_expire_centisecs', value: '500' }\n    - { name: 'vm.dirty_writeback_centisecs', value: '100' }\n    # Huge pages if needed, assuming 2 MB huge pages\n    - { name: 'vm.nr_hugepages', value: '{{ (pg_shared_buffers_mb / 2) | int }}' }\n  vars:\n    pg_shared_buffers_mb: 8192\n```\n## Load Balancer Tuning\n```yaml\n# Tune kernel for a load balancer handling many connections\n- name: Apply load balancer kernel tuning\n  ansible.posix.sysctl:\n    name: \"{{ item.name }}\"\n    value: \"{{ item.value }}\"\n    sysctl_file: /etc/sysctl.d/90-loadbalancer.conf\n    sysctl_set: yes\n    state: present\n  loop:\n    - { name: 'net.core.somaxconn', value: '65535' }\n    - { name: 'net.core.netdev_max_backlog', value: '65535' }\n    - { name: 'net.ipv4.tcp_max_syn_backlog', value: '65535' }\n    - { name: 'net.ipv4.ip_local_port_range', value: '1024 65535' }\n    - { name: 'net.ipv4.tcp_tw_reuse', value: '1' }\n    - { name: 'net.ipv4.tcp_fin_timeout', value: '15' }\n    - { name: 'net.core.rmem_max', value: '16777216' }\n    - { name: 'net.core.wmem_max', value: '16777216' }\n    - { name: 'net.ipv4.tcp_rmem', value: '4096 87380 16777216' }\n    - { name: 'net.ipv4.tcp_wmem', value: '4096 87380 16777216' }\n    - { name: 'net.nf_conntrack_max', value: '1048576' }\n```\n## IP Forwarding for Routers and Containers\nHosts that need to forward packets (routers, Docker hosts, Kubernetes nodes) need IP forwarding enabled.\n```yaml\n# Enable IP forwarding for container hosts\n- name: Enable IPv4 forwarding\n  ansible.posix.sysctl:\n    name: net.ipv4.ip_forward\n    value: '1'\n    sysctl_set: yes\n    state: present\n    reload: yes\n- name: Enable IPv6 forwarding\n  ansible.posix.sysctl:\n    name: net.ipv6.conf.all.forwarding\n    value: '1'\n    sysctl_set: yes\n    state: present\n    reload: yes\n# Bridge network filter for Kubernetes, requires the br_netfilter module\n- name: Load br_netfilter on boot\n  ansible.builtin.copy:\n    dest: /etc/modules-load.d/br_netfilter.conf\n    content: \"br_netfilter\\n\"\n    mode: '0644'\n- name: Load br_netfilter module\n  ansible.builtin.command: modprobe br_netfilter\n  changed_when: false\n- name: Enable bridge-nf-call-iptables\n  ansible.posix.sysctl:\n    name: \"{{ item }}\"\n    value: '1'\n    sysctl_set: yes\n    state: present\n  loop:\n    - net.bridge.bridge-nf-call-iptables\n    - net.bridge.bridge-nf-call-ip6tables\n```\n## sysctl Categories Overview\n```mermaid\ngraph TD\n    A[sysctl Parameters] --> B[vm.* - Virtual Memory]\n    A --> C[net.* - Networking]\n    A --> D[fs.* - Filesystem]\n    A --> E[kernel.* - Kernel]\n    B --> B1[swappiness]\n    B --> B2[dirty_ratio]\n    B --> B3[overcommit_memory]\n    C --> C1[net.core.* - Core networking]\n    C --> C2[net.ipv4.* - IPv4 settings]\n    C --> C3[net.ipv6.* - IPv6 settings]\n    D --> D1[file-max]\n    D --> D2[inotify limits]\n    E --> E1[shmmax]\n    E --> E2[pid_max]\n```\n## Summary\nThe Ansible `sysctl` module provides safe, idempotent management of Linux kernel parameters. Use drop-in files in `/etc/sysctl.d/` for clean organization, variable-driven loops for scalable configuration, and role-specific tuning profiles for different server types. Network tuning, security hardening, memory management, and container networking all rely on sysctl parameters, making this module a critical part of any server provisioning playbook. Always use `sysctl_set: yes` to apply changes immediately and test parameter values in a staging environment before rolling them out to production."
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Python script for: Use Ansible To Automate Logical Volume Manager (LVM) - OSTechNix"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n- name: LVM Testing\n hosts: localhost\n become: true\n gather_facts: False\n tasks:\n   - name: Partition /dev/sdd disk\n     community.general.parted:\n       device: /dev/sdd\n       number: 1\n       flags: [ lvm ]\n       state: present\n       part_end: 5GiB\n   - name: Task for PV and VG\n     community.general.lvg:\n         vg: ostechnixlab\n         pvs: /dev/sdd1\n   - name: Logical volume with 1GB size\n     community.general.lvol:\n       vg: ostechnixlab\n       lv: labpart1\n       size: 1G\n   - name: Format the volume with ext4 fs\n     community.general.filesystem:\n       fstype: ext4\n       dev: /dev/ostechnixlab/labpart1\n   - name: Target directory under /opt/\n     ansible.builtin.file:\n       path: /opt/lvm_test/\n       state: directory\n       mode: '0755'\n   - name: mount the lv on /data1\n     ansible.posix.mount:\n       path: /opt/lvm_test/\n       src: /dev/ostechnixlab/labpart1\n       fstype: ext4\n       state: mounted"
       }
     ]
   },
@@ -5571,18 +5571,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Ansible Privilege Escalation (become, become_user)"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n- name: Orchestrate Application Services\n  hosts: webservers\n  become: false # Disabled by default for the entire play\n  tasks:\n    - name: Pull code from a public repository\n      ansible.builtin.git:\n        repo: 'https://github.com/example/app.git'\n        dest: /home/automation/app\n      # Runs safely as an unprivileged connection user\n    - name: Install system dependencies\n      ansible.builtin.apt:\n        name: libjpeg-dev\n        state: present\n      become: true # Explicitly enabled only for this administrative task"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Python script for: Ansible become -- Privilege Escalation | AnsibleByExample"
       },
       {
@@ -7947,18 +7935,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: AWS EC2 Instance Creation Using Ansible Playbook Automation"
-      },
-      {
-        "from": "gpt",
-        "value": "# yum install python python-setuptools* ansible git curl wget\n# curl -O https://bootstrap.pypa.io/get-pip.py\n# python get-pip.py\n$ python --version\nPython 2.7.5\n$ pip --version\npip 18.1 from /usr/lib/python2.7/site-packages/pip (python 2.7)\n# pip install boto\n# pip install boto3"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Python script for: Tab Ð¿Ð¾Ð´ÑÑÐ°Ð½Ð¾Ð²ÐºÐ° Ñ Ð¾ÑÑÐ¾Ð² Ð¸Ð· Ansible inventory Ð´Ð»Ñ ansible, ssh, scp, rsync | ÐÐ¾ÑÐ¾Ð½Ð¸Ð¹ Ð±Ð»Ð¾Ð³"
       },
       {
@@ -8192,6 +8168,102 @@
       {
         "from": "gpt",
         "value": "# 1. Install prerequisites\nsudo apt update && sudo apt install -y ansible git\n# 2. Clone repository\ngit clone https://github.com/openclaw/openclaw-ansible.git\ncd openclaw-ansible\n# 3. Install Ansible collections\nansible-galaxy collection install -r requirements.yml\n# 4. Run playbook\n./run-playbook.sh\n# Or run directly (then manually execute /tmp/openclaw-setup.sh after)\n# ansible-playbook playbook.yml --ask-become-pass"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Demo Writing Playbooks With Copilot - KodeKloud"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n# Install apache on webservers within this playbook. The target is RHEL. Use the service for service management. Deploy a template.\n# Use the fqcn of modules. Restart the httpd service on a change using handlers. Add a variable which creates the content within the template.\n- name: Install and configure Apache on webservers\n  hosts: webservers\n  become: yes\n  vars:\n    apache_package: httpd\n    apache_service: httpd\n    apache_document_root: /var/www/html\n    apache_index_template: index.html.j2\n    apache_index_destination: \"{{ apache_document_root }}/index.html\"\n    page_content: \"Welcome to the Apache Web Server!\"\n  tasks:\n    - name: Install Apache package\n      ansible.builtin.yum:\n        name: \"{{ apache_package }}\"\n        state: present\n    - name: Deploy index.html from template\n      ansible.builtin.template:\n        src: \"{{ apache_index_template }}\"\n        dest: \"{{ apache_index_destination }}\"\n      notify: Restart Apache\n    - name: Ensure httpd service is enabled and started\n      ansible.builtin.service:\n        name: \"{{ apache_service }}\"\n        state: started\n        enabled: yes\n    - name: Add a footer line to index.html\n      ansible.builtin.lineinfile:\n        path: \"{{ apache_index_destination }}\"\n        line: \"Created by ansible and copilot\"\n        state: present\n        insertafter: EOF\n  handlers:\n    - name: Restart Apache\n      ansible.builtin.service:\n        name: \"{{ apache_service }}\"\n        state: restarted"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Tasks - Ansible Best Practices"
+      },
+      {
+        "from": "gpt",
+        "value": "Database is already initialized from a previous run, hopefully the command does not do something unexpected...$ ansible-playbook postgres_installation.yml\nPLAY [PostgreSQL installation] ******************************************************************************************\nTASK [Install Postgres] *************************************************************************************************\nok: [instance1]\nTASK [Initialize PostgreSQL database] ***********************************************************************************\n[ERROR]: Task failed: Module failed: non-zero return code\nOrigin: /home/timgrt/automation-demo/test2.yml:14:7\n12         state: present\n13\n14     - name: Initialize PostgreSQL database\n        ^ column 7\nfatal: [instance1]: FAILED! => {\"changed\": true, \"cmd\": [\"/usr/bin/postgresql-setup\", \"--initdb\"], \"delta\": \"0:00:00.090430\", \"end\": \"2026-03-31 15:49:23.216778\", \"msg\": \"non-zero return code\", \"rc\": 1, \"start\": \"2026-03-31 15:49:23.126348\", \"stderr\": \" * Initializing database in '/var/lib/pgsql/data'\\nERROR: Data directory /var/lib/pgsql/data is not empty!\\nERROR: Initializing database failed, possibly see /var/lib/pgsql/initdb_postgresql.log\", \"stderr_lines\": [\" * Initializing database in '/var/lib/pgsql/data'\", \"ERROR: Data directory /var/lib/pgsql/data is not empty!\", \"ERROR: Initializing database failed, possibly see /var/lib/pgsql/initdb_postgresql.log\"], \"stdout\": \"\", \"stdout_lines\": []}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Unlocking Cyber Resilience: When Organizational Development Meets Security Learning + Video - Undercode Testing"
+      },
+      {
+        "from": "gpt",
+        "value": "import re\nfrom collections import Counter\nwith open('/var/log/auth.log', 'r') as f:\nlogs = f.read()\nips = re.findall(r'Failed password for . from (\\d+.\\d+.\\d+.\\d+)', logs)\ncounter = Counter(ips)\nfor ip, count in counter.items():\nif count > 20:\nprint(f\"Block {ip}\")"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Run Ansible Playbooks from Git with Kestra | Kestra"
+      },
+      {
+        "from": "gpt",
+        "value": "id: ansible-playbook-from-git\nnamespace: company.team\ndescription: |\n  Clone an infrastructure repository and run an Ansible playbook from it\n  inside a working directory, against a machine list fetched at runtime.\ninputs:\n  - id: image_names\n    type: MULTISELECT\n    displayName: Base images to configure\n    values:\n      - ubuntu-20.04-base\n      - centos-8-webserver\n      - photon-os-database\n      - rhel-7-appserver\n    defaults:\n      - ubuntu-20.04-base\ntasks:\n  - id: getDeployMachinesListFromAPI\n    type: io.kestra.plugin.core.output.OutputValues\n    description: \"Stub machine inventory: replace with an HTTP Request to your CMDB\n      or IPAM.\"\n    values:\n      machines:\n        - hostName: webserver-01.prod.example.com\n          ipAddress: 10.0.0.1\n          owner: prod-webservers-sa\n        - hostName: appserver-02.prod.example.com\n          ipAddress: 10.0.0.2\n          owner: prod-webservers-sa\n        - hostName: db-03.prod.example.com\n          ipAddress: 10.0.0.3\n          owner: prod-dba-sa\n  - id: runAnsible\n    type: io.kestra.plugin.core.flow.WorkingDirectory\n    tasks:\n      - id: cloneSourceCode\n        type: io.kestra.plugin.git.Clone\n        description: Replace with your repository containing inventory and playbooks.\n        url: https://github.com/my-org/infrastructure-automation\n        branch: main\n        username: \"{{ secret('GITHUB_USERNAME') }}\"\n        password: \"{{ secret('GITHUB_ACCESS_TOKEN') }}\"\n      - id: ansiblePlaybook\n        type: io.kestra.plugin.ansible.cli.AnsibleCLI\n        description: Run the playbook exactly as committed in the repository.\n        containerImage: cytopia/ansible:latest-tools\n        commands:\n          - ansible-playbook -i ansible/inventory.ini ansible/playbook.yml"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: community.docker.docker_container_exec module - Execute command in a docker container -- Ansible Documentation"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Run a simple command (command)\n  community.docker.docker_container_exec:\n    container: foo\n    command: /bin/bash -c \"ls -lah\"\n    chdir: /root\n  register: result\n- name: Print stdout\n  ansible.builtin.debug:\n    var: result.stdout\n- name: Run a simple command (argv)\n  community.docker.docker_container_exec:\n    container: foo\n    argv:\n      - /bin/bash\n      - \"-c\"\n      - \"ls -lah > /dev/stderr\"\n    chdir: /root\n  register: result\n- name: Print stderr lines\n  ansible.builtin.debug:\n    var: result.stderr_lines"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Security & Compliance - Hardening, CIS, STIG & Secrets | Teach me Ansible"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Linux security hardening\n  hosts: all\n  become: yes\n  tasks:\n    # SSH Hardening\n    - name: Secure SSH configuration\n      lineinfile:\n        path: /etc/ssh/sshd_config\n        regexp: \"{{ item.regexp }}\"\n        line: \"{{ item.line }}\"\n      loop:\n        - { regexp: '^PermitRootLogin', line: 'PermitRootLogin no' }\n        - { regexp: '^PasswordAuthentication', line: 'PasswordAuthentication no' }\n        - { regexp: '^PubkeyAuthentication', line: 'PubkeyAuthentication yes' }\n        - { regexp: '^PermitEmptyPasswords', line: 'PermitEmptyPasswords no' }\n        - { regexp: '^X11Forwarding', line: 'X11Forwarding no' }\n        - { regexp: '^MaxAuthTries', line: 'MaxAuthTries 3' }\n        - { regexp: '^ClientAliveInterval', line: 'ClientAliveInterval 300' }\n        - { regexp: '^ClientAliveCountMax', line: 'ClientAliveCountMax 2' }\n      notify: restart sshd\n    # Firewall configuration\n    - name: Install firewalld\n      yum:\n        name: firewalld\n        state: present\n    - name: Enable firewalld\n      service:\n        name: firewalld\n        state: started\n        enabled: yes\n    - name: Configure firewall rules\n      firewalld:\n        service: \"{{ item }}\"\n        permanent: yes\n        state: enabled\n      loop:\n        - ssh\n        - https\n      notify: reload firewall\n    # Disable unnecessary services\n    - name: Disable unnecessary services\n      service:\n        name: \"{{ item }}\"\n        state: stopped\n        enabled: no\n      loop:\n        - telnet\n        - rsh\n        - rlogin\n      ignore_errors: yes\n    # Security updates\n    - name: Install security updates (RHEL/CentOS)\n      yum:\n        name: '*'\n        security: yes\n        state: latest\n      when: ansible_os_family == \"RedHat\"\n    # Audit logging\n    - name: Enable auditd\n      service:\n        name: auditd\n        state: started\n        enabled: yes\n    - name: Configure audit rules\n      copy:\n        dest: /etc/audit/rules.d/ansible.rules\n        content: |\n          # Monitor user/group changes\n          -w /etc/group -p wa -k identity\n          -w /etc/passwd -p wa -k identity\n          -w /etc/shadow -p wa -k identity\n          # Monitor sudo usage\n          -w /etc/sudoers -p wa -k sudoers\n          -w /var/log/sudo.log -p wa -k sudoers\n          # Monitor SSH\n          -w /etc/ssh/sshd_config -p wa -k sshd\n      notify: restart auditd\n  handlers:\n    - name: restart sshd\n      service:\n        name: sshd\n        state: restarted\n    - name: reload firewall\n      command: firewall-cmd --reload\n    - name: restart auditd\n      service:\n        name: auditd\n        state: restarted"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: How to Use FirewallD on Linux Server 2026? - (Step by Step Install & Enable FirewallD Guide)"
+      },
+      {
+        "from": "gpt",
+        "value": "# Allow SSH only from a single IP\nsudo firewall-cmd --add-rich-rule='rule family=\"ipv4\" \\\nsource address=\"203.0.113.10\" service name=\"ssh\" accept' --permanent\n# Allow SSH from a subnet with rate limiting\nsudo firewall-cmd --add-rich-rule='rule family=\"ipv4\" \\\nsource address=\"203.0.113.0/24\" service name=\"ssh\" \\\nlimit value=\"15/m\" accept' --permanent\n# Log & drop everything else hitting SSH (example)\nsudo firewall-cmd --add-rich-rule='rule family=\"ipv4\" \\\nservice name=\"ssh\" log prefix=\"FW-SSH \" level=\"info\" limit value=\"5/m\"' --permanent\nsudo firewall-cmd --add-rich-rule='rule family=\"ipv4\" \\\nservice name=\"ssh\" drop' --permanent\nsudo firewall-cmd --reload"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: ansible.posix.mount module - Control active and configured mount points -- Ansible Community Documentation"
+      },
+      {
+        "from": "gpt",
+        "value": "# Before 2.3, option 'name' was used instead of 'path'\n- name: Mount DVD read-only\n  ansible.posix.mount:\n    path: /mnt/dvd\n    src: /dev/sr0\n    fstype: iso9660\n    opts: ro,noauto\n    state: present\n- name: Mount up device by label\n  ansible.posix.mount:\n    path: /srv/disk\n    src: LABEL=SOME_LABEL\n    fstype: ext4\n    state: present\n- name: Mount up device by UUID\n  ansible.posix.mount:\n    path: /home\n    src: UUID=b3e48f45-f933-4c8e-a700-22a159ec9077\n    fstype: xfs\n    opts: noatime\n    state: present\n- name: Unmount a mounted volume\n  ansible.posix.mount:\n    path: /tmp/mnt-pnt\n    state: unmounted\n- name: Remount a mounted volume\n  ansible.posix.mount:\n    path: /tmp/mnt-pnt\n    state: remounted\n# The following will not save changes to fstab, and only be temporary until\n# a reboot, or until calling \"state: unmounted\" followed by \"state: mounted\"\n# on the same \"path\"\n- name: Remount a mounted volume and append exec to the existing options\n  ansible.posix.mount:\n    path: /tmp\n    state: remounted\n    opts: exec\n- name: Mount and bind a volume\n  ansible.posix.mount:\n    path: /system/new_volume/boot\n    src: /boot\n    opts: bind\n    state: mounted\n    fstype: none\n- name: Mount an NFS volume\n  ansible.posix.mount:\n    src: 192.168.1.100:/nfs/ssd/shared_data\n    path: /mnt/shared_data\n    opts: rw,sync,hard\n    state: mounted\n    fstype: nfs\n- name: Mount NFS volumes with noauto according to boot option\n  ansible.posix.mount:\n    src: 192.168.1.100:/nfs/ssd/shared_data\n    path: /mnt/shared_data\n    opts: rw,sync,hard\n    boot: false\n    state: mounted\n    fstype: nfs\n- name: Mount ephemeral SMB volume\n  ansible.posix.mount:\n    src: //192.168.1.200/share\n    path: /mnt/smb_share\n    opts: \"rw,vers=3,file_mode=0600,dir_mode=0700,dom={{ ad_domain }},username={{ ad_username }},password={{ ad_password }}\"\n    opts_no_log: true\n    fstype: cifs\n    state: ephemeral"
       }
     ]
   }

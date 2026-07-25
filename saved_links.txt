@@ -3177,3 +3177,41 @@ https://itorakul.com.ua/en/openscap/
 https://dev.to/shivam_agnihotri/monitoring-kubernetes-cis-benchmarking-tool-day-17-of-50-days-devops-tools-series-46l1
 https://edugusarov.com/ru/prompty-dlya-devops-inzhenera-ansible/
 https://openclawx.cloud/en/install/ansible
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://notes.kodekloud.com/docs/AI-Assisted-Ansible/GitHub-Copilot/Demo-Writing-Playbooks-With-Copilot/page
+https://www.udemy.com/course/ultimate-ansible-course-beginner-to-expert/
+https://computacenter-com.github.io/ansible-best-practices/ansible/tasks/
+https://usercomp.com/news/1433120/ansible-playbooks-chmod-for-directories
+https://dev.to/labex/mastering-ansible-copy-module-efficient-file-and-directory-transfers-4e1j
+https://undercodetesting.com/unlocking-cyber-resilience-when-organizational-development-meets-security-learning-video/
+https://kestra.io/blueprints/ansible-playbook-from-git
+https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.1/html/deploying_ansible_automation_platform_2.1/centralized_logging
+https://github.com/OneIdentity/IdentityManager.SIEMEventFeed
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://threatport.com/docs/gitlab-ci-cd-security-configuration
+https://docs.ansible.com/projects/ansible/latest/collections/community/windows/win_firewall_rule_module.html
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://docs.ansible.com/ansible/7/collections/community/docker/docker_container_exec_module.html
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://teachmeansible.com/learn/security
+https://www.youstable.com/blog/se-firewalld-on-linux
+https://www.besthub.dev/articles/mastering-ansible-vault-secure-password-management-without-interactive-prompts-f19adc927a6d
+https://www.redhat.com/en/blog/channel/red-hat-ansible-automation
+https://www.cyberark.com/resources/blog/securing-ansible-automation-environments-with-cyberark
+
+=========================================
+ 📂 CATEGORY: PERFORMANCE & KERNEL OPTIMIZATION
+=========================================
+https://docs.ansible.com/projects/ansible/latest/collections/ansible/posix/mount_module.html

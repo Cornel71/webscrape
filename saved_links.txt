@@ -3215,3 +3215,45 @@ https://www.cyberark.com/resources/blog/securing-ansible-automation-environments
  📂 CATEGORY: PERFORMANCE & KERNEL OPTIMIZATION
 =========================================
 https://docs.ansible.com/projects/ansible/latest/collections/ansible/posix/mount_module.html
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://bytegoblin.io/blog/ansible-with-github-actions-automating-playbook-runs.mdx
+https://medium.com/@sbarnea/why-ansible-ignore-errors-is-evil-500fb6e81229
+https://nhthai2005.github.io/eBooks/DevOps/Ansible+for+DevOps.pdf
+https://subscription.packtpub.com/book/cloud-and-networking/9781789956481/13/ch13lvl1sec51/validating-yaml-and-ansible-playbooks
+https://conventionally.hostingpost.com/
+https://www.bing.com/aclick?ld=e8kIIX9CISJhNo2df-9oA7HDVUCUyoj5pax_tWK3NSh25QE9NKyw-ysiZ_kqirsmguLFepn9iLHDMRvRZ-cx4UhqTld4h0IwBVaQk9PuSl4rU6x4np5sTGpocmSO61r2UCnIxeNn-wwRb7AmSY0onqpZtNAkKT_xKmOg6ohPfjBteAtb8-InyCdIsAa3jtIUd_BOXl1SunmssivytIKX1vcF7gujk&u=aHR0cHMlM2ElMmYlMmZkZWxpbmVhLmNvbSUyZmRlbW9zJTJmcHJpdmlsZWdlLW1hbmFnZXItaW50ZXJhY3RpdmUtZGVtb3MlM2ZxZ2FkJTNkJTI2cWd0ZXJtJTNkbGVhc3QlMjUyMHByaXZpbGVnZSUyNTIwbWFuYWdlbWVudCUyNmdjbHNyYyUzZDNwLmRzJTI2dXRtX21lZGl1bSUzZFBhaWQtU2VhcmNoJTI2dXRtX3NvdXJjZSUzZEJpbmclMjZ1dG1fY2FtcGFpZ24lM2RERy1OQU1fTGVhc3QtUHJpdmlsZWdlLU1hbmFnZW1lbnRfQmluZyUyNnV0bV9jb250ZW50JTNkTGVhc3QtUHJpdmlsZWdlJTI2dXRtX3Rlcm0lM2QlMjZtc2Nsa2lkJTNkOGFmN2I3ZGYzMWE3MWQ4ZjAwMDNkZGJhYTMxOWQwOGE&rlid=8af7b7df31a71d8f0003ddbaa319d08a
+https://pt.annas-archive.gl/md5/85b7c92282e68ad49744fe1382f17d69
+https://www.hashicorp.com/en/blog/prevent-secret-exposure-across-it-4-tools-and-techniques
+https://checkmarx.com/learn/secrets-detection/preventing-secret-leakage-real-world-consequences-and-best-practices/
+https://estudy247.com/courses/ansible/lessons/ansible-error-handling/
+https://www.ansiblebyexample.com/articles/ansible-with-splunk-complete-automation-guide
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://dev.to/j3zz3r/ansible-vault-cheatsheet-mastering-secure-configuration-management-4i3n
+https://www.inmotionhosting.com/support/edu/ansible/getting-started-ansible-control-node/
+https://kindatechnical.com/ansible-fundamentals/lesson-9-configuring-ssh-keys-for-ansible.html
+https://confluence.atlassian.com/bitbucketserver/creating-ssh-keys-776639788.html
+https://github.com/SudoShea/ansible-rhel-hardening/tree/main
+https://estoreab.com/network-automation-with-ansible-cisco-fortinet
+https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/implementing_security_automation/aap-security-use-cases
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://threatport.com/es/docs/infrastructure-as-code-security-checklist
+https://awesome-repositories.com/es/f/devops-infrastructure/security-automation-workflows/security-assessment-frameworks/customizable-security-checks/hardening-baseline-checks/cis-baseline-implementations/compliance-baseline-mappings
+
+=========================================
+ 📂 CATEGORY: NGINX & WEB REVERSE PROXY
+=========================================
+https://www.cosmiclearn.com/nginx/letsencrypt.php
+
+=========================================
+ 📂 CATEGORY: POSTGRESQL DATABASE MANAGEMENT
+=========================================
+https://www.ansiblepilot.com/videos/create-a-postgresql-user-or-role-ansible-module-postgresql-user

@@ -1635,6 +1635,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Python script for: Ansible Vault for secrets that live in Git | Stack Harbor Knowledge Base"
+      },
+      {
+        "from": "gpt",
+        "value": "# ansible.cfg\n[defaults]\nvault_identity_list = production@~/.vault-pass/production, staging@~/.vault-pass/staging"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Python script for: Ansible Vault Tutorial: create, edit, rekey, vault IDs, and encrypt_string"
       },
       {
@@ -1988,6 +2000,18 @@
       {
         "from": "gpt",
         "value": "# ─── Read-only command: never changed, handle failure ───\n- name: Check disk space\n  ansible.builtin.command: df -h /data\n  register: disk\n  changed_when: false\n  failed_when: false\n- name: Alert if disk full\n  ansible.builtin.fail:\n    msg: \"/data is over 90% full\"\n  when: disk.stdout_lines[1].split()[4] | replace('%','') | int > 90\n# ─── Idempotent shell script ───\n- name: Initialize database\n  ansible.builtin.shell: |\n    if psql -lqt | cut -d \\| -f 1 | grep -qw mydb; then\n      echo \"EXISTS\"\n    else\n      createdb mydb\n      echo \"CREATED\"\n    fi\n  register: db_init\n  changed_when: \"'CREATED' in db_init.stdout\"\n  failed_when: db_init.rc != 0 and 'EXISTS' not in db_init.stdout\n# ─── Package version check ───\n- name: Check if update available\n  ansible.builtin.command: apt list --upgradable nginx\n  register: apt_check\n  changed_when: false\n  failed_when: false\n- name: Upgrade nginx if available\n  ansible.builtin.apt:\n    name: nginx\n    state: latest\n  when: \"'nginx' in apt_check.stdout\"\n# ─── Service restart only if config changed ───\n- name: Deploy configuration\n  ansible.builtin.template:\n    src: app.conf.j2\n    dest: /etc/app/config.yml\n  register: config_result\n- name: Validate configuration\n  ansible.builtin.command: myapp validate-config\n  changed_when: false\n  when: config_result.changed\n- name: Restart application\n  ansible.builtin.systemd:\n    name: myapp\n    state: restarted\n  when: config_result.changed"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: linting - How to install Ansible collections using 'requirements.yml' so that 'ansible-lint' passes? - DevOps Stack Exchange"
+      },
+      {
+        "from": "gpt",
+        "value": "$ ansible-lint --ignore-file .ansible-lint-ignore ./playbooks --exclude .ansible\nWARNING  Listing 4 violation(s) that are fatal\nsyntax-check[unknown-module]: couldn't resolve module/action 'ansible.posix.synchronize'. This often indicates a misspelling, missing collection, or incorrect module path.\nplaybooks/99-copy-charts/tasks/main.yaml:8:7\nsyntax-check[unknown-module]: couldn't resolve module/action 'kubernetes.core.helm_repository'. This often indicates a misspelling, missing collection, or incorrect module path.\nplaybooks/roles/helm_charts_system/tasks/main.yaml:1:3\nsyntax-check[unknown-module]: couldn't resolve module/action 'kubernetes.core.helm_repository'. This often indicates a misspelling, missing collection, or incorrect module path.\nplaybooks/roles/helm_charts_search/tasks/main.yaml:1:3\nsyntax-check[unknown-module]: couldn't resolve module/action 'kubernetes.core.helm_repository'. This often indicates a misspelling, missing collection, or incorrect module path.\nplaybooks/roles/helm_charts_mapping/tasks/main.yaml:1:3\n# Rule Violation Summary\n  4 syntax-check profile:min tags:unskippable\nFailed: 4 failure(s), 0 warning(s) on 54 files."
       }
     ]
   },
@@ -6327,18 +6351,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: ansible-security-scanner · PyPI"
-      },
-      {
-        "from": "gpt",
-        "value": "ansible-security-scanner/                      # repo root (hyphenated - matches PyPI)\n├── pyproject.toml                             # packaging + pytest + hatch-vcs\n├── README.md\n├── CONTRIBUTING.md\n├── RELEASING.md                               # maintainer release runbook\n├── LICENSE / NOTICE                           # Apache-2.0 + attribution terms\n├── main.py                                    # local dev entry point (py main.py ...)\n├── .github/workflows/                         # CI, release, docs workflows\n├── .hugo/                                     # Hugo documentation site\n│   ├── scripts/build_docs.py                  # Generates Hugo content from docs/ + patterns\n│   └── content/                               # Generated .md pages (do not edit by hand)\n├── docs/                                      # Long-form prose docs (source of truth)\n│   ├── assets/                                # Images & SVGs the README references\n│   ├── cli.md                                 # CLI Reference (and exit codes, suppressions, dedup)\n│   ├── environment.md                         # Environment Variables\n│   ├── api.md                                 # Programmatic API\n│   ├── output-formats.md\n│   ├── allowlist.md\n│   ├── ci-cd.md\n│   ├── mr-pr-comments.md\n│   ├── custom-patterns.md\n│   ├── scoring.md\n│   ├── testing.md\n│   ├── limitations.md\n│   └── releasing.md\n├── src/\n│   └── ansible_security_scanner/              # the Python package\n│       ├── cli.py                             # CLI (--directory, --fix, --compliance, ...)\n│       ├── scanner.py                         # Multi-pass orchestrator\n│       ├── file_scanner.py                    # Per-file rules (line patterns, AST walkers)\n│       ├── taint_tracker.py                   # Cross-file taint analysis\n│       ├── fix_proposer.py                    # Dry-run unified-diff patch generator\n│       ├── dependency_collector.py            # SBOM inventory\n│       ├── suppressions.py                    # Inline `# nosec` parser\n│       ├── models.py                          # SecurityFinding, ScanReport, SecurityScore\n│       ├── score_calculator.py                # Severity-weighted scoring\n│       ├── patterns_manager.py                # Loads pattern YAML plugins\n│       ├── patterns/                          # 29+ YAML pattern plugins (auto-discovered)\n│       ├── remediations/                      # One module per category\n│       └── formatters/                        # markdown, json, xml, yaml, csv, html, junit, sarif, gitlab_sast, cyclonedx\n└── tests/\n    ├── test_integration.py                    # End-to-end scanner tests\n    ├── test_formatters.py                     # Formatter unit tests\n    ├── test_remediations.py                   # Remediation generator unit tests\n    └── playbooks/\n        ├── bad_example.yml                    # Triggers every rule (100% coverage)\n        ├── clean_example.yml                  # Zero findings (false-positive guard)\n        ├── multi_example_bad/                 # 6-file role fixture (cross-file taint)\n        └── multi_example_clean/               # 6-file hardened role fixture (zero findings)"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Python script for: Ansible for Security -- CIS Benchmarks and Hardening"
       },
       {
@@ -8300,6 +8312,78 @@
       {
         "from": "gpt",
         "value": "# 1. HTTP Server - Redirect to HTTPS and Handle ACME Challenges\nserver {\n    listen 80;\n    listen [::]:80;\n    server_name example.com www.example.com;\n    # Location block dedicated to ACME HTTP-01 Challenges\n    location /.well-known/acme-challenge/ {\n        root /var/www/html;\n        allow all;\n    }\n    # Redirect all other HTTP traffic to HTTPS\n    location / {\n        return 301 https://example.com$request_uri;\n    }\n}\n# 2. Primary HTTPS Server\nserver {\n    listen 443 ssl;\n    listen [::]:443 ssl;\n    server_name example.com www.example.com;\n    # Enable HTTP/2 (Modern Nginx 1.25.1+ Syntax)\n    http2 on;\n    root /var/www/example/public;\n    index index.html index.php;\n    # Let's Encrypt Certificate Paths\n    ssl_certificate     /etc/letsencrypt/live/example.com/fullchain.pem;\n    ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;\n    # Basic SSL Protocol Settings\n    ssl_protocols TLSv1.2 TLSv1.3;\n    ssl_session_timeout 1d;\n    ssl_session_cache shared:SSL:10m;\n    ssl_session_tickets off;\n    location / {\n        try_files $uri $uri/ =404;\n    }\n}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: ÐÐ¸ÑÐµÐ¼ ansible playbook Ð´Ð»Ñ Ð½Ð°ÑÐ°Ð»ÑÐ½Ð¾Ð¹ Ð½Ð°ÑÑÑÐ¾Ð¹ÐºÐ¸ Linux ÑÐµÑÐ²ÐµÑÐ° | ÐÐ¾ÑÐ¾Ð½Ð¸Ð¹ Ð±Ð»Ð¾Ð³"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n### ÐÐ¾Ð½ÑÐ¸Ð³ÑÑÐ°ÑÐ¸Ñ ÑÐµÑÐ²ÐµÑÐ°\n- name: Change root password  # Ð£ÑÑÐ°Ð½Ð°Ð²Ð»Ð¸Ð²Ð°ÐµÑ Ð¿Ð°ÑÐ¾Ð»Ñ Ð´Ð»Ñ root\n  ansible.builtin.user:\n    name: \"root\"  # ÐÐ¼Ñ Ð¿Ð¾Ð»ÑÐ·Ð¾Ð²Ð°ÑÐµÐ»Ñ\n    password: \"{{ server_root_password }}\"  # ÐÐ¾Ð²ÑÐ¹ Ð¿Ð°ÑÐ¾Ð»Ñ\n  tags:\n    - root  # ÐÐµÑÐºÐ° Ð´Ð»Ñ ÑÐ¸Ð»ÑÑÑÐ°ÑÐ¸Ð¸ Ð·Ð°Ð´Ð°Ñ\n- name: Set timezone  # Ð£ÑÑÐ°Ð½Ð°Ð²Ð»Ð¸Ð²Ð°ÐµÑ ÑÐ°ÑÐ¾Ð²Ð¾Ð¹ Ð¿Ð¾ÑÑ\n  community.general.timezone:\n    name: \"{{ server_timezone }}\"  # Ð§Ð°ÑÐ¾Ð²Ð¾Ð¹ Ð¿Ð¾ÑÑ Ð¸Ð· Ð¿ÐµÑÐµÐ¼ÐµÐ½Ð½Ð¾Ð¹\n  tags:\n    - timezone\n- name: Change hostname  # ÐÐ·Ð¼ÐµÐ½ÑÐµÑ Ð¸Ð¼Ñ ÑÐ¾ÑÑÐ°\n  ansible.builtin.lineinfile:\n    path: \"/etc/hostname\"  # Ð¤Ð°Ð¹Ð» Ñ Ð¸Ð¼ÐµÐ½ÐµÐ¼ ÑÐ¾ÑÑÐ°\n    regexp: \"^.*$\"  # ÐÐ°Ð¼ÐµÐ½ÑÐµÑ Ð²ÑÑ ÑÑÑÐ¾ÐºÑ\n    line: \"{{ server_hostname }}\"  # ÐÐ¾Ð²Ð¾Ðµ Ð¸Ð¼Ñ ÑÐ¾ÑÑÐ°\n  tags:\n    - hostname\n- name: Set hosts  # ÐÐ¾Ð±Ð°Ð²Ð»ÑÐµÑ Ð·Ð°Ð¿Ð¸ÑÐ¸ Ð² /etc/hosts\n  ansible.builtin.lineinfile:\n    path: \"/etc/hosts\"  # Ð¤Ð°Ð¹Ð» hosts\n    line: \"{{ item }}\"  # Ð¡ÑÑÐ¾ÐºÐ° Ñ Ð·Ð°Ð¿Ð¸ÑÑÑ\n    state: present  # Ð£Ð±ÐµÐ¶Ð´Ð°ÐµÑÑÑ, ÑÑÐ¾ ÑÑÑÐ¾ÐºÐ° Ð¿ÑÐ¸ÑÑÑÑÑÐ²ÑÐµÑ\n  loop: \"{{ server_hosts }}\"  # ÐÐµÑÐµÐ±Ð¸ÑÐ°ÐµÑ ÑÐ¿Ð¸ÑÐ¾Ðº ÑÐ¾ÑÑÐ¾Ð²\n  tags:\n    - hosts\n- name: Config locales  # Ð£ÑÑÐ°Ð½Ð°Ð²Ð»Ð¸Ð²Ð°ÐµÑ Ð»Ð¾ÐºÐ°Ð»Ð¸\n  community.general.locale_gen:\n    name: \"{{ item }}\"  # ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ Ð»Ð¾ÐºÐ°Ð»Ð¸\n    state: present  # Ð£Ð±ÐµÐ¶Ð´Ð°ÐµÑÑÑ, ÑÑÐ¾ Ð»Ð¾ÐºÐ°Ð»Ñ ÑÑÑÐ°Ð½Ð¾Ð²Ð»ÐµÐ½Ð°\n  loop: \"{{ server_locales }}\"  # ÐÐµÑÐµÐ±Ð¸ÑÐ°ÐµÑ ÑÐ¿Ð¸ÑÐ¾Ðº Ð»Ð¾ÐºÐ°Ð»ÐµÐ¹\n  tags:\n    - locales\n- name: Update system and install pkgs  # ÐÐ±Ð½Ð¾Ð²Ð»ÑÐµÑ ÑÐ¸ÑÑÐµÐ¼Ñ Ð¸ ÑÑÑÐ°Ð½Ð°Ð²Ð»Ð¸Ð²Ð°ÐµÑ Ð¿Ð°ÐºÐµÑÑ\n  block:\n    - name: Cache update and system upgrade  # ÐÐ±Ð½Ð¾Ð²Ð»ÑÐµÑ ÐºÑÑ Ð¿Ð°ÐºÐµÑÐ¾Ð² Ð¸ Ð²ÑÐ¿Ð¾Ð»Ð½ÑÐµÑ Ð¾Ð±Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ðµ\n      ansible.builtin.apt:\n        upgrade: true  # ÐÑÐ¿Ð¾Ð»Ð½ÑÐµÑ Ð¾Ð±Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ðµ ÑÐ¸ÑÑÐµÐ¼Ñ\n        update_cache: true  # ÐÐ±Ð½Ð¾Ð²Ð»ÑÐµÑ ÐºÑÑ Ð¿Ð°ÐºÐµÑÐ¾Ð²\n    - name: Install pkgs  # Ð£ÑÑÐ°Ð½Ð°Ð²Ð»Ð¸Ð²Ð°ÐµÑ Ð½ÐµÐ¾Ð±ÑÐ¾Ð´Ð¸Ð¼ÑÐµ Ð¿Ð°ÐºÐµÑÑ\n      ansible.builtin.apt:\n        name: \"{{ server_pkgs }}\"  # Ð¡Ð¿Ð¸ÑÐ¾Ðº Ð¿Ð°ÐºÐµÑÐ¾Ð²\n        state: present  # Ð£Ð±ÐµÐ¶Ð´Ð°ÐµÑÑÑ, ÑÑÐ¾ Ð¿Ð°ÐºÐµÑÑ ÑÑÑÐ°Ð½Ð¾Ð²Ð»ÐµÐ½Ñ\n  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'  # ÐÑÐ¿Ð¾Ð»Ð½ÑÐµÑÑÑ ÑÐ¾Ð»ÑÐºÐ¾ Ð´Ð»Ñ Debian Ð¸ Ubuntu\n  tags:\n    - pkgs\n- name: Config SWAP  # ÐÐ°ÑÑÑÐ°Ð¸Ð²Ð°ÐµÑ ÑÐ°Ð¹Ð» Ð¿Ð¾Ð´ÐºÐ°ÑÐºÐ¸\n  block:\n    - name: Checking if swap partition exists  # ÐÑÐ¾Ð²ÐµÑÑÐµÑ, ÑÑÑÐµÑÑÐ²ÑÐµÑ Ð»Ð¸ swap\n      ansible.builtin.shell: \"swapon -s | grep -q /\"\n      register: swap_status  # Ð¡Ð¾ÑÑÐ°Ð½ÑÐµÑ ÑÑÐ°ÑÑÑ Ð²ÑÐ¿Ð¾Ð»Ð½ÐµÐ½Ð¸Ñ ÐºÐ¾Ð¼Ð°Ð½Ð´Ñ\n      ignore_errors: true  # ÐÐ³Ð½Ð¾ÑÐ¸ÑÑÐµÑ Ð¾ÑÐ¸Ð±ÐºÐ¸\n      changed_when: false  # ÐÐµ Ð¿Ð¾Ð¼ÐµÑÐ°ÐµÑ Ð·Ð°Ð´Ð°ÑÑ ÐºÐ°Ðº Ð¸Ð·Ð¼ÐµÐ½ÑÐ½Ð½ÑÑ\n      failed_when: false  # ÐÐµ ÑÑÐ¸ÑÐ°ÐµÑ Ð¾ÑÐ¸Ð±ÐºÑ ÐºÑÐ¸ÑÐ¸ÑÐµÑÐºÐ¾Ð¹\n    - name: Make swap file  # Ð¡Ð¾Ð·Ð´Ð°ÑÑ ÑÐ°Ð¹Ð» Ð¿Ð¾Ð´ÐºÐ°ÑÐºÐ¸\n      ansible.builtin.command: \"{{ item }}\"\n      loop:\n        - \"dd if=/dev/zero of=/swap bs=1M count={{ server_swap_size }}\"  # Ð¡Ð¾Ð·Ð´Ð°ÑÑ ÑÐ°Ð¹Ð»\n        - \"chmod 600 /swap\"  # Ð£ÑÑÐ°Ð½Ð°Ð²Ð»Ð¸Ð²Ð°ÐµÑ Ð¿ÑÐ°Ð²Ð° Ð´Ð¾ÑÑÑÐ¿Ð°\n        - \"mkswap /swap\"  # Ð¤Ð¾ÑÐ¼Ð°ÑÐ¸ÑÑÐµÑ ÑÐ°Ð¹Ð» Ð¿Ð¾Ð´ÐºÐ°ÑÐºÐ¸\n        - \"swapon /swap\"  # ÐÐºÐ»ÑÑÐ°ÐµÑ swap\n      when: swap_status.rc != 0  # ÐÑÐ¿Ð¾Ð»Ð½ÑÐµÑÑÑ, ÐµÑÐ»Ð¸ swap Ð¾ÑÑÑÑÑÑÐ²ÑÐµÑ\n      notify: Enable swap on startup  # ÐÐ°Ð¿ÑÑÐºÐ°ÐµÑ Ð·Ð°Ð´Ð°ÑÑ Ð²ÐºÐ»ÑÑÐµÐ½Ð¸Ñ swap Ð¿ÑÐ¸ Ð·Ð°Ð³ÑÑÐ·ÐºÐµ\n  tags:\n    - swap\n- name: Disable ipv6 in system  # ÐÑÐºÐ»ÑÑÐ°ÐµÑ IPv6 Ð² ÑÐ¸ÑÑÐµÐ¼Ðµ\n  ansible.builtin.lineinfile:\n    path: \"/etc/sysctl.conf\"  # Ð¤Ð°Ð¹Ð» ÐºÐ¾Ð½ÑÐ¸Ð³ÑÑÐ°ÑÐ¸Ð¸ sysctl\n    regexp: \"^{{ item.key }}\"  # ÐÑÐµÑ ÑÑÑÐ¾ÐºÑ Ð¿Ð¾ ÐºÐ»ÑÑÑ\n    line: \"{{ item.key }} = {{ item.value }}\"  # ÐÐ¾Ð±Ð°Ð²Ð»ÑÐµÑ Ð¸Ð»Ð¸ Ð·Ð°Ð¼ÐµÐ½ÑÐµÑ ÑÑÑÐ¾ÐºÑ\n    state: present  # Ð£Ð±ÐµÐ¶Ð´Ð°ÐµÑÑÑ, ÑÑÐ¾ ÑÑÑÐ¾ÐºÐ° Ð¿ÑÐ¸ÑÑÑÑÑÐ²ÑÐµÑ\n    create: true  # Ð¡Ð¾Ð·Ð´Ð°ÑÑ ÑÐ°Ð¹Ð», ÐµÑÐ»Ð¸ Ð¾Ð½ Ð¾ÑÑÑÑÑÑÐ²ÑÐµÑ\n  loop:\n    - {key: \"net.ipv6.conf.all.disable_ipv6\", value: \"1\"}\n    - {key: \"net.ipv6.conf.default.disable_ipv6\", value: \"1\"}\n    - {key: \"net.ipv6.conf.lo.disable_ipv6\", value: \"1\"}\n  notify: Reload sysctl  # ÐÐµÑÐµÐ·Ð°Ð¿ÑÑÐºÐ°ÐµÑ sysctl Ð´Ð»Ñ Ð¿ÑÐ¸Ð¼ÐµÐ½ÐµÐ½Ð¸Ñ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ð¹\n  tags:\n    - ipv6\n- name: Disable ipv6 in UFW  # ÐÑÐºÐ»ÑÑÐ°ÐµÑ IPv6 Ð² UFW (Ð±ÑÐ°Ð½Ð´Ð¼Ð°ÑÑÑÐµ)\n  ansible.builtin.lineinfile:\n    path: /etc/default/ufw  # Ð¤Ð°Ð¹Ð» ÐºÐ¾Ð½ÑÐ¸Ð³ÑÑÐ°ÑÐ¸Ð¸ UFW\n    regexp: \"^IPV6=yes\"  # ÐÑÐµÑ ÑÑÑÐ¾ÐºÑ Ñ Ð²ÐºÐ»ÑÑÑÐ½Ð½ÑÐ¼ IPv6\n    line: \"IPV6=no\"  # ÐÑÐºÐ»ÑÑÐ°ÐµÑ IPv6\n  tags:\n    - ipv6\n- name: Allow ports from list in UFW  # Ð Ð°Ð·ÑÐµÑÐ°ÐµÑ ÑÐ¿Ð¸ÑÐ¾Ðº Ð¿Ð¾ÑÑÐ¾Ð² Ð² UFW\n  community.general.ufw:\n    rule: allow  # Ð Ð°Ð·ÑÐµÑÐ°ÐµÑ ÑÐ¾ÐµÐ´Ð¸Ð½ÐµÐ½Ð¸Ñ\n    port: \"{{ item }}\"  # ÐÐ¾Ð¼ÐµÑ Ð¿Ð¾ÑÑÐ°\n    proto: tcp  # ÐÑÐ¾ÑÐ¾ÐºÐ¾Ð» TCP\n    state: enabled  # ÐÐºÐ»ÑÑÐ°ÐµÑ UFW\n  loop: \"{{ server_ufw_ports }}\"  # ÐÐµÑÐµÐ±Ð¸ÑÐ°ÐµÑ ÑÐ¿Ð¸ÑÐ¾Ðº Ð¿Ð¾ÑÑÐ¾Ð²\n  notify:\n    - Restart ufw service  # ÐÐµÑÐµÐ·Ð°Ð¿ÑÑÐºÐ°ÐµÑ UFW\n  tags:\n    - ufw\n- name: Config journald  # ÐÐ°ÑÑÑÐ°Ð¸Ð²Ð°ÐµÑ systemd-journald\n  ansible.builtin.lineinfile:\n    path: /etc/systemd/journald.conf  # Ð¤Ð°Ð¹Ð» ÐºÐ¾Ð½ÑÐ¸Ð³ÑÑÐ°ÑÐ¸Ð¸\n    regexp: \"^{{ item.key }}=\"  # ÐÑÐµÑ ÑÑÑÐ¾ÐºÑ Ñ Ð¿Ð°ÑÐ°Ð¼ÐµÑÑÐ¾Ð¼\n    line: \"{{ item.key }}={{ item.value }}\"  # ÐÐ¾Ð±Ð°Ð²Ð»ÑÐµÑ Ð¸Ð»Ð¸ Ð·Ð°Ð¼ÐµÐ½ÑÐµÑ Ð¿Ð°ÑÐ°Ð¼ÐµÑÑ\n    backup: true  # Ð¡Ð¾Ð·Ð´Ð°ÑÑ ÑÐµÐ·ÐµÑÐ²Ð½ÑÑ ÐºÐ¾Ð¿Ð¸Ñ ÑÐ°Ð¹Ð»Ð° Ð¿ÐµÑÐµÐ´ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸ÐµÐ¼\n  loop: \"{{ server_journald_params }}\"  # ÐÐµÑÐµÐ±Ð¸ÑÐ°ÐµÑ Ð¿Ð°ÑÐ°Ð¼ÐµÑÑÑ ÐºÐ¾Ð½ÑÐ¸Ð³ÑÑÐ°ÑÐ¸Ð¸\n  notify: Restart journald service  # ÐÐµÑÐµÐ·Ð°Ð¿ÑÑÐºÐ°ÐµÑ journald Ð¿Ð¾ÑÐ»Ðµ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ð¹\n  tags:\n    - journald\n- name: Config SSH daemon  # ÐÐ°ÑÑÑÐ°Ð¸Ð²Ð°ÐµÑ SSH-ÑÐµÑÐ²ÐµÑ\n  ansible.builtin.lineinfile:\n    path: /etc/ssh/sshd_config  # Ð¤Ð°Ð¹Ð» ÐºÐ¾Ð½ÑÐ¸Ð³ÑÑÐ°ÑÐ¸Ð¸ SSH\n    regexp: \"^{{ item.key }}\"  # ÐÑÐµÑ Ð¿Ð°ÑÐ°Ð¼ÐµÑÑ Ð¿Ð¾ ÐºÐ»ÑÑÑ\n    line: \"{{ item.key }} {{ item.value }}\"  # ÐÐ¾Ð±Ð°Ð²Ð»ÑÐµÑ Ð¸Ð»Ð¸ Ð¸Ð·Ð¼ÐµÐ½ÑÐµÑ Ð¿Ð°ÑÐ°Ð¼ÐµÑÑ\n    validate: \"/usr/sbin/sshd -t -f %s\"  # ÐÑÐ¾Ð²ÐµÑÑÐµÑ ÐºÐ¾Ð½ÑÐ¸Ð³ÑÑÐ°ÑÐ¸Ñ Ð¿ÐµÑÐµÐ´ ÑÐ¾ÑÑÐ°Ð½ÐµÐ½Ð¸ÐµÐ¼\n    backup: true  # Ð¡Ð¾Ð·Ð´Ð°ÑÑ ÑÐµÐ·ÐµÑÐ²Ð½ÑÑ ÐºÐ¾Ð¿Ð¸Ñ ÑÐ°Ð¹Ð»Ð°\n  loop: \"{{ server_ssh_params }}\"  # ÐÐµÑÐµÐ±Ð¸ÑÐ°ÐµÑ Ð¿Ð°ÑÐ°Ð¼ÐµÑÑÑ SSH\n  notify:\n    - Restart sshd service  # ÐÐµÑÐµÐ·Ð°Ð¿ÑÑÐºÐ°ÐµÑ SSH Ð¿Ð¾ÑÐ»Ðµ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ð¹\n  tags:\n    - sshd"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: SIEM правила - готовые запросы для мониторинга в 2026 - ForensicAnvil Forum"
+      },
+      {
+        "from": "gpt",
+        "value": "| where OperationName == \"Add member to role\" or OperationName == \"Remove member from role\"\n   | where TargetResources contains \"Global Administrator\" or TargetResources contains \"Security Administrator\"\n   | project TimeGenerated, OperationName, InitiatedBy, TargetResources"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: community.openwrt.template module - Template a file out to remote OpenWrt target -- Community.OpenWrt Collection documentation"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Template a file to /etc/file.conf\n  ansible.builtin.template:\n    src: /mytemplates/foo.j2\n    dest: /etc/file.conf\n- name: Copy a new sudoers file into place, after passing validation with visudo\n  ansible.builtin.template:\n    src: /mine/sudoers\n    dest: /etc/sudoers\n    validate: /usr/sbin/visudo -cf %s"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible Lookups | Compile N Run"
+      },
+      {
+        "from": "gpt",
+        "value": "---# playbook.yml- name: Configure servers from external inventory  hosts: all  vars:    servers_list: \"{{ lookup('file', 'servers.json') | from_json }}\"    tasks:    - name: Configure each server based on its role      template:        src: \"{{ item.role }}_config.j2\"        dest: \"/etc/{{ item.name }}/config.conf\"      loop: \"{{ servers_list.servers }}\"      when: item.name == inventory_hostname"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: validation-summary.md"
+      },
+      {
+        "from": "gpt",
+        "value": "# Validation Summary: How to Use Ansible to Manage sysctl Parameters\n## Status\nvalidated\n## Post Type\nTutorial\n## Technologies Covered\n- Ansible\n- ansible.posix.sysctl\n- Linux sysctl\n- Linux networking kernel parameters\n- PostgreSQL kernel tuning\n- Kubernetes node networking prerequisites\n## Sources Consulted\n- Ansible documentation: ansible.posix.sysctl module - https://docs.ansible.com/projects/ansible/latest/collections/ansible/posix/sysctl_module.html\n- Linux man-pages: sysctl.d(5) - https://man7.org/linux/man-pages/man5/sysctl.d.5.html\n- Linux man-pages: sysctl(8) - https://man7.org/linux/man-pages/man8/sysctl.8.html\n- Linux kernel documentation: IP sysctl - https://www.kernel.org/doc/html/latest/networking/ip-sysctl.html\n- Linux kernel documentation: /proc/sys/net - https://www.kernel.org/doc/html/latest/admin-guide/sysctl/net.html\n- PostgreSQL documentation: Managing Kernel Resources - https://www.postgresql.org/docs/current/kernel-resources.html\n- PostgreSQL documentation: Resource Consumption - https://www.postgresql.org/docs/current/runtime-config-resource.html\n- Kubernetes documentation: Container Runtimes - https://kubernetes.io/docs/setup/production-environment/container-runtimes/\n- Kubernetes documentation: Using sysctls in a Kubernetes Cluster - https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/\n## Issues Found\n- The post said `reload: yes` reloads a sysctl daemon. Ansible's module documentation says `reload` runs `/sbin/sysctl -p` when the configured sysctl file is updated; there is no sysctl daemon reload involved. Updated the explanation accordingly.\n- The introduction implied the Ansible module always applies changes immediately. The module only applies runtime values when configured to do so, such as with `sysctl_set: yes` or a reload after file changes. Updated the wording to say immediate application is optional.\n- The PostgreSQL example described `kernel.shmmax` and `kernel.shmall` as required for large `shared_buffers`. Current PostgreSQL documentation says modern Linux defaults are usually sufficient unless System V shared memory is explicitly used or defaults are low. Updated the comment.\n- The huge pages example assumed 2 MB huge pages without saying so. Updated the comment to make that assumption explicit.\n- The Kubernetes bridge sysctl example set `net.bridge.*` parameters without loading `br_netfilter`; those keys may be unavailable until the module is loaded. Added Ansible tasks to persist and load the module before setting the bridge sysctls.\n## Review Notes\nThe tuning values are valid sysctl examples, but they remain workload-dependent and should be benchmarked before production rollout. Reverse path filtering, TCP Fast Open, `tcp_tw_reuse`, dirty-page ratios, huge pages, and conntrack sizing can have environment-specific tradeoffs."
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible Testing with Molecule: Complete Tutorial · Yuri Kan"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Verify Security Hardening\n  hosts: all\n  gather_facts: true\n  tasks:\n    - name: Check if SSH password authentication is disabled\n      ansible.builtin.lineinfile:\n        path: /etc/ssh/sshd_config\n        regexp: '^PasswordAuthentication'\n        line: 'PasswordAuthentication no'\n        state: present\n      check_mode: yes\n      register: ssh_config\n    - name: Assert SSH is properly configured\n      ansible.builtin.assert:\n        that:\n          - not ssh_config.changed\n        fail_msg: \"SSH password authentication is not disabled\"\n    - name: Verify firewall is active\n      ansible.builtin.command: ufw status\n      register: ufw_status\n      changed_when: false\n    - name: Assert firewall is enabled\n      ansible.builtin.assert:\n        that:\n          - \"'Status: active' in ufw_status.stdout\"\n    - name: Check for unattended upgrades\n      ansible.builtin.stat:\n        path: /etc/apt/apt.conf.d/50unattended-upgrades\n      register: unattended_upgrades\n    - name: Assert automatic updates are configured\n      ansible.builtin.assert:\n        that:\n          - unattended_upgrades.stat.exists\n    - name: Verify root login is disabled\n      ansible.builtin.command: passwd -S root\n      register: root_status\n      changed_when: false\n    - name: Assert root account is locked\n      ansible.builtin.assert:\n        that:\n          - \"'L' in root_status.stdout\"\n        fail_msg: \"Root account is not locked\""
       }
     ]
   }

@@ -3257,3 +3257,59 @@ https://www.cosmiclearn.com/nginx/letsencrypt.php
  📂 CATEGORY: POSTGRESQL DATABASE MANAGEMENT
 =========================================
 https://www.ansiblepilot.com/videos/create-a-postgresql-user-or-role-ansible-module-postgresql-user
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://seowebchecker.com/ansible-playbook-generator
+https://asibiont.com/en/blog/how-the-asi-biont-ai-agent-connects-to-ansible-no-code-devops-automation-for-infrastructure-management
+https://www.linkedin.com/posts/manash-sharma-108devopsautomation_ansible-ansibleerrorfetching-activity-7365467504846036992-zGAD
+https://github.com/binRick/ansible-systemd-timer-role/blob/master/tasks/main.yml
+https://regardsoss.github.io/docs/setup/ansible-tasks
+https://r4ven.me/automation/pishem-ansible-playbook-dlya-nachalnoj-nastrojki-linux-servera/
+https://docs.openstack.org/kayobe/latest/configuration/reference/kolla-ansible.html
+https://www.typeerror.org/docs/ansible~2.4/become
+https://skillmd.ai/tutorials/run-on/codex/creating-ansible-playbooks-3/
+https://www.natcom.org/publications-library/keeping-and-revealing-secrets/
+https://www.sonarsource.com/solutions/secrets-detection/
+https://www.rebelliouswellnesstherapy.com/post/exposing-5-toxic-secrets-your-roadmap-to-living-authentically
+https://forensicanvil.ru/forum/topic/cybersecurity/siem-pravila-gotovye
+https://proton.me/support/vpn-siem
+https://exelegent.com/best-siem-tools-for-mid-market-organizations/
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://stanislas.blog/2019/03/quick-and-easy-ansible-linting-ci-pipeline/
+https://stackoverflow.com/questions/67134392/using-credentials-securely-in-ansible-inventory
+https://ansible-collections.github.io/community.openwrt/branch/main/template_module.html
+https://www.sudo.ws/docs/man/1.8.15/sudoers.man/
+https://docs.netbird.io/about-netbird/ports-and-firewalls
+https://deepwiki.com/dev-sec/ansible-collection-hardening/2-hardening-roles
+https://github.com/kendjm/gap-hunter-labs
+https://www.compilenrun.com/docs/devops/ansible/ansible-advanced-features/ansible-lookups/
+https://docs.cyberark.com/secrets-manager-sh/latest/en/content/hometileslps/lp-tile4.htm?TocPath=Integrations|_____0
+https://subscription.packtpub.com/book/cloud_and_networking/9781789956481/10/ch10lvl1sec26/validating-acls-with-batfish
+https://estoreab.com/automating-cisco-fortinet-network-configurations-ansible
+https://www.f9infotech.com/red-hat-solutions/
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://github.com/kans-devops/kans-docker-ansible
+
+=========================================
+ 📂 CATEGORY: PERFORMANCE & KERNEL OPTIMIZATION
+=========================================
+https://github.com/OneUptime/blog/blob/master/posts/2026-02-21-how-to-use-ansible-to-manage-sysctl-parameters/validation-summary.md
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://www.linkedin.com/pulse/why-terraform-ansible-arent-always-answer-enterprise-brad-fletchall-jmejc
+https://www.vpsserver.com/terraform-vs-ansible/
+
+=========================================
+ 📂 CATEGORY: POSTGRESQL DATABASE MANAGEMENT
+=========================================
+https://yrkan.com/blog/ansible-testing-with-molecule/

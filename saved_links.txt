@@ -3313,3 +3313,35 @@ https://www.vpsserver.com/terraform-vs-ansible/
  📂 CATEGORY: POSTGRESQL DATABASE MANAGEMENT
 =========================================
 https://yrkan.com/blog/ansible-testing-with-molecule/
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://www.ansiblepilot.com/articles/current-ansible-playbook-path-playbook-dir-magic-variable-ansible-tip-and-tricks
+https://pt.slideshare.net/slideshow/best-practices-for-ansible/95475433
+https://www.ansiblepilot.com/articles/two-ways-to-run-multiple-ansible-handlers-ansible-playbook
+https://web.archive.org/web/20210430225753/https://stackoverflow.com/questions/41194021/how-can-i-show-progress-for-a-long-running-ansible-task
+https://pt.slideshare.net/slideshow/ansible_presentation-and-ansible-master-pptx/283883867
+https://deepwiki.com/ibmresilient/resilient-community-apps/3-siem-and-threat-detection-integrations
+https://catalog.redhat.com/en/solutions/detail/6a54ebc5dcc63531c9b0758e
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://gitlab.ethz.ch/ansible-community/images/molecule-testing
+https://gitlab-pub.yadro.com/testy/testy
+https://www.linkedin.com/advice/3/what-best-devops-platforms-managing-infrastructure-mml1e
+https://github.com/krameff/goss
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://github.com/ansible/ansible/issues/86154
+https://binadit.com/tutorials/configure-ssh-key-authentication-and-security-hardening
+https://pt.slideshare.net/slideshow/accelerating-with-ansible/138645841
+https://www.udemy.com/course/300-435-enauto-ccnp-automation-automating-and-programming/
+
+=========================================
+ 📂 CATEGORY: STORAGE & LVM MANAGEMENT
+=========================================
+https://errorhandle.ai/create-logical-volume-with-ansible-and-if-statement

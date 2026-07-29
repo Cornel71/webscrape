@@ -3345,3 +3345,45 @@ https://www.udemy.com/course/300-435-enauto-ccnp-automation-automating-and-progr
  📂 CATEGORY: STORAGE & LVM MANAGEMENT
 =========================================
 https://errorhandle.ai/create-logical-volume-with-ansible-and-if-statement
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://github.com/codica2/ansible-best-practice
+https://ansible.github.io/lightbulb/decks/ansible-best-practices.html
+https://github.com/ansible/ansible/blob/devel/lib/ansible/playbook/handler.py
+https://csvtoolsonline.com/tools/yaml-validator
+https://stackoverflow.com/questions/41281997/run-only-one-task-and-handler-from-ansible-playbook
+https://git.hubp.de/topics/ansible-playbook
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://deepwiki.com/ansible-collections/community.hashi_vault/7.1-cicd-pipeline
+https://betterstack.com/community/guides/linux/ansible-lineinfile/
+https://github.com/shaneholloman/ansible-role-sudo
+https://github.com/kyl191/ansible-role-openvpn/blob/master/CLAUDE.md
+https://docs.ansible.com/projects/ansible/latest/cli/ansible-vault.html
+https://www.redhat.com/en/blog/automating-security-with-cyberark-and-red-hat-ansible-automation-platform
+https://www.rogerperkin.co.uk/network-automation/tools/
+https://www.linkedin.com/posts/ovisaha175010_networkautomation-ansible-netconf-activity-7483439747344818177-TqS4
+https://thectoclub.com/de/tools/ansible-test/
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://gitextract.com/geerlingguy/ansible-role-docker
+https://medium.com/@thakuravnish2313/automating-3-tier-architecture-with-ansible-and-docker-629b40f7d4fa?responsesOpen=true&sortBy=REVERSE_CHRON
+https://serverfault.com/questions/1063276/how-to-pass-multiple-commands-with-ansible-docker-container
+https://devops.stackexchange.com/questions/4440/applying-ansible-playbook-to-a-docker-container-on-a-remote-host/18544
+https://docs.ansible.com/projects/ansible/latest/getting_started_ee/introduction.html
+
+=========================================
+ 📂 CATEGORY: NGINX & WEB REVERSE PROXY
+=========================================
+https://github.com/antoinejdd/nginx_reverse_proxy
+
+=========================================
+ 📂 CATEGORY: PERFORMANCE & KERNEL OPTIMIZATION
+=========================================
+https://www.redhat.com/es/blog/ansible-linux-server-security

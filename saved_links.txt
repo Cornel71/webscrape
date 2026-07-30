@@ -3387,3 +3387,40 @@ https://github.com/antoinejdd/nginx_reverse_proxy
  📂 CATEGORY: PERFORMANCE & KERNEL OPTIMIZATION
 =========================================
 https://www.redhat.com/es/blog/ansible-linux-server-security
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://stackoverflow.com/questions/43479749/distinguish-between-ansible-error-and-task-error-in-ansible
+https://dev.to/harshm03/ansible-tasks-complete-guide-for-beginners-2gn3
+https://terryhowe.github.io/ansible-modules-hashivault/user_guide/become.html
+https://www.cetinkocaman.com/why-secrets-management-matters/
+https://balanced-wellness.org/blog/how-to-stop-oversharing
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://www.udemy.com/course/gitlab-ci-cd-hands-on-build-your-own-50-gitlab-pipelines/
+https://dev.to/_d7eb1c1703182e3ce1782/ssh-key-generator-guide-generate-rsa-and-ed25519-keys-for-secure-access-3c01
+https://cdn.binadit.com/tutorials/configure-audit-compliance-automation-ansible
+https://www.linkedin.com/posts/gowtham-ska_networkautomation-ansible-python-activity-7483143412939116544-RH0k
+https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/implementing_security_automation/index
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://threatport.com/ar/docs/gitlab-ci-cd-security-configuration
+https://www.bing.com/aclick?ld=e8vNRPTPIg8_iBXWipc_OFiDVUCUzbJMjnalgHVOcxoevvT_-jD6E_RLc9Snf0VU8ZrWS2tUdNa6PS-anStQqv9qDMBaaS1LNyN5doHKgUWcA4XQ9v6P28qWUzIoRESXLGQTH8zfbOrogvMnsxGNkhk2T38kI8UC7mKo9YkT7peyNGJ_GcYu3bBXoZLDTpYTCaYcftN7aif3pifIlSshf4Gk-wKAk&u=aHR0cHMlM2ElMmYlMmZ3d3cuY2lzZWN1cml0eS5vcmclMmZjaXMtc2VjdXJlc3VpdGUlM2Z1dG1fc291cmNlJTNkYmluZyUyNnV0bV9tZWRpdW0lM2RwYWlkJTI2dXRtX2NhbXBhaWduJTNkc2VjdXJlc3VpdGUlMjZ1dG1fY29udGVudCUzZDI2LXNlY3VyZXN1aXRlLWV2LXNlY3VyZXN1aXRlX3NlYXJjaF9hcHBseV9ub3clMjZtc2Nsa2lkJTNkYWEwZDIwMDFlNWJlMTE3ZTMwNjI0YTZiMzZhYzgxMjI&rlid=aa0d2001e5be117e30624a6b36ac8122
+https://github.com/ansible-lockdown/AMAZON2-CIS
+https://www.bing.com/aclick?ld=e8wGKbzGutH3ofOqyhpxHixzVUCUwkXNf2hARLs3joB-Kbf_YFZJ-plGirS2145Fj8TD3NL9NfbyYFUk74YjvrjrBzDZYXUDOL75SxpmDLnp4H-UN1wwk1o2NL--wqlCCq1mdBleOv-Ea3ZJfoijllH0LsIYkBITkKg5D9-BytX2lddXJDLqtNN4x4YGyinf5AmzjrNnuyy-1uyRy9L0hEzfAdQbg&u=aHR0cHMlM2ElMmYlMmZ3d3cuY2lzY28uY29tJTJmc2l0ZSUyZnVzJTJmZW4lMmZzb2x1dGlvbnMlMmZzZWN1cml0eSUyZmh5YnJpZC1tZXNoLWZpcmV3YWxsJTJmaW5kZXguaHRtbCUzZnV0bV9tZWRpdW0lM2RzZWFyY2gtcGFpZCUyNnV0bV9zb3VyY2UlM2RiaW5nJTI2dXRtX2NhbXBhaWduJTNkSE1GX0FNRVJfTkFfRU5fQlNfTm9uYnJhbmRfRmlyZXdhbGxfRW5nYWdlX1QxJTI2dXRtX2NvbnRlbnQlM2RGSVItRENTLUdMT0JBTC1ITUYtUFJPRFVDVC1QQUdFLVVOR0FURUQlMjZ1dG1fdGVybSUzZGZpcmV3YWxsJTI1MjBtYW5hZ2VtZW50JTI2dXRtX21hdGNodHlwZSUzZHAlMjZ1dG1fZGV2aWNlJTNkYyUyNl9idCUzZCUyNl9iayUzZGZpcmV3YWxsJTI1MjBtYW5hZ2VtZW50JTI2X2JtJTNkcCUyNl9ibiUzZG8lMjZfYmclM2QxMjI0ODU3MzU5OTYxMDI0JTI2bXNjbGtpZCUzZGI4NGI3ODBmMWZkMjExYWUxZjE4MTI2NWNjODlmMmI3&rlid=b84b780f1fd211ae1f181265cc89f2b7
+
+=========================================
+ 📂 CATEGORY: PERFORMANCE & KERNEL OPTIMIZATION
+=========================================
+https://www.ansiblepilot.com/articles/ansible-sysctl-module-manage-kernel-parameters-complete-guide
+https://github.com/linux-system-roles/sap-preconfigure/issues/154
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://www.ansiblebyexample.com/articles/run-an-ansible-execution-environment-ansible-runner-command-line-tool

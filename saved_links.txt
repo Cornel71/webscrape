@@ -3424,3 +3424,40 @@ https://github.com/linux-system-roles/sap-preconfigure/issues/154
  📂 CATEGORY: DOCKER & CONTAINERS
 =========================================
 https://www.ansiblebyexample.com/articles/run-an-ansible-execution-environment-ansible-runner-command-line-tool
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://castroflavio.com/posts/ansible-best-practices/
+https://www.golinuxcloud.com/ansible-handlers/
+https://blog.crisp.se/2018/01/27/maxwenzin/how-to-run-ansible-tasks-in-parallel
+https://opennix.org/en/docs/vyos/examples/ansible/
+https://yrkan.com/blog/page/15/
+https://labex.io/fr/tutorials/ansible-how-to-automate-it-tasks-with-ansible-playbook-examples-398442
+https://www.bastillepost.com/global/article/6041263-resecurity-introduces-native-integration-with-ibm-qradar-siem-for-threat-intelligence-sharing
+https://nxlog.co/news-and-blog/posts/log-collection-tools
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://www.packetcoders.io/network-automation-101-tooling-landscape/
+https://medium.com/spacelift/how-to-keep-your-playbooks-secure-using-ansible-vault-57147fe8fecd
+https://stackoverflow.com/questions/73666177/cannot-get-reference-to-work-in-gitlab-ci-yaml
+https://virtualizare.net/devops/running-your-gitlab-ci-yaml-locally-step-by-step-guide.html
+https://nxos-devops.ciscolive.com/lab/pod24/netdevops/gitlab-ci
+https://github.com/stefanbijak/linux-server-setup-automation
+https://sumguy.com/posts/57/
+https://sangomakb.atlassian.net/wiki/spaces/DocHome/overview?mode=global
+https://www.betasystems.com/integrations?trk=article-ssr-frontend-pulse_publishing-image-block
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://wbassler23.medium.com/securing-secrets-for-your-iac-using-jenkins-terraform-and-ansible-vault-7009e0a7eb32
+https://github.com/foreignboizoe/ubuntu-hardening-ansible
+https://developers.redhat.com/articles/2026/07/28/enrich-openshift-compliance-results-custom-metadata
+
+=========================================
+ 📂 CATEGORY: NGINX & WEB REVERSE PROXY
+=========================================
+https://www.ansiblepilot.com/articles/ansible-on-debian-11-bullseye-nginx-reverse-proxy-with-lets-encrypt-complete-guide

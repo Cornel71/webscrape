@@ -3461,3 +3461,44 @@ https://developers.redhat.com/articles/2026/07/28/enrich-openshift-compliance-re
  📂 CATEGORY: NGINX & WEB REVERSE PROXY
 =========================================
 https://www.ansiblepilot.com/articles/ansible-on-debian-11-bullseye-nginx-reverse-proxy-with-lets-encrypt-complete-guide
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://developer.hashicorp.com/well-architected-framework/secure-systems/secure-applications/ci-cd-secrets/gitlab
+https://www.exchangetuts.com/how-to-cleanly-edit-sshd-config-for-basic-security-options-in-an-ansible-playbook-1640377684551907
+https://www.bing.com/aclick?ld=e8UJhU0eBmbJj4RtTVmzudPDVUCUyu_qfK1aqXIOdflLB2T9LahQmkAk_FVB-rAdMRVc2ZMvYYBOTYrUIIEYQ09eYUz0FPjup4E9yqN9vLcR3ge5MdlSmIlboVZ1ZHnSx-cgkB_b9SOpQ0Zb1b2HgvHfJfyu12ajSyiv9m5Zu1F3Cwrm9WLycdeMEFRi52-zDCCtxZRw&u=aHR0cHMlM2ElMmYlMmZzbnlrLmlvJTJmbHAlMmZtb2Rlcm4tZGV2c2Vjb3BzLWFpLWJlc3QtcHJhY3RpY2VzJTJmJTNmdXRtX21lZGl1bSUzZHBhaWQtc2VhcmNoJTI2dXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fY2FtcGFpZ24lM2RkbV9taWNyb3NvZnQtcHNfYW9tXzI2MDIxNV9hc3NldC1kb3dubG9hZF9uYnIlMjZ1dG1fY29udGVudCUzZGRldnNlYy10b29scyUyNmFkX2lkJTNkODUyMTI3NDQxMzkyMTYlMjZhZGdyb3VwX2lkJTNkMTM2MzM5NzEzMTY2MTIxNCUyNmNhbXBhaWduX2lkJTNkNTMzNDQ5OTYyJTI2dXRtX3Rlcm0lM2RkZXZvcHMlMjUyMHNlY3VyaXR5JTI1MjB0b29scyUyNm1hdGNoX3R5cGUlM2RwJTI2bXNjbGtpZCUzZGQ5N2RiZThhNmJiNDFhMWI1NTRiZDRlNzExZGRmODRi&rlid=d97dbe8a6bb41a1b554bd4e711ddf84b
+https://alishaikh.me/ansible-practice-lab-10-minutes/
+https://devopsaitoolkit.com/blog/tuning-ansible-performance-forks-pipelining-and-fact-caching/
+https://access.redhat.com/articles/6263811
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://steampunk.si/spotter/blog/spotter-in-gitlab/
+https://threatport.com/es/docs/gitlab-ci-cd-security-configuration
+https://www.brhosting.com/blog/automating-server-hardening-ansible-playbooks
+https://ubuntu.com/security/cis
+
+=========================================
+ 📂 CATEGORY: NGINX & WEB REVERSE PROXY
+=========================================
+https://www.ansiblepilot.com/articles/ansible-on-debian-12-bookworm-nginx-reverse-proxy-with-lets-encrypt-complete-guide
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/password_hash_filter.html
+https://www.bing.com/aclick?ld=e8vSgZ-DLvn36h5UKFqt3XkjVUCUwXK83eN-5uhRxOaldD4CAhCp3wVKmCZiuFtKShwrohSjeOZtoKU2y8OhNi3B9UCNSuV6hrHa8NulpL9u9h7PSTlKQO-J7IQxOXo-CPd4UmKqaxXW_FUhooKGrIYYnK8rHwSDsyZJcnPzkWApIjX9yM7pE3O9nL6aRFu4nP1k4qyg&u=aHR0cHMlM2ElMmYlMmZ3d3cubWFuYWdlZW5naW5lLmNvbSUyZnByaXZpbGVnZWQtYWNjZXNzLW1hbmFnZW1lbnQlMmYlM2ZuZXR3b3JrJTNkbyUyNmRldmljZSUzZGMlMjZrZXl3b3JkJTNkcHJpdmlsZWdlZCUyNTIwYWNjb3VudCUyNTIwbWFuYWdlbWVudCUyNmNhbXBhaWduaWQlM2Q0MDE2NDcwNzAlMjZjcmVhdGl2ZSUzZCUyNm1hdGNodHlwZSUzZHAlMjZwbGFjZW1lbnQlM2QlMjZhZGdyb3VwJTNkMTMwODQxOTE5NjAyOTQyMCUyNnRhcmdldGlkJTNka3dkLTgxNzc2Mzg1OTk0MTk5JTNhbG9jLTE5MCUyNm1zY2xraWQlM2RjM2YwYTQ5ZWFkMTUxZjAyNTYxNGNlZjNkNzY2MmQ0NSUyNnV0bV9zb3VyY2UlM2RiaW5nJTI2dXRtX21lZGl1bSUzZGNwYyUyNnV0bV9jYW1wYWlnbiUzZEJpbmclMjUyMC0lMjUyMFVTQSUyNTIwLSUyNTIwU2VhcmNoJTI1MjAtJTI1MjBQQU0zNjAlMjUyMC0lMjUyMFBocmFzZSUyNTIwLSUyNTIwTDElMjZ1dG1fdGVybSUzZHByaXZpbGVnZWQlMjUyMGFjY291bnQlMjUyMG1hbmFnZW1lbnQlMjZ1dG1fY29udGVudCUzZEJpbmclMjUyMC0lMjUyMFVTQSUyNTIwLSUyNTIwUEFNMzYwJTI1MjAtJTI1MjBQcml2aWxlZ2VkJTI1MjBBY2NvdW50JTI1MjBNYW5hZ2VtZW50JTI1MjAtJTI1MjBQaHJhc2UlMjUyMC0lMjUyMEwx&rlid=c3f0a49ead151f025614cef3d7662d45
+https://bashdays.ru/tools/ansible-playbooks/
+https://www.microsoft.com/ru-ru/security/business/siem-and-xdr/microsoft-sentinel-siem
+
+=========================================
+ 📂 CATEGORY: POSTGRESQL DATABASE MANAGEMENT
+=========================================
+https://deepwiki.com/ansible-collections/community.postgresql/5-privilege-management
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://hub.docker.com/r/afreisinger/docker-ubuntu2404-aws-ansible

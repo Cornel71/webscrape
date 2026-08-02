@@ -3502,3 +3502,46 @@ https://deepwiki.com/ansible-collections/community.postgresql/5-privilege-manage
  📂 CATEGORY: DOCKER & CONTAINERS
 =========================================
 https://hub.docker.com/r/afreisinger/docker-ubuntu2404-aws-ansible
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://gist.github.com/ogratwicklcs/b9765a5b053b46586b4eb7fe61a15c82
+https://www.ansiblebyexample.com/articles/ansible-performance-speed-up-playbooks-scale
+https://thinkcloudly.com/blog/devops-ansible-interview-questions/
+https://bookauthority.org/books/best-ansible-books
+https://ansible-tips-and-tricks.readthedocs.io/en/latest/ansible/commands/
+https://gitlab.com/my_project36/yaml_ansible_lint/-/blob/main/.ansible-lint.yaml?ref_type=heads
+https://docs.ansible.com/ansible/latest/playbook_guide/complex_data_manipulation.html
+https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html
+https://www.ansiblebyexample.com/articles/ansible-user-module-manage-linux-users-groups
+https://www.lisenet.com/2019/ansible-generate-crypted-passwords-for-the-user-module/
+https://docs.datadoghq.com/security/code_security/iac_security/iac_rules/ansible-privilege-escalation-using-become-plugin/
+https://cubepath.com/docs/cumplimiento-y-auditoría/escaneo-automatizado-de-cumplimiento-con-openscap
+https://www.dewaweb.com/blog/cara-menulis-membuat-dan-menjalankan-ansible-playbooks/
+https://devops404.ru/
+https://www.wikihow.com/Keep-a-Secret
+https://cubeapm.com/blog/best-siem-tools/
+https://www.datastackhub.com/top-tools/soar-tools/
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://benheater.com/infrastructure-as-code-with-proxmox-gitops-ansible-pipeline/
+https://pimenov.ai/knowledge/gitlab-rukovodstvo-devsecops-ci-cd/
+https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/hardening_and_compliance/hardening-aap
+https://stackoverflow.com/questions/3828823/how-to-generate-ssh-keys-for-github
+https://www.golinuxcloud.com/firewalld-cheat-sheet/
+https://docs.w3cub.com/ansible/collections/community/hashi_vault/hashi_vault_lookup.html
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://mindtnv.gitlab.io/
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://www.edureka.co/community/80413/how-to-create-a-docker-container-using-ansible-playbook
+https://shape.host/resources/automating-docker-installation-on-ubuntu-22-04-using-ansible
+https://www.redhat.com/en/technologies/management/ansible/automation-execution-environments

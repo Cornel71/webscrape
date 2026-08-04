@@ -3583,3 +3583,38 @@ https://docs.ansible.com/ansible/2.9/modules/docker_container_module.html
 https://www.bing.com/aclick?ld=e85Dyg24ONl8qwPJpXoOVgaTVUCUzlZhg4FZVuz4ZHjvu33kAjZQSq1q9IZz6wgKBv3mIhx7yAvVz9YrUWIfnwqmdRK61L8sBE9mMXQ9gW_57jX8qouILEzjfJXJERd7TzWXRm7q13YiJBldeTibwtsGyOQU0NWr2xXs2geYv5QcVVFzuT0cEf6AVN6Ft6o3Q_gXy1oVKpnR3d_jhoipqqnJxYc-c&u=aHR0cHMlM2ElMmYlMmZtb25pdG9yLmx1bmlvLmFpJTJmdjMuMCUyZnRlbXBsYXRlJTNmYWNjaWQlM2QxNjg5NiUyNnVybGRlY29kZSUzZDElMjZrdyUzZGNpcyUyNTIwYmVuY2htYXJrJTI1MjBhdXRvbWF0aW9uJTI2bXQlM2RwJTI2bnclM2RvJTI2Y3BuJTNkNDI4MzI5MjQwJTI2ZGV2aSUzZGMlMjZkZXZtJTNkJTI2bG9jcCUzZDQzODk2JTI2bG9jaSUzZCUyNnBsJTNkJTI2Y3IlM2QlMjZhZHAlM2QlMjZzYWR0JTNkJTI2dXJsJTNkaHR0cHMlMjUzQSUyNTJGJTI1MkZ3d3cuZGF0YWRvZ2hxLmNvbSUyNTJGZGclMjUyRnNlY3VyaXR5JTI1MkZjaXMtYmVuY2htYXJraW5nJTI1MkYlMjUzRnV0bV9zb3VyY2UlMjUzRGJpbmclMjUyNnV0bV9tZWRpdW0lMjUzRHBhaWQtc2VhcmNoJTI1MjZ1dG1fY2FtcGFpZ24lMjUzRGRnLXNlY3VyaXR5LW5hLWNpc2JlbmNobWFyayUyNTI2dXRtX2tleXdvcmQlMjUzRGNpcyUyNTI1MjBiZW5jaG1hcmslMjUyNTIwYXV0b21hdGlvbiUyNTI2dXRtX21hdGNodHlwZSUyNTNEcCUyNTI2aWdhYWclMjUzRDEzMDQwMjExNjEyOTM4MzIlMjUyNmlnYWF0JTI1M0QlMjUyNmlnYWNtJTI1M0Q0MjgzMjkyNDAlMjUyNmlnYWNyJTI1M0QlMjUyNmlnYWt3JTI1M0RjaXMlMjUyNTIwYmVuY2htYXJrJTI1MjUyMGF1dG9tYXRpb24lMjUyNmlnYW10JTI1M0RwJTI1MjZpZ2FudCUyNTNEbyUyNTI2dXRtX2NhbXBhaWduaWQlMjUzRDQyODMyOTI0MCUyNTI2dXRtX2FkZ3JvdXBpZCUyNTNEMTMwNDAyMTE2MTI5MzgzMiUyNm1zY2xraWQlM2RkZTVjZjExMzdmNGUxNWVkNDAzNzliNjM1ZjU2MWNkYw&rlid=de5cf1137f4e15ed40379b635f561cdc
 https://www.bing.com/aclick?ld=e8AXSHdwGOfRolGCVpfAHLmTVUCUzxD7lXYVsnaAKGaHw5kfSA34pj5pRkXQ2ydefJDZId8ise5OHlOmqDQHEcGFDTzwx-zmhFerymQv_gQTkyuLcjXWl59dbTXt2SJqZaqSi9uG6XHXc6yoJkFc-mvaz87ftgjBYXSIq0RW126qrMsrOgooTWVq8MkZJOCZiLXmpmIzP2hhb6V_E02ZnYNMCpjEI&u=aHR0cHMlM2ElMmYlMmZ3d3cuY2lzZWN1cml0eS5vcmclMmZjaXMtc2VjdXJlc3VpdGUlM2Z1dG1fc291cmNlJTNkYmluZyUyNnV0bV9tZWRpdW0lM2RwYWlkJTI2dXRtX2NhbXBhaWduJTNkc2VjdXJlc3VpdGUlMjZ1dG1fY29udGVudCUzZDI2LXNlY3VyZXN1aXRlLWV2LXNlY3VyZXN1aXRlX3NlYXJjaF9hcHBseV9ub3clMjZtc2Nsa2lkJTNkYzBkNGYzMzgxYzIxMTc5ODYxNzM5OTQ4M2MzOWI4MmM&rlid=c0d4f3381c211798617399483c39b82c
 https://www.bing.com/aclick?ld=e8ebh53dFiFjgfqSYvSH1rJjVUCUw0GzSG9CwlCK8fB-tlbbRPC-_T_lm1lhR3Tw7a3pW1iT-2bWsibRbeadeGneaGbjXHpgm0ztW9Pw70E1Fn8D-crZyv5756mQr6ovFruJxSgXzuZJcwUbhhhIPZ4G_kkJ4_GpcaYojMtlBGJXxIh-Vc3bgACDUiM4DbDjUT4J2aW0YQssgzIeJ1SeDzEPDg-iY&u=aHR0cHMlM2ElMmYlMmZ3d3cubWFuYWdlZW5naW5lLmNvbSUyZnZ1bG5lcmFiaWxpdHktbWFuYWdlbWVudCUyZmNpcy1jb21wbGlhbmNlLWJlbmNobWFya3MuaHRtbCUzZnV0bV9zb3VyY2UlM2RiaW5nJTI2dXRtX21lZGl1bSUzZGNwYyUyNm5ldHdvcmslM2RvJTI2ZGV2aWNlJTNkYyUyNmtleXdvcmQlM2RjaXMlMjUyMGJlbmNobWFyayUyNTIwaGFyZGVuaW5nJTI2Y2FtcGFpZ25pZCUzZDQwMTU4ODUxOSUyNmNyZWF0aXZlJTNkJTI2bWF0Y2h0eXBlJTNkcCUyNmFkcG9zaXRpb24lM2QlMjZwbGFjZW1lbnQlM2QlMjZhZGdyb3VwJTNkMTMwMjkyMTYyMzUwMjUxOSUyNnRhcmdldGlkJTNka3dkLTgxNDMyNzg2NDgxOTQ1JTNhbG9jLTE5MCUyNmxvY2F0aW9uJTNkJTdibG9jYXRpb24lN2QlMjZzZWFyY2h0ZXJtJTNkYW5zaWJsZSUyNTIwYXJjaGl0ZWN0dXJlJTI1MjBjaXMlMjUyMGJlbmNobWFya3MlMjUyMGNvbXBsaWFuY2UlMjUyMGF1dG9tYXRlZCUyNm1zY2xraWQlM2QwZmZkM2ZhZDU2MjgxMDY4YWU3OTU1ZGQ3NjMwNTAwZCUyNnV0bV9jYW1wYWlnbiUzZEJJTkctVk1QLUlOUi1TZWFyY2gtVVNBLUwxLVBocmFzZSUyNnV0bV90ZXJtJTNkY2lzJTI1MjBiZW5jaG1hcmslMjUyMGhhcmRlbmluZyUyNnV0bV9jb250ZW50JTNkQ0lTJTI1MjBDb21wbGlhbmNl&rlid=0ffd3fad56281068ae7955dd7630500d
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://dev.co/devops/open-source/ansible-for-devops
+https://dev.to/xlab_steampunk/ansible-playbook-writing-for-beginners-automate-your-morning-routine-2ii1
+https://www.linkedin.com/posts/akhilesh-ganji-41a7b32a9_ansible-devops-automation-activity-7481280576109604864-8rVf
+https://cyberpanel.net/blog/ansible-handlers-2
+https://dev.to/_d7eb1c1703182e3ce1782/yaml-validator-online-lint-and-format-yaml-files-4kkf
+https://jinja.palletsprojects.com/en/stable/templates/
+https://docs.astra-automation.ru/2.0/ansible-core/ref/plugin/connection/local/
+https://www.veilstrat.com/playbooks/skills/basher83/lunar-claude/ansible-error-handling
+https://www.compilenrun.com/docs/devops/ansible/ansible-advanced-features/ansible-blocks/
+https://claudeskills.info/skills/mukul975/Anthropic-Cybersecurity-Skills/evaluating-threat-intelligence-platforms/
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://www.knowledgehut.com/blog/devops/ansible-vault
+https://medium.com/sallesslice-com/visudo-with-ansible-746f83547bb3
+https://thinkcloudly.com/blog/devops/red-hat-ansible-certification-plan/
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://docs.gitlab.com/ci/variables/
+https://www.linkedin.com/posts/aritro-sarkar-2887b61a5_auditd-automation-with-ansible-activity-7474695174204317696-uQwW
+https://www.greenbone.net/en/blog/cis-benchmark-windows-server/
+https://www.oneadvanced.com/resources/cis-microsoft-intune-for-windows-11-benchmark-v5.0.0-whats-new-and-key-security-controls/
+https://opennix.org/en/docs/vyos/
+
+=========================================
+ 📂 CATEGORY: NGINX & WEB REVERSE PROXY
+=========================================
+https://docs.rw/awesome-remnawave/

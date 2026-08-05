@@ -3618,3 +3618,59 @@ https://opennix.org/en/docs/vyos/
  📂 CATEGORY: NGINX & WEB REVERSE PROXY
 =========================================
 https://docs.rw/awesome-remnawave/
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://github.com/snowplow/ansible-playbooks
+https://www.naukri.com/code360/library/ansible-yaml-syntax
+https://openillumi.com/en/en-ansible-chmod-x-file-permissions/
+https://moldstud.com/articles/p-securing-ansible-environments-a-comprehensive-guide
+https://redsec.by/article/evolyuciya-zashity-polnyj-analiticheskij-obzor-siem-sistem-dlya-belarusi-v-2026-godu/
+https://opennix.org/docs/wazuh/integrations/wazuh-siem-integrations/index.md
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://medium.com/@dileeprithvi/2-1-pipeline-ci-cd-github-maven-jenkins-artifactory-sonarqube-docker-ansible-tomcat-fcaabe907680
+https://www.envzero.com/blog/protecting-secrets-with-ansible-vault
+https://www.edureka.co/blog/ansible-vault-secure-secrets
+https://www.linkedin.com/pulse/ansible-devops-core-components-best-practices-security-iyer-n76af
+https://aws.amazon.com/marketplace/pp/prodview-m76ds4lrryjas?ref=recommended&m=model_BI_2023-07-01
+https://cloudinfrastructureservices.co.uk/how-to-setup-ansible-inventory-and-how-it-works-tutorial/
+https://gitmemories.com/nusenu/ansible-relayor/issues/63
+https://www.gitgenius.co/repos/dev-sec/ansible-collection-hardening
+https://docs.digital.ai/release/docs/23.1/tags/plugin
+https://community.cyberark.com/s/article/Where-to-find-Ansible-AWX-integration-with-Conjur-for-secret-retrieval
+https://www.compilenrun.com/docs/devops/ansible/ansible-infrastructure-management/ansible-compliance-automation/
+https://www.bing.com/aclick?ld=e8w-EF3-kMETqKaqZ5W4BaDDVUCUwrauLuavvZyMM1JgZt_MzNmUMxxMKc91zNAkC2MNxctdUbXsnsT7yhrW2pxovL0N-Jd0k4tE4_qXGDCeTri5_1738Vp8IE9aatnu5X21PfTBNew6PJ6NzZlzwovOoWI1yLJCQzDaBgchAGyDVrZk2Ze3V374unTcMsUR2yYIt536OyxEWdKispbFGyKgkBhoI&u=aHR0cHMlM2ElMmYlMmZhY3RpdmViYXRjaC5hZHZzeXNjb24uY29tJTJmbHAlMmZ1JTJmaW5mb3JtYXRpY2Etc2NoZWR1bGluZyUzZnV0bV90ZXJtJTNkaW5mb3JtYXRpY2ElMjUyMGF1dG9tYXRpb24lMjZ1dG1fY2FtcGFpZ24lM2QzNjEzMDc0MDMlMjZ1dG1fY29udGVudCUzZCUyNnV0bV9zb3VyY2UlM2RiaW5nYWRzJTI2dXRtX21lZGl1bSUzZGNwYyUyNnV0bV9hZGdyb3VwJTNkMTE4NjM3MzkyNTcxMjI4NSUyNnV0bV9uZXR3b3JrJTNkbyUyNmNxX3NyYyUzZGJpbmdfYWRzJTI2Y3FfY21wJTNkQmluZ19TZWFyY2hfSW5mb3JtYXRpY2FfVVNDQSUyNmNxX2NvbiUzZGluZm9ybWF0aWNhJTI1MjBhdXRvbWF0aW9uJTI2Y3FfdGVybSUzZGluZm9ybWF0aWNhJTI1MjBhdXRvbWF0aW9uJTI2Y3FfbWVkJTNkJTI2Y3FfbmV0JTNkbyUyNmNxX3BsdCUzZGJwJTI2bXNjbGtpZCUzZGZkZDNjZjkwYjRiZDE1NGU0OTU3YTVlMjBhNmY2YjZi&rlid=fdd3cf90b4bd154e4957a5e20a6f6b6b
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://www.bing.com/aclick?ld=e8CVtpnSkWcr_x68-E3s8mKzVUCUyAOVz9YO1ei-Pp2Sa5e-7aZSyTbYttuaK-i7u-XLAnMeeUdSx67yISy830T_qyXu2COyRR2ktvf7qLYgSgIBdVML60hWw7lZhtLIuEzd-lGgKHkXAQ2ruEAoX-0DwNdx4-SVpKEvg85mI5o6KKTJtqzcOfV3R-oLf1bZjdzE1o8mIlt91Hl7UxTIgXqx3sCXI&u=aHR0cHMlM2ElMmYlMmZ3d3cuYmxhY2tkdWNrLmNvbSUyZnN0YXRpYy1hbmFseXNpcy10b29scy1zYXN0JTJmY292ZXJpdHkuaHRtbCUzZnV0bV9zb3VyY2UlM2RiaW5nJTI2dXRtX21lZGl1bSUzZGNwYyUyNnV0bV9jYW1wYWlnbiUzZGZ5MjZfYl9zX2NvdmVyaXR5X3VzX2JkXzJ4JTI2dXRtX2NvbnRlbnQlM2RlbnRlcnByaXNlc2FzdCUyNnV0bV90ZXJtJTNkc2FzdCUyNTIwdG9vbHMlMjZ1dG1fc291cmNlJTNkYmluZyUyNnV0bV9tZWRpdW0lM2RjcGMlMjZ1dG1fdGVybSUzZCUyNnV0bV9jYW1wYWlnbiUzZEZZMjZfQl9TX0NvdmVyaXR5X1VTX0JEXzJYJTI2Y21wJTNkRlkyNl9CX1NfQ292ZXJpdHlfVVNfQkRfMlglMjZtc2Nsa2lkJTNkYTM0ZGVlOTAxZDRmMTBiMzE5MmU4NGUyYTM3YmY1ZGU&rlid=a34dee901d4f10b3192e84e2a37bf5de
+https://benheater.com/infrastructure-as-code-with-proxmox-conclusion/
+https://github.com/israeltelou/Ansible-CIS-Hardening
+https://www.learnitguide.net/2023/04/kube-bench-kubernetes-cis-benchmarking.html
+https://habr.com/ru/articles/338532/
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://caasify.com/blog/automate-docker-setup-with-ansible-on-ubuntu-22-04
+https://docs.w3cub.com/ansible/collections/community/docker/docker_container_exec_module
+
+=========================================
+ 📂 CATEGORY: NGINX & WEB REVERSE PROXY
+=========================================
+https://stackoverflow.com/questions/58295060/which-comes-first-creating-the-nginx-site-conf-file-or-running-certbot-aut/58295205
+
+=========================================
+ 📂 CATEGORY: PERFORMANCE & KERNEL OPTIMIZATION
+=========================================
+https://www.redhat.com/fr/blog/ansible-linux-server-security
+
+=========================================
+ 📂 CATEGORY: POSTGRESQL DATABASE MANAGEMENT
+=========================================
+https://www.bing.com/aclick?ld=e8YCQ7IuNyoh-hNocX5a_QOjVUCUx5FKp-7nK_NAC1bGmo5VpyTX_EAMAgQW0L70U-FXn3XpzuJGSzxYE6TlcE5iIIvQ67ngSodeEz6Qd9dIXBQJWbMAs_ZtAAe2KKVXhpYFwcPswTJqlu777izJfzX1tiAc-PdV3PDgmHZ7duuJWPApIqEdHWD44CM_qcvkj4m13qBGyLxneE2mtl0C4U3MQUxfQ&u=aHR0cHMlM2ElMmYlMmZhZC5kb3VibGVjbGljay5uZXQlMmZzZWFyY2hhZHMlMmZsaW5rJTJmY2xpY2slM2ZsaWQlM2Q0MzcwMDA4MjgyODY5MzczMyUyNmRzX3Nfa3dnaWQlM2Q1ODcwMDAwODk2OTAxMzI3MyUyNmRzX2FfY2lkJTNkNjg1ODcwNzYzJTI2ZHNfYV9jYWlkJTNkMjMxOTQ3NDgzMTglMjZkc19hX2FnaWQlM2QxODY5MzI5MDI5OTklMjZkc19hX2xpZCUzZGt3ZC0xMjA3NzE0MCUyNiUyNmRzX2VfYWRpZCUzZDc2ODk3MzMxODMwNDY5JTI2ZHNfZV90YXJnZXRfaWQlM2Rrd2QtNzY4OTc2MDc1MDc0ODMlM2Fsb2MtMTkwJTI2JTI2ZHNfZV9uZXR3b3JrJTNkbyUyNmRzX3VybF92JTNkMiUyNmRzX2Rlc3RfdXJsJTNkaHR0cHMlM2ElMmYlMmZjbG91ZC5nb29nbGUuY29tJTJmc3FsJTNmdXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fbWVkaXVtJTNkY3BjJTI2dXRtX2NhbXBhaWduJTNkQ2xvdWQtU1MtRFItR0NQLTE3MTM2NTgtR0NQLURSLU5BLVVTLWVuLUJpbmctU0tXUy1QSFItQ2xvdWRTUUwlMjZ1dG1fY29udGVudCUzZGMtSHlicmlkJTJiJTI1N0MlMmJTS1dTJTJiLSUyYlBIUiUyYiUyNTdDJTJiVHh0LURhdGFiYXNlcy1SZWxhdGlvbmFsJTJiREItQ2xvdWQlMmJTUUwtMTIwNzcxNDAlMjZ1dG1fdGVybSUzZHJlbGF0aW9uYWwlMjUyMGRhdGFiYXNlJTI2Z2NsaWQlM2QxYzAwNzVkOGE4NjExNDk3ODA4YzFmYWExNmYxOGE5YSUyNmdjbHNyYyUzZDNwLmRzJTI2JTI2bXNjbGtpZCUzZDFjMDA3NWQ4YTg2MTE0OTc4MDhjMWZhYTE2ZjE4YTlhJTI2dXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fbWVkaXVtJTNkY3BjJTI2dXRtX2NhbXBhaWduJTNkMTcxMzY1OCUyNTIwJTI1N0MlMjUyMEdDUCUyNTIwJTI1N0MlMjUyMERSJTI1MjAlMjU3QyUyNTIwRVNTMDElMjUyMCUyNTdDJTI1MjBOQSUyNTIwJTI1N0MlMjUyMFVTJTI1MjAlMjU3QyUyNTIwZW4lMjUyMCUyNTdDJTI1MjBIeWJyaWQlMjUyMCUyNTdDJTI1MjBTRU0lMjUyMCUyNTdDJTI1MjBTS1dTJTI1MjAtJTI1MjBQSFIlMjUyMCUyNTdDJTI1MjBUeHQlMjUyMCUyNTdDJTI1MjBCaW5nX0RhdGFiYXNlcyUyNnV0bV90ZXJtJTNkcmVsYXRpb25hbCUyNTIwZGF0YWJhc2UlMjZ1dG1fY29udGVudCUzZEh5YnJpZCUyNTIwJTI1N0MlMjUyMFNLV1MlMjUyMC0lMjUyMFBIUiUyNTIwJTI1N0MlMjUyMFR4dC1EYXRhYmFzZXMtUmVsYXRpb25hbCUyNTIwREItQ2xvdWQlMjUyMFNRTA&rlid=1c0075d8a8611497808c1faa16f18a9a

@@ -3674,3 +3674,45 @@ https://www.redhat.com/fr/blog/ansible-linux-server-security
  📂 CATEGORY: POSTGRESQL DATABASE MANAGEMENT
 =========================================
 https://www.bing.com/aclick?ld=e8YCQ7IuNyoh-hNocX5a_QOjVUCUx5FKp-7nK_NAC1bGmo5VpyTX_EAMAgQW0L70U-FXn3XpzuJGSzxYE6TlcE5iIIvQ67ngSodeEz6Qd9dIXBQJWbMAs_ZtAAe2KKVXhpYFwcPswTJqlu777izJfzX1tiAc-PdV3PDgmHZ7duuJWPApIqEdHWD44CM_qcvkj4m13qBGyLxneE2mtl0C4U3MQUxfQ&u=aHR0cHMlM2ElMmYlMmZhZC5kb3VibGVjbGljay5uZXQlMmZzZWFyY2hhZHMlMmZsaW5rJTJmY2xpY2slM2ZsaWQlM2Q0MzcwMDA4MjgyODY5MzczMyUyNmRzX3Nfa3dnaWQlM2Q1ODcwMDAwODk2OTAxMzI3MyUyNmRzX2FfY2lkJTNkNjg1ODcwNzYzJTI2ZHNfYV9jYWlkJTNkMjMxOTQ3NDgzMTglMjZkc19hX2FnaWQlM2QxODY5MzI5MDI5OTklMjZkc19hX2xpZCUzZGt3ZC0xMjA3NzE0MCUyNiUyNmRzX2VfYWRpZCUzZDc2ODk3MzMxODMwNDY5JTI2ZHNfZV90YXJnZXRfaWQlM2Rrd2QtNzY4OTc2MDc1MDc0ODMlM2Fsb2MtMTkwJTI2JTI2ZHNfZV9uZXR3b3JrJTNkbyUyNmRzX3VybF92JTNkMiUyNmRzX2Rlc3RfdXJsJTNkaHR0cHMlM2ElMmYlMmZjbG91ZC5nb29nbGUuY29tJTJmc3FsJTNmdXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fbWVkaXVtJTNkY3BjJTI2dXRtX2NhbXBhaWduJTNkQ2xvdWQtU1MtRFItR0NQLTE3MTM2NTgtR0NQLURSLU5BLVVTLWVuLUJpbmctU0tXUy1QSFItQ2xvdWRTUUwlMjZ1dG1fY29udGVudCUzZGMtSHlicmlkJTJiJTI1N0MlMmJTS1dTJTJiLSUyYlBIUiUyYiUyNTdDJTJiVHh0LURhdGFiYXNlcy1SZWxhdGlvbmFsJTJiREItQ2xvdWQlMmJTUUwtMTIwNzcxNDAlMjZ1dG1fdGVybSUzZHJlbGF0aW9uYWwlMjUyMGRhdGFiYXNlJTI2Z2NsaWQlM2QxYzAwNzVkOGE4NjExNDk3ODA4YzFmYWExNmYxOGE5YSUyNmdjbHNyYyUzZDNwLmRzJTI2JTI2bXNjbGtpZCUzZDFjMDA3NWQ4YTg2MTE0OTc4MDhjMWZhYTE2ZjE4YTlhJTI2dXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fbWVkaXVtJTNkY3BjJTI2dXRtX2NhbXBhaWduJTNkMTcxMzY1OCUyNTIwJTI1N0MlMjUyMEdDUCUyNTIwJTI1N0MlMjUyMERSJTI1MjAlMjU3QyUyNTIwRVNTMDElMjUyMCUyNTdDJTI1MjBOQSUyNTIwJTI1N0MlMjUyMFVTJTI1MjAlMjU3QyUyNTIwZW4lMjUyMCUyNTdDJTI1MjBIeWJyaWQlMjUyMCUyNTdDJTI1MjBTRU0lMjUyMCUyNTdDJTI1MjBTS1dTJTI1MjAtJTI1MjBQSFIlMjUyMCUyNTdDJTI1MjBUeHQlMjUyMCUyNTdDJTI1MjBCaW5nX0RhdGFiYXNlcyUyNnV0bV90ZXJtJTNkcmVsYXRpb25hbCUyNTIwZGF0YWJhc2UlMjZ1dG1fY29udGVudCUzZEh5YnJpZCUyNTIwJTI1N0MlMjUyMFNLV1MlMjUyMC0lMjUyMFBIUiUyNTIwJTI1N0MlMjUyMFR4dC1EYXRhYmFzZXMtUmVsYXRpb25hbCUyNTIwREItQ2xvdWQlMjUyMFNRTA&rlid=1c0075d8a8611497808c1faa16f18a9a
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://github.com/atomicobject/ansible-laptop-playbook-example
+https://ansible.github.io/product-demos/
+https://btech.id/en/news/what-is-ansible-a-complete-guide-to-it-automation-and-configuration-management/
+https://andidog.de/blog/2017-04-24-ansible-best-practices
+https://medium.com/@olusholaayoade/github-actions-ci-with-ansible-basic-project-4c30db1f8b94
+https://wiki.sdnog.sd/index.php/SdNOG_Users_creation_Ansible_code
+https://dpcvirtualtips.com/ansible-chrony-playbook/
+https://kletische.com/how-to-expose-secrets/
+https://experiencelife.lifetime.life/article/the-stress-of-keeping-a-secret-and-how-to-cope/
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://www.envzero.com/blog/running-ansible-playbooks-in-ci-cd-github-actions-gitlab
+https://cubepath.com/docs/automation-and-iac/ansible-vault-for-secrets-management
+https://www.decryptiondigest.com/blog/ssh-hardening-bastion-host-certificate-authentication-guide
+https://dargslan.com/learn/linux/visudo-command
+https://github.com/rebootless/ansible-playbook
+https://www.infotech.com/software-reviews/categories/data-center-automation/compare/red-hat-ansible-automation-platform-vs-opentext-automation-center
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://ansible.fontein.de/collections/community/docker/docker_container_copy_into_module.html
+https://www.linkedin.com/pulse/start-docker-container-help-ofansible-soumya-biswas-2wsuc
+https://c2platform.org/docs/concepts/ansible/projects/execution-env/
+https://www.ansiblebyexample.com/articles/build-and-run-an-ansible-execution-environment-ansible-builder-and-ansible-runner-tools
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://www.bing.com/aclick?ld=e8HqWIUPiya0Zf_qxQjWQZFzVUCUyWgSFyjCHOc3fEPJzvDrObTsFsXXSvmVugDsqshdhZN76nQnlVQgZSp4svozCgpF-XTLkQ68r_20tBsrt_F7HoRKrN9RB_PMxqhdqk4q_Sy-0fXG4KAAHTwUiQQ5eMsWrRE0r6_PTmC0Oj_k6FEc06X5JWnBbgfbI1xd1bP8BbQbStN2usS5HqGtCpvnUPsg0&u=aHR0cHMlM2ElMmYlMmZ3d3cuY2lzZWN1cml0eS5vcmclMmZjaXMtc2VjdXJlc3VpdGUlM2Z1dG1fc291cmNlJTNkYmluZyUyNnV0bV9tZWRpdW0lM2RwYWlkJTI2dXRtX2NhbXBhaWduJTNkc2VjdXJlc3VpdGUlMjZ1dG1fY29udGVudCUzZDI2LXNlY3VyZXN1aXRlLWV2LXNlY3VyZXN1aXRlX3NlYXJjaF9hcHBseV9ub3clMjZtc2Nsa2lkJTNkY2ZhOWUyNmJmOWE3MTJhNjU2ODM4ODFmZjY1ODkzZWI&rlid=cfa9e26bf9a712a65683881ff65893eb
+https://www.bing.com/aclick?ld=e8VT7iX4iq-K8uM3upI5aAdDVUCUz8JCgp45CR_pqJ39At1vHvu2ShXM_42si0RkkpgrI96lWF1OqgwGpHna6jweTyd3Vs1UPHhXJ-7FWhw2WGFsN5aFrrkeP4jRp5HzY0cXwfBKIXBBPHga2k-49jGUZg4IVJGVQbtnKjY3Uu45-oKwinIupCWg5Anxs1OJU6994s33jNaf93WHvGLfI_iaTEn9M&u=aHR0cHMlM2ElMmYlMmZtb25pdG9yLmx1bmlvLmFpJTJmdjMuMCUyZnRlbXBsYXRlJTNmYWNjaWQlM2QxNjg5NiUyNnVybGRlY29kZSUzZDElMjZrdyUzZGNpcyUyNTIwYmVuY2htYXJrJTI1MjBhdXRvbWF0aW9uJTI2bXQlM2RwJTI2bnclM2RvJTI2Y3BuJTNkNDI4MzI5MjQwJTI2ZGV2aSUzZGMlMjZkZXZtJTNkJTI2bG9jcCUzZDY3MTEzJTI2bG9jaSUzZCUyNnBsJTNkJTI2Y3IlM2QlMjZhZHAlM2QlMjZzYWR0JTNkJTI2dXJsJTNkaHR0cHMlMjUzQSUyNTJGJTI1MkZ3d3cuZGF0YWRvZ2hxLmNvbSUyNTJGZGclMjUyRnNlY3VyaXR5JTI1MkZjaXMtYmVuY2htYXJraW5nJTI1MkYlMjUzRnV0bV9zb3VyY2UlMjUzRGJpbmclMjUyNnV0bV9tZWRpdW0lMjUzRHBhaWQtc2VhcmNoJTI1MjZ1dG1fY2FtcGFpZ24lMjUzRGRnLXNlY3VyaXR5LW5hLWNpc2JlbmNobWFyayUyNTI2dXRtX2tleXdvcmQlMjUzRGNpcyUyNTI1MjBiZW5jaG1hcmslMjUyNTIwYXV0b21hdGlvbiUyNTI2dXRtX21hdGNodHlwZSUyNTNEcCUyNTI2aWdhYWclMjUzRDEzMDQwMjExNjEyOTM4MzIlMjUyNmlnYWF0JTI1M0QlMjUyNmlnYWNtJTI1M0Q0MjgzMjkyNDAlMjUyNmlnYWNyJTI1M0QlMjUyNmlnYWt3JTI1M0RjaXMlMjUyNTIwYmVuY2htYXJrJTI1MjUyMGF1dG9tYXRpb24lMjUyNmlnYW10JTI1M0RwJTI1MjZpZ2FudCUyNTNEbyUyNTI2dXRtX2NhbXBhaWduaWQlMjUzRDQyODMyOTI0MCUyNTI2dXRtX2FkZ3JvdXBpZCUyNTNEMTMwNDAyMTE2MTI5MzgzMiUyNm1zY2xraWQlM2QwYjliOWM0YmZmYWMxMTZmOTM0N2Y2M2ZmMDUzYWZiOQ&rlid=0b9b9c4bffac116f9347f63ff053afb9
+
+=========================================
+ 📂 CATEGORY: STORAGE & LVM MANAGEMENT
+=========================================
+https://www.tecmint.com/extend-and-reduce-lvms-in-linux/

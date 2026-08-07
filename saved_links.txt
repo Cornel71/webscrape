@@ -3716,3 +3716,35 @@ https://www.bing.com/aclick?ld=e8VT7iX4iq-K8uM3upI5aAdDVUCUz8JCgp45CR_pqJ39At1vH
  📂 CATEGORY: STORAGE & LVM MANAGEMENT
 =========================================
 https://www.tecmint.com/extend-and-reduce-lvms-in-linux/
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://gist.icoder.workers.dev/akhenda
+https://github.com/dimallya/ansible-demo
+https://www.packtpub.com/en-de/product/automation-with-ansible-playbooks-9781800206496
+https://claudeskills.info/skills/aj-geddes/useful-ai-prompts/ansible-automation/
+https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_async.html
+https://kodekloud.com/community/t/ansible-create-users-and-groups-failed-with-no-information/10172/7
+https://courses.impodays.com/red-hat-rhce-ex294-ex374-ansible-1500-exam-questions/
+https://labex.io/pt/tutorials/ansible-how-to-automate-it-tasks-with-ansible-playbook-examples-398442
+https://bugs.launchpad.net/starlingx/+bug/2162774
+https://kestra.io/docs/best-practices/secrets-management
+https://www.copypastelearn.com/blog/ansible-playbook-error-handling
+https://openillumi.com/en/en-ansible-task-execution-time-measure/
+https://splunk.github.io/splunk-ansible/
+https://www.ansiblepilot.com/articles/integrate-splunk-with-ansible-automation-controller-enhancing-monitoring-and-insights-with-logging-aggregation
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://undercodetesting.com/smart-branding-meets-cybersecurity-leveraging-minimalism-for-secure-digital-identities/
+https://multiples.vc/coverage/network-management
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://awesome.ecosyste.ms/topics/ansible-role
+https://cybersilo.tech/how-to-apply-cis-benchmarks-to-linux-systems-step-by-step
+https://gitlab.com/ndaal_open_source/ndaal_public_cis_benchmarks/-/tree/main/CIS-Benchmarks
+https://opennix.org/en/docs/baserow/automation/

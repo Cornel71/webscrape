@@ -3748,3 +3748,26 @@ https://awesome.ecosyste.ms/topics/ansible-role
 https://cybersilo.tech/how-to-apply-cis-benchmarks-to-linux-systems-step-by-step
 https://gitlab.com/ndaal_open_source/ndaal_public_cis_benchmarks/-/tree/main/CIS-Benchmarks
 https://opennix.org/en/docs/baserow/automation/
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://medium.com/@jeromedecinco/12-best-practices-to-follow-before-running-an-ansible-playbook-on-red-hat-enterprise-linux-37ccd16b4834
+https://www.compilenrun.com/docs/devops/ansible/ansible-templates/ansible-template-variables/
+https://www.javapedia.net/ansible-interview-questions/9639/what-happens-when-a-task-fails-in-an-ansible-playbook
+https://www.techtarget.com/searchitoperations/news/366613921/HashiCorp-CTO-talks-AI-strategy-Ansible-tie-ins-FedRAMP?&target=_blank&trk=article-ssr-frontend-pulse_little-text-block
+https://www.bing.com/aclick?ld=e8ZSfK9iJo2fIXdoRfsrI54jVUCUzTUKE4E_kaYI5MYA0d02f0DE1KD5tiQEDEDaEuVpOoZHlXWVfon5ak5D8pDfMX9jPRAPB3Vrldagc8QFTT5XH50P5yoTdzB-2TetGA79CIbD1N1aSIV0vLxn14YWdtOnVQ5vEbzdEpDl3gbMQ_2rR2LIF2QIcJXN0p1AyA3UI-d09FirtA8VgUoo4TBDzFu3Q&u=aHR0cHMlM2ElMmYlMmZ3d3cubWFuYWdlZW5naW5lLmNvbSUyZmNsb3VkLXNpZW0lMmYlM2ZjYW1pZCUzZDQ3MDg5MTk5NSUyNmFkZ2lkJTNkMTI5NTIyNTg0NDQ2NjUyOCUyNmt3ZCUzZGNsb3VkJTI1MjBzaWVtJTI1MjBlbnRlcnByaXNlJTI2bWF0Y2h0eXBlJTNkcCUyNmFkaWQlM2QlMjZuZXR3b3JrJTNkbyUyNmFkcG9zaXRpb24lM2QlMjZsb2MlM2Q0Mzg5NiUyNnBsYWNlbWVudCUzZCUyNnRhcmdldCUzZCUyNnNlYXJjaHF1ZXJ5JTNkYW5zaWJsZSUyNTIwaW50ZWdyYXRpb24lMjUyMHNwbHVuayUyNTIwcXJhZGFyJTI1MjBzaWVtJTI1MjBhdXRvbWF0ZWQlMjZrd2RtYXRjaHR5cGUlM2RicCUyNm1zY2xraWQlM2Q5MmUzNDAzZmFmZjUxMjQ0MjYwMjJhNDkzMjkwNGM4Nw&rlid=92e3403faff5124426022a4932904c87
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://github.com/topics/ansible-vault?o=desc&s=updated
+https://node-de-1.gugutamd.org/
+https://estoreab.com/ansible-network-automation-guide
+https://www.bing.com/aclick?ld=e87SZjM5Exb81o_Qx_AbQMoDVUCUziFmNJmxcePZhug1sQ97tj8dHxICTjdjpxBGsYHZHUkexqIjQB_ngpWMgPpNfygfeht39NBEtDULK-bEkfJ_0Z2P-8ofkr3f4mAVgIf7zCmsJlKalsAvjZdQjFord_VAmfLgI0ZxdR2ADyw2UaGyo-RiwRS0ekyqWlLVd0AC8b4Ma1DlWN9zoSGtUqUIH--EM&u=aHR0cHMlM2ElMmYlMmZhZC5kb3VibGVjbGljay5uZXQlMmZzZWFyY2hhZHMlMmZsaW5rJTJmY2xpY2slM2ZsaWQlM2Q0MzcwMDA4MzE4ODgzNzg3NiUyNmRzX3Nfa3dnaWQlM2Q1ODcwMDAwOTAwMzI2ODE5MyUyNmRzX2FfY2lkJTNkNzk3OTc0MjcwMyUyNmRzX2FfY2FpZCUzZDIzNTAwNTM1NDQyJTI2ZHNfYV9hZ2lkJTNkMTg5NTMzOTk3ODIyJTI2ZHNfYV9saWQlM2Rrd2QtODU3NTk5NDE2OTAzJTI2JTI2ZHNfZV9hZGlkJTNkNzM1OTg4MzE4MTY4NzAlMjZkc19lX3RhcmdldF9pZCUzZGt3ZC03MzU5ODczNzQ5NTQ4OSUzYWxvYy0xOTAlMjYlMjZkc19lX25ldHdvcmslM2RvJTI2ZHNfdXJsX3YlM2QyJTI2ZHNfZGVzdF91cmwlM2RodHRwcyUzYSUyZiUyZnBpeGVsLmV2ZXJlc3R0ZWNoLm5ldCUyZjQyMjMlMmZjcSUzZmV2X3NpZCUzZDEwJTI2ZXZfbG4lM2RyZWQlMjUyMGhhdCUyNTIwYXV0b21hdGlvbiUyNTIwd2l0aCUyNTIwYW5zaWJsZSUyNmV2X2x0eCUzZCUyNmV2X2x4JTNka3dkLTczNTk4NzM3NDk1NDg5JTNhbG9jLTE5MCUyNmV2X2NyeCUzZDczNTk4ODMxODE2ODcwJTI2ZXZfbXQlM2RlJTI2ZXZfZHZjJTNkYyUyNmV2X3BoeSUzZDQzODk2JTI2ZXZfbG9jJTNkJTI2ZXZfY3glM2QzNjE0NjUyMzQlMjZldl9heCUzZDExNzc1Nzc4MzU4NTAwNjklMjZldl9leCUzZCUyNmV2X2VmaWQlM2Q1MmEyOWQ4OWM5NzcxNzlmZTY5ZmY3ZmY1NDE5MGU5YSUzYUclM2FzJTI2dXJsJTNkaHR0cHMlMjUzQSUyNTJGJTI1MkZ3d3cuY2R3LmNvbSUyNTJGY29udGVudCUyNTJGY2R3JTI1MkZlbiUyNTJGYnJhbmQlMjUyRnJlZGhhdC5odG1sJTI1M0ZjaDElMjUzRHBhaWRfc2VhcmNoJTI1MjZjaDIlMjUzRHJzYSUyNTI2bWVkaWFfcGFydG5lciUyNTNEYmluZyUyNTI2Y21fZ29zaWQlMjUzREIwMDA5Wjk0JTI1MjZwbF9nb3NpZCUyNTNERTAwMEpHQlclMjUyNnNfa3djaWQlMjUzREFMITQyMjMhMTAhNzM1OTg4MzE4MTY4NzAhISEhNzM1OTg3Mzc0OTU0ODkhITM2MTQ2NTIzNCExMTc3NTc3ODM1ODUwMDY5JTI1MjZlZl9pZCUyNTNENTJhMjlkODljOTc3MTc5ZmU2OWZmN2ZmNTQxOTBlOWElMjUzQUclMjUzQXMlMjUyNmdjbGlkJTI1M0Q1MmEyOWQ4OWM5NzcxNzlmZTY5ZmY3ZmY1NDE5MGU5YSUyNTI2Z2Nsc3JjJTI1M0QzcC5kcyUyNTI2JTI2Z2NsaWQlM2Q1MmEyOWQ4OWM5NzcxNzlmZTY5ZmY3ZmY1NDE5MGU5YSUyNmdjbHNyYyUzZDNwLmRzJTI2bXNjbGtpZCUzZDUyYTI5ZDg5Yzk3NzE3OWZlNjlmZjdmZjU0MTkwZTlh&rlid=52a29d89c977179fe69ff7ff54190e9a
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://github.com/ansible-lockdown/UBUNTU18-CIS
+https://claudeskills.info/skills/mukul975/Anthropic-Cybersecurity-Skills/hardening-linux-endpoint-with-cis-benchmark/

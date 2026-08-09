@@ -3771,3 +3771,20 @@ https://www.bing.com/aclick?ld=e87SZjM5Exb81o_Qx_AbQMoDVUCUziFmNJmxcePZhug1sQ97t
 =========================================
 https://github.com/ansible-lockdown/UBUNTU18-CIS
 https://claudeskills.info/skills/mukul975/Anthropic-Cybersecurity-Skills/hardening-linux-endpoint-with-cis-benchmark/
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://www.webkkk.net/Christochi/ansible-tasks
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://docs.w3cub.com/ansible~2.11/collections/community/docker/docker_container_module.html
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://docs.w3cub.com/ansible/collections/ansible/builtin/copy_module
+https://claudeskills.info/skills/rmyndharis/antigravity-skills/network-engineer/
+https://www.bing.com/aclick?ld=e8sNye31km6FFUIdnUSJYU_DVUCUzIlgjWiSjLg3RG6YPGcz01XGC6BbnQx2KRZtyyExkF-2PQOLvSVP6TLjE-AOZdpQ-34LTIWaekJT4SCOW5zeEwY34nQS5jZLMxepdZVGfMzn500a76e0MPzfjLHQP-A4SouJcHu-vErqi81ClgNzXGpQGoaXOiqxqN6Y9ZPlAptw&u=aHR0cHMlM2ElMmYlMmZhZC5kb3VibGVjbGljay5uZXQlMmZzZWFyY2hhZHMlMmZsaW5rJTJmY2xpY2slM2ZsaWQlM2Q0MzcwMDA4MzE4ODgzNzg3NiUyNmRzX3Nfa3dnaWQlM2Q1ODcwMDAwOTAwMzI2ODE5MyUyNmRzX2FfY2lkJTNkNzk3OTc0MjcwMyUyNmRzX2FfY2FpZCUzZDIzNTAwNTM1NDQyJTI2ZHNfYV9hZ2lkJTNkMTg5NTMzOTk3ODIyJTI2ZHNfYV9saWQlM2Rrd2QtODU3NTk5NDE2OTAzJTI2JTI2ZHNfZV9hZGlkJTNkNzM1OTg4MzE4MTY4NzAlMjZkc19lX3RhcmdldF9pZCUzZGt3ZC03MzU5ODczNzQ5NTQ4OSUzYWxvYy0xOTAlMjYlMjZkc19lX25ldHdvcmslM2RvJTI2ZHNfdXJsX3YlM2QyJTI2ZHNfZGVzdF91cmwlM2RodHRwcyUzYSUyZiUyZnBpeGVsLmV2ZXJlc3R0ZWNoLm5ldCUyZjQyMjMlMmZjcSUzZmV2X3NpZCUzZDEwJTI2ZXZfbG4lM2RyZWQlMjUyMGhhdCUyNTIwYXV0b21hdGlvbiUyNTIwd2l0aCUyNTIwYW5zaWJsZSUyNmV2X2x0eCUzZCUyNmV2X2x4JTNka3dkLTczNTk4NzM3NDk1NDg5JTNhbG9jLTE5MCUyNmV2X2NyeCUzZDczNTk4ODMxODE2ODcwJTI2ZXZfbXQlM2RlJTI2ZXZfZHZjJTNkYyUyNmV2X3BoeSUzZDQzNDY2JTI2ZXZfbG9jJTNkJTI2ZXZfY3glM2QzNjE0NjUyMzQlMjZldl9heCUzZDExNzc1Nzc4MzU4NTAwNjklMjZldl9leCUzZCUyNmV2X2VmaWQlM2RiNjUzZTQ2MzY4NTAxMzZhMDdmZThlMTQ5ODkyZjEzMiUzYUclM2FzJTI2dXJsJTNkaHR0cHMlMjUzQSUyNTJGJTI1MkZ3d3cuY2R3LmNvbSUyNTJGY29udGVudCUyNTJGY2R3JTI1MkZlbiUyNTJGYnJhbmQlMjUyRnJlZGhhdC5odG1sJTI1M0ZjaDElMjUzRHBhaWRfc2VhcmNoJTI1MjZjaDIlMjUzRHJzYSUyNTI2bWVkaWFfcGFydG5lciUyNTNEYmluZyUyNTI2Y21fZ29zaWQlMjUzREIwMDA5Wjk0JTI1MjZwbF9nb3NpZCUyNTNERTAwMEpHQlclMjUyNnNfa3djaWQlMjUzREFMITQyMjMhMTAhNzM1OTg4MzE4MTY4NzAhISEhNzM1OTg3Mzc0OTU0ODkhITM2MTQ2NTIzNCExMTc3NTc3ODM1ODUwMDY5JTI1MjZlZl9pZCUyNTNEYjY1M2U0NjM2ODUwMTM2YTA3ZmU4ZTE0OTg5MmYxMzIlMjUzQUclMjUzQXMlMjUyNmdjbGlkJTI1M0RiNjUzZTQ2MzY4NTAxMzZhMDdmZThlMTQ5ODkyZjEzMiUyNTI2Z2Nsc3JjJTI1M0QzcC5kcyUyNTI2JTI2Z2NsaWQlM2RiNjUzZTQ2MzY4NTAxMzZhMDdmZThlMTQ5ODkyZjEzMiUyNmdjbHNyYyUzZDNwLmRzJTI2bXNjbGtpZCUzZGI2NTNlNDYzNjg1MDEzNmEwN2ZlOGUxNDk4OTJmMTMy&rlid=b653e4636850136a07fe8e149892f132

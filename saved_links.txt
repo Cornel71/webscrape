@@ -3788,3 +3788,44 @@ https://docs.w3cub.com/ansible~2.11/collections/community/docker/docker_containe
 https://docs.w3cub.com/ansible/collections/ansible/builtin/copy_module
 https://claudeskills.info/skills/rmyndharis/antigravity-skills/network-engineer/
 https://www.bing.com/aclick?ld=e8sNye31km6FFUIdnUSJYU_DVUCUzIlgjWiSjLg3RG6YPGcz01XGC6BbnQx2KRZtyyExkF-2PQOLvSVP6TLjE-AOZdpQ-34LTIWaekJT4SCOW5zeEwY34nQS5jZLMxepdZVGfMzn500a76e0MPzfjLHQP-A4SouJcHu-vErqi81ClgNzXGpQGoaXOiqxqN6Y9ZPlAptw&u=aHR0cHMlM2ElMmYlMmZhZC5kb3VibGVjbGljay5uZXQlMmZzZWFyY2hhZHMlMmZsaW5rJTJmY2xpY2slM2ZsaWQlM2Q0MzcwMDA4MzE4ODgzNzg3NiUyNmRzX3Nfa3dnaWQlM2Q1ODcwMDAwOTAwMzI2ODE5MyUyNmRzX2FfY2lkJTNkNzk3OTc0MjcwMyUyNmRzX2FfY2FpZCUzZDIzNTAwNTM1NDQyJTI2ZHNfYV9hZ2lkJTNkMTg5NTMzOTk3ODIyJTI2ZHNfYV9saWQlM2Rrd2QtODU3NTk5NDE2OTAzJTI2JTI2ZHNfZV9hZGlkJTNkNzM1OTg4MzE4MTY4NzAlMjZkc19lX3RhcmdldF9pZCUzZGt3ZC03MzU5ODczNzQ5NTQ4OSUzYWxvYy0xOTAlMjYlMjZkc19lX25ldHdvcmslM2RvJTI2ZHNfdXJsX3YlM2QyJTI2ZHNfZGVzdF91cmwlM2RodHRwcyUzYSUyZiUyZnBpeGVsLmV2ZXJlc3R0ZWNoLm5ldCUyZjQyMjMlMmZjcSUzZmV2X3NpZCUzZDEwJTI2ZXZfbG4lM2RyZWQlMjUyMGhhdCUyNTIwYXV0b21hdGlvbiUyNTIwd2l0aCUyNTIwYW5zaWJsZSUyNmV2X2x0eCUzZCUyNmV2X2x4JTNka3dkLTczNTk4NzM3NDk1NDg5JTNhbG9jLTE5MCUyNmV2X2NyeCUzZDczNTk4ODMxODE2ODcwJTI2ZXZfbXQlM2RlJTI2ZXZfZHZjJTNkYyUyNmV2X3BoeSUzZDQzNDY2JTI2ZXZfbG9jJTNkJTI2ZXZfY3glM2QzNjE0NjUyMzQlMjZldl9heCUzZDExNzc1Nzc4MzU4NTAwNjklMjZldl9leCUzZCUyNmV2X2VmaWQlM2RiNjUzZTQ2MzY4NTAxMzZhMDdmZThlMTQ5ODkyZjEzMiUzYUclM2FzJTI2dXJsJTNkaHR0cHMlMjUzQSUyNTJGJTI1MkZ3d3cuY2R3LmNvbSUyNTJGY29udGVudCUyNTJGY2R3JTI1MkZlbiUyNTJGYnJhbmQlMjUyRnJlZGhhdC5odG1sJTI1M0ZjaDElMjUzRHBhaWRfc2VhcmNoJTI1MjZjaDIlMjUzRHJzYSUyNTI2bWVkaWFfcGFydG5lciUyNTNEYmluZyUyNTI2Y21fZ29zaWQlMjUzREIwMDA5Wjk0JTI1MjZwbF9nb3NpZCUyNTNERTAwMEpHQlclMjUyNnNfa3djaWQlMjUzREFMITQyMjMhMTAhNzM1OTg4MzE4MTY4NzAhISEhNzM1OTg3Mzc0OTU0ODkhITM2MTQ2NTIzNCExMTc3NTc3ODM1ODUwMDY5JTI1MjZlZl9pZCUyNTNEYjY1M2U0NjM2ODUwMTM2YTA3ZmU4ZTE0OTg5MmYxMzIlMjUzQUclMjUzQXMlMjUyNmdjbGlkJTI1M0RiNjUzZTQ2MzY4NTAxMzZhMDdmZThlMTQ5ODkyZjEzMiUyNTI2Z2Nsc3JjJTI1M0QzcC5kcyUyNTI2JTI2Z2NsaWQlM2RiNjUzZTQ2MzY4NTAxMzZhMDdmZThlMTQ5ODkyZjEzMiUyNmdjbHNyYyUzZDNwLmRzJTI2bXNjbGtpZCUzZGI2NTNlNDYzNjg1MDEzNmEwN2ZlOGUxNDk4OTJmMTMy&rlid=b653e4636850136a07fe8e149892f132
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://www.automatesql.com/?trk=article-ssr-frontend-pulse_little-text-block
+https://serverfault.com/questions/896162/ansible-git-autodeploy-by-webhooks
+https://github.com/ansible-community/ansible-test-gh-action
+https://lucaberton.com/blog/fix-ansible-yaml-syntax-error/
+https://docs.ansible.com/projects/ansible/latest/dev_guide/testing/sanity/yamllint.html
+https://summyt.app/summaries/technology/day-03-or-write-your-first-ansible-playbook-or-for-absolute-beginners-lQqFN1Bt0UQ
+https://www.ansiblepilot.com/articles/ansible-become-privilege-escalation-complete-guide
+https://qmasters.co/solutions/siem-automation
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://github.com/RickZaki/homelab-ansible
+https://www.iditect.com/program-example/gitlab-ci-how-to-deploy-an-application-via-ssh.html
+https://github.com/ctc-oss/ubuntu-k3s-security-hardening
+https://www.linux.org/docs/man8/visudo.html
+https://docs.openstack.org/kolla-ansible/wallaby/user/ansible-tuning.html
+https://www.bing.com/aclick?ld=e8U9C1qX0OXdMJPkIiqvtrYzVUCUzuporqyVoAqi_yzzIfA71Eg3d0LYOfxI7SKZ2F6QsljG-B9lqDGBC3My7LY7XVv7gvP6bh4xm0HyYrmo-UcGouVRvPQl7BGKVPbHFDk3zcHYEjWExElYAwem7-YEGgtd79PQ8qYBLRzRJ_utddIMF1A20p2P41qA11Zhcc22XmNw&u=aHR0cHMlM2ElMmYlMmZhZC5kb3VibGVjbGljay5uZXQlMmZzZWFyY2hhZHMlMmZsaW5rJTJmY2xpY2slM2ZsaWQlM2Q0MzcwMDA4MzE4ODgzODIwNiUyNmRzX3Nfa3dnaWQlM2Q1ODcwMDAwOTAwMzI2ODIxNCUyNmRzX2FfY2lkJTNkNzk3OTc0MjcwMyUyNmRzX2FfY2FpZCUzZDIzNTAwNTM1NDQyJTI2ZHNfYV9hZ2lkJTNkMTkyODg1MjUyMjMyJTI2ZHNfYV9saWQlM2Rrd2QtODkyNzUyMjk0NDc5JTI2JTI2ZHNfZV9hZGlkJTNkNzQwNzk4Njg5ODkwNDklMjZkc19lX3RhcmdldF9pZCUzZGt3ZC03NDA3OTc3Mzg4NDQwNyUzYWxvYy0xOTAlMjYlMjZkc19lX25ldHdvcmslM2RvJTI2ZHNfdXJsX3YlM2QyJTI2ZHNfZGVzdF91cmwlM2RodHRwcyUzYSUyZiUyZnBpeGVsLmV2ZXJlc3R0ZWNoLm5ldCUyZjQyMjMlMmZjcSUzZmV2X3NpZCUzZDEwJTI2ZXZfbG4lM2QlMjUyQmFuc2libGUlMjUyMCUyNTJCcmVkaGF0JTI2ZXZfbHR4JTNkJTI2ZXZfbHglM2Rrd2QtNzQwNzk3NzM4ODQ0MDclM2Fsb2MtMTkwJTI2ZXZfY3J4JTNkNzQwNzk4Njg5ODkwNDklMjZldl9tdCUzZHAlMjZldl9kdmMlM2RjJTI2ZXZfcGh5JTNkNDM0NjYlMjZldl9sb2MlM2QlMjZldl9jeCUzZDM2MTQ2NTIzNCUyNmV2X2F4JTNkMTE4NTI3NDQxNzM0OTUzMiUyNmV2X2V4JTNkJTI2ZXZfZWZpZCUzZGU4MWJhZTRiOTM2OTFiMzE3MTE1YzQzMmQ3Y2U3NzE0JTNhRyUzYXMlMjZ1cmwlM2RodHRwcyUyNTNBJTI1MkYlMjUyRnd3dy5jZHcuY29tJTI1MkZjb250ZW50JTI1MkZjZHclMjUyRmVuJTI1MkZicmFuZCUyNTJGcmVkaGF0Lmh0bWwlMjUzRmNoMSUyNTNEcGFpZF9zZWFyY2glMjUyNmNoMiUyNTNEcnNhJTI1MjZtZWRpYV9wYXJ0bmVyJTI1M0RiaW5nJTI1MjZjbV9nb3NpZCUyNTNEQjAwMDlaOTQlMjUyNnBsX2dvc2lkJTI1M0RFMDAwSkdCVyUyNTI2c19rd2NpZCUyNTNEQUwhNDIyMyExMCE3NDA3OTg2ODk4OTA0OSEhISE3NDA3OTc3Mzg4NDQwNyEhMzYxNDY1MjM0ITExODUyNzQ0MTczNDk1MzIlMjUyNmVmX2lkJTI1M0RlODFiYWU0YjkzNjkxYjMxNzExNWM0MzJkN2NlNzcxNCUyNTNBRyUyNTNBcyUyNTI2Z2NsaWQlMjUzRGU4MWJhZTRiOTM2OTFiMzE3MTE1YzQzMmQ3Y2U3NzE0JTI1MjZnY2xzcmMlMjUzRDNwLmRzJTI1MjYlMjZnY2xpZCUzZGU4MWJhZTRiOTM2OTFiMzE3MTE1YzQzMmQ3Y2U3NzE0JTI2Z2Nsc3JjJTNkM3AuZHMlMjZtc2Nsa2lkJTNkZTgxYmFlNGI5MzY5MWIzMTcxMTVjNDMyZDdjZTc3MTQ&rlid=e81bae4b93691b317115c432d7ce7714
+https://www.bing.com/aclick?ld=e8YMtEt7Tz8xk0rCvqT_zhYzVUCUzWCRYNm-GOCmQsTlgg1CUM73nWNZ5bu4fM3hkdzCQ6yoxX2Uvu_TVCKSjUEt0Ohs5FNlWfKjx8uN7dU5hc-WB3gYw-2vJrIMzYqXrijepsJmqDNc26B1GkqSd7iM00_vu1rpsEKFY9Ds9IZuU8ZphAVLRg64yPPs_aAz-qdl8BFg&u=aHR0cHMlM2ElMmYlMmZ3d3cuc3BsdW5rLmNvbSUyZmVuX3VzJTJmZm9ybSUyZnRoZS1lc3NlbnRpYWwtZ3VpZGUtdG8tc29hci5odG1sJTNmdXRtX2NhbXBhaWduJTNkYmluZ19hbWVyX2VuX3NlYXJjaF9nZW5lcmljX3NlY3VyaXR5JTI2dXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fbWVkaXVtJTNkY3BjJTI2dXRtX2NvbnRlbnQlM2RFc3NHdWlkZXRvU09BUl9FQl92MiUyNnV0bV90ZXJtJTNkc2VjdXJpdHklMjUyMG9yY2hlc3RyYXRpb24lMjUyMGF1dG9tYXRpb24lMjUyMHJlc3BvbnNlJTI2ZGV2aWNlJTNkYyUyNl9idCUzZDcyMDg3MDE2MTMwNzUwJTI2X2JtJTNkcCUyNm1zY2xraWQlM2RlZDA4ZWNiOWJlNWUxNWUwN2NmNTg2YzBmYWY5ZTllMw&rlid=ed08ecb9be5e15e07cf586c0faf9e9e3
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://awesome.ecosyste.ms/projects/github.com/cpeoples/ansible-security-scanner
+https://www.cisguard.io/for-devsecops
+https://cybersilo.tech/what-to-ask-a-cis-benchmarking-tool-vendor-before-you-buy
+https://rhpds.github.io/ai-driven-automation-showroom/modules/module-09.html
+
+=========================================
+ 📂 CATEGORY: STORAGE & LVM MANAGEMENT
+=========================================
+https://docs.ansible.com/projects/ansible/9/collections/community/general/lvol_module.html
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://hub.docker.com/r/lj020326/ansible-execution-env

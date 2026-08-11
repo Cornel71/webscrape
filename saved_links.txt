@@ -3829,3 +3829,37 @@ https://docs.ansible.com/projects/ansible/9/collections/community/general/lvol_m
  📂 CATEGORY: DOCKER & CONTAINERS
 =========================================
 https://hub.docker.com/r/lj020326/ansible-execution-env
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://libraries.io/github/ansible-book/playbook-examples-chapter5-role-and-ansible-role
+https://claudeskills.info/skills/thebushidocollective/han/ansible-playbooks/
+https://www.packtpub.com/en-co/product/automation-with-ansible-playbooks-9781800206496
+https://claudeskills.info/skills/thebushidocollective/han/ansible-roles/
+https://awesome.ecosyste.ms/lists/ansible-community/awesome-ansible
+https://gittrend.io/repo/geerlingguy/mac-dev-playbook
+https://spec-zone.ru/ansible/user_guide/playbooks_variables
+https://security.googlecloudcommunity.com/google-security-operations-2/on-prem-splunk-chronicle-soar-integration-1590
+https://techcommunity.microsoft.com/blog/azurearcblog/expanding-the-azure-local-security-ecosystem-with-ibm-qradar-and-splunk/4535101
+https://app.splunk.me/
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://nsirap.com/posts/048-ansible-install-docker-and-docker-compose/
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://dev.to/tesddev/how-i-automated-ubuntu-server-hardening-with-one-script-209a
+https://usavps.com/blog/post/ansible-on-usa-vps-automate-secure-and-scale-your-servers/
+https://khimananda.com/blog/ansible-vault-encrypt-secrets-in-playbooks
+https://www.ansiblepilot.com/learning-paths/security-compliance
+https://www.qa.com/en-us/course-catalogue/courses/managing-enterprise-automation-with-red-hat-ansible-automation-platform-red-hat-learning-subscription-course-au467ls/
+https://www.infotech.com/software-reviews/categories/data-center-automation/compare/red-hat-ansible-automation-platform-vs-open-text-dca
+
+=========================================
+ 📂 CATEGORY: PERFORMANCE & KERNEL OPTIMIZATION
+=========================================
+https://getdocs.org/Ansible/docs/2.10/collections/ansible/posix/sysctl_module

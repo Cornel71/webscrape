@@ -3863,3 +3863,32 @@ https://www.infotech.com/software-reviews/categories/data-center-automation/comp
  📂 CATEGORY: PERFORMANCE & KERNEL OPTIMIZATION
 =========================================
 https://getdocs.org/Ansible/docs/2.10/collections/ansible/posix/sysctl_module
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://medium.com/@manikandanprakash.p/building-an-end-to-end-ci-cd-pipeline-with-jenkins-ansible-docker-kubernetes-and-terraform-4c428477431a
+https://interestingittips.wordpress.com/2022/01/08/gitlab-amp-ansible-ci-cd-on-k3s/
+https://readmedium.com/installing-ansible-on-macos-controlling-remote-macos-and-raspberry-pi-390a2ab2f9db
+https://awesome.ecosyste.ms/projects/github.com/dev-sec/ansible-mysql-hardening
+https://developers.redhat.com/articles/2026/08/11/just-in-time-access-to-hashicorp-vault-with-ansible-oidc-provider
+https://mockrounds.com/devops-cloud/security-compliance-automation-with-ansible-quiz/
+https://www.quickstart.com/developing-advanced-automation-with-red-hat-ansible-automation-platform.html
+https://medium.com/techbeatly/red-hat-ansible-automation-platform-ultimate-hands-on-labs-3cdef1a9e935
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://umatechnology.org/security-protocols-for-container-based-ci-tools-provisioned-using-ansible/
+https://cybersilo.tech/cis-benchmarking-tool-buyer-guide-2026
+https://git.hubp.de/topics/centos7
+https://opennix.org/en/docs/pfsense/pfsense-wazuh-integration/
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://sysadmin.info.pl/en/blog/persistent-perfection-mastering-awx-project-storage-on-kubernetes/
+https://blog.gitguardian.com/how-to-handle-secrets-in-terraform/
+https://medium.com/@davidnsoesie1/stop-exposing-secrets-in-your-infrastructure-as-code-0b907694a8c1
+https://www.techtarget.com/cybersecurity/feature/Top-incident-response-service-providers-vendors-and-software
+https://claudeskills.info/skills/mukul975/Anthropic-Cybersecurity-Skills/performing-network-traffic-analysis-with-zeek/

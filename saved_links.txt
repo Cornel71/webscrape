@@ -3892,3 +3892,37 @@ https://blog.gitguardian.com/how-to-handle-secrets-in-terraform/
 https://medium.com/@davidnsoesie1/stop-exposing-secrets-in-your-infrastructure-as-code-0b907694a8c1
 https://www.techtarget.com/cybersecurity/feature/Top-incident-response-service-providers-vendors-and-software
 https://claudeskills.info/skills/mukul975/Anthropic-Cybersecurity-Skills/performing-network-traffic-analysis-with-zeek/
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://www.redhat.com/en/blog/integrating-ansible-jenkins-cicd-process
+https://www.andrewriley.info/p/homelab-cicd-restructure/
+https://devops.aibit.im/en/article/guide-securing-configuration-secrets-ansible-vault
+https://notes.runtimeterror.dev/CICD/SSH-from-a-Gitlab-runner.html
+https://www.g2.com/products/ansible-control-node-on-centos-8/reviews
+https://www.linkedin.com/posts/jayabharathareddys_ansible-devops-docker-activity-7346397157316358144-K67U
+https://labs.demoredhat.com/decks/ansible_network.pdf
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://awesome.ecosyste.ms/projects/github.com/riemers/ansible-gitlab-runner
+https://github.com/evictedcucumber/homelab-cis-benchmark
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://docs.ansible.com/ansible/7/collections/community/docker/docker_container_info_module.html
+https://awstip.com/setup-apache-web-server-in-a-docker-container-for-debian-like-systems-67ccdf69b4a?source=post_internal_links---------3----------------------------
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://medium.com/spacelift/working-with-ansible-playbooks-tips-tricks-with-examples-a28fee4410d3
+https://www.golinuxcloud.com/ansible-loop/
+https://autoparse.tech/hostingi/ansible-playbook/
+https://docs.opennebula.io/7.4/getting_started/install_opennebula/one_deploy/one_deploy_overview/
+https://www.linkedin.com/posts/pronteff_ansibleautomation-devsecops-cloudoperations-activity-7440744005392523264-8eyv
+https://fintech.ru/en/glossary/siem-system
+https://siem.plus/

@@ -3926,3 +3926,41 @@ https://docs.opennebula.io/7.4/getting_started/install_opennebula/one_deploy/one
 https://www.linkedin.com/posts/pronteff_ansibleautomation-devsecops-cloudoperations-activity-7440744005392523264-8eyv
 https://fintech.ru/en/glossary/siem-system
 https://siem.plus/
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://github.com/metno/ansible-style-guide
+https://developer-shubham-rasal.medium.com/launching-docker-container-using-ansible-372bbdca9165
+https://www.ansiblepilot.com/tags/ansible-automation/
+https://stackoverflow.com/questions/72983650/access-result-of-ansible-task-in-changed-when-and-failed-when
+http://setgetweb.com/p/ansible/user_guide/complex_data_manipulation.html
+https://stackoverflow.com/questions/65076175/use-of-privilege-escalation-in-a-secure-environment-with-become-ansible
+https://simeononsecurity.com/guides/automate-windows-patching-and-updates-with-ansible/
+https://business.columbia.edu/insights/secrets-trust-leadership-performance
+https://b2b-cyber-security.de/en/Secrets-exposure:-how-to-avoid-them/
+https://www.esecurityplanet.com/products/siem-tools/
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://arkitekts.dk/ci-cd-enterprise-guide-github-actions-jenkins-gitlab-ci-and-production-pipelines/
+https://stackoverflow.com/questions/37004686/how-to-pass-a-user-password-in-ansible-command
+https://github.com/asapdotid/ansible-role-firewall
+https://www.ansiblebyexample.com/tags/hashicorp-vault
+https://www.redhat.com/en/about/press-releases/red-hat-establishes-ansible-automation-platform-trusted-execution-layer-it-operations-agentic-era
+https://developers.redhat.com/articles/2026/06/19/get-ready-ansible-automation-platform-2-7
+
+=========================================
+ 📂 CATEGORY: NGINX & WEB REVERSE PROXY
+=========================================
+https://awesomeopensource.com/project/waharnum/ansible-nginx-reverse-proxy
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://cybersilo.tech/how-to-automate-cis-benchmark-scanning-across-1000-endpoints
+https://www.cisguard.io/
+https://www.linkedin.com/posts/saritha-mahor_ansible-devops-automation-activity-7488588436204023810-QWO1
+https://steampunk.si/blog/automate-and-strengthen-your-security-with-ansible/
+https://labs.demoredhat.com/exercises/zero-trust

@@ -3964,3 +3964,32 @@ https://www.cisguard.io/
 https://www.linkedin.com/posts/saritha-mahor_ansible-devops-automation-activity-7488588436204023810-QWO1
 https://steampunk.si/blog/automate-and-strengthen-your-security-with-ansible/
 https://labs.demoredhat.com/exercises/zero-trust
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://markaicode.com/alternatives/ansible-alternatives/
+https://n8npro.in/advanced-topics-best-practices/automating-node-infrastructure-tasks-with-n8n-if-applicable/
+https://02687.com/blog/automating-moodle-deployment-with-ansible-playbooks/
+https://awesome.ecosyste.ms/projects/github.com/enginyoyen/ansible-best-practises
+https://www.packtpub.com/en-my/product/automation-with-ansible-playbooks-9781800206496
+https://steampunk.si/spotter/blog/ansible-playbooks-for-beginners-automate-daily-routine/
+https://kuryzhev.cloud/2026/08/01/fix-ansible-bootstrap-playbook-failing-on-fresh-cloud-servers/
+https://devopsaitoolkit.com/blog/ansible-error-syntax-error-loading-yaml/
+https://errorism.dev/issues/manageiq-manageiq-provisioning-freezes-during-ansible-playbook-launch
+https://labex.io/fr/tutorials/ansible-how-to-fix-mkdir-error-when-creating-playbooks-directory-in-ansible-417292
+https://hackernoon.com/when-configuration-management-becomes-an-operational-liability
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://andreyex.ru/debian/dobavlyaem-polzovatelya-v-sudoers-v-debian-12/
+https://zero-to-ai.dev/32-cheatsheets/config-management/ansible-cheatsheet
+https://hirify.me/jobs/845920-secrets-management-platform-engineer
+https://www.bytes.co.uk/info/events/red-hat-ansible-automation-workshop
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://www.rack2cloud.com/ansible-day-2-operations-strategy-guide/
+https://www.cimcor.com/blog/what-are-cis-benchmarks

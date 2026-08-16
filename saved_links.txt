@@ -3993,3 +3993,32 @@ https://www.bytes.co.uk/info/events/red-hat-ansible-automation-workshop
 =========================================
 https://www.rack2cloud.com/ansible-day-2-operations-strategy-guide/
 https://www.cimcor.com/blog/what-are-cis-benchmarks
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://www.ansiblebyexample.com/tags/playbook-automation
+https://github.com/amirelkhateeb/ansible-task4-lab
+https://guide.arillso.io/guide/best-practices/standards.html
+https://linuxcert.guru/blog/ansible-tags/
+https://cfengine.com/blog/2026/ansible-cfengine/
+https://labs.demoredhat.com/exercises/defend-contain-comply
+https://www.exabeam.com/ar/explainers/siem-tools/siem-solutions/
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://kruyt.org/ansible-ci-with-gitlab/
+https://www.cloudquery.io/blog/how-to-aws-cis-compliance
+https://labs.demoredhat.com/exercises/zero-trust.html
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://www.voxfor.com/sudoers-rule-command-scope-negative-test/
+https://blog.hofstede.it/linux-firewalls-how-to-actually-secure-a-cloud-server-iptables-nftables-firewalld-ufw/
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://deepwiki.com/ansible/ansible/6.3-test-execution-environments

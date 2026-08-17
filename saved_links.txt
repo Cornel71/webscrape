@@ -4022,3 +4022,10 @@ https://blog.hofstede.it/linux-firewalls-how-to-actually-secure-a-cloud-server-i
  📂 CATEGORY: DOCKER & CONTAINERS
 =========================================
 https://deepwiki.com/ansible/ansible/6.3-test-execution-environments
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://www.ansiblebyexample.com/categories/playbooks
+https://github.com/vaishnaviid/ansible-deployment-scripts
+https://serverfault.com/questions/976424/how-do-i-report-an-ansible-command-shell-task-as-changed-in-check-mode

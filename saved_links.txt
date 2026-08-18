@@ -4029,3 +4029,19 @@ https://deepwiki.com/ansible/ansible/6.3-test-execution-environments
 https://www.ansiblebyexample.com/categories/playbooks
 https://github.com/vaishnaviid/ansible-deployment-scripts
 https://serverfault.com/questions/976424/how-do-i-report-an-ansible-command-shell-task-as-changed-in-check-mode
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://runbook.academy/courses/ansible/lessons/ansible-antipattern-inaccurate-changed/
+https://www.ansiblepilot.com/articles/ansible-handlers-complete-guide
+https://lucaberton.medium.com/ansible-troubleshooting-error-208-risky-file-permissions-46cbe1506c69
+https://setgetweb.com/p/ansible/user_guide/become.html
+https://owasp.org/www-project-non-human-identities-top-10/2025/2-secret-leakage/
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/configuring_automation_execution/assembly-controller-secret-management
+https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.4/html/automation_controller_user_guide/assembly-controller-secret-management
+https://catalog.redhat.com/en/software/container-stacks/detail/5ec5357da7ad03355d87e3a2

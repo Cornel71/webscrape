@@ -4045,3 +4045,30 @@ https://owasp.org/www-project-non-human-identities-top-10/2025/2-secret-leakage/
 https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/configuring_automation_execution/assembly-controller-secret-management
 https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.4/html/automation_controller_user_guide/assembly-controller-secret-management
 https://catalog.redhat.com/en/software/container-stacks/detail/5ec5357da7ad03355d87e3a2
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://github.com/ansible/ansible-lint/blob/main/src/ansiblelint/rules/command_instead_of_shell.md
+https://github.com/OneUptime/blog/blob/master/posts/2026-02-21-how-to-use-role-handlers-in-ansible/README.md
+https://docs.ansible.com/projects/ansible-core/2.14/playbook_guide/playbooks_blocks.html
+https://www.bing.com/aclick?ld=e89FoHOpfIU_aU7ajXY0k1_DVUCUzSoxgRvyMgPnbdd-fcRr5_swgEU6wPrvWHC2c_-bHkyKALyqUmZ3c9YZ_CNd4fVMpyeh8cJ7ZWWCmX338mG5xvJHI8kGYLwagIDA6hgM72y4_hr95LJUx6o6K2QbFxcuTi2unA7b7ODpBjNtRbrfJyrirKMd8O0jkJZWzpfKyXFnfx3VmHqk3KiriiWdNTLPs&u=aHR0cHMlM2ElMmYlMmZ3d3cubWFuYWdlZW5naW5lLmNvbSUyZmNsb3VkLXNpZW0lMmYlM2ZjYW1pZCUzZDQ3MDg5MTk5NSUyNmFkZ2lkJTNkMTI5NTIyNTg0NDQ2NjUyOCUyNmt3ZCUzZGNsb3VkJTI1MjBzaWVtJTI1MjBzZXJ2aWNlJTI2bWF0Y2h0eXBlJTNkcCUyNmFkaWQlM2QlMjZuZXR3b3JrJTNkbyUyNmFkcG9zaXRpb24lM2QlMjZsb2MlM2Q0Mzg5NiUyNnBsYWNlbWVudCUzZCUyNnRhcmdldCUzZCUyNnNlYXJjaHF1ZXJ5JTNkYW5zaWJsZSUyNTIwaW50ZWdyYXRpb24lMjUyMHNwbHVuayUyNTIwcXJhZGFyJTI1MjBzaWVtJTI1MjBhdXRvbWF0ZWQlMjZrd2RtYXRjaHR5cGUlM2RicCUyNm1zY2xraWQlM2QwMDJhZmQxZDI4MjcxOGIyYThhNzk3OWI0MDBkM2E4NA&rlid=002afd1d282718b2a8a7979b400d3a84
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://ansible-collections.github.io/community.docker/branch/main/docker_container_module.html
+https://www.bing.com/aclick?ld=e8imcD9zvsVsqI0Ebq9wjxazVUCUxsLhG0ymgNM-6CrCdu0AJxBzn-kiiSNFWZ3mcQUhv1A0UQxThPXlaPEKEIGQiB_l6PysBA0fSkIjcewXPbnMIKqH30U_wg1Ihd7WkwD3dhzHCBXFp3FEdexy3qKnjtOwGUVSdFf1TFUgOp8rHxy9FN2iOgPaehvD9VyzyZLq18m3bRkJ2eNmHiSjUQdd0XIq4&u=aHR0cHMlM2ElMmYlMmZ3d3cud2l6LmlvJTJmbHAlMmZjb250YWluZXItc2VjdXJpdHktYmVzdC1wcmFjdGljZXMtY2hlYXQtc2hlZXQlM2Z1dG1fc291cmNlJTNkYmluZyUyNnV0bV9tZWRpdW0lM2RwcGMlMjZ1dG1fY2FtcGFpZ24lM2Rub24tYnJhbmQtY29udGVudC10aWVyLTEtc2VhcmNoLXVzJTI2dXRtX3Rlcm0lM2RDb250YWluZXIlMjUyMFNlY3VyaXR5JTI1MjBCZXN0JTI1MjBQcmFjdGljZXMlMjZ1dG1fYWRncm91cG5hbWUlM2QlN2Jjb250YWluZXItc2VjdXJpdHklN2QlMjZ1dG1fZGV2aWNlJTNkYyUyNm1zY2xraWQlM2QwNDBmMTI2MmE0ODQxYTI3OTZhMjc4ZTRjY2E1ZTY4Mw&rlid=040f1262a4841a2796a278e4cca5e683
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://www.bing.com/aclick?ld=e8yTh-YbtB062sUZTE3j1YLzVUCUxPdo5fpqOVXj9UcFFchbCe6Eu1FXJmc_glGt-QNNHlEs2KTmHYHXGmlnz9h2I5BXeLYU0V1HPnt-sSInKkfEPKNEfBjYVlwmNvaVEP6hpRM4yXJtZKCCG-V7XKpG1GXtouIBVtIW4vrzy_-nR1rxq-QLaqMuwXPho0lZ7JjUs1-z4F61ApOg7b4oSP21EicgEQQt-u24IXuNQ88KdzVuRD&u=aHR0cHMlM2ElMmYlMmZtb25pdG9yLmx1bmlvLmFpJTJmdjMuMCUyZnRlbXBsYXRlJTNmYWNjaWQlM2QxNjg5NiUyNnVybGRlY29kZSUzZDElMjZrdyUzZGNpcyUyNTIwYmVuY2htYXJrJTI1MjB0b29sJTI2bXQlM2RwJTI2bnclM2RvJTI2Y3BuJTNkNDI4MzI5MjQwJTI2ZGV2aSUzZGMlMjZkZXZtJTNkJTI2bG9jcCUzZDQzODk2JTI2bG9jaSUzZCUyNnBsJTNkJTI2Y3IlM2QlMjZhZHAlM2QlMjZzYWR0JTNkJTI2dXJsJTNkaHR0cHMlMjUzQSUyNTJGJTI1MkZ3d3cuZGF0YWRvZ2hxLmNvbSUyNTJGZGclMjUyRnNlY3VyaXR5JTI1MkZjaXMtYmVuY2htYXJraW5nJTI1MkYlMjUzRnV0bV9zb3VyY2UlMjUzRGJpbmclMjUyNnV0bV9tZWRpdW0lMjUzRHBhaWQtc2VhcmNoJTI1MjZ1dG1fY2FtcGFpZ24lMjUzRGRnLXNlY3VyaXR5LW5hLWNpc2JlbmNobWFyayUyNTI2dXRtX2tleXdvcmQlMjUzRGNpcyUyNTI1MjBiZW5jaG1hcmslMjUyNTIwdG9vbCUyNTI2dXRtX21hdGNodHlwZSUyNTNEcCUyNTI2aWdhYWclMjUzRDEzMDQwMjExNjEyOTM4MzIlMjUyNmlnYWF0JTI1M0QlMjUyNmlnYWNtJTI1M0Q0MjgzMjkyNDAlMjUyNmlnYWNyJTI1M0QlMjUyNmlnYWt3JTI1M0RjaXMlMjUyNTIwYmVuY2htYXJrJTI1MjUyMHRvb2wlMjUyNmlnYW10JTI1M0RwJTI1MjZpZ2FudCUyNTNEbyUyNTI2dXRtX2NhbXBhaWduaWQlMjUzRDQyODMyOTI0MCUyNTI2dXRtX2FkZ3JvdXBpZCUyNTNEMTMwNDAyMTE2MTI5MzgzMiUyNm1zY2xraWQlM2RhMDZkNjBjNWY5Y2MxODRiMzE5ZTBhNDM5ZTI0YTE5ZA&rlid=a06d60c5f9cc184b319e0a439e24a19d
+https://www.bing.com/aclick?ld=e8kNsNajPIhIBihV2Z4hvurDVUCUylzf71nYG5CRh93x4hgGMlX5DGbHggoF81vGTU3FrJCFOr9tOZjoETMXv8HK4zieT8zawJWLR6aA88mK99hcgZI_2EXsKOoUfeKpe_jNlwCLtcvVMoO-1SyNZ2eVRd0FL_7b859Gd4Da67LCQO0AVdwclZXFzXFyYPUB3nWnMZSejfPT0tbjcS2RBxjWLSyhpAbR4ELNyoM_8SsrJ7hKDl&u=aHR0cHMlM2ElMmYlMmZ3d3cuY2lzZWN1cml0eS5vcmclMmZjaXMtYmVuY2htYXJrcyUyZiUzZnV0bV9zb3VyY2UlM2RiaW5nJTI2dXRtX21lZGl1bSUzZGNwYyUyNnV0bV9jYW1wYWlnbiUzZGJlbmNobWFya3MlMjZ1dG1fdGVybSUzZHRoZW1lX2VjaCUyNnV0bV9jb250ZW50JTNkZ2VuZXJhbCUyNnV0bV9zb3VyY2UlM2RiaW5nJTI2dXRtX21lZGl1bSUzZGNwYyUyNnV0bV9jYW1wYWlnbiUzZGJpbmdfYmVuY2htYXJrcyUyNm1zY2xraWQlM2QxYjQ3MTVkOTA5MTMxOGQwYjgxYTdmNWY2ZWZiZjc1Mg&rlid=1b4715d9091318d0b81a7f5f6efbf752
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://galaxy.semaphoreui.com/views/dev-sec/ansible-os-hardening
+https://www.ansiblebyexample.com/learning-paths/security-compliance
+https://access.redhat.com/products/red-hat-ansible-automation-platform/

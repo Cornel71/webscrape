@@ -4101,3 +4101,10 @@ https://www.bing.com/aclick?ld=e8aRJ4keAxPhTxFzOYFWB93zVUCUzu0iR5KDdi4JBJHtxYkFc
  📂 CATEGORY: DOCKER & CONTAINERS
 =========================================
 https://www.bing.com/aclick?ld=e8AGreuaE6PuHxM1IyqEI_bjVUCUzWZlPKNB2Q6ihs5ljU0GfpVL6ZTkXr11f8DRV1g3gLxrAFUHAjPliQ_dVpXPaYwhRu0p0A2lPRq2O5qmJaDx55NlEQd2GFJ4_QUXXSAf7j5USmQo6km3Q0Vurmof7hn-q1C0PgTtEK9yee5LCLwV8sqoBbq-HfqvEdrrL1sn9kdjwHqQqafRlfUJg6tkWZ4Jw&u=aHR0cHMlM2ElMmYlMmZpc292YWxlbnQuY29tJTJmcHJvZHVjdHMlMmZydW50aW1lLXNlY3VyaXR5JTJmJTNmdXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fbWVkaXVtJTNkY3BjJTI2dXRtX2NhbXBhaWduJTNkU2VhcmNoJTI1MjAlMjU3QyUyNTIwTm9uLUJyYW5kJTI1MjAlMjU3QyUyNTIwTkElMjUyMCUyNTdDJTI1MjBTZWN1cml0eSUyNnV0bV90ZXJtJTNkQWR2YW5jZWQlMjUyMGNvbnRhaW5lciUyNTIwc2VjdXJpdHklMjZ1dG1fY29udGVudCUzZDgwNTM5NDMyNTU1Mjc1X0NvbnRhaW5lciUyNnV0bV90ZXJtJTNkQWR2YW5jZWQlMjUyMGNvbnRhaW5lciUyNTIwc2VjdXJpdHklMjZ1dG1fY2FtcGFpZ24lM2RTZWFyY2glMmIlMjU3QyUyYk5vbi1CcmFuZCUyYiUyNTdDJTJiTkElMmIlMjU3QyUyYk5ldHdvcmtpbmclMjZ1dG1fc291cmNlJTNkYmluZyUyNnV0bV9tZWRpdW0lM2RwcGMlMjZoc2FfYWNjJTNkOTcyMTc2OTEwNSUyNmhzYV9jYW0lM2QyMjQ4NDcxNzk3NCUyNmhzYV9ncnAlM2QxMjg4NjI5MDExOTEwOTU0JTI2aHNhX2FkJTNkJTI2aHNhX3NyYyUzZG8lMjZoc2FfdGd0JTNka3dkLTgwNTM5NjI1Mjc5MDkwJTNhbG9jLTE5MCUyNmhzYV9rdyUzZEFkdmFuY2VkJTI1MjBjb250YWluZXIlMjUyMHNlY3VyaXR5JTI2aHNhX210JTNkcCUyNmhzYV9uZXQlM2RhZHdvcmRzJTI2aHNhX3ZlciUzZDMlMjZtc2Nsa2lkJTNkM2RjMTEyZDY0NGFjMTU1Y2JiYTk3ODUxZmY4ODFlNGM&rlid=3dc112d644ac155cbba97851ff881e4c
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://github.com/ansible/ansible-lint
+https://www.deploymastery.com/2023/03/31/how-to-verify-ansible-playbook-syntax/
+https://ansible-language-server.readthedocs.io/en/latest/index.html

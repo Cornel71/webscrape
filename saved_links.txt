@@ -4108,3 +4108,21 @@ https://www.bing.com/aclick?ld=e8AGreuaE6PuHxM1IyqEI_bjVUCUzWZlPKNB2Q6ihs5ljU0Gf
 https://github.com/ansible/ansible-lint
 https://www.deploymastery.com/2023/03/31/how-to-verify-ansible-playbook-syntax/
 https://ansible-language-server.readthedocs.io/en/latest/index.html
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://www.bing.com/aclick?ld=e88vEYJWfvvWCedh3aGCZqADVUCUwC3kKWAKuJAdYAu5p7vcz7jG4VyYVDoTmoFX3vBqwYjcil7m35qg1kEocF6FeEM5SjvFwrt9M7x-Siw2nM31dzcf0OtAD6l6JjlDzM7NBZh-uKloZInru2fAgH2EXV9bYbKyT9zoqxi_PGv2o-FzqhN4lb6TXMLqckrnDw2xY7pziPdUBoXY1I_-cii5y1H2E&u=aHR0cHMlM2ElMmYlMmZjbGF1ZGUuY29tJTJmcHJvZHVjdCUyZmNsYXVkZS1zZWN1cml0eSUzZnV0bV90ZXJtJTNkY3liZXJzZWN1cml0eSUyNTIwdnVsbmVyYWJpbGl0aWVzJTI2dXRtX2NhbXBhaWduJTNkQjJCX0FESVJfVVNfQ0w0V19TRUFfRklOUy1rX0xHX0ZJTlMlMjZ1dG1fc291cmNlJTNkYmluZyUyNnV0bV9tZWRpdW0lM2RwcGMlMjZ1dG1faWQlM2Q1NzE1NTY4MDglMjZoc2FfYWNjJTNkMTQxMjgwNTQ5NyUyNmhzYV9jYW0lM2QyNDA1OTUxMDEzNCUyNmhzYV9ncnAlM2QxMTczMTgxMjY3MzU0MDAxJTI2aHNhX2FkJTNkJTI2aHNhX3NyYyUzZG8lMjZoc2FfdGd0JTNka3dkLTczMzI0NTY5NzA5NTI1JTNhbG9jLTE5MCUyNmhzYV9rdyUzZGN5YmVyc2VjdXJpdHklMjUyMHZ1bG5lcmFiaWxpdGllcyUyNmhzYV9tdCUzZHAlMjZoc2FfbmV0JTNkYWR3b3JkcyUyNmhzYV92ZXIlM2QzJTI2bXNjbGtpZCUzZDg5YWRiNmUzYjIxYTE4ZmIzODQ3ZGM2ODFkNGU5NDM2JTI2dXRtX2NvbnRlbnQlM2RBSSUyNTIwU2VjdXJpdHk&rlid=89adb6e3b21a18fb3847dc681d4e9436
+https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/secure-assembly_firewall_policy_manage
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://deepwiki.com/mephs/ansible-role-sshd/4.1-basic-configuration-examples
+https://github.com/OneUptime/blog/blob/master/posts/2026-02-21-how-to-use-ansible-to-manage-sudoers-file-safely/README.md
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://tryssh.com/blog/ansible-become-privilege-escalation.html
+https://infosecwriteups.com/automating-splunk-infrastructure-buildout-with-ansible-fd8745791734

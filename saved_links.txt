@@ -4126,3 +4126,20 @@ https://github.com/OneUptime/blog/blob/master/posts/2026-02-21-how-to-use-ansibl
 =========================================
 https://tryssh.com/blog/ansible-become-privilege-escalation.html
 https://infosecwriteups.com/automating-splunk-infrastructure-buildout-with-ansible-fd8745791734
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://github.com/ansible/test-playbooks
+
+=========================================
+ 📂 CATEGORY: NGINX & WEB REVERSE PROXY
+=========================================
+https://github.com/geerlingguy/ansible-role-nginx
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://estudy247.com/courses/ansible/lessons/ansible-ssh-authentication/
+https://github.com/guiand888/ansible-role-system_firewall
+https://github.com/ansible-collections/hashicorp.vault/tree/main

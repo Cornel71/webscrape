@@ -4143,3 +4143,69 @@ https://github.com/geerlingguy/ansible-role-nginx
 https://estudy247.com/courses/ansible/lessons/ansible-ssh-authentication/
 https://github.com/guiand888/ansible-role-system_firewall
 https://github.com/ansible-collections/hashicorp.vault/tree/main
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://github.com/mpsOxygen/ansible
+https://github.com/ansible/ansible-lint/blob/main/.yamllint
+https://stackoverflow.com/questions/31685125/is-it-possible-to-map-multiple-attributes-using-jinja-ansible
+https://serverfault.com/questions/1045916/ansible-privilege-escalation-once-per-play
+https://github.com/ansible/ansible/issues/14426
+https://www.bing.com/aclick?ld=e82bVy8jqSRHyfuX90hUfEwTVUCUxqCqMtUhd43DCpTcvcylwg4qox2vrHB-znxz7a9AR3xARwmMCAgS1X6ted7UZBfVgklyALakBKQJ1xRZN2Mfaqwr7R_G1UizEXbAV2uD9OagFbMeWtglQaCsJl57rXG912Vw0P473iAokftE--9-85Dqm3F9X97Dt0uI6se5QHw8j23E7nrNYiFeDGV4yIc48&u=aHR0cHMlM2ElMmYlMmZ3d3cudGVuYWJsZS5jb20lMmZscCUyZmNhbXBhaWducyUyZjI2JTJmdHJ5LXRlbmFibGUtdm0lMmYlM2Z1dG1fY2FtcGFpZ24lM2RiaW5nLSU3YjQxMDMxMzI2OCU3ZC0lN2IxMzA1MTIwNTYwNDQzNTkzJTdkLSU3YiU3ZF8wMDAzNDgzMF9meTI2JTI2dXRtX3Byb21vdGVyJTNkdGVuYWJsZS1jb3JlLXZtLTAwMDM0ODMwJTI2dXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fdGVybSUzZHRlbm5hYmxlJTI2dXRtX21lZGl1bSUzZGNwYyUyNnV0bV9nZW8lM2RhbWVyJTI2bXNjbGtpZCUzZDJmOWNjNjRjZTBkZDFjMzM5MDhlYWNkY2MyYzNlY2Q3&rlid=2f9cc64ce0dd1c33908eacdcc2c3ecd7
+https://news.ycombinator.com/item
+https://serverfault.com/questions/958097/ansible-block-rescue-is-not-working-with-handler
+https://serverfault.com/questions/897396/ansible-fatal-error-thrown-by-include-tasks-even-if-a-block-rescue-block-is-use
+https://www.bing.com/aclick?ld=e8sHR5mU_bIjK2JLVkcMNz4TVUCUzhCTZIQnuCJLhshmL-ChzcS7GlVOxyuneBQS3yFi9-vAaA8ByRG9LFs4u_SFPKDqKgPc5vsJr6pbgrMuP-pS-v3SLS03MO5IAFMsuhqmG_6_DuxknANAbXEV7raI3x8-KCkSGITlbHYHVvGQj3qWFrI2luUk2UOFWNvu04MmVJkAlNw2ThGVmxvHHXJJDQeps&u=aHR0cHMlM2ElMmYlMmZ3d3cuYmFtYm9vaHIuY29tJTJmcGwtcGFnZXMlMmZoci10aW1lLXRyYWNraW5nJTNmc19rd2NpZCUzZEFMITE4MzMyITMhIXAhIW8hIXRpbWUlMjUyMHRyYWNraW5nJTI1MjBzb2Z0d2FyZSUyNnV0bV9jYW1wYWlnbiUzZEJBTUItREctU2VhcmNoLUNvbXBlbnNhdGlvbi0yMDI0RUctRUNMJTI2dXRtX21lZGl1bSUzZGNwYyUyNnV0bV9zb3VyY2UlM2RiaW5nJTI2dXRtX2NvbnRlbnQlM2RibGFuayUyNnV0bV90ZXJtJTNkYmxhbmslMjZDYW1wYWlnbklEJTNkNjA0OTk3OTg1JTI2QWRHcm91cElEJTNkMTI3ODczMzM2NzE1NzkzNyUyNkNsaWNrSUQlM2QlMjZNYXRjaFR5cGUlM2RwJTI2S2V5d29yZCUzZHRpbWUlMjUyMHRyYWNraW5nJTI1MjBzb2Z0d2FyZSUyNkRldmljZSUzZGMlMjZBZElEJTNkJTI2TmV0d29yayUzZG8lMjZidCUzZCUyNl9iayUzZHRpbWUlMjUyMHRyYWNraW5nJTI1MjBzb2Z0d2FyZSUyNl9ibSUzZHAlMjZfYm4lM2RvJTI2X2JnJTNkMTI3ODczMzM2NzE1NzkzNyUyNl9idCUzZDc5OTIwOTUzMDY0MTQ0JTI2bXNjbGtpZCUzZGI0NmNkNDA5MTUyNzE2ZjkwZGVjYmU5OTM3NzcxYzBl&rlid=b46cd409152716f90decbe9937771c0e
+https://www.linkedin.com/pulse/ansible-unleashed-article-12-devsecops-shifting-left-security-mishra-8u8mc
+https://www.keepersecurity.com/integrations/
+https://docs.infoblox.com/space/BloxOneDDI/847153332
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://github.com/anumau011/Infrastructure-Automation-and-CI-CD-Pipeline
+https://github.com/nkydigitech/ansible_practical
+https://gitlab.com/gitlab-da/playground/dnsmichi/devrel-blog-preview/-/blob/main/docs/2025/2025-04-xx-automate-gitlab-runner-setup-with-ansible.md
+https://www.bing.com/aclick?ld=e8NtnTPPxmPM3UkaDsy050EDVUCUxT9gnt744Lbjqe0Xwoex4gGPzS5mapFgobWXMRH9MwlILzjJ8C-_BC9yaFq6dwGqKtbZXE0Jf9sVTNWZXE9hMVdG3ueiqKVPoFj7ho4crm_jJehH8Cgr3wHEwsODKbLgEWv-C--9J8p6ojd_icaDvwwmsi8lag1ZbRJvpjGc3wm6JM107bondmqANvCXzp0Jg&u=aHR0cHMlM2ElMmYlMmZ3d3cuc2VjdXJkZW4uY29tJTJmcHJpdmlsZWdlZC1hY2NvdW50LW1hbmFnZXIlMmZpbmRleC5odG1sJTNmdXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fbWVkaXVtJTNkY3BjJTI2dXRtX2NhbXBhaWduJTNkUGFzc3dvcmQlMjUyMFZhdWx0JTI1MjAtJTI1MjBBbGwlMjZ1dG1fdGVybSUzZHByaXZpbGVnZWQlMjUyMGFjY2VzcyUyNTIwbWFuYWdlciUyNnV0bV9jb250ZW50JTNkUEFNJTI2dXRtX2lkJTNkbyUyNm1zY2xraWQlM2QwZWZjZDk4ZThmNGMxYzYyOTBiYWIzMWVhZTg4NGViZA&rlid=0efcd98e8f4c1c6290bab31eae884ebd
+https://forum.gitlab.com/t/parallel-matrix-feature-for-ansible-jobs/122009
+https://askubuntu.com/questions/1522998/how-to-disable-password-authentication-in-ssh-in-ubuntu-24-04-new-socket-based
+https://www.skillveris.com/interview-questions/ansible/how-do-you-harden-the-ansible-control-node-and-its-access-to-hosts
+https://michealgarner.co.uk/blog/from-dropbox-to-daily-driver-part-8-an-ansible-control-node-a-second-pi-and-what/
+https://stackoverflow.com/questions/66266043/firewalld-adding-a-source-to-multiple-zones-gives-error-zone-conflict-is-t
+https://www.bing.com/aclick?ld=e8hm86wkigSEqfqD9AQN1lrDVUCUy9rhSkTevWPZSYJSsDdIbotBNQh6_FifpMTConN5G1S-rtithw4PdXG7_5nCzFu8bsx8ZOce5YDGQJEOdFUulVwXdwhyMd-jM4vb3PUsDM6mNhjM8zr76ifBnaUpNtRo_x01sk1MWzIFG3bIDJv_fzJXd6MI8aNptWMqqDPijHohymDpmnTlcYUEKSZ2y6icw&u=aHR0cHMlM2ElMmYlMmZhZC5kb3VibGVjbGljay5uZXQlMmZzZWFyY2hhZHMlMmZsaW5rJTJmY2xpY2slM2ZsaWQlM2Q0MzcwMDA4NDA4MjU1MDY2OSUyNmRzX3Nfa3dnaWQlM2Q1ODcwMDAwOTA5NjUwNTcxOCUyNmRzX2FfY2lkJTNkODExNTMyNDIwNSUyNmRzX2FfY2FpZCUzZDIzOTgzOTMyNDI2JTI2ZHNfYV9hZ2lkJTNkMTk1MjA3OTkxMzgyJTI2ZHNfYV9saWQlM2Rrd2QtMzUyMDg4NzgwMTI3JTI2JTI2ZHNfZV9hZGlkJTNkODE2Mzg4ODU3NTAyOTElMjZkc19lX3RhcmdldF9pZCUzZGt3ZC04MTYzOTE0NTcxMzczMSUzYWxvYy0xOTAlMjYlMjZkc19lX25ldHdvcmslM2RvJTI2ZHNfdXJsX3YlM2QyJTI2ZHNfZGVzdF91cmwlM2RodHRwcyUzYSUyZiUyZnd3dy5zZXJ2aWNlbm93LmNvbSUyZnByb2R1Y3RzJTJmdmF1bHQuaHRtbCUzZmdjbGlkJTNkMTM4NDJkN2YwYTlmMWFmMzk0Zjc0N2VmMjhhZWY0ZGQlMjZnY2xzcmMlM2QzcC5kcyUyNiUyNm1zY2xraWQlM2QxMzg0MmQ3ZjBhOWYxYWYzOTRmNzQ3ZWYyOGFlZjRkZCUyNnV0bV9zb3VyY2UlM2RiaW5nJTI2dXRtX21lZGl1bSUzZGNwYyUyNnV0bV9jYW1wYWlnbiUzZEJJTkdfQU1TX0FMTF9FTl9ERU1BTkRHRU5fUExGRF9QUlNQX05vbkJyYW5kX1BIUl9QTEFULUFJLUdvdmVybmFuY2UtR28tQmlnJTI2dXRtX3Rlcm0lM2RlbnRlcnByaXNlJTI1MjBkYXRhJTI1MjBlbmNyeXB0aW9uJTI2dXRtX2NvbnRlbnQlM2RQTEZEX1BMQVRfQUktR292ZXJuYW5jZV9BSS1EYXRhLUVuY3J5cHRpb25fR28tQmlnX1BIUg&rlid=13842d7f0a9f1af394f747ef28aef4dd
+https://community.doppler.com/t/ansible-module-for-doppler-secrets/1308
+https://stackoverflow.com/questions/68496003/how-can-i-make-ansible-reuse-ssh-sessions-instead-of-creating-a-new-one-for-each
+https://www.linkedin.com/posts/travis-w-duncan_it-depends-compliance-may-not-provide-sufficient-activity-7383953854947782656-p7BP
+https://www.linkedin.com/posts/tstlamprofile_from-manual-to-compliant-how-automation-activity-7341290838666203137-LYiS
+https://www.bing.com/aclick?ld=e8eRo0mB4pTZHBEdAwdXifrTVUCUx16jrbYuTJhnP3w-nVskrHYY4fqPh4cvWpW3kPiOGS1s36uCfseD58Qa919xt_CpPfMG2-YbV9FbJQbw-bD9grJuPD7O2v2J2NxDAY6wEj_ZpArwHVPrrP1dPZVa7sfvpN13PnUWrBHqeL6KqGcFLOHWR8eOqhs9cswKSx7dleE56JjyLrPjHxmR35ofOYlk4&u=aHR0cHMlM2ElMmYlMmZyLWFibGUuY29tJTJmY29udGFjdC5odG1sJTNmbXNjbGtpZCUzZGY2NGJhZWU2NDE1NDFjZjQ1NTgxYzQ3NjYzMzNhMmRj&rlid=f64baee641541cf45581c4766333a2dc
+https://www.bing.com/aclick?ld=e8DJ2BZTUjHlpgY0RpkKlf9zVUCUx7N-vjkwDDIpzP-b_HM024IbcvMH2Fv_RGrrHefTyT7bdrBjn5YL2OdO8sabrZwOZ-o55ykLjOJ_m2u0U6BwfgJuxv8KqjY-7ha8xTQPYhnZ9thC8Y-e0eJJBGQhm3c9hGzJE9-zfIbxZWr_I0fTwabT-rQ3mKkNCo4t0C0oAab_4Pn5MK4FK4FegqPrERMSg&u=aHR0cHMlM2ElMmYlMmZzbnlrLmlvJTJmbHAlMmZtb2Rlcm4tZGV2c2Vjb3BzLWFpLWJlc3QtcHJhY3RpY2VzJTJmJTNmdXRtX21lZGl1bSUzZHBhaWQtc2VhcmNoJTI2dXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fY2FtcGFpZ24lM2RkbV9taWNyb3NvZnQtcHNfYW9tXzI2MDIxNV9hc3NldC1kb3dubG9hZF9uYnIlMjZ1dG1fY29udGVudCUzZGRldnNlYy10b29scyUyNmFkX2lkJTNkODUyMTI3NDQxMzkyMTYlMjZhZGdyb3VwX2lkJTNkMTM2MzM5NzEzMTY2MTIxNCUyNmNhbXBhaWduX2lkJTNkNTMzNDQ5OTYyJTI2dXRtX3Rlcm0lM2RkZXZvcHMlMjUyMHRvb2xzJTI2bWF0Y2hfdHlwZSUzZHAlMjZtc2Nsa2lkJTNkYjA4MDllYjFjOTVjMTY4NTM0MjFmNDIxZWIzYjVkYjc&rlid=b0809eb1c95c16853421f421eb3b5db7
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://www.bing.com/aclick?ld=e81JdE-sjTAb6UuFgStCfJ8jVUCUzFtoW-uGQWVjheLbLiBxNJEvJKXfpr8KQKP9_u7gWJtmNmdKvtFbSnx-8AoyGNOyzTAA55Mtns_m-6SIaYaVWWG2Y8L3iFpaNQ4XCMUQWw1kEY4aaYhHK7zy9xkjPJsJPRCgINPvCsWui_LUsIFg1y-C8cgQMpnBxKcUNilFNufuR6LzDaVxtIcREJw2c-0F4&u=aHR0cHMlM2ElMmYlMmZ3d3cuaG9zdGluZ2VyLmNvbSUyZmRvY2tlci1ob3N0aW5nJTNmdXRtX2lkJTNkNjc4MDg3MDgwJTI2bXNjbGtpZCUzZDBhYWQzZDAwM2YwYTFjYTZhYmUyNTc5MDFlZGIxNzQwJTI2dXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fbWVkaXVtJTNkY3BjJTI2dXRtX2NhbXBhaWduJTNkR2VuZXJpYy1WUFMtT1MlMjU3Q05UJTI1M0FCaW5nJTI1N0NMTyUyNTNBVVNBJTI2dXRtX3Rlcm0lM2Rkb2NrZXIlMjZ1dG1fY29udGVudCUzZERvY2tlciUyNTIwLSUyNTIwT1MlMjUyMC0lMjUyMFBEJTI1M0FWUFM&rlid=0aad3d003f0a1ca6abe257901edb1740
+https://github.com/telekom-security/tpotce/issues/1841
+https://forums.docker.com/t/replacing-or-using-ansible-with-docker/43054
+https://github.com/netbox-community/netbox/discussions/19933
+
+=========================================
+ 📂 CATEGORY: NGINX & WEB REVERSE PROXY
+=========================================
+https://stackoverflow.com/questions/59685559/include-content-of-ansible-template-based-on-value-of-variable
+https://serverfault.com/questions/1061509/is-there-a-way-to-configure-nginx-reverse-proxy-through-restful-api
+https://github.com/geerlingguy/ansible-role-nginx/issues/141
+https://github.com/geerlingguy/ansible-role-certbot/issues/29
+https://askubuntu.com/questions/1489423/dynamically-and-automatically-give-out-ssl-certificates-for-new-domains
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://www.bing.com/aclick?ld=e8_YBNAAiZGb5dmO2JId2RvTVUCUylkagAl7lMV2ZznGZJ20SGtGPyYPF9mHEY4XsZ_zhHp3tQZ_sIzmpceQWhM7-QjhJ--1JX6UapXTh7NbOVExv4SmNc1Yp7SprQiuuGQd1Rwo8_MP8YqWjPbPQC5BbL_5TUQEtd0WLF51vX7Y_QCgf21_RetAgyaTrrMZ2v8mXjHnFSglk4lyapKkPUnMQg8NA&u=aHR0cHMlM2ElMmYlMmZ3d3cubWFuYWdlZW5naW5lLmNvbSUyZnZ1bG5lcmFiaWxpdHktbWFuYWdlbWVudCUyZmNpcy1jb21wbGlhbmNlLmh0bWwlM2Z1dG1fc291cmNlJTNkYmluZyUyNnV0bV9tZWRpdW0lM2RjcGMlMjZuZXR3b3JrJTNkbyUyNmRldmljZSUzZGMlMjZrZXl3b3JkJTNkQ0lTJTI1MjBzZWN1cml0eSUyNTIwYmVuY2htYXJrcyUyNmNhbXBhaWduaWQlM2Q0MDE1ODg1MTklMjZjcmVhdGl2ZSUzZCUyNm1hdGNodHlwZSUzZHAlMjZhZHBvc2l0aW9uJTNkJTI2cGxhY2VtZW50JTNkJTI2YWRncm91cCUzZDEzMDI5MjE2MjM1MDI1MTklMjZ0YXJnZXRpZCUzZGt3ZC04MTQzMjc4NjQ4MTk0MSUzYWxvYy0xOTAlMjZsb2NhdGlvbiUzZCU3YmxvY2F0aW9uJTdkJTI2c2VhcmNodGVybSUzZGFuc2libGUlMjUyMGFyY2hpdGVjdHVyZSUyNTIwY2lzJTI1MjBiZW5jaG1hcmtzJTI1MjBjb21wbGlhbmNlJTI1MjBhdXRvbWF0ZWQlMjZtc2Nsa2lkJTNkYWU0OGY1NzcxYTc4MTk0YzBjZWI5ZmU3Mzg2YzhlMjklMjZ1dG1fY2FtcGFpZ24lM2RCSU5HLVZNUC1JTlItU2VhcmNoLVVTQS1MMS1QaHJhc2UlMjZ1dG1fdGVybSUzZENJUyUyNTIwc2VjdXJpdHklMjUyMGJlbmNobWFya3MlMjZ1dG1fY29udGVudCUzZENJUyUyNTIwQ29tcGxpYW5jZQ&rlid=ae48f5771a78194c0ceb9fe7386c8e29
+
+=========================================
+ 📂 CATEGORY: STORAGE & LVM MANAGEMENT
+=========================================
+https://serverfault.com/questions/1078120/add-new-disk-to-lvm-group-using-ansible-module
+https://kodekloud.com/community/t/vm-creation-with-ansible-playbook/459479
+https://www.experts-exchange.com/questions/29226838/ansible-erroring-out-for-volume-groups-missing.html

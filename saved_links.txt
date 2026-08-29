@@ -4209,3 +4209,50 @@ https://www.bing.com/aclick?ld=e8_YBNAAiZGb5dmO2JId2RvTVUCUylkagAl7lMV2ZznGZJ20S
 https://serverfault.com/questions/1078120/add-new-disk-to-lvm-group-using-ansible-module
 https://kodekloud.com/community/t/vm-creation-with-ansible-playbook/459479
 https://www.experts-exchange.com/questions/29226838/ansible-erroring-out-for-volume-groups-missing.html
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://www.linkedin.com/posts/ritik-sharma-4b1858175_ansible-versioncontrol-secretsmanagement-activity-7295317640913342464-1Dxy
+https://forum.ansible.com/t/prevent-yaml-errors-with-a-linter/21596
+https://github.com/ansible/ansible-lint/blob/main/.ansible-lint
+https://docs.ansible.com/projects/lint/rules/schema/
+https://docs.ansible.com/projects/ansible/2.9/user_guide/become.html
+https://docs.ansible.com/projects/ansible-core/2.15/playbook_guide/playbooks_privilege_escalation.html
+https://linuxhaxor.net/code/ansible-become-directive.html
+https://community.atlassian.com/forums/Pipelines-questions/How-do-you-handle-secrets-and-credentials-securely-in-pipelines/qaq-p/3168313
+https://github.com/orgs/community/discussions/189652
+https://www.bing.com/aclick?ld=e8wsUvXeIGSsTIOSZruAmCozVUCUyXXpvZIR58PpcXW9VyrzS3UIe8cgaQRP-mI5L63KPZXXaFV_hbRfcLh025GK1_srXEgR6iJpiXjITGa8CHoT-5DAocxvlcUzYEbOZnEVmLtqQs7xiES9R7F86DwXIu85XUGlQugA_rmttme0nSmcdLbqhUoP13mhjqDHhadQJWJDeJW5mhzvPMwBSYDUTDAaw&u=aHR0cHMlM2ElMmYlMmZnby52ZWVhbS5jb20lMmZ1bmlmeWluZy1zZWN1cml0eS1vcGVyYXRpb25zLWRhdGEtcmVzaWxpZW5jZS5odG1sJTNmc3QlM2RiaW5ncGFpZHNlYXJjaCUyNnV0bV9zb3VyY2UlM2RiaW5nJTI2dXRtX21lZGl1bSUzZHBhaWRfc2VhcmNoJTI2dXRtX2NhbXBhaWduJTNkMUNNQy1NSVhfTkFfRU5fVVNfUGFpZC1TZWFyY2hfV1BfdW5pZnlpbmctc2VjdXJpdHktb3BlcmF0aW9ucy1kYXRhLXJlc2lsaWVuY2UtTkJfMkNEJTI2dXRtX2NhbXBhaWduX2lkJTNkNjA3MDczMTUwJTI2dXRtX2FkZ3JvdXAlM2RTSUVNJTI1MjBOb24lMjUyMEJyYW5kJTI2dXRtX2FkZ3JvdXBfaWQlM2QxMzA3MzIwNjMxNTIyNjAzJTI2dXRtX2FkaWQlM2Q4MTcwNzYwNTEwOTgxNyUyNnV0bV9tYXRjaHR5cGUlM2RwJTI2dXRtX2JpZG1hdGNodHlwZSUzZGJwJTI2dXRtX25ldHdvcmslM2RvJTI2dXRtX2RldmljZSUzZGMlMjZ1dG1fa2V5d29yZCUzZHNlY3VyaXR5JTI1MjBvcmNoZXN0cmF0aW9uJTI1MjBhdXRvbWF0aW9uJTI1MjBhbmQlMjUyMHJlc3BvbnNlJTI2dXRtX3RhcmdldGlkJTNka3dkLTgxNzA3ODYzOTU1ODg3JTNhbG9jLTE5MCUyNnV0bV9xdWVyeSUzZCU3YlF1ZXJ5JTdkJTI2dXRtX21zY2xraWQlM2Q0MGNiM2YxYmQxNTgxMGFkYzUxNTU1ODk0MDhiMjRlZiUyNnN0JTNkYmluZ3BhaWRzZWFyY2glMjZtc2Nsa2lkJTNkNDBjYjNmMWJkMTU4MTBhZGM1MTU1NTg5NDA4YjI0ZWYlMjZ1dG1fc291cmNlJTNkYmluZyUyNnV0bV9tZWRpdW0lM2RjcGMlMjZ1dG1fY2FtcGFpZ24lM2QxQ01DLU1JWF9OQV9FTl9VU19QYWlkLVNlYXJjaF9XUF91bmlmeWluZy1zZWN1cml0eS1vcGVyYXRpb25zLWRhdGEtcmVzaWxpZW5jZS1OQl8yQ0QlMjZ1dG1fdGVybSUzZHNlY3VyaXR5JTI1MjBvcmNoZXN0cmF0aW9uJTI1MjBhdXRvbWF0aW9uJTI1MjBhbmQlMjUyMHJlc3BvbnNlJTI2dXRtX2NvbnRlbnQlM2RTSUVNJTI1MjBOb24lMjUyMEJyYW5k&rlid=40cb3f1bd15810adc5155589408b24ef
+https://www.bing.com/aclick?ld=e8x6Qt-mNoQyWCgYb-bLumdjVUCUywpTyGmBvReHR-ZOVRVcr9aBEF4gKU0nUsmJ9dHgSoSei1hJtCu5VXi50wkqcFuIWIezSPPyNUIBoTFRSIx0T-QOxxwfViY3nvt6938XWTqqAK9GzxiHuIBC7_7gKe6oetWvwghAYD1jtYMO2wPOtOS8MQs1SCUj_kEm3z6YWRjHWq6yURkyC4yKn0t5MO2o8&u=aHR0cHMlM2ElMmYlMmZ3d3cubWFuYWdlZW5naW5lLmNvbSUyZmxvZy1tYW5hZ2VtZW50JTJmc2VtJTJmZ2xwJTJmc2llbS1zZWN1cml0eS1pbmZvcm1hdGlvbi1ldmVudC1tYW5hZ2VtZW50LXNvZnR3YXJlLmh0bWwlM2ZjYW1pZCUzZDQ3MDg3OTIzMSUyNmFkZ2lkJTNkMTMwNzMyMDQ3MDQwODY1MSUyNmt3ZCUzZHRvcCUyNTIwc2llbSUyNTIwc29mdHdhcmUlMjZtYXRjaHR5cGUlM2RwJTI2YWRpZCUzZCUyNm5ldHdvcmslM2RvJTI2YWRwb3NpdGlvbiUzZCUyNmxvYyUzZDY2NzAyJTI2cGxhY2VtZW50JTNkJTI2dGFyZ2V0JTNkJTI2c2VhcmNocXVlcnklM2RhbnNpYmxlJTI1MjBpbnRlZ3JhdGlvbiUyNTIwc3BsdW5rJTI1MjBxcmFkYXIlMjUyMHNpZW0lMjUyMGF1dG9tYXRlZCUyNmt3ZG1hdGNodHlwZSUzZGJwJTI2bXNjbGtpZCUzZDlkZjkwOGI1ODg3YjE5M2YyN2JmNjIyNzE5YTg2MmI2&rlid=9df908b5887b193f27bf622719a862b6
+https://www.bing.com/aclick?ld=e8M0vqjofO2kyajlWgSqwyLTVUCUzfJm39MUVi_gz1bSDQti87KE-Euqj60M09E8MH9fK9O2u_PrSzoTKHitBjZP-P471_Pk06PN7P0YSSOp1u0TupeeLnBlrbr8ALkciEndeEDRFCHZgAp02jWHpfrd1zajWFlbM_W6LKvTL5K6766BjTW_C0SJ9vCdthIN6ozryB1336J7VUid-YHqiXvIMbu_w&u=aHR0cHMlM2ElMmYlMmZ3d3cuc3BsdW5rLmNvbSUyZmVuX3VzJTJmZm9ybSUyZnBlZXItcGFwZXItdG0tcmVwb3J0Lmh0bWwlM2Z1dG1fY2FtcGFpZ24lM2RiaW5nX2FtZXJfZW5fc2VhcmNoX2JyYW5kJTI2dXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fbWVkaXVtJTNkY3BjJTI2dXRtX2NvbnRlbnQlM2RQZWVyUmVwb3J0MjVfQVIlMjZ1dG1fdGVybSUzZHNwbHVuayUyNTIwc2VjdXJpdHklMjUyMGluZm9ybWF0aW9uJTI1MjBldmVudCUyNTIwbWFuYWdlbWVudCUyNl9iayUzZHNwbHVuayUyNTIwc2VjdXJpdHklMjUyMGluZm9ybWF0aW9uJTI1MjBldmVudCUyNTIwbWFuYWdlbWVudCUyNl9idCUzZCUyNl9ibSUzZHAlMjZfYm4lM2RvJTI2X2JnJTNkMTE1MjI4ODYxOTg5NTM0MiUyNmRldmljZSUzZGMlMjZtc2Nsa2lkJTNkMTVkNjMzODE3Y2U5MTNiYWFlODY1OTEzZWQzYTE2ZmI&rlid=15d633817ce913baae865913ed3a16fb
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://medium.com/@obaff/automating-ci-cd-pipelines-with-ansible-dcf2b4bb558d
+https://github.com/dani-garcia/vaultwarden/discussions/4643
+https://github.com/geerlingguy/ansible-role-security/issues/117
+https://serverfault.com/questions/980031/is-it-insecure-to-have-an-ansible-user-with-passwordless-sudo
+https://github.com/openstack/ansible-hardening
+https://docs.ansible.com/projects/ansible/latest/collections/community/general/hashi_vault_lookup.html
+https://community.doppler.com/t/ansible-shell-command-modules-with-doppler/267
+https://www.bing.com/aclick?ld=e8RNBDK1YDPHdjlV5V68sMijVUCUw-RWVLDXChu255iJyFtO9_MAKLewli1jAnsAr3m24rz5KJfyBn4jQ4cTRkciA0UMdgOKQQGYEvu5BfeOV1Yzvist6jozVfu1bmqu2tR-x-zJvBFxZ2-yDitsOPciJY664uyDO4J25qKcCahbgczoSH9G1iQO1nURiCOPeE4Df6sV-XkQnccUYeseMycb14-oE&u=aHR0cHMlM2ElMmYlMmZyLWFibGUuY29tJTJmY29udGFjdC5odG1sJTNmbXNjbGtpZCUzZDM5NzU0Yjk4MTlhZDFmZjk5MTQ5MjEwYTg4NzU1YTA0&rlid=39754b9819ad1ff99149210a88755a04
+https://www.bing.com/aclick?ld=e8x-4sn-8igJCRWLa_pjf8XDVUCUwJTQT53pqAwRI3M1lxrr93e747zBUDKlplis4ZyvzkrzItB6kl6zjMc_vCVk1QiqTCRxBWcOPhmRwKDJl7VJeiOajIlvuXmpq0LponjMO__80JTN4T3w79pDmraTOoa8FZBXfrK7JhCbRweCZ45jkQHCaA7oivyUoDa7-QZ2qs4ldUSdNThFlu_I32ZpV2us0&u=aHR0cHMlM2ElMmYlMmZ3d3cudmFudGEuY29tJTJmbGFuZGluZyUyZmhvbWUlM2Z1dG1fdGVybSUzZGNvbXBsaWFuY2UlMjUyMGF1ZGl0JTI1MjBzb2Z0d2FyZSUyNnV0bV9jYW1wYWlnbiUzZG5hbWVyX25hbWVyX3NjaF9uYl9iaW5nX290aGVyX2VuJTI2dXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fbWVkaXVtJTNkY3BjJTI2dXRtX2FkZ3JvdXAlM2ROb25CcmFuZGVkJTI1MjAtJTI1MjBPdGhlcnMlMjUyMC0lMjUyME5BTUVSJTI1MjAtJTI1MjBDb21wbGlhbmNlJTI1MjBBdWRpdCUyNTIwU29mdHdhcmUlMjZtc2Nsa2lkJTNkNDJlMjc5YTJkZmNhMWM1MWU0NjYxMzMwNGUxMjg4MjklMjZ1dG1fY29udGVudCUzZE5vbkJyYW5kZWQlMjUyMC0lMjUyME90aGVycyUyNTIwLSUyNTIwTkFNRVIlMjUyMC0lMjUyMENvbXBsaWFuY2UlMjUyMEF1ZGl0JTI1MjBTb2Z0d2FyZQ&rlid=42e279a2dfca1c51e46613304e128829
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://www.typeerror.org/docs/ansible~2.11/collections/community/docker/docker_container_module
+https://www.bing.com/aclick?ld=e8hVNUeAs7OaLSxKqDAFnIljVUCUwiL4gWjaljkMOr0P6w5wXvRyb27VMHw7RbTolR_Ok-tH6hSN8iKd504VkSDLDsQyQgqKVYeo0hJvrkpt2_LfKYzvlvp3ayC_NMuZB5-uxdwMyyDgTw9MZ0ygklyaN001M-cLrNGzQF0QvsDGGKT36sYsGJJzwJVawujvrZ4YkIcpiFIv8glyH69FC78g9Q9fuPuBuGF3Za2puzdAXcVYX2&u=aHR0cHMlM2ElMmYlMmZ3d3cud2l6LmlvJTJmbHAlMmZjb250YWluZXItc2VjdXJpdHktYmVzdC1wcmFjdGljZXMtY2hlYXQtc2hlZXQlM2Z1dG1fc291cmNlJTNkYmluZyUyNnV0bV9tZWRpdW0lM2RwcGMlMjZ1dG1fY2FtcGFpZ24lM2Rub24tYnJhbmQtY29udGVudC10aWVyLTEtc2VhcmNoLXVzJTI2dXRtX3Rlcm0lM2RDb250YWluZXIlMjUyMFNlY3VyaXR5JTI1MjBCZXN0JTI1MjBQcmFjdGljZXMlMjZ1dG1fYWRncm91cG5hbWUlM2QlN2Jjb250YWluZXItc2VjdXJpdHklN2QlMjZ1dG1fZGV2aWNlJTNkYyUyNm1zY2xraWQlM2RkOGRjYTRiZTk1ZTgxM2RmNTRiYmNlMmMwNDIyODhiNQ&rlid=d8dca4be95e813df54bbce2c042288b5
+
+=========================================
+ 📂 CATEGORY: NGINX & WEB REVERSE PROXY
+=========================================
+https://deepwiki.com/nginx/ansible-role-nginx-config/3.3.5-proxy-configuration
+https://takeondevops.com/
+https://medium.com/@obaff/10-production-ready-ansible-playbooks-for-automating-ssl-tls-certificate-management-11175e6c4aef
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://www.bing.com/aclick?ld=e8G08fJrOuJLFWMabRCyzoCjVUCUwdTNs15da5Pcqu5qhGspe5WQX7Zr164o6UmzFUV1cWHMJMDOsT_tKO2j6Q7gojyWlbcDOY-3Ymw4O-htxVASJHVtJ2wITKCl3FFYjIg1A0Ij5uhEddOLVqVzot-ILV_a9n2i49elDZbhTyukHwYFwrUlKkuA69DKlldNjPacdmvljIB6HsaQ6LA0VVjdt19sE&u=aHR0cHMlM2ElMmYlMmZ3d3cubWFuYWdlZW5naW5lLmNvbSUyZnZ1bG5lcmFiaWxpdHktbWFuYWdlbWVudCUyZmNpcy1jb21wbGlhbmNlLmh0bWwlM2Z1dG1fc291cmNlJTNkYmluZyUyNnV0bV9tZWRpdW0lM2RjcGMlMjZuZXR3b3JrJTNkbyUyNmRldmljZSUzZGMlMjZrZXl3b3JkJTNkQ0lTJTI1MjBzZWN1cml0eSUyNTIwYmVuY2htYXJrcyUyNmNhbXBhaWduaWQlM2Q0MDE1ODg1MTklMjZjcmVhdGl2ZSUzZCUyNm1hdGNodHlwZSUzZHAlMjZhZHBvc2l0aW9uJTNkJTI2cGxhY2VtZW50JTNkJTI2YWRncm91cCUzZDEzMDI5MjE2MjM1MDI1MTklMjZ0YXJnZXRpZCUzZGt3ZC04MTQzMjc4NjQ4MTk0MSUzYWxvYy0xOTAlMjZsb2NhdGlvbiUzZCU3YmxvY2F0aW9uJTdkJTI2c2VhcmNodGVybSUzZGFuc2libGUlMjUyMGFyY2hpdGVjdHVyZSUyNTIwY2lzJTI1MjBiZW5jaG1hcmtzJTI1MjBjb21wbGlhbmNlJTI1MjBhdXRvbWF0ZWQlMjZtc2Nsa2lkJTNkOWZiNmZjN2UxZWQzMTFlMTA1ODY5NmVjOGY1YzBhNTIlMjZ1dG1fY2FtcGFpZ24lM2RCSU5HLVZNUC1JTlItU2VhcmNoLVVTQS1MMS1QaHJhc2UlMjZ1dG1fdGVybSUzZENJUyUyNTIwc2VjdXJpdHklMjUyMGJlbmNobWFya3MlMjZ1dG1fY29udGVudCUzZENJUyUyNTIwQ29tcGxpYW5jZQ&rlid=9fb6fc7e1ed311e1058696ec8f5c0a52

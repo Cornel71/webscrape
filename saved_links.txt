@@ -4256,3 +4256,32 @@ https://medium.com/@obaff/10-production-ready-ansible-playbooks-for-automating-s
  📂 CATEGORY: GITLAB CI/CD PIPELINES
 =========================================
 https://www.bing.com/aclick?ld=e8G08fJrOuJLFWMabRCyzoCjVUCUwdTNs15da5Pcqu5qhGspe5WQX7Zr164o6UmzFUV1cWHMJMDOsT_tKO2j6Q7gojyWlbcDOY-3Ymw4O-htxVASJHVtJ2wITKCl3FFYjIg1A0Ij5uhEddOLVqVzot-ILV_a9n2i49elDZbhTyukHwYFwrUlKkuA69DKlldNjPacdmvljIB6HsaQ6LA0VVjdt19sE&u=aHR0cHMlM2ElMmYlMmZ3d3cubWFuYWdlZW5naW5lLmNvbSUyZnZ1bG5lcmFiaWxpdHktbWFuYWdlbWVudCUyZmNpcy1jb21wbGlhbmNlLmh0bWwlM2Z1dG1fc291cmNlJTNkYmluZyUyNnV0bV9tZWRpdW0lM2RjcGMlMjZuZXR3b3JrJTNkbyUyNmRldmljZSUzZGMlMjZrZXl3b3JkJTNkQ0lTJTI1MjBzZWN1cml0eSUyNTIwYmVuY2htYXJrcyUyNmNhbXBhaWduaWQlM2Q0MDE1ODg1MTklMjZjcmVhdGl2ZSUzZCUyNm1hdGNodHlwZSUzZHAlMjZhZHBvc2l0aW9uJTNkJTI2cGxhY2VtZW50JTNkJTI2YWRncm91cCUzZDEzMDI5MjE2MjM1MDI1MTklMjZ0YXJnZXRpZCUzZGt3ZC04MTQzMjc4NjQ4MTk0MSUzYWxvYy0xOTAlMjZsb2NhdGlvbiUzZCU3YmxvY2F0aW9uJTdkJTI2c2VhcmNodGVybSUzZGFuc2libGUlMjUyMGFyY2hpdGVjdHVyZSUyNTIwY2lzJTI1MjBiZW5jaG1hcmtzJTI1MjBjb21wbGlhbmNlJTI1MjBhdXRvbWF0ZWQlMjZtc2Nsa2lkJTNkOWZiNmZjN2UxZWQzMTFlMTA1ODY5NmVjOGY1YzBhNTIlMjZ1dG1fY2FtcGFpZ24lM2RCSU5HLVZNUC1JTlItU2VhcmNoLVVTQS1MMS1QaHJhc2UlMjZ1dG1fdGVybSUzZENJUyUyNTIwc2VjdXJpdHklMjUyMGJlbmNobWFya3MlMjZ1dG1fY29udGVudCUzZENJUyUyNTIwQ29tcGxpYW5jZQ&rlid=9fb6fc7e1ed311e1058696ec8f5c0a52
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://github.com/ansible/ansible-lint/discussions/273
+https://www.educative.io/answers/how-to-change-file-permissions-with-ansible
+https://www.ansiblepilot.com/articles/ansible-troubleshooting-error-208-risky-file-permissions
+https://www.linkedin.com/pulse/stop-manually-writing-ansible-playbooks-address-openscap-ben-lewis-gwnrc
+https://www.facebook.com/AnazeemIT/posts/transform-alerts-into-action-a-new-integration-between-splunk-itsi-and-red-hat-e/1388682416595614/
+https://www.trustradius.com/compare-products/red-hat-ansible-automation-platform-vs-splunk-enterprise
+https://www.peerspot.com/questions/what-is-the-difference-between-red-hat-satellite-and-ansible
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://stackoverflow.com/questions/59320750/storing-secrets-and-credentials-securely-in-gitlab
+https://serverfault.com/questions/872826/security-around-ansible-servers
+https://www.redhat.com/en/technologies/management/ansible/insights-reviews-testimonials
+https://www.linkedin.com/posts/johnsayre_navigating-ai-vulnerability-discovery-and-activity-7488222100680515584-byNl
+
+=========================================
+ 📂 CATEGORY: NGINX & WEB REVERSE PROXY
+=========================================
+https://unix.stackexchange.com/questions/753850/how-to-modify-nginx-configuration-with-ansible
+
+=========================================
+ 📂 CATEGORY: STORAGE & LVM MANAGEMENT
+=========================================
+https://github.com/debops/debops/issues/939

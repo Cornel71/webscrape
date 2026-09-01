@@ -3,18 +3,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Mastering Ansible Playbooks: Examples and Step by Step Guide | env zero"
-      },
-      {
-        "from": "gpt",
-        "value": "import pulumiimport pulumi_awsx as awsximport pulumi_eks as eks# Get some values from the Pulumi configuration (or use defaults)config = pulumi.Config()min_cluster_size = config.get_float(\"minClusterSize\", 3)max_cluster_size = config.get_float(\"maxClusterSize\", 6)desired_cluster_size = config.get_float(\"desiredClusterSize\", 3)eks_node_instance_type = config.get(\"eksNodeInstanceType\", \"t3.medium\")vpc_network_cidr = config.get(\"vpcNetworkCidr\", \"10.0.0.0/16\")# Create a VPC for the EKS clustereks_vpc = awsx.ec2.Vpc(\"eks-vpc\",    enable_dns_hostnames=True,    cidr_block=vpc_network_cidr)# Create the EKS clustereks_cluster = eks.Cluster(\"eks-cluster\",    # Put the cluster in the new VPC created earlier    vpc_id=eks_vpc.vpc_id,    # Public subnets will be used for load balancers    public_subnet_ids=eks_vpc.public_subnet_ids,    # Private subnets will be used for cluster nodes    private_subnet_ids=eks_vpc.private_subnet_ids,    # Change configuration values to change any of the following settings    instance_type=eks_node_instance_type,    desired_capacity=desired_cluster_size,    min_size=min_cluster_size,    max_size=max_cluster_size,    # Do not give worker nodes a public IP address    node_associate_public_ip_address=False,    # Change these values for a private cluster (VPN access required)    endpoint_private_access=False,    endpoint_public_access=True    )# Export values to use elsewherepulumi.export(\"kubeconfig\", eks_cluster.kubeconfig)pulumi.export(\"vpcId\", eks_vpc.vpc_id)"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Python script for: Good Practices for Ansible - GPA"
       },
       {
@@ -188,18 +176,6 @@
       {
         "from": "gpt",
         "value": "# Create a script that fetches the vault password\ncat > ~/get-vault-pass.sh << 'SCRIPT'\n#!/bin/bash\n# Retrieve vault password from a secure source\n# This example reads from a file, but you could query\n# a secrets manager API here\ncat ~/.vault_pass\nSCRIPT\nchmod 700 ~/get-vault-pass.sh"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Python script for: Ansible in CI/CD: GitHub Actions and GitLab | env zero | env zero"
-      },
-      {
-        "from": "gpt",
-        "value": "import pulumiimport pulumi_awsx as awsximport pulumi_eks as eks# Get some values from the Pulumi configuration (or use defaults)config = pulumi.Config()min_cluster_size = config.get_float(\"minClusterSize\", 3)max_cluster_size = config.get_float(\"maxClusterSize\", 6)desired_cluster_size = config.get_float(\"desiredClusterSize\", 3)eks_node_instance_type = config.get(\"eksNodeInstanceType\", \"t3.medium\")vpc_network_cidr = config.get(\"vpcNetworkCidr\", \"10.0.0.0/16\")# Create a VPC for the EKS clustereks_vpc = awsx.ec2.Vpc(\"eks-vpc\",    enable_dns_hostnames=True,    cidr_block=vpc_network_cidr)# Create the EKS clustereks_cluster = eks.Cluster(\"eks-cluster\",    # Put the cluster in the new VPC created earlier    vpc_id=eks_vpc.vpc_id,    # Public subnets will be used for load balancers    public_subnet_ids=eks_vpc.public_subnet_ids,    # Private subnets will be used for cluster nodes    private_subnet_ids=eks_vpc.private_subnet_ids,    # Change configuration values to change any of the following settings    instance_type=eks_node_instance_type,    desired_capacity=desired_cluster_size,    min_size=min_cluster_size,    max_size=max_cluster_size,    # Do not give worker nodes a public IP address    node_associate_public_ip_address=False,    # Change these values for a private cluster (VPN access required)    endpoint_private_access=False,    endpoint_public_access=True    )# Export values to use elsewherepulumi.export(\"kubeconfig\", eks_cluster.kubeconfig)pulumi.export(\"vpcId\", eks_vpc.vpc_id)"
       }
     ]
   },
@@ -1215,18 +1191,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Ansible Vault: How to Encrypt Secrets and Passwords | env zero"
-      },
-      {
-        "from": "gpt",
-        "value": "import pulumiimport pulumi_awsx as awsximport pulumi_eks as eks# Get some values from the Pulumi configuration (or use defaults)config = pulumi.Config()min_cluster_size = config.get_float(\"minClusterSize\", 3)max_cluster_size = config.get_float(\"maxClusterSize\", 6)desired_cluster_size = config.get_float(\"desiredClusterSize\", 3)eks_node_instance_type = config.get(\"eksNodeInstanceType\", \"t3.medium\")vpc_network_cidr = config.get(\"vpcNetworkCidr\", \"10.0.0.0/16\")# Create a VPC for the EKS clustereks_vpc = awsx.ec2.Vpc(\"eks-vpc\",    enable_dns_hostnames=True,    cidr_block=vpc_network_cidr)# Create the EKS clustereks_cluster = eks.Cluster(\"eks-cluster\",    # Put the cluster in the new VPC created earlier    vpc_id=eks_vpc.vpc_id,    # Public subnets will be used for load balancers    public_subnet_ids=eks_vpc.public_subnet_ids,    # Private subnets will be used for cluster nodes    private_subnet_ids=eks_vpc.private_subnet_ids,    # Change configuration values to change any of the following settings    instance_type=eks_node_instance_type,    desired_capacity=desired_cluster_size,    min_size=min_cluster_size,    max_size=max_cluster_size,    # Do not give worker nodes a public IP address    node_associate_public_ip_address=False,    # Change these values for a private cluster (VPN access required)    endpoint_private_access=False,    endpoint_public_access=True    )# Export values to use elsewherepulumi.export(\"kubeconfig\", eks_cluster.kubeconfig)pulumi.export(\"vpcId\", eks_vpc.vpc_id)"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Python script for: Ansible Vault -- Encrypt Secrets | AnsibleByExample"
       },
       {
@@ -1983,6 +1947,30 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Python script for: Ansible Tutorial â SSH Key Setup -"
+      },
+      {
+        "from": "gpt",
+        "value": "# Test passwordless SSH\n$ ssh deploy@server1.example.com\n# You should connect without a password prompt\n# Type 'exit' to return\n# Test from Ansible\n$ ansible all -m ping\nserver1 | SUCCESS => {\n    \"changed\": false,\n    \"ping\": \"pong\"\n}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible Tutorial â SSH Key Management -"
+      },
+      {
+        "from": "gpt",
+        "value": "# group_vars/all.yml\nteam_users:\n  - name: alice\n    groups: developers,docker\n    ssh_key: \"ssh-ed25519 AAAAC3... alice@work\"\n    state: present\n  - name: bob\n    groups: developers\n    ssh_key: \"ssh-ed25519 BBBBC3... bob@work\"\n    state: present\n  - name: charlie\n    groups: developers\n    ssh_key: \"\"\n    state: absent\n# tasks\n- name: Manage users\n  ansible.builtin.user:\n    name: \"{{ item.name }}\"\n    groups: \"{{ item.groups | default(omit) }}\"\n    state: \"{{ item.state }}\"\n    remove: \"{{ true if item.state == 'absent' else false }}\"\n  loop: \"{{ team_users }}\"\n- name: Manage SSH keys\n  ansible.posix.authorized_key:\n    user: \"{{ item.name }}\"\n    key: \"{{ item.ssh_key }}\"\n    state: present\n  loop: \"{{ team_users }}\"\n  when: item.state == 'present' and item.ssh_key != ''"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Python script for: Ansible Firewall -- firewalld & UFW | AnsibleByExample"
       },
       {
@@ -2703,6 +2691,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Python script for: Ansible Large Inventory Performance: Proven Tuning"
+      },
+      {
+        "from": "gpt",
+        "value": "# ansible.cfg\n[defaults]\nforks = 30\ngathering = smart\nfact_caching = jsonfile\nfact_caching_connection = /tmp/ansible_facts\nfact_caching_timeout = 7200\nhost_key_checking = False\nstdout_callback = yaml\ncallbacks_enabled = ansible.posix.profile_tasks,ansible.posix.timer\nstrategy = free   # for plays that don't need cross-host coordination\n[ssh_connection]\npipelining = True\ncontrol_path = ~/.ansible/cp/ansible-ssh-%%h-%%p-%%r\nssh_args = -o ControlMaster=auto -o ControlPersist=60s"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Python script for: Ansible Vault for Secrets Management: Ansible Vault Secrets | TheCodeForge"
       },
       {
@@ -3128,6 +3128,18 @@
       {
         "from": "gpt",
         "value": "---\n- name: Production rolling update\n  hosts: web_servers\n  become: true\n  serial:\n    - 1\n    - \"30%\"\n  max_fail_percentage: 10\n  pre_tasks:\n    - name: Disable server in load balancer\n      ansible.builtin.uri:\n        url: \"http://lb.example.com/api/servers/{{ inventory_hostname }}/disable\"\n        method: POST\n      delegate_to: localhost\n    - name: Wait for connections to drain\n      ansible.builtin.wait_for:\n        timeout: 30\n  tasks:\n    - name: Update all packages\n      ansible.builtin.yum:\n        name: \"*\"\n        state: latest\n        update_cache: true\n      register: update_result\n    - name: Check if reboot is needed\n      ansible.builtin.command: needs-restarting -r\n      register: reboot_check\n      failed_when: false\n      changed_when: reboot_check.rc == 1\n    - name: Reboot if needed\n      ansible.builtin.reboot:\n        reboot_timeout: 600\n        msg: \"Rebooting for package updates\"\n      when: reboot_check.rc == 1\n    - name: Wait for service to be ready\n      ansible.builtin.wait_for:\n        port: 80\n        delay: 10\n        timeout: 120\n  post_tasks:\n    - name: Verify application health\n      ansible.builtin.uri:\n        url: \"http://{{ inventory_hostname }}/health\"\n        status_code: 200\n      register: health_check\n      retries: 5\n      delay: 10\n      until: health_check.status == 200\n    - name: Re-enable in load balancer\n      ansible.builtin.uri:\n        url: \"http://lb.example.com/api/servers/{{ inventory_hostname }}/enable\"\n        method: POST\n      delegate_to: localhost"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible Advanced â Serial & Rolling Updates -"
+      },
+      {
+        "from": "gpt",
+        "value": "# Default: linear â wait for all hosts in batch before next task\n- name: Linear strategy (default)\n  hosts: all\n  strategy: linear\n  tasks:\n    - name: Step 1\n      ansible.builtin.debug:\n        msg: \"All hosts do Step 1 before any host does Step 2\"\n# Free: each host proceeds independently\n- name: Free strategy\n  hosts: all\n  strategy: free\n  tasks:\n    - name: Step 1\n      ansible.builtin.debug:\n        msg: \"Fast hosts move ahead, slow hosts catch up\""
       }
     ]
   },
@@ -3627,6 +3639,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Python script for: Ansible Advanced â Zero-Downtime Deployment -"
+      },
+      {
+        "from": "gpt",
+        "value": "- hosts: webservers\n  become: true\n  serial: \"25%\"                    # Update 25% at a time\n  max_fail_percentage: 0           # Stop if ANY host fails\n  pre_tasks:\n    - name: Deregister from ALB\n      community.aws.elb_target:\n        target_group_arn: \"{{ '{{ alb_target_group_arn }}' }}\"\n        target_id: \"{{ '{{ ec2_instance_id }}' }}\"\n        state: absent\n      delegate_to: localhost\n    - name: Wait for connections to drain\n      ansible.builtin.pause:\n        seconds: 30\n  roles:\n    - deploy-app\n  post_tasks:\n    - name: Wait for app to be healthy\n      ansible.builtin.uri:\n        url: \"http://localhost:{{ '{{ app_port }}' }}/health\"\n        status_code: 200\n      register: health\n      until: health.status == 200\n      retries: 30\n      delay: 5\n    - name: Re-register with ALB\n      community.aws.elb_target:\n        target_group_arn: \"{{ '{{ alb_target_group_arn }}' }}\"\n        target_id: \"{{ '{{ ec2_instance_id }}' }}\"\n        target_port: \"{{ '{{ app_port }}' }}\"\n        state: present\n      delegate_to: localhost\n    - name: Wait for ALB health check\n      ansible.builtin.pause:\n        seconds: 15"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Python script for: README.md"
       },
       {
@@ -3740,18 +3764,6 @@
       {
         "from": "gpt",
         "value": "$ ansible-galaxy  install anxs.postgresql\n- downloading role 'postgresql', owned by anxs\n- downloading role from https://github.com/ANXS/postgresql/archive/v1.10.1.tar.gz\n- extracting anxs.postgresql to /Users/ansible/.Ansible/roles/anxs.postgresql\n- anxs.postgresql (v1.10.1) was installed successfully"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Python script for: Mastering Ansible Playbooks: Examples and Step by Step Guide | env zero"
-      },
-      {
-        "from": "gpt",
-        "value": "import pulumiimport pulumi_awsx as awsximport pulumi_eks as eks# Get some values from the Pulumi configuration (or use defaults)config = pulumi.Config()min_cluster_size = config.get_float(\"minClusterSize\", 3)max_cluster_size = config.get_float(\"maxClusterSize\", 6)desired_cluster_size = config.get_float(\"desiredClusterSize\", 3)eks_node_instance_type = config.get(\"eksNodeInstanceType\", \"t3.medium\")vpc_network_cidr = config.get(\"vpcNetworkCidr\", \"10.0.0.0/16\")# Create a VPC for the EKS clustereks_vpc = awsx.ec2.Vpc(\"eks-vpc\",    enable_dns_hostnames=True,    cidr_block=vpc_network_cidr)# Create the EKS clustereks_cluster = eks.Cluster(\"eks-cluster\",    # Put the cluster in the new VPC created earlier    vpc_id=eks_vpc.vpc_id,    # Public subnets will be used for load balancers    public_subnet_ids=eks_vpc.public_subnet_ids,    # Private subnets will be used for cluster nodes    private_subnet_ids=eks_vpc.private_subnet_ids,    # Change configuration values to change any of the following settings    instance_type=eks_node_instance_type,    desired_capacity=desired_cluster_size,    min_size=min_cluster_size,    max_size=max_cluster_size,    # Do not give worker nodes a public IP address    node_associate_public_ip_address=False,    # Change these values for a private cluster (VPN access required)    endpoint_private_access=False,    endpoint_public_access=True    )# Export values to use elsewherepulumi.export(\"kubeconfig\", eks_cluster.kubeconfig)pulumi.export(\"vpcId\", eks_vpc.vpc_id)"
       }
     ]
   },
@@ -5475,6 +5487,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Python script for: ansible-security-scanner · PyPI"
+      },
+      {
+        "from": "gpt",
+        "value": "ansible-security-scanner/                      # repo root (hyphenated - matches PyPI)\n├── pyproject.toml                             # packaging + pytest + hatch-vcs\n├── README.md\n├── CONTRIBUTING.md\n├── RELEASING.md                               # maintainer release runbook\n├── LICENSE / NOTICE                           # Apache-2.0 + attribution terms\n├── main.py                                    # local dev entry point (py main.py ...)\n├── .github/workflows/                         # CI, release, docs workflows\n├── .hugo/                                     # Hugo documentation site\n│   ├── scripts/build_docs.py                  # Generates Hugo content from docs/ + patterns\n│   └── content/                               # Generated .md pages (do not edit by hand)\n├── docs/                                      # Long-form prose docs (source of truth)\n│   ├── assets/                                # Images & SVGs the README references\n│   ├── cli.md                                 # CLI Reference (and exit codes, suppressions, dedup)\n│   ├── environment.md                         # Environment Variables\n│   ├── api.md                                 # Programmatic API\n│   ├── output-formats.md\n│   ├── allowlist.md\n│   ├── ci-cd.md\n│   ├── mr-pr-comments.md\n│   ├── custom-patterns.md\n│   ├── scoring.md\n│   ├── testing.md\n│   ├── limitations.md\n│   └── releasing.md\n├── src/\n│   └── ansible_security_scanner/              # the Python package\n│       ├── cli.py                             # CLI (--directory, --fix, --compliance, ...)\n│       ├── scanner.py                         # Multi-pass orchestrator\n│       ├── file_scanner.py                    # Per-file rules (line patterns, AST walkers)\n│       ├── taint_tracker.py                   # Cross-file taint analysis\n│       ├── fix_proposer.py                    # Dry-run unified-diff patch generator\n│       ├── dependency_collector.py            # SBOM inventory\n│       ├── suppressions.py                    # Inline `# nosec` parser\n│       ├── models.py                          # SecurityFinding, ScanReport, SecurityScore\n│       ├── score_calculator.py                # Severity-weighted scoring\n│       ├── patterns_manager.py                # Loads pattern YAML plugins\n│       ├── patterns/                          # 29+ YAML pattern plugins (auto-discovered)\n│       ├── remediations/                      # One module per category\n│       └── formatters/                        # markdown, json, xml, yaml, csv, html, junit, sarif, gitlab_sast, cyclonedx\n└── tests/\n    ├── test_integration.py                    # End-to-end scanner tests\n    ├── test_formatters.py                     # Formatter unit tests\n    ├── test_remediations.py                   # Remediation generator unit tests\n    └── playbooks/\n        ├── bad_example.yml                    # Triggers every rule (100% coverage)\n        ├── clean_example.yml                  # Zero findings (false-positive guard)\n        ├── multi_example_bad/                 # 6-file role fixture (cross-file taint)\n        └── multi_example_clean/               # 6-file hardened role fixture (zero findings)"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Python script for: Ansible microsoft.scom Module Example: Alert Routing to EDA"
       },
       {
@@ -5540,18 +5564,6 @@
       {
         "from": "gpt",
         "value": "ResourceModelSourceException: Cannot load yaml data coming from Ansible: Number of aliases for non-scalar nodes exceeds the specified max=1000."
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Python script for: The Essential Ansible Tutorial: A Step by Step Guide | env zero"
-      },
-      {
-        "from": "gpt",
-        "value": "import pulumiimport pulumi_awsx as awsximport pulumi_eks as eks# Get some values from the Pulumi configuration (or use defaults)config = pulumi.Config()min_cluster_size = config.get_float(\"minClusterSize\", 3)max_cluster_size = config.get_float(\"maxClusterSize\", 6)desired_cluster_size = config.get_float(\"desiredClusterSize\", 3)eks_node_instance_type = config.get(\"eksNodeInstanceType\", \"t3.medium\")vpc_network_cidr = config.get(\"vpcNetworkCidr\", \"10.0.0.0/16\")# Create a VPC for the EKS clustereks_vpc = awsx.ec2.Vpc(\"eks-vpc\",    enable_dns_hostnames=True,    cidr_block=vpc_network_cidr)# Create the EKS clustereks_cluster = eks.Cluster(\"eks-cluster\",    # Put the cluster in the new VPC created earlier    vpc_id=eks_vpc.vpc_id,    # Public subnets will be used for load balancers    public_subnet_ids=eks_vpc.public_subnet_ids,    # Private subnets will be used for cluster nodes    private_subnet_ids=eks_vpc.private_subnet_ids,    # Change configuration values to change any of the following settings    instance_type=eks_node_instance_type,    desired_capacity=desired_cluster_size,    min_size=min_cluster_size,    max_size=max_cluster_size,    # Do not give worker nodes a public IP address    node_associate_public_ip_address=False,    # Change these values for a private cluster (VPN access required)    endpoint_private_access=False,    endpoint_public_access=True    )# Export values to use elsewherepulumi.export(\"kubeconfig\", eks_cluster.kubeconfig)pulumi.export(\"vpcId\", eks_vpc.vpc_id)"
       }
     ]
   },
@@ -6027,6 +6039,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Python script for: Ansible Become Password Failed: 5 Proven Configuration Fixes"
+      },
+      {
+        "from": "gpt",
+        "value": "- hosts: all\n  become: false          # default at play level -- no escalation\n  tasks:\n    - name: Read-only task (no become needed)\n      ansible.builtin.command: cat /etc/hostname\n    - name: Task requiring root\n      ansible.builtin.package:\n        name: htop\n        state: present\n      become: true         # become only for this task\n      become_user: root\n    - name: Task needing a different user\n      ansible.builtin.command: /opt/app/deploy.sh\n      become: true\n      become_user: appuser  # become appuser, not root\n      # ansible_become_pass must be appuser's sudo password here"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Python script for: Ansible Execution Environment - Arista CVP collection"
       },
       {
@@ -6116,6 +6140,18 @@
       {
         "from": "gpt",
         "value": "{{ hostname | upper }}               # Convert to uppercase{{ filename | basename }}            # Get filename from path{{ path | dirname }}                 # Get directory from path{{ string | regex_replace('foo', 'bar') }}  # Replace using regex"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: What Are Environment Variables? Beginner's Guide - DreamHost"
+      },
+      {
+        "from": "gpt",
+        "value": "import os\n# Retrieve environment variable to determine the current environment (production or staging)\ncurrent_env = os.getenv('APP_ENV', 'staging')  # Default to 'staging' if not set\n# Production API key\nPROD_API_KEY = os.environ['PROD_API_KEY']\n# Staging API key\nSTG_API_KEY = os.environ['STG_API_KEY']\n# Logic that sets api_key based on the current environment\nif current_env == 'production':\n    api_key = PROD_API_KEY\nelse:\n    api_key = STG_API_KEY\n# Initialize API client with the appropriate API key\napi = ApiClient(api_key)"
       }
     ]
   },
@@ -6759,6 +6795,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Python script for: Ansible Execution Environment - No Fuss Computing"
+      },
+      {
+        "from": "gpt",
+        "value": "dockerfile  1\n  2\n  3\n  4\n  5\n  6\n  7\n  8\n  9\n 10\n 11\n 12\n 13\n 14\n 15\n 16\n 17\n 18\n 19\n 20\n 21\n 22\n 23\n 24\n 25\n 26\n 27\n 28\n 29\n 30\n 31\n 32\n 33\n 34\n 35\n 36\n 37\n 38\n 39\n 40\n 41\n 42\n 43\n 44\n 45\n 46\n 47\n 48\n 49\n 50\n 51\n 52\n 53\n 54\n 55\n 56\n 57\n 58\n 59\n 60\n 61\n 62\n 63\n 64\n 65\n 66\n 67\n 68\n 69\n 70\n 71\n 72\n 73\n 74\n 75\n 76\n 77\n 78\n 79\n 80\n 81\n 82\n 83\n 84\n 85\n 86\n 87\n 88\n 89\n 90\n 91\n 92\n 93\n 94\n 95\n 96\n 97\n 98\n 99\n100\n101\n102\n103\n104\n105\n106\n107\n108\n109\n110\n111\n112\n113\n114\n115\n116\n117\n118\n119\n120\n121\n122\n123\n124\n125\n126\n127\n128\n129\n130\n131\n132\n133\n134\n135\n136\n137\n138\n139\n140\n141\n142\n143\n144\n145\n146\n147\n148\n149\n150\n151\n152ARG release_name=bookworm\nARG kubernetes_version=1.29\nFROM --platform=$TARGETPLATFORM quay.io/ansible/receptor:v1.4.4 as receptor\nFROM --platform=$TARGETPLATFORM python:3.11-slim-${release_name} as prep\nARG kubernetes_version\nENV DEBIAN_FRONTEND noninteractive\nRUN apt update; \\\n  apt install -y \\\n    curl \\\n    gpg\nRUN curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | tee /usr/share/keyrings/helm.gpg > /dev/null; \\\n  echo \"deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main\" > /etc/apt/sources.list.d/helm.list; \\\n  cat /etc/apt/sources.list.d/helm.list;\nRUN curl -fsSL https://pkgs.k8s.io/core:/stable:/v${kubernetes_version}/deb/Release.key | gpg --dearmor | tee /usr/share/keyrings/kubernetes.gpg > /dev/null; \\\n  echo \"deb [signed-by=/usr/share/keyrings/kubernetes.gpg] https://pkgs.k8s.io/core:/stable:/v${kubernetes_version}/deb/ /\" > /etc/apt/sources.list.d/kubernetes.list; \\\n  cat /etc/apt/sources.list.d/kubernetes.list;\nFROM --platform=$TARGETPLATFORM python:3.11-slim-${release_name}\n# Ansible chucks a wobbler without. see: https://github.com/ansible/ansible/issues/78283\nENV LC_ALL en_US.UTF-8\nENV DEBIAN_FRONTEND noninteractive\nENV ANSIBLE_PLAYBOOK_DIR=/etc/ansible/playbooks\nENV ANSIBLE_COLLECTIONS_PATH=/etc/ansible/collections\nCOPY includes /\n# Ref: https://github.com/opencontainers/image-spec/blob/d86384efdb8c30770a92415c100f57a9bffbb64e/annotations.md\nLABEL \\\n  # org.opencontainers.image.authors=\"{contributor url}\" \\\n  org.opencontainers.image.vendor=\"No Fuss Computing\" \\\n  # org.opencontainers.image.url=\"{dockerhub url}\" \\\n  # org.opencontainers.image.documentation=\"{docs url}\" \\\n  # org.opencontainers.image.source=\"{repo url}\" \\\n  # org.opencontainers.image.revision=\"{git commit sha at time of build}\" \\\n  org.opencontainers.image.title=\"No Fuss Computings Ansible Execution Environment\" \\\n  org.opencontainers.image.description=\"An ansible execution environment for awx/tower and CI/CD pipelines\" \\\n  org.opencontainers.image.vendor=\"No Fuss Computing\"\n  # org.opencontainers.image.version=\"{git tag}\"\nRUN apt update \\\n    # SoF fixing dpkg ldconfig not found error\n  && cd /tmp \\\n  && apt-get download \\\n    libc-bin \\\n  && dpkg --extract $(ls | grep libc-bin_ | grep -a '.deb') /tmp/deb \\\n  && cp /tmp/deb/sbin/ldconfig /sbin/ \\\n  && rm -Rf /tmp/deb \\\n  && rm $(ls | grep libc-bin_ | grep -a '.deb') \\\n  && apt-get install -y --reinstall \\\n    libc-bin \\\n    # EoF fixing dpkg ldconfig not found error\n    # Set Locale to en_US as ansible requires a locale for it to function without chucking a tantrum!!\n  && apt install -y \\\n    locales \\\n    apt-transport-https \\\n  && sed -i 's/^# *\\(en_US.UTF-8\\)/\\1/' /etc/locale.gen \\\n  && locale-gen;\nCOPY --from=prep --chmod=644 /etc/apt/sources.list.d/helm.list /etc/apt/sources.list.d/helm.list\nCOPY --from=prep --chmod=644 /usr/share/keyrings/helm.gpg /usr/share/keyrings/helm.gpg\nCOPY --from=prep --chmod=644 /etc/apt/sources.list.d/kubernetes.list /etc/apt/sources.list.d/kubernetes.list\nCOPY --from=prep --chmod=644 /usr/share/keyrings/kubernetes.gpg /usr/share/keyrings/kubernetes.gpg\nRUN apt update; \\\n  apt list --upgradable \\\n  && apt upgrade --no-install-recommends -y \\\n  && apt-get install --no-install-recommends -y \\\n    openssh-client \\\n    git \\\n    helm \\\n    kubectl \\\n    sshpass \\\n    postgresql-common \\\n    postgresql-client \\\n    mariadb-client \\\n    mariadb-client-core \\\n  && mkdir -p /etc/ansible/roles \\\n  && mkdir -p /etc/ansible/collections \\\n  && mkdir -p /workdir \\\n  && apt list --installed \\\n    # see issue https://gitlab.com/nofusscomputing/projects/ansible/execution_environment/-/issues/9 for following two lines\n  && apt remove -y \\\n    python3* \\\n    libpython3*; \\\n  helm plugin install https://github.com/databus23/helm-diff; \\\n  rm -rf /var/lib/apt/lists/*\nWORKDIR /workdir\nCOPY requirements.txt /tmp/requirements.txt\nCOPY --from=receptor /usr/bin/receptor /usr/bin/receptor\nRUN pip install --upgrade pip; \\\n  mkdir -p /var/run/receptor; \\\n  mkdir -p /etc/receptor; \\\n  chmod 777 /etc/receptor; \\\n  git config --global --add safe.directory '*'\nRUN pip install --index-url https://gitlab.com/api/v4/projects/45741845/packages/pypi/simple -r /tmp/requirements.txt\nRUN ansible-galaxy collection install \\\n    awx.awx==24.0.0 \\\n    # ansible.posix.authorized_key for SSH\n    ansible.posix==1.5.4 \\\n    ansible.utils==3.1.0 \\\n    community.crypto==2.18.0 \\\n    community.dns==2.8.1 \\\n    # docker managment\n    community.docker==3.8.0 \\\n    # community.general.gitlab_*\n    community.general==8.4.0 \\\n    community.mysql==3.9.0 \\\n    community.postgresql==3.4.0 \\\n    netbox.netbox==3.17.0 \\\n    theforeman.foreman==4.0.0; \\\n  ansible-galaxy collection install --pre \\\n    nofusscomputing.glpi==0.1.0-a1 \\\n    nofusscomputing.kubernetes==1.13.0 \\\n    nofusscomputing.netbox==0.4.0"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Python script for: Automating Linux Buffer Tuning with Ansible - UDP, TCP, Low-Latency and High-Throughput on RHEL8"
       },
       {
@@ -7347,18 +7395,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: Ansible Vault: How to Encrypt Secrets and Passwords | env zero"
-      },
-      {
-        "from": "gpt",
-        "value": "import pulumiimport pulumi_awsx as awsximport pulumi_eks as eks# Get some values from the Pulumi configuration (or use defaults)config = pulumi.Config()min_cluster_size = config.get_float(\"minClusterSize\", 3)max_cluster_size = config.get_float(\"maxClusterSize\", 6)desired_cluster_size = config.get_float(\"desiredClusterSize\", 3)eks_node_instance_type = config.get(\"eksNodeInstanceType\", \"t3.medium\")vpc_network_cidr = config.get(\"vpcNetworkCidr\", \"10.0.0.0/16\")# Create a VPC for the EKS clustereks_vpc = awsx.ec2.Vpc(\"eks-vpc\",    enable_dns_hostnames=True,    cidr_block=vpc_network_cidr)# Create the EKS clustereks_cluster = eks.Cluster(\"eks-cluster\",    # Put the cluster in the new VPC created earlier    vpc_id=eks_vpc.vpc_id,    # Public subnets will be used for load balancers    public_subnet_ids=eks_vpc.public_subnet_ids,    # Private subnets will be used for cluster nodes    private_subnet_ids=eks_vpc.private_subnet_ids,    # Change configuration values to change any of the following settings    instance_type=eks_node_instance_type,    desired_capacity=desired_cluster_size,    min_size=min_cluster_size,    max_size=max_cluster_size,    # Do not give worker nodes a public IP address    node_associate_public_ip_address=False,    # Change these values for a private cluster (VPN access required)    endpoint_private_access=False,    endpoint_public_access=True    )# Export values to use elsewherepulumi.export(\"kubeconfig\", eks_cluster.kubeconfig)pulumi.export(\"vpcId\", eks_vpc.vpc_id)"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Python script for: How to Setup Ansible Inventory and How it Works (Tutorial)"
       },
       {
@@ -7412,18 +7448,6 @@
       {
         "from": "gpt",
         "value": "PLAY [Deploy chrony configuration and validate (auto-fix)] ******************************************************************************************************************\nTASK [Gathering Facts] ******************************************************************************************************************************************************\nok: [hpc2-node01]\nok: [hpc2-login]\nok: [hpc2-head]\nok: [hpc2-node03]\nok: [hpc2-node02]\nok: [hpc2-node06]\nok: [hpc2-node04]\nok: [hpc2-node05]\nTASK [Deploy chrony.conf from template] *************************************************************************************************************************************\nok: [hpc2-login]\nok: [hpc2-head]\nchanged: [hpc2-node02]\nchanged: [hpc2-node03]\nchanged: [hpc2-node01]\nchanged: [hpc2-node04]\nchanged: [hpc2-node05]\nchanged: [hpc2-node06]\nTASK [Pause to allow chronyd restart] ***************************************************************************************************************************************\nPausing for 3 seconds\n(ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)\nok: [hpc2-login]\nTASK [Check if chrony is synchronized] **************************************************************************************************************************************\nok: [hpc2-head]\nok: [hpc2-node03]\nok: [hpc2-node02]\nok: [hpc2-node01]\nok: [hpc2-login]\nok: [hpc2-node04]\nok: [hpc2-node06]\nok: [hpc2-node05]\nTASK [Restart chronyd if not synchronized] **********************************************************************************************************************************\nskipping: [hpc2-login]\nskipping: [hpc2-head]\nchanged: [hpc2-node02]\nchanged: [hpc2-node04]\nchanged: [hpc2-node03]\nchanged: [hpc2-node01]\nchanged: [hpc2-node05]\nchanged: [hpc2-node06]\nTASK [Wait and re-check synchronization after fix] **************************************************************************************************************************\nskipping: [hpc2-login]\nskipping: [hpc2-head]\nok: [hpc2-node01]\nok: [hpc2-node04]\nok: [hpc2-node02]\nok: [hpc2-node03]\nok: [hpc2-node05]\nok: [hpc2-node06]\nTASK [Final validation -- fail if still not synced] **************************************************************************************************************************\nskipping: [hpc2-login]\nskipping: [hpc2-head]\nfatal: [hpc2-node01]: FAILED! => {\"changed\": false, \"msg\": \"Chrony is still NOT synchronized after auto-fix\"}\nfatal: [hpc2-node02]: FAILED! => {\"changed\": false, \"msg\": \"Chrony is still NOT synchronized after auto-fix\"}\nfatal: [hpc2-node03]: FAILED! => {\"changed\": false, \"msg\": \"Chrony is still NOT synchronized after auto-fix\"}\nfatal: [hpc2-node04]: FAILED! => {\"changed\": false, \"msg\": \"Chrony is still NOT synchronized after auto-fix\"}\nfatal: [hpc2-node05]: FAILED! => {\"changed\": false, \"msg\": \"Chrony is still NOT synchronized after auto-fix\"}\nfatal: [hpc2-node06]: FAILED! => {\"changed\": false, \"msg\": \"Chrony is still NOT synchronized after auto-fix\"}\nTASK [Success message] ******************************************************************************************************************************************************\nskipping: [hpc2-login]\nskipping: [hpc2-head]\nPLAY RECAP ******************************************************************************************************************************************************************\nhpc2-head                  :ok=3 changed=0    unreachable=0    failed=0skipped=4 rescued=0    ignored=0\nhpc2-login                 :ok=4 changed=0    unreachable=0    failed=0skipped=4 rescued=0    ignored=0\nhpc2-node01                :ok=5changed=2 unreachable=0 failed=1 skipped=0    rescued=0    ignored=0\nhpc2-node02                :ok=5changed=2 unreachable=0 failed=1 skipped=0    rescued=0    ignored=0\nhpc2-node03                :ok=5changed=2 unreachable=0 failed=1 skipped=0    rescued=0    ignored=0\nhpc2-node04                :ok=5changed=2 unreachable=0 failed=1 skipped=0    rescued=0    ignored=0\nhpc2-node05                :ok=5changed=2 unreachable=0 failed=1 skipped=0    rescued=0    ignored=0\nhpc2-node06                : ok=5    changed=2    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Python script for: Ansible in CI/CD: GitHub Actions and GitLab | env zero | env zero"
-      },
-      {
-        "from": "gpt",
-        "value": "import pulumiimport pulumi_awsx as awsximport pulumi_eks as eks# Get some values from the Pulumi configuration (or use defaults)config = pulumi.Config()min_cluster_size = config.get_float(\"minClusterSize\", 3)max_cluster_size = config.get_float(\"maxClusterSize\", 6)desired_cluster_size = config.get_float(\"desiredClusterSize\", 3)eks_node_instance_type = config.get(\"eksNodeInstanceType\", \"t3.medium\")vpc_network_cidr = config.get(\"vpcNetworkCidr\", \"10.0.0.0/16\")# Create a VPC for the EKS clustereks_vpc = awsx.ec2.Vpc(\"eks-vpc\",    enable_dns_hostnames=True,    cidr_block=vpc_network_cidr)# Create the EKS clustereks_cluster = eks.Cluster(\"eks-cluster\",    # Put the cluster in the new VPC created earlier    vpc_id=eks_vpc.vpc_id,    # Public subnets will be used for load balancers    public_subnet_ids=eks_vpc.public_subnet_ids,    # Private subnets will be used for cluster nodes    private_subnet_ids=eks_vpc.private_subnet_ids,    # Change configuration values to change any of the following settings    instance_type=eks_node_instance_type,    desired_capacity=desired_cluster_size,    min_size=min_cluster_size,    max_size=max_cluster_size,    # Do not give worker nodes a public IP address    node_associate_public_ip_address=False,    # Change these values for a private cluster (VPN access required)    endpoint_private_access=False,    endpoint_public_access=True    )# Export values to use elsewherepulumi.export(\"kubeconfig\", eks_cluster.kubeconfig)pulumi.export(\"vpcId\", eks_vpc.vpc_id)"
       }
     ]
   },
@@ -7827,18 +7851,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Python script for: From Dropbox to Daily Driver Part 8: An Ansible Control Node, a Second Pi, and What changed=0 Actually Proves | Micheal Garner"
-      },
-      {
-        "from": "gpt",
-        "value": "- name: Note the manual-update gap this role doesn't close\n  ansible.builtin.debug:\n    msg: >-\n      Raspberry Pi's own kernel/firmware packages from archive.raspberrypi.com\n      are NOT covered by unattended-upgrades -- a manual apt upgrade is still\n      what keeps those current."
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Python script for: Ansible Module for Doppler Secrets - Discussions - Doppler Community"
       },
       {
@@ -7892,6 +7904,102 @@
       {
         "from": "gpt",
         "value": "- name: Write the application environment file\n  ansible.builtin.template:\n    src: app.env.j2\n    dest: /etc/myapp/app.env\n    owner: myapp\n    group: myapp\n    mode: \"0600\"\n  no_log: true"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: How to Use Ansible Become Keyword to Secure Playbooks"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Run a command as a different user using runas on Windows\n  ansible.windows.win_command:\n    command: \"powershell.exe -Command 'Restart-Service -Name W32Time'\"\n  become: true\n  become_user: Administrator\n  become_method: runas"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: How to get Ansible playbook to terminate When one task fails - Get Help - Ansible"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Gather VLAN facts from Cisco devices\n  hosts: cisco\n  gather_facts: false\n  vars_files:\n    - /var/MIKROTIK/cisco/inventory\n  vars_prompt:\n    # - name: \"username\"\n    #   prompt: \"Enter User Name\"\n    #   private: no\n    # - name: \"password\"\n    #   prompt: \"Enter your password\"\n    #   private: no\n    - name: \"VLAN\"\n      prompt: \"Enter VLAN ID to add\"\n      private: no\n    - name: \"NAME\"\n      prompt: \"Enter VLAN ID Name\"\n      private: no\n  # vars:\n  #   - ansible_user:\n  #   - ansible_password: []\n  tasks:\n    - name: Check if VLAN exists\n      nxos_command:\n        commands:\n          - show vlan id {{ VLAN }}\n      register: vlan_output\n      ignore_errors: true\n    # - name: Display message if VLAN exists on any switch\n    #   fail:\n    #     msg: \"VLAN {{ VLAN }} already exists on {{ item }}. Aborting VLAN addition.\"\n    #   loop: \"{{ ansible_play_batch }}\"\n    #   when: vlan_output.stdout is search('VLAN {{ VLAN }}')\n    - name: Fail if VLAN already exists\n      block:\n        - name: Set fact whether VLAN exists\n          set_fact:\n            vlan_exists: \"{{ vlan_output.stdout | search('VLAN\\\\s+' + VLAN + '\\\\s+') is not none }}\"\n          delegate_to: localhost\n        - name: Fail if VLAN exists\n          fail:\n            msg: \"VLAN {{ VLAN }} already exists on {{ inventory_hostname }}. Aborting VLAN addition.\"\n          when: vlan_exists\n      when: vlan_output is succeeded\n    - name: Adding VLAN ID to Database\n      nxos_vlans:\n        config:\n          - vlan_id: \"{{ VLAN }}\"\n            name: \"{{ NAME }}\"\n            state: active\n      register: vlan_added\n      when: vlan_output is failed\n      # when: vlan_output.stdout is not search('VLAN {{ VLAN }}')\n      # when: \"'VLAN {{ VLAN }} not found in current VLAN database' in vlan_output.stdout\"\n    - name: Send notification if VLAN already exists\n      community.general.mattermost:\n        text: \"VLAN {{ VLAN }} already exists on {{ ansible_host }}. Aborting VLAN addition.\"\n      when: vlan_output is succeeded\n    - name: Debug vlan_output variable\n      debug:\n        var: vlan_output\n    - name: Debug etherports variable\n      debug:\n        var: etherports\n    - name: Merge provided configuration with device configuration\n      cisco.ios.ios_l2_interfaces:\n        config:\n          - name: \"{{ item }}\"\n            mode: trunk\n            trunk:\n              allowed_vlans: \"{{ VLAN }}\"\n        state: merged\n      loop: \"{{ etherports }}\"\n    - name: Send notification message via Mattermost if VLAN is added\n      community.general.mattermost:\n        text: |\n          {% if vlan_added.changed %}\n          VLAN {{ VLAN }} added successfully!\n          Has been tagged to {{ ansible_host }} by User {{ ansible_user }} on the following interfaces:\n          {{ etherports }}\n          {% else %}\n          VLAN {{ VLAN }} was not added as it already exist on host {{ ansible_host }}. Please use a new VLAN_ID, thank you!!\n          {% endif %}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Secure your Nginx sites with Let's Encrypt SSL by automating with Certbot - Turn DevOps Easier"
+      },
+      {
+        "from": "gpt",
+        "value": "Requesting a certificate for your-example-domain.com\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\nPlease deploy a DNS TXT record under the name:\n_acme-challenge.your-example-domain.com.\nwith the following value:\nwtM9lnD****************************uswlxiXqiI\nBefore continuing, verify the TXT record has been deployed. Depending on the DNS\nprovider, this may take some time, from a few seconds to multiple minutes. You can\ncheck if it has finished deploying with aid of online tools, such as the Google\nAdmin Toolbox: https://toolbox.googleapps.com/apps/dig/#TXT/_acme-challenge.your-example-domain.com.\nLook for one or more bolded line(s) below the line ';ANSWER'. It should show the\nvalue(s) you've just added.\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\nPress Enter to Continue"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: How to Add a User to Sudoers in Ansible with Examples"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Verify if a user has sudo access\n  hosts: all\n  become: true\n  become_user: devuser\n  tasks:\n    - name: Check sudo access for the user\n      ansible.builtin.command: whoami\n      register: result\n      ignore_errors: true\n    - name: Display sudo access result\n      debug:\n        msg: \"The user has sudo access.\"\n      when: result.stdout == \"root\"\n    - name: Display no sudo access result\n      debug:\n        msg: \"The user does NOT have sudo access.\"\n      when: result.stdout != \"root\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Automating Secure Infrastructure with Ansible: Managing SSH, Sudoers, and User Access Control | Digin Dominic"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Copy SSH keys to Ansible control machine\n  hosts: awsnodes\n  become: true\n  tasks:\n    - name: Fetch public SSH key from nodes\n      fetch:\n        src: \"~/.ssh/id_rsa.pub\"\n        dest: \"/root/awskeys/{{ inventory_hostname }}_id_rsa.pub\"\n        flat: yes"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible PHI Handling Best Practices: A Practical Guide to HIPAA-Compliant, Secure Automation"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Ensure strong OpenSSL defaults\n  ansible.builtin.blockinfile:\n    path: /etc/ssl/openssl.cnf\n    block: |\n      [system_default_sect]\n      MinProtocol = TLSv1.2\n      CipherString = @SECLEVEL=2\n  notify: restart services using OpenSSL"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: automation - The Linux Cluster"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Extract Information from ANSYS Lic Server and extract to file\n  block:\n    - name: Get FlexLM License Info\n      ansible.builtin.shell: \"/usr/local/ansys_inc/shared_files/licensing/linx64/lmutil lmstat -c ../license_files/ansyslmd.lic -a\"\n      register: lmstat_output\n    - name: Save FlexLM License Output to File on ANSYS Lic Server\n      copy:\n        content: \"{{ lmstat_output.stdout }}\"\n        dest: \"/var/log/ansible_logs/ansys_lmstat.log\"\n    - name: Get FlexLM Output from Remote Server\n      fetch:\n        src: \"/var/log/ansible_logs/ansys_lmstat.log\"\n        dest: \"/usr/local/lic_lmstat_log/ansys_lmstat.log\"\n        flat: yes"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Ansible for SOC and SIEM: Automate Security | AnsiblePilot"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Collect forensic data across fleet\n  hosts: all\n  become: true\n  gather_facts: true\n  tasks:\n    - name: Search for IOC file hashes\n      ansible.builtin.find:\n        paths:\n          - /tmp\n          - /var/tmp\n          - /home\n        recurse: true\n        file_type: file\n        size: \"1k-10m\"\n      register: suspicious_files\n    - name: Calculate hashes of suspicious files\n      ansible.builtin.stat:\n        path: \"{{ item.path }}\"\n        checksum_algorithm: sha256\n      register: file_hashes\n      loop: \"{{ suspicious_files.files[:100] }}\"\n    - name: Check for known malicious hashes\n      ansible.builtin.set_fact:\n        ioc_matches: >-\n          {{ file_hashes.results\n             | selectattr('stat.checksum', 'in', known_bad_hashes)\n             | list }}\n      vars:\n        known_bad_hashes: \"{{ lookup('file', 'ioc_hashes.txt').splitlines() }}\"\n    - name: Alert on IOC matches\n      ansible.builtin.debug:\n        msg: \"🚨 IOC MATCH on {{ inventory_hostname }}: {{ item.stat.path }} ({{ item.stat.checksum }})\"\n      loop: \"{{ ioc_matches }}\"\n      when: ioc_matches | length > 0\n    - name: Check for unauthorized SSH keys\n      ansible.builtin.find:\n        paths: /home\n        patterns: \"authorized_keys\"\n        recurse: true\n      register: ssh_keys\n    - name: Collect SSH key contents\n      ansible.builtin.slurp:\n        src: \"{{ item.path }}\"\n      register: key_contents\n      loop: \"{{ ssh_keys.files }}\"\n    - name: Check for unauthorized cron jobs\n      ansible.builtin.command: find /var/spool/cron -type f\n      register: cron_files\n      changed_when: false\n    - name: Collect cron contents\n      ansible.builtin.slurp:\n        src: \"{{ item }}\"\n      register: cron_contents\n      loop: \"{{ cron_files.stdout_lines }}\"\n      when: cron_files.stdout_lines | length > 0"
       }
     ]
   }

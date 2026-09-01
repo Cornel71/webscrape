@@ -4324,3 +4324,75 @@ https://www.bing.com/aclick?ld=e8bOs5VVh5hFiKFQwqYSx1sTVUCUySS01SmPxXohNL1f-OFQ5
 =========================================
 https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/install-proc_self_service_configure_external_database
 https://docs.ansible.com/projects/ansible/latest/collections/community/postgresql/postgresql_script_module.html
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html
+https://docs.ansible.com/projects/ansible/latest/collections/community/general/github_release_module.html
+https://forum.ansible.com/t/yaml-file-check/37546
+https://spacelift.io/blog/ansible-become
+https://2020-summit-labs.gitlab.io/rhel-custom-security-content/
+https://docs.oracle.com/en/operating-systems/oracle-linux/8/oscap/xccdf_remediation.html
+https://labs.demoredhat.com/exercises/ansible_smart_mgmt/1-compliance/
+https://marthabeck.com/2013/08/25/deal-with-secrets/
+https://jfrog.com/blog/detect-exposed-secrets-before-production/
+https://forum.ansible.com/t/how-to-get-ansible-playbook-to-terminate-when-one-task-fails/5021
+https://www.linkedin.com/posts/shakirbhattt_ansible-rollingupdates-automation-activity-7478466388995801089-JZVV
+https://contra.com/community/cTf4A8d3-introduction-what-is-ansible-ansible-is
+https://www.automatics.ai/en/usecases/smartsecops-platform
+
+=========================================
+ 📂 CATEGORY: NGINX & WEB REVERSE PROXY
+=========================================
+https://turndevopseasier.com/secure-your-nginx-sites-with-lets-encrypt-ssl-by-automating-with-certbot/
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://blog.nashtechglobal.com/how-to-secure-your-infrastructure-with-ansible-best-practices/
+https://linuxbuz.com/devops/add-a-user-to-sudoers-in-ansible
+https://digindominic.me/projects/automating-secure-infrastructure-with-ansible-project/
+https://www.linkedin.com/posts/rajasekharkondreddy_ansible-automation-devops-activity-7496673756019335168-gJZq
+https://gist.github.com/cron410/ff726833d6c55683cf267a92ad5ef886
+https://galaxy.ansible.com/ui/repo/published/devlbo/secrets/content/role/ssh_keys/
+https://github.com/philcryer/base-secure
+https://medium.com/@shivam_99875/securing-sensitive-data-in-ansible-a-quick-dive-into-ansible-vault-16c4f179737b
+https://www.accountablehq.com/post/ansible-phi-handling-best-practices-a-practical-guide-to-hipaa-compliant-secure-automation
+https://www.cyberark.com/resources/partners/red-hat-ansible-automation-platform-and-cyberark-conjur-secrets-manager-enterprise
+https://community.cyberark.com/s/article/Design-Recommendations-for-CyberArk-Secrets-Management-A-Comprehensive-Guide
+https://community.cyberark.com/s/article/Upgrading-Your-Linux-Secrets-Manager-Credential-Providers-with-Ansible-at-Enterprise-Scale
+https://orhanergun.net/top-10-ansible-playbooks-for-efficient-network-automation
+https://medium.com/@gagreatprogrammer/the-secure-network-automation-playbook-using-ansible-python-and-gitops-for-security-75689bce0b7e
+https://www.onx.com/insights-blog/boost-your-it-modernization-efforts-with-red-hat-ansible-automation-platform
+https://www.redhat.com/en/ansible-collaborative
+
+=========================================
+ 📂 CATEGORY: PERFORMANCE & KERNEL OPTIMIZATION
+=========================================
+https://thelinuxcluster.com/tag/automation/
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://krameff.com/ansible-lockdown.html
+https://srql.com/knowledge/automating-firewall-rules-terraform-ansible/
+https://www.ansiblepilot.com/articles/ansible-soc-siem-security-operations-incident-response-automation-guide
+https://blog.checkpoint.com/security/security-automation-and-orchestration-with-check-point-and-ansible/
+
+=========================================
+ 📂 CATEGORY: STORAGE & LVM MANAGEMENT
+=========================================
+https://forum.ansible.com/t/help-with-looping-lvm-filesystem/28813
+
+=========================================
+ 📂 CATEGORY: POSTGRESQL DATABASE MANAGEMENT
+=========================================
+https://docs.ansible.com/projects/ansible/latest/collections/community/postgresql/postgresql_membership_module.html
+https://galaxy.ansible.com/ui/repo/published/community/postgresql/content/module/postgresql_db/
+https://github.com/galaxyproject/ansible-postgresql-objects
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://www.redhat.com/en/blog/ansible-container-image-registry

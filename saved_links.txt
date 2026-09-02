@@ -4396,3 +4396,41 @@ https://github.com/galaxyproject/ansible-postgresql-objects
  📂 CATEGORY: DOCKER & CONTAINERS
 =========================================
 https://www.redhat.com/en/blog/ansible-container-image-registry
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://github.com/omerbsezer/Fast-Ansible
+https://computacenter-com.github.io/ansible-workshop-exercises/ansible-core/ansible-core-handlers/
+https://ansible-labs-crew.github.io/ansible-getting-started/5-handlers/
+https://www.bing.com/aclick?ld=e8DDpcqoVrb5zxdOJq7MyLDDVUCUxmNAJroMZ8TKkiqoUCQ3hBT2I1g46HbohfKsqWp8n0_PJ-dhuS9SsUqoULrUzGKTQBoLc0Y_nRlQAc0iFHZjaR4BCiZ-ynZFr9Y6nsJJEfKpOU-PK5Mqa8jaT14aBeI_ZEKA9HkeDA51COBTjuu0kHnmULK4sisqHlQlTZNFKrEQ&u=aHR0cHMlM2ElMmYlMmZ3d3cudGVuYWJsZS5jb20lMmZscCUyZmNhbXBhaWducyUyZjI2JTJmdHJ5LXRlbmFibGUtdm0lMmYlM2Z1dG1fY2FtcGFpZ24lM2RiaW5nLSU3YjQxMDMxMzI2OCU3ZC0lN2IxMzA1MTIwNTYwNDQzNTkzJTdkLSU3YiU3ZF8wMDAzNDgzMF9meTI2JTI2dXRtX3Byb21vdGVyJTNkdGVuYWJsZS1jb3JlLXZtLTAwMDM0ODMwJTI2dXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fdGVybSUzZHRlbm5hYmxlJTI2dXRtX21lZGl1bSUzZGNwYyUyNnV0bV9nZW8lM2RhbWVyJTI2bXNjbGtpZCUzZDgyN2QxM2EzMTMxMDFiMmMxYWQ4NzkzNGFmN2M0Y2Yw&rlid=827d13a313101b2c1ad87934af7c4cf0
+https://www.bing.com/aclick?ld=e8OIDg8Qjszm23D2VIY0VvxDVUCUxSONfNZrRi0xrpThH5ZyuOqyRw3eAIUTot8q_ErmHtenNCxL-yux02SaQtLwS8elxANka0JrlNN6Mh6jx_jXmxa9nzZwzi2w2U1GhIzLUrXPH7vVjU5CiC1mDf_dyO8LVvZK8RfMGMhpcb34zUgOqI8vPbnKiZfaoNElRX2q0pKA&u=aHR0cHMlM2ElMmYlMmZpbnZpY3RpLmNvbSUyZnBscCUyZnBscC1wZW5ldHJhdGlvbi10ZXN0aW5nJTNmdXRtX3Rlcm0lM2RwZW5ldHJhdGlvbiUyNTIwdGVzdGluZyUyNTIwc29mdHdhcmUlMjZ1dG1fY29udGVudCUzZDExNTg4ODcyMjUyNzM3MzIlMjZjcV9jbXAlM2Q0MjU2MDg0MjIlMjZjcV9tZWQlM2QlMjZjcV9wbGFjJTNkJTI2Y3FfbmV0JTNkbyUyNmNxX3BsdCUzZGdwJTI2dXRtX21lZGl1bSUzZGNwYyUyNnV0bV9zb3VyY2UlM2RiaW5nJTI2dXRtX2NhbXBhaWduJTNkR0wtMjAyNi1Hb29nbGUtTm9uLUJyYW5kLU5BJTI2dXRtX2NvbnRlbnQlM2RQZW4tVGVzdCUyNm1zY2xraWQlM2Q5N2RkMGMzNmE0YWYxZmU4MmIwNzY2YTExOGMzZjc1Zg&rlid=97dd0c36a4af1fe82b0766a118c3f75f
+https://strangebee.com/integration/splunk
+https://tamirsuliman.medium.com/comparing-popular-siem-data-pipeline-designs-elastic-arcsight-qradar-and-splunk-part-3-9028662b1ce5
+https://www.bing.com/aclick?ld=e8FWHLuJ-pOFBo3hXYGzTjDDVUCUzFc9kzHUWR8mn0fCnhqRO_WGJ5n6k366zAL5jVbMmjgHPaRR7kmCBEkO0y1Bj41ah0QK2BlKUl1vVH0h0MeXqsk8ZIyhhM0wNaNKAdvaIA0ZBTTNhwzCob0wOsIWR6mk-fJN_fQNGXtiXjc2lZYfR5_KzOaRFMpTAyMGSCmQcvIA&u=aHR0cHMlM2ElMmYlMmZ3d3cubWFuYWdlZW5naW5lLmNvbSUyZmNsb3VkLXNpZW0lMmYlM2ZjYW1pZCUzZDQ3MDg5MTk5NSUyNmFkZ2lkJTNkMTI5NTIyNTg0NDQ2NjUyOCUyNmt3ZCUzZGNsb3VkJTI1MjBzaWVtJTI1MjB0b29sJTI2bWF0Y2h0eXBlJTNkcCUyNmFkaWQlM2QlMjZuZXR3b3JrJTNkbyUyNmFkcG9zaXRpb24lM2QlMjZsb2MlM2Q2NzM5MyUyNnBsYWNlbWVudCUzZCUyNnRhcmdldCUzZCUyNnNlYXJjaHF1ZXJ5JTNkYW5zaWJsZSUyNTIwaW50ZWdyYXRpb24lMjUyMHNwbHVuayUyNTIwcXJhZGFyJTI1MjBzaWVtJTI1MjBhdXRvbWF0ZWQlMjZrd2RtYXRjaHR5cGUlM2RicCUyNm1zY2xraWQlM2RhYTRmNDcxZGY5YTMxZDhiMmNhODJkOGE0NTBlYjFhZg&rlid=aa4f471df9a31d8b2ca82d8a450eb1af
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://binadit.com/tutorials/configure-ansible-vault-for-secret-management
+https://www.redhat.com/sysadmin/ansible-vault-secure-playbooks
+https://github.com/guiand888/ansible-role-ssh_hardening
+https://sempervent.github.io/best-practices/docker-infrastructure/ansible-security-hardening/
+https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.4/pdf/red_hat_ansible_automation_platform_hardening_guide/pr01
+https://galaxy.ansible.com/ui/repo/published/devsec/hardening/docs/
+https://www.quora.com/What-is-the-difference-between-red-hat-and-ethical-hacking-field
+
+=========================================
+ 📂 CATEGORY: NGINX & WEB REVERSE PROXY
+=========================================
+https://blog.drnll.com/ansible-nginx-revproxy-role.html
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://www.bing.com/aclick?ld=e8mI0_ubugn_-ozKuKEUdNATVUCUzPBT4ZujjRj9Q6RCs3Q4a-O8Q-gMjR5UHxHsRXME9UTjSiUcVGAO-_6YrQBmA3x6xeomCQg3H1hJ4lqBNEQhpYN_TZafII81TSQtSKpceTV_hQE2zv0tHXIIn0uiuSUlyt94XdI4C7gNaoszjLvyqtftLDD0HZlpyqbXQxPfrbHg&u=aHR0cHMlM2ElMmYlMmZlbnJvbGwuY2lzZWN1cml0eS5vcmclMmZtZW1iZXJzaGlwcyUyZiUzZnV0bV9zb3VyY2UlM2RiaW5nJTI2dXRtX21lZGl1bSUzZHBhaWQlMjZ1dG1fY2FtcGFpZ24lM2RzZWN1cmVzdWl0ZSUyNnV0bV9jb250ZW50JTNkMjYtc2VjdXJlc3VpdGUtZXYtc2VjdXJlc3VpdGVfc2VhcmNoX2FwcGx5X25vdyUyZiUyNm1zY2xraWQlM2Q5OTI4MTczNWFjMjAxYTkwMzAxMTdkYTIxMDQzYjVhNA&rlid=99281735ac201a9030117da21043b5a4
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://www.bing.com/aclick?ld=e817_xOkWgW3ZJvKYpfQ52NjVUCUzWXhkxHiXK6oSbXll1I8fjnFZz8kUQZjzyERrwNvgsk9zHxxMGYd1Lt4qttJPgLbiWyBMbsa71vcxpLC3W3abGqeUwtcLfczsJYSx5DrwDKl_BMiiZANRgp3gm_3ER0xdZZDBanFHs9gBSPCjYZcetPw6n2gogyp9xx53X65NLfQ&u=aHR0cHMlM2ElMmYlMmZ3d3cud2l6LmlvJTJmbHAlMmZjb250YWluZXItc2VjdXJpdHktYmVzdC1wcmFjdGljZXMtY2hlYXQtc2hlZXQlM2Z1dG1fc291cmNlJTNkYmluZyUyNnV0bV9tZWRpdW0lM2RwcGMlMjZ1dG1fY2FtcGFpZ24lM2Rub24tYnJhbmQtY29udGVudC10aWVyLTEtc2VhcmNoLXVzJTI2dXRtX3Rlcm0lM2RDb250YWluZXIlMjUyMFNlY3VyaXR5JTI1MjBCZXN0JTI1MjBQcmFjdGljZXMlMjZ1dG1fYWRncm91cG5hbWUlM2QlN2Jjb250YWluZXItc2VjdXJpdHklN2QlMjZ1dG1fZGV2aWNlJTNkYyUyNm1zY2xraWQlM2Q0NDQ1MzE1MzA1MzUxM2MzZDJjMjViYzRiOTk2ZmI0MQ&rlid=44453153053513c3d2c25bc4b996fb41

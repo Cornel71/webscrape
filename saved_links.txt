@@ -4434,3 +4434,20 @@ https://www.bing.com/aclick?ld=e8mI0_ubugn_-ozKuKEUdNATVUCUzPBT4ZujjRj9Q6RCs3Q4a
  📂 CATEGORY: DOCKER & CONTAINERS
 =========================================
 https://www.bing.com/aclick?ld=e817_xOkWgW3ZJvKYpfQ52NjVUCUzWXhkxHiXK6oSbXll1I8fjnFZz8kUQZjzyERrwNvgsk9zHxxMGYd1Lt4qttJPgLbiWyBMbsa71vcxpLC3W3abGqeUwtcLfczsJYSx5DrwDKl_BMiiZANRgp3gm_3ER0xdZZDBanFHs9gBSPCjYZcetPw6n2gogyp9xx53X65NLfQ&u=aHR0cHMlM2ElMmYlMmZ3d3cud2l6LmlvJTJmbHAlMmZjb250YWluZXItc2VjdXJpdHktYmVzdC1wcmFjdGljZXMtY2hlYXQtc2hlZXQlM2Z1dG1fc291cmNlJTNkYmluZyUyNnV0bV9tZWRpdW0lM2RwcGMlMjZ1dG1fY2FtcGFpZ24lM2Rub24tYnJhbmQtY29udGVudC10aWVyLTEtc2VhcmNoLXVzJTI2dXRtX3Rlcm0lM2RDb250YWluZXIlMjUyMFNlY3VyaXR5JTI1MjBCZXN0JTI1MjBQcmFjdGljZXMlMjZ1dG1fYWRncm91cG5hbWUlM2QlN2Jjb250YWluZXItc2VjdXJpdHklN2QlMjZ1dG1fZGV2aWNlJTNkYyUyNm1zY2xraWQlM2Q0NDQ1MzE1MzA1MzUxM2MzZDJjMjViYzRiOTk2ZmI0MQ&rlid=44453153053513c3d2c25bc4b996fb41
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://gist.github.com/devynspencer/effa29af449c46477ac71213210e7043
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://devops.stackexchange.com/questions/15689/why-cant-my-playbook-find-the-community-docker-modules
+https://help.galaxyproject.org/t/docker-and-rabbitmq/13041
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://kx.cloudingenium.com/en/ansible-vault-encrypt-secrets-management/
+https://github.com/TerryHowe/ansible-modules-hashivault/issues/10

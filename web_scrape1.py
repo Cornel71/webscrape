@@ -4,7 +4,6 @@ from bs4 import BeautifulSoup
 import re
 import time
 import os
-import yaml
 
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
@@ -36,7 +35,6 @@ def is_html_content(text: str) -> bool:
     if len(_HTML_TAG_RE.findall(sample)) > 4:
         return True
     return False
-
 _UNICODE_MAP = str.maketrans({
     "\u2018": "'", "\u2019": "'", "\u201a": "'", "\u201b": "'",
     "\u201c": '"', "\u201d": '"', "\u201e": '"', "\u201f": '"',
@@ -57,59 +55,36 @@ def convert_to_raw_github_url(url: str) -> str:
         return url.replace('/blob/', '/raw/')
     return url
 
-_ANSIBLE_DICT_KEYS = {
-    'hosts', 'tasks', 'vars', 'roles', 'handlers', 'become',
-    'gather_facts', 'name', 'collections', 'pre_tasks', 'post_tasks',
-    'vars_files', 'block', 'rescue', 'always',
-}
+# ---------------------------------------------------------------------------
+# YAML structure patterns
+# Accepted formats:
+#   1)  - name: <any>
+#         hosts: <any>
+#         vars: <any>
+#
+#   2)  ---
+#       - name: <any>
+#         hosts: <any>
+#         vars: <any>
+# ---------------------------------------------------------------------------
+
+_YAML_PATTERN_1 = re.compile(
+    r"^- name:\s*.+\n\s+hosts:\s*.+\n\s+vars:\s*",
+    re.MULTILINE,
+)
+_YAML_PATTERN_2 = re.compile(
+    r"^---\s*\n- name:\s*.+\n\s+hosts:\s*.+\n\s+vars:\s*",
+    re.MULTILINE,
+)
 
 def is_yaml_code(text: str) -> bool:
-    """
-    Return True if the text parses as YAML and looks like an Ansible
-    artifact (playbook, tasks file, handlers file, vars file, etc.),
-    based on structure/keys rather than one fixed key ordering.
-    """
-    stripped = text.strip()
-    if not stripped:
-        return False
-    try:
-        loaded = yaml.safe_load(stripped)
-    except yaml.YAMLError:
-        return False
-
-    if isinstance(loaded, dict):
-        return bool(set(loaded.keys()) & _ANSIBLE_DICT_KEYS)
-
-    if isinstance(loaded, list):
-        for item in loaded:
-            if not isinstance(item, dict):
-                continue
-            keys = set(item.keys())
-            if keys & _ANSIBLE_DICT_KEYS:
-                return True
-            if any(isinstance(k, str) and (k.islower() or '.' in k) for k in keys):
-                return True
-        return False
-
-    return False
-
-_PYTHON_PATTERNS = [
-    re.compile(r'^\s*import\s+\w+', re.MULTILINE),
-    re.compile(r'^\s*from\s+[\w.]+\s+import\s+', re.MULTILINE),
-    re.compile(r'^\s*def\s+\w+\s*\(', re.MULTILINE),
-    re.compile(r'^\s*class\s+\w+', re.MULTILINE),
-    re.compile(r'^\s*if\s+__name__\s*==', re.MULTILINE),
-    re.compile(r'\bprint\('),
-    re.compile(r'^\s*return\s+', re.MULTILINE),
-]
+    """Return True only if the text contains a valid Ansible play header."""
+    return bool(_YAML_PATTERN_1.search(text) or _YAML_PATTERN_2.search(text))
 
 def is_python_code(text: str) -> bool:
-    """
-    Return True only if the text has real Python syntax. Deliberately
-    does NOT match on the bare substring 'ansible.' or 'module_utils',
-    since those also appear inside YAML FQCN module names.
-    """
-    return any(p.search(text) for p in _PYTHON_PATTERNS)
+    indicators = ['import ', 'def ', 'from ', 'print(', 'class ',
+                  'ansible.', 'module_utils', 'return ', 'if __name__']
+    return any(ind in text for ind in indicators)
 
 def clean_content(text: str) -> str:
     """Strip control characters, trailing whitespace, and normalize unicode."""

@@ -4502,3 +4502,33 @@ https://www.bing.com/aclick?ld=e8rrRvd_jVF1EW3spa2Fj9WDVUCUxN3-5ng5d1nFQ6WPXGlyV
 https://community.letsencrypt.org/t/letsencrypt-nginx-autorenewal-infrastructure-as-code/67103
 https://devops.stackexchange.com/questions/3155/how-to-install-certbot-via-ansible-playbook
 https://community.letsencrypt.org/t/run-nginx-configure-without-renewal/197892
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://www.linkedin.com/posts/seanecavanaugh_ansible-changedwhen-failedwhen-stop-activity-7490378022819147776-U_yb
+https://www.quora.com/How-can-I-stop-myself-from-telling-other-peoples-secrets
+https://impaakt.co/masters-of-cybersecurity-automation-tools-for-future/
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://serverfault.com/questions/666501/how-to-encrypt-binary-files-in-ansible
+https://www.linkedin.com/pulse/shifting-from-manual-automated-security-hands-on-linux-tehreem-fatima-uny8f
+https://www.quora.com/Can-Ansible-be-used-to-install-Red-Hat-Linux-on-a-server-that-has-currently-no-OS-installed
+
+=========================================
+ 📂 CATEGORY: NGINX & WEB REVERSE PROXY
+=========================================
+https://community.letsencrypt.org/t/bypass-http-or-dns-challenge-while-using-certbot/227185
+
+=========================================
+ 📂 CATEGORY: PERFORMANCE & KERNEL OPTIMIZATION
+=========================================
+https://freebsdsoftware.org/blog/freebsd-performance-tuning.html
+
+=========================================
+ 📂 CATEGORY: POSTGRESQL DATABASE MANAGEMENT
+=========================================
+https://serverfault.com/questions/887871/ansible-become-twice
+https://stackoverflow.com/questions/20690209/ansible-not-setting-postgres-user-password

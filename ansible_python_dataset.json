@@ -1455,6 +1455,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: 6 Ways to Speed Up Ansible Playbook Execution - Notch"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Ansible Playbook\n  hosts: webservers\n  become: True\n  gather_facts: false\n  roles:\n    - kafka\n    - nginx"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Ansible Playbook for: Manage Network Configuration Compliance with Ansible"
       },
       {
@@ -1719,6 +1731,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: Ansible Tutorial â SSH Key Management -"
+      },
+      {
+        "from": "gpt",
+        "value": "# Add a single SSH key\n- name: Add SSH key for alice\n  ansible.posix.authorized_key:\n    user: alice\n    key: \"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBx... alice@workstation\"\n    state: present\n# Add SSH key from a file\n- name: Add SSH key from file\n  ansible.posix.authorized_key:\n    user: deploy\n    key: \"{{ lookup('file', 'files/deploy_key.pub') }}\"\n    state: present\n# Add SSH key from a URL\n- name: Add key from GitHub\n  ansible.posix.authorized_key:\n    user: alice\n    key: \"https://github.com/alice.keys\"\n    state: present"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Ansible Playbook for: Ansible Firewall -- firewalld & UFW | AnsibleByExample"
       },
       {
@@ -1748,18 +1772,6 @@
       {
         "from": "gpt",
         "value": "- name: Configure RHEL firewall\n  hosts: webservers\n  become: true\n  tasks:\n    - name: Ensure firewalld is running\n      ansible.builtin.service:\n        name: firewalld\n        state: started\n        enabled: true\n    - name: Allow web services\n      ansible.posix.firewalld:\n        service: \"{{ item }}\"\n        permanent: true\n        immediate: true\n        state: enabled\n      loop:\n        - http\n        - https\n    - name: Allow custom app port\n      ansible.posix.firewalld:\n        port: 8080/tcp\n        permanent: true\n        immediate: true\n        state: enabled\n    - name: Allow monitoring from internal\n      ansible.posix.firewalld:\n        rich_rule: 'rule family=\"ipv4\" source address=\"10.0.0.0/24\" port port=\"9100\" protocol=\"tcp\" accept'\n        permanent: true\n        immediate: true\n        state: enabled"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Ansible Playbook for: How to use Ansible with the Hashicorp Vault secret manager? - Tom's IT Cafe"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n- name: Play test 2\n  hosts: all\n  tasks:\n    - name: Reading data with community.hashi_vault.vault_read\n      community.hashi_vault.vault_read:\n        url: http://127.0.0.1:8200\n        path: secret/data/ansible\n      register: secret_data\n    - name: Echo the secret_data\n      ansible.builtin.debug:\n        msg: \"{{ secret_data }}\""
       }
     ]
   },
@@ -2883,6 +2895,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: Ansible Advanced â Serial & Rolling Updates -"
+      },
+      {
+        "from": "gpt",
+        "value": "# Canary deployment: 1 server first, then 20%, then the rest\n- name: Canary deploy\n  hosts: appservers\n  serial:\n    - 1       # First batch: 1 server (canary)\n    - \"20%\"   # Second batch: 20% of remaining\n    - \"100%\"  # Third batch: all remaining\n  tasks:\n    - name: Deploy and restart\n      ansible.builtin.systemd:\n        name: myapp\n        state: restarted"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Ansible Playbook for: Learn Ansible in Y Minutes"
       },
       {
@@ -3284,6 +3308,18 @@
       {
         "from": "gpt",
         "value": "- name: setting up httpd\n  hosts: localhost\n  tasks:\n    - name: Install the latest httpd and restart\n      block:\n        - name: install httpd\n          yum:\n            name: htt\n            state: latest\n      rescue:\n        - name: restart httpd\n          service:\n            name: httpd\n            state: started\n        - name: Install autofs\n          yum:\n            name: autofs\n      always:\n        - name: restart autofs\n          service:\n            name: autofs\n            state: started"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: Ansible Advanced â Zero-Downtime Deployment -"
+      },
+      {
+        "from": "gpt",
+        "value": "- hosts: webservers\n  become: true\n  serial: \"25%\"                    # Update 25% at a time\n  max_fail_percentage: 0           # Stop if ANY host fails\n  pre_tasks:\n    - name: Deregister from ALB\n      community.aws.elb_target:\n        target_group_arn: \"{{ '{{ alb_target_group_arn }}' }}\"\n        target_id: \"{{ '{{ ec2_instance_id }}' }}\"\n        state: absent\n      delegate_to: localhost\n    - name: Wait for connections to drain\n      ansible.builtin.pause:\n        seconds: 30\n  roles:\n    - deploy-app\n  post_tasks:\n    - name: Wait for app to be healthy\n      ansible.builtin.uri:\n        url: \"http://localhost:{{ '{{ app_port }}' }}/health\"\n        status_code: 200\n      register: health\n      until: health.status == 200\n      retries: 30\n      delay: 5\n    - name: Re-register with ALB\n      community.aws.elb_target:\n        target_group_arn: \"{{ '{{ alb_target_group_arn }}' }}\"\n        target_id: \"{{ '{{ ec2_instance_id }}' }}\"\n        target_port: \"{{ '{{ app_port }}' }}\"\n        state: present\n      delegate_to: localhost\n    - name: Wait for ALB health check\n      ansible.builtin.pause:\n        seconds: 15"
       }
     ]
   },
@@ -5091,18 +5127,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: Ansible Error Handling and Fail Handling"
-      },
-      {
-        "from": "gpt",
-        "value": "- name: Testing block-rescue directives\n  hosts: localhost\n  tasks:\n    - name: Handling the error tasks status\n      block:\n          - debug:\n                  msg: 'This task is successful'\n          - name: This will force failure\n            command: /bin/false\n          - debug:\n                  msg: 'This task will not be executed'\n      rescue:\n          - name: Sleep for 30 seconds and continue with play\n            wait_for:\n              timeout: 30\n            delegate_to: localhost\n          - debug:\n                  msg: 'As there was a failure in block section, rescue section will run'"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Ansible Playbook for: Integrate with Ansible"
       },
       {
@@ -6639,6 +6663,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: Ansible Automation for VyOS Configuration | OpenNix"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n# vyos-config.yml\n- name: Configure VyOS Routers\n  hosts: vyos_routers\n  gather_facts: false\n  tasks:\n    - name: Set hostname\n      vyos_system:\n        host_name: \"{{ inventory_hostname }}\"\n        state: present\n    - name: Configure interfaces\n      vyos_interfaces:\n        config:\n          - name: eth0\n            description: \"WAN Interface\"\n            enabled: true\n          - name: eth1\n            description: \"LAN Interface\"\n            enabled: true\n    - name: Configure IP addresses\n      vyos_l3_interfaces:\n        config:\n          - name: eth1\n            ipv4:\n              - address: 10.10.1.1/24\n    - name: Configure OSPF\n      vyos_ospfv2:\n        config:\n          router_id: \"{{ ansible_host }}\"\n          areas:\n            - area_id: 0.0.0.0\n              networks:\n                - address: 10.10.1.0/24\n    - name: Save configuration\n      vyos_config:\n        save: yes"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Python script for: Network Automation 101 - Tooling Landscape"
       },
       {
@@ -7064,18 +7100,6 @@
       {
         "from": "gpt",
         "value": "tasks:\n   - name: Show extracted list of keys from a list of dictionaries\n     ansible.builtin.debug:\n       msg: \"{{ chains | map('extract', chains_config) | map(attribute='configs') | flatten | map(attribute='type') | flatten }}\"\n     vars:\n       chains: [1, 2]\n       chains_config:\n           1:\n               foo: bar\n               configs:\n                   - type: routed\n                     version: 0.1\n                   - type: bridged\n                     version: 0.2\n           2:\n               foo: baz\n               configs:\n                   - type: routed\n                     version: 1.0\n                   - type: bridged\n                     version: 1.1"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Ansible Playbook for: Automating Windows Updates with Ansible"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n- name: Install Security Patches for Windows\n  hosts: windows\n  gather_facts: false\n  tasks:\n    - name: Check for available updates\n      win_updates:\n        category_names:\n          - SecurityUpdates\n        state: searched\n      register: win_updates_result\n    - name: Install security updates\n      win_updates:\n        category_names:\n          - SecurityUpdates\n        state: installed\n      when: win_updates_result.updates | length > 0"
       }
     ]
   },

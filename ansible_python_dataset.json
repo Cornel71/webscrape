@@ -1179,18 +1179,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: Use Ansible To Automate Logical Volume Manager (LVM) - OSTechNix"
-      },
-      {
-        "from": "gpt",
-        "value": "- name: Task for PV and VG\n  lvg:\n      vg: ostechnixlab\n      pvs: /dev/sdd1, /dev/sdd2, /dev/sdd3\n      pesize: 8"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Ansible Playbook for: community.general.lvol module - Configure LVM logical volumes -- Ansible collections documentation"
       },
       {
@@ -1971,18 +1959,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: How to Deploy Ollama with Ansible - ML Journey"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n- name: Deploy and configure Ollama\n  hosts: ollama_servers\n  become: true\n  tasks:\n    - name: Check if Ollama is installed\n      stat:\n        path: /usr/local/bin/ollama\n      register: ollama_binary\n    - name: Install Ollama\n      shell: curl -fsSL https://ollama.com/install.sh | sh\n      when: not ollama_binary.stat.exists\n      args:\n        executable: /bin/bash\n    - name: Create systemd override directory\n      file:\n        path: /etc/systemd/system/ollama.service.d\n        state: directory\n        mode: '0755'\n    - name: Deploy systemd override\n      copy:\n        dest: /etc/systemd/system/ollama.service.d/override.conf\n        content: |\n          [Service]\n          Environment=\"OLLAMA_HOST={{ ollama_host }}:{{ ollama_port }}\"\n          Environment=\"OLLAMA_MODELS=/var/lib/ollama/models\"\n          Environment=\"OLLAMA_NUM_PARALLEL=1\"\n        mode: '0644'\n      notify: Restart Ollama\n    - name: Enable and start Ollama\n      systemd:\n        name: ollama\n        enabled: true\n        daemon_reload: true\n        state: started\n    - name: Allow Ollama port through UFW\n      ufw:\n        rule: allow\n        port: \"{{ ollama_port }}\"\n        proto: tcp\n        src: 192.168.1.0/24\n      when: ollama_host != \"127.0.0.1\"\n    - name: Wait for Ollama to be ready\n      uri:\n        url: \"http://{{ ollama_host }}:{{ ollama_port }}/api/tags\"\n        status_code: 200\n      register: result\n      until: result.status == 200\n      retries: 12\n      delay: 5\n    - name: Check installed models\n      command: ollama list\n      register: ollama_list\n      changed_when: false\n      become_user: ollama\n    - name: Pull default model\n      command: ollama pull {{ ollama_model }}\n      become_user: ollama\n      when: ollama_model not in ollama_list.stdout\n      async: 600\n      poll: 10\n      environment:\n        OLLAMA_HOST: \"http://{{ ollama_host }}:{{ ollama_port }}\"\n  handlers:\n    - name: Restart Ollama\n      systemd:\n        name: ollama\n        state: restarted\n        daemon_reload: true"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Ansible Playbook for: Handler: In which order are Role Handlers executed? - Get Help - Ansible"
       },
       {
@@ -2595,18 +2571,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: Automate Apache HTTP Configuration With Ansible Playbooks: A Comprehensive Guide"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n- hosts: webservers\n  become: yes\n  vars:\n    virtual_hosts:\n      - servername: example.com\n        documentroot: /var/www/example.com\n        aliases:\n          - www.example.com\n      - servername: anotherdomain.com\n        documentroot: /var/www/anotherdomain.com\n        aliases:\n          - www.anotherdomain.com\n  tasks:\n    - name: Ensure virtual host directories exist\n      file:\n        path: '{{ item.documentroot }}'\n        state: directory\n        owner: www-data\n        group: www-data\n        mode: 0755\n      loop: '{{ virtual_hosts }}'\n      when: ansible_os_family == \"Debian\"\n    - name: Ensure virtual host directories exist (RedHat Family)\n      file:\n        path: '{{ item.documentroot }}'\n        state: directory\n        owner: apache\n        group: apache\n        mode: 0755\n      loop: '{{ virtual_hosts }}'\n      when: ansible_os_family == \"RedHat\"\n    - name: Create virtual host configuration files\n      template:\n        src: templates/vhost.conf.j2\n        dest: '/etc/apache2/sites-available/{{ item.servername }}.conf'\n        owner: root\n        group: root\n        mode: 0644\n      loop: '{{ virtual_hosts }}'\n      when: ansible_os_family == \"Debian\"\n      notify: Restart Apache\n    - name: Create virtual host configuration files (RedHat Family)\n      template:\n        src: templates/vhost.conf.j2\n        dest: '/etc/httpd/conf.d/{{ item.servername }}.conf'\n        owner: root\n        group: root\n        mode: 0644\n      loop: '{{ virtual_hosts }}'\n      when: ansible_os_family == \"RedHat\"\n      notify: Restart Apache\n    - name: Enable virtual hosts\n      file:\n        src: '/etc/apache2/sites-available/{{ item.servername }}.conf'\n        dest: '/etc/apache2/sites-enabled/{{ item.servername }}.conf'\n        state: link\n      loop: '{{ virtual_hosts }}'\n      when: ansible_os_family == \"Debian\"\n      notify: Restart Apache\n    - name: Enable virtual hosts (RedHat Family) - Alternative Approach\n      command:\n        cmd: 'a2enmod {{ item.servername }}'\n      loop: '{{ virtual_hosts }}'\n      args:\n        chdir: /etc/httpd/conf.d\n      when: ansible_os_family == \"RedHat\"\n      notify: Restart Apache\n  handlers:\n    - name: Restart Apache\n      service:\n        name: apache2\n        state: restarted\n      when: ansible_os_family == \"Debian\"\n    - name: Restart Apache (RedHat Family)\n      service:\n        name: httpd\n        state: restarted\n      when: ansible_os_family == \"RedHat\""
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Python script for: Django Private Settings Best Practices: Securely Managing Secrets in Deployment with Ansible, Fabric & GitHub â pythontutorials.net"
       },
       {
@@ -2924,18 +2888,6 @@
       {
         "from": "gpt",
         "value": "name: \"Infrastructure CI/CD\"\non:\n  push:\n    branches: [main]\n  pull_request:\n    branches: [main]\npermissions:\n  contents: read\n  pull-requests: write\n  id-token: write\nconcurrency:\n  group: infra-${{ github.ref }}\n  cancel-in-progress: false\njobs:\n  terraform-plan:\n    name: \"Terraform Plan\"\n    if: github.event_name == 'pull_request'\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: hashicorp/setup-terraform@v3\n      - name: Init & Plan\n        working-directory: terraform\n        run: |\n          terraform init -input=false\n          terraform plan -no-color -var-file=dev.tfvars -out=tfplan\n  ansible-lint:\n    name: \"Ansible Lint & Syntax\"\n    if: github.event_name == 'pull_request'\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: \"3.12\"\n      - run: pip install ansible ansible-lint yamllint\n      - run: yamllint ansible/\n      - run: ansible-lint ansible/\n      - run: ansible-playbook ansible/site.yml --syntax-check\n  terraform-apply:\n    name: \"Provision Infrastructure\"\n    if: github.event_name == 'push' && github.ref == 'refs/heads/main'\n    runs-on: ubuntu-latest\n    environment: dev\n    outputs:\n      host_ip: ${{ steps.output.outputs.host_ip }}\n    steps:\n      - uses: actions/checkout@v4\n      - uses: hashicorp/setup-terraform@v3\n        with:\n          terraform_wrapper: false\n      - name: Apply\n        working-directory: terraform\n        run: |\n          terraform init -input=false\n          terraform apply -auto-approve -var-file=dev.tfvars\n      - name: Get Outputs\n        id: output\n        working-directory: terraform\n        run: echo \"host_ip=$(terraform output -raw vm_public_ip)\" >> \"$GITHUB_OUTPUT\"\n  ansible-configure:\n    name: \"Configure Infrastructure\"\n    if: github.event_name == 'push' && github.ref == 'refs/heads/main'\n    needs: [terraform-apply]\n    runs-on: ubuntu-latest\n    environment: dev\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: \"3.12\"\n      - run: pip install ansible\n      - name: Write Dynamic Inventory\n        run: |\n          cat > ansible/inventory/dynamic.yml <<EOF\n          all:\n            hosts:\n              web:\n                ansible_host: ${{ needs.terraform-apply.outputs.host_ip }}\n                ansible_user: azureuser\n          EOF\n      - name: Write SSH Key\n        run: |\n          echo \"${{ secrets.SSH_PRIVATE_KEY }}\" > deploy_key\n          chmod 600 deploy_key\n      - name: Run Playbook\n        run: |\n          ansible-playbook ansible/site.yml \\\n            -i ansible/inventory/dynamic.yml \\\n            --private-key deploy_key\n      - name: Cleanup\n        if: always()\n        run: rm -f deploy_key"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Ansible Playbook for: Ansible Vault: Encrypting Secrets in Playbooks | FuryBee Â· Clean Infra"
-      },
-      {
-        "from": "gpt",
-        "value": "# .github/workflows/ansible.yml\nname: Deploy with Ansible\non:\n  push:\n    branches: [main]\njobs:\n  deploy:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Install Ansible\n        run: pip install ansible\n      - name: Create vault password file\n        run: echo \"${{ secrets.ANSIBLE_VAULT_PASSWORD }}\" > .vault_pass\n      - name: Run playbook\n        run: |\n          ansible-playbook \\\n            -i inventory/production \\\n            --vault-password-file .vault_pass \\\n            playbooks/deploy.yml\n        env:\n          ANSIBLE_HOST_KEY_CHECKING: \"false\"\n      - name: Cleanup\n        if: always()\n        run: rm -f .vault_pass"
       }
     ]
   },
@@ -3428,18 +3380,6 @@
       {
         "from": "gpt",
         "value": "- nginx_sites:\n  - name: 'mycustom-website.com'\n    custom_template: 'my/template_dir/the-template.conf.j2'\n    allow_admin: '192.168.0.0/24'"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Ansible Playbook for: Ansible Playbook examples - 4sysops"
-      },
-      {
-        "from": "gpt",
-        "value": "- name: Host Basic Apache Website\n  hosts: node1\n  become: true\n  tasks:\n    - name: Install Apache\n      apt:\n        name: apache2\n        state: present\n    - name: Create HTML file\n      template:\n        src: index.html\n        dest: /var/www/html/index.html\n    - name: Restart Apache and enable on boot\n      service:\n        name: apache2\n        state: restarted\n        enabled: true"
       }
     ]
   },
@@ -4095,18 +4035,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: Ansible Privilege Escalation (become, become_user)"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n- name: Orchestrate Application Services\n  hosts: webservers\n  become: false # Disabled by default for the entire play\n  tasks:\n    - name: Pull code from a public repository\n      ansible.builtin.git:\n        repo: 'https://github.com/example/app.git'\n        dest: /home/automation/app\n      # Runs safely as an unprivileged connection user\n    - name: Install system dependencies\n      ansible.builtin.apt:\n        name: libjpeg-dev\n        state: present\n      become: true # Explicitly enabled only for this administrative task"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Ansible Playbook for: Ansible become -- Privilege Escalation Guide (sudo, su)"
       },
       {
@@ -4220,6 +4148,18 @@
       {
         "from": "gpt",
         "value": "- name: Modify sshd_config with backup and external backup server\n  hosts: servers\n  become: true\n  tasks:\n    - name: Backup sshd_config file to remote server #before any modification\n      ansible.builtin.copy:\n        src: /etc/ssh/sshd_config\n        dest: /path/to/remote/backup/sshd_config_{{ ansible_hostname }}.bak\n    - name: Backup and change PermitRootLogin in sshd_config file\n      ansible.builtin.replace:\n        path: /etc/ssh/sshd_config\n        regexp: 'PermitRootLogin yes'\n        replace: 'PermitRootLogin no'\n        backup: true\n    - name: Backup and change PasswordAuthentication in sshd_config file\n      ansible.builtin.replace:\n        path: /etc/ssh/sshd_config\n        regexp: 'PasswordAuthentication yes'\n        replace: 'PasswordAuthentication no'\n        backup: true\n    - name: Restart SSH service to apply changes\n      ansible.builtin.systemd:\n        name: sshd\n        state: restarted"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: Automating UFW Configuration with Ansible: Locking Down the Digital Fortress - Tom's IT Cafe"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Lock down server with UFW\n  hosts: yourserver\n  become: yes\n  tasks:\n    - name: Set default UFW policies\n      ufw:\n        state: enabled\n        default: deny\n        direction: incoming\n        policy: deny\n    - name: Allow SSH connections\n      ufw:\n        rule: allow\n        name: OpenSSH\n    - name: Allow HTTP and HTTPS traffic\n      ufw:\n        rule: allow\n        name: 'Apache Full'\n    - name: Reload UFW to apply changes\n      ufw:\n        state: reloaded"
       }
     ]
   },
@@ -4467,30 +4407,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: Ansible playbook for k3s: sysctl, kernel modules, and Cilium bootstrap -- Anton Novikov weblog"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n- name: Prepare node and install k3s with Cilium\n  hosts: k3s_nodes\n  become: true\n  vars_files:\n    - vault.yaml\n  pre_tasks:\n    - name: Disable swap\n      # ...\n    - name: Remove swap from /etc/fstab\n      # ...\n    - name: Load kernel modules\n      # ...\n    - name: Persist kernel modules\n      # ...\n    - name: Set sysctl params\n      # ...\n    - name: Raise inotify and fd limits\n      # ...\n  tasks:\n    - name: Add Helm repo for Cilium\n      ansible.builtin.shell: helm repo add cilium https://helm.cilium.io && helm repo update\n      changed_when: false\n    - name: Install k3s\n      # ...\n    - name: Install Cilium via Helm\n      # ...\n    - name: Wait for Cilium DaemonSet to be ready\n      # ...\n    - name: Wait for node Ready\n      # ...\n  post_tasks:\n    - name: Fetch kubeconfig\n      # ...\n    - name: Update server address in kubeconfig\n      # ..."
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Ansible Playbook for: Ansible service module examples - 4sysops"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n- name: Update web server configuration and restart if necessary\n  hosts: web_servers\n  become: yes\n  tasks:\n    - name: Install NGINX\n      apt:\n        name: nginx\n        state: present\n    - name: Update NGINX configuration file\n      copy:\n        src: /path/to/new/nginx.conf\n        dest: /etc/nginx/nginx.conf\n      notify: restart nginx\n  handlers:\n    - name: restart nginx\n      service:\n        name: nginx\n        state: restarted"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Ansible Playbook for: Best Practices for Writing Efficient and Scalable Ansible Playbooks"
       },
       {
@@ -4712,6 +4628,18 @@
       {
         "from": "gpt",
         "value": "- hosts: localhost\n  tasks:\n    - name: Check file existence on remote host\n      stat:\n        path: /home/labex/file.txt\n      register: file_info\n    - name: Print file existence\n      debug:\n        msg: \"File exists: {{ file_info.stat.exists }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: ansible - Jinja2 filter list using string contains test"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- hosts: localhost\n  vars:\n    my_list:\n      - item1\n      - item2\n      - substring1\n      - substring2\n  tasks:\n    - name: Filter list based on substring\n      debug:\n        var: my_list | select(\"search\", \"substring\") | list"
       }
     ]
   },
@@ -6075,18 +6003,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: AWS EC2 Instance Creation Using Ansible Playbook Automation"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n  - name: Provision an EC2 Instance\n    hosts: localhost\n    connection: local\n    gather_facts: False\n    tags: provisioning\n    vars:\n      instance_type: t2.micro\n      security_group: webservers\n      image: ami-0080e4c5bc078760e\n      region: us-east-1\n      keypair: sshkeypair\n      count: 1\n    tasks:\n      - name: Create New security group with below given name\n        local_action:\n          module: ec2_group\n          name: \"{{ security_group }}\"\n          description: Security Group for Newly Created EC2 Instance\n          region: \"{{ region }}\"\n          rules:\n            - proto: tcp\n              from_port: 22\n              to_port: 22\n              cidr_ip: 0.0.0.0/0\n            - proto: tcp\n              from_port: 80\n              to_port: 80\n              cidr_ip: 0.0.0.0/0\n          rules_egress:\n            - proto: all\n              cidr_ip: 0.0.0.0/0\n      - name: Launch the new t2 micro EC2 Instance\n        local_action: ec2\n                      group={{ security_group }}\n                      instance_type={{ instance_type}}\n                      image={{ image }}\n                      wait=true\n                      region={{ region }}\n                      keypair={{ keypair }}\n                      count={{count}}\n        register: ec2\n      - name: Wait for EC2 Instance to Spin-up and ready for SSH access\n        local_action: wait_for\n                      host={{ item.public_ip }}\n                      port=22\n                      state=started\n        with_items: \"{{ ec2.instances }}\"\n      - name: Adding Tags to Identify\n        local_action: ec2_tag resource={{ item.id }} region={{ region }} state=present\n        with_items: \"{{ ec2.instances }}\"\n        args:\n          tags:\n            Name: Web Server\n            Owner: Ravi Kumar\n            PurPose: Testing EC2 Instance From Ansible"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Python script for: Tab Ð¿Ð¾Ð´ÑÑÐ°Ð½Ð¾Ð²ÐºÐ° Ñ Ð¾ÑÑÐ¾Ð² Ð¸Ð· Ansible inventory Ð´Ð»Ñ ansible, ssh, scp, rsync | ÐÐ¾ÑÐ¾Ð½Ð¸Ð¹ Ð±Ð»Ð¾Ð³"
       },
       {
@@ -6380,18 +6296,6 @@
       {
         "from": "gpt",
         "value": "---\n- name: Test Ansible SSH Key Setup\n  hosts: webservers\n  tasks:\n    - name: Ping the web servers\n      ping:"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Python script for: Nginx Automating TLS with Let's Encrypt & Certbot"
-      },
-      {
-        "from": "gpt",
-        "value": "# 1. HTTP Server - Redirect to HTTPS and Handle ACME Challenges\nserver {\n    listen 80;\n    listen [::]:80;\n    server_name example.com www.example.com;\n    # Location block dedicated to ACME HTTP-01 Challenges\n    location /.well-known/acme-challenge/ {\n        root /var/www/html;\n        allow all;\n    }\n    # Redirect all other HTTP traffic to HTTPS\n    location / {\n        return 301 https://example.com$request_uri;\n    }\n}\n# 2. Primary HTTPS Server\nserver {\n    listen 443 ssl;\n    listen [::]:443 ssl;\n    server_name example.com www.example.com;\n    # Enable HTTP/2 (Modern Nginx 1.25.1+ Syntax)\n    http2 on;\n    root /var/www/example/public;\n    index index.html index.php;\n    # Let's Encrypt Certificate Paths\n    ssl_certificate     /etc/letsencrypt/live/example.com/fullchain.pem;\n    ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;\n    # Basic SSL Protocol Settings\n    ssl_protocols TLSv1.2 TLSv1.3;\n    ssl_session_timeout 1d;\n    ssl_session_cache shared:SSL:10m;\n    ssl_session_tickets off;\n    location / {\n        try_files $uri $uri/ =404;\n    }\n}"
       }
     ]
   },
@@ -7460,6 +7364,30 @@
       {
         "from": "gpt",
         "value": "# .github/workflows/deploy.yml\nname: Deploy\non:\n  push:\n    branches: [main]\njobs:\n  deploy:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Install Ansible\n        run: pip install ansible\n      - name: Write vault password to file\n        run: echo \"${{ secrets.ANSIBLE_VAULT_PASSWORD }}\" > ~/.vault_pass\n        # Note: file permissions are set automatically; delete in cleanup\n      - name: Run playbook\n        run: |\n          ansible-playbook -i inventory/production site.yml \\\n            --vault-password-file ~/.vault_pass\n      - name: Remove vault password file\n        if: always()\n        run: rm -f ~/.vault_pass"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: 09a_lineinfile_sshd_config.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "- hosts: dev\n  tasks:\n    - name: Update SSH configuration to be more secure.\n      lineinfile:\n        dest: /etc/ssh/sshd_config\n        regexp: \"{{ item.regexp }}\"\n        line: \"{{ item.line }}\"\n        state: present\n      with_items:\n        - regexp: \"^PasswordAuthentication\"\n          line: \"PasswordAuthentication no\"\n        - regexp: \"^PermitRootLogin\"\n          line: \"PermitRootLogin no\"\n    - name: restart sshd\n      service: name=sshd state=restarted"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: Automate CIS Benchmark Hardening for RHEL 9 with Ansible"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: RHEL9 CIS Audit\n  hosts: all\n  become: true\n  roles:\n    - name: \"RHEL9-CIS\"\n      vars:\n        setup_audit: true\n        run_audit: true\n        goss_url: https://github.com/goss-org/goss/releases/download/v0.3.23/goss-linux-arm64\n        goss_version:\n          release: v0.3.23\n          checksum: 'sha256:7b0794fa590857e7d64ef436e1a100ca26f6039f269a6138009aa837d27d7f9e'"
       }
     ]
   }

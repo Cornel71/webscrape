@@ -4532,3 +4532,34 @@ https://freebsdsoftware.org/blog/freebsd-performance-tuning.html
 =========================================
 https://serverfault.com/questions/887871/ansible-become-twice
 https://stackoverflow.com/questions/20690209/ansible-not-setting-postgres-user-password
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://www.geeksforgeeks.org/devops/ansible-best-practices/
+https://xsoar.pan.dev/docs/reference/integrations/ansible-tower
+https://www.bing.com/aclick?ld=e8-exy3WBkuPMPyJfzdyT3UDVUCUx3A4j_M9r99fYf-9zgXXaexGX209ggEZ4BY14-nNGXXCTXHvIOQLCndWGbM05rKRa4iZzR6ELeku5N-FmAo3OgUt7sat2xUp0WU8YxGn9sRIG1PgKhrWb99B11mcZVP6Tr6wuDHMV_iXLgmniPbl5ucrB9ZohzI9O2C99FNoDOhCVQrgYyOf8MbxvQIioDx04&u=aHR0cHMlM2ElMmYlMmZ3d3cubWFuYWdlZW5naW5lLmNvbSUyZmxvZy1tYW5hZ2VtZW50JTJmc2VtJTJmZ2xwJTJmc2llbS1zZWN1cml0eS1pbmZvcm1hdGlvbi1ldmVudC1tYW5hZ2VtZW50LXNvZnR3YXJlLmh0bWwlM2ZjYW1pZCUzZDQ3MDg3OTIzMSUyNmFkZ2lkJTNkMTMwNzMyMDQ3MDQwODY1MSUyNmt3ZCUzZHNpZW0lMjUyMHNvZnR3YXJlJTI2bWF0Y2h0eXBlJTNkcCUyNmFkaWQlM2QlMjZuZXR3b3JrJTNkbyUyNmFkcG9zaXRpb24lM2QlMjZsb2MlM2Q2NzExMyUyNnBsYWNlbWVudCUzZCUyNnRhcmdldCUzZCUyNnNlYXJjaHF1ZXJ5JTNkYW5zaWJsZSUyNTIwaW50ZWdyYXRpb24lMjUyMHNwbHVuayUyNTIwcXJhZGFyJTI1MjBzaWVtJTI1MjBhdXRvbWF0ZWQlMjZrd2RtYXRjaHR5cGUlM2RicCUyNm1zY2xraWQlM2RiYjZjY2UzYzc4ZjQxZTUyMjgxMmE0YTE3Y2Q4ZjMxMA&rlid=bb6cce3c78f41e522812a4a17cd8f310
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://github.com/tsoko8/ci-cd-pipeline
+https://kokil.com.np/blog/ansible-vault-for-secrets
+https://khimananda.com/blog/ansible-vault-for-secrets
+https://github.com/rohini-1233/ansible/blob/master/09a_lineinfile_sshd_config.yml
+https://www.ansiblepilot.com/articles/automating-audit-cis-benchmark-hardening-for-red-hat-enterprise-linux-9-with-ansible
+https://www.linkedin.com/posts/rohit-sawant-529062144_linux-automation-with-ansible-practical-activity-7437783162459557888-KD3p
+https://devopsaitoolkit.com/blog/ansible-vault-best-practices/
+https://developers.redhat.com/articles/2022/09/07/5-examples-security-automation-ansible
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://gitlab.com/groups/gitlab-org/-/epics/6657
+https://www.bing.com/aclick?ld=e8yiknLQcJ9ZdwhFCdHhIJETVUCUyLlemQVL7LO4aakfiNg4HF12X7Na9maLg7R2fPbUqqGCqSpkBvn9Lgraf1aL04kfPVoEwIHBW4wQ_MITAeoUae11jS8bhvRRrqQiJK8258WUJ10ZL18p0euLX5cSpdNiWoG6rPo-Ii6InQu9r0wfWQaLYexw_iizp3AjN5xXQ8C7Eih6oXqqk7IfNyjpbnsJM&u=aHR0cHMlM2ElMmYlMmZ3d3cubWFuYWdlZW5naW5lLmNvbSUyZnZ1bG5lcmFiaWxpdHktbWFuYWdlbWVudCUyZmNpcy1jb21wbGlhbmNlLmh0bWwlM2Z1dG1fc291cmNlJTNkYmluZyUyNnV0bV9tZWRpdW0lM2RjcGMlMjZuZXR3b3JrJTNkbyUyNmRldmljZSUzZGMlMjZrZXl3b3JkJTNkQ0lTJTI1MjBzZWN1cml0eSUyNTIwYmVuY2htYXJrcyUyNmNhbXBhaWduaWQlM2Q0MDE1ODg1MTklMjZjcmVhdGl2ZSUzZCUyNm1hdGNodHlwZSUzZHAlMjZhZHBvc2l0aW9uJTNkJTI2cGxhY2VtZW50JTNkJTI2YWRncm91cCUzZDEzMDI5MjE2MjM1MDI1MTklMjZ0YXJnZXRpZCUzZGt3ZC04MTQzMjc4NjQ4MTk0MSUzYWxvYy0xOTAlMjZsb2NhdGlvbiUzZCU3YmxvY2F0aW9uJTdkJTI2c2VhcmNodGVybSUzZGFuc2libGUlMjUyMGFyY2hpdGVjdHVyZSUyNTIwY2lzJTI1MjBiZW5jaG1hcmtzJTI1MjBjb21wbGlhbmNlJTI1MjBhdXRvbWF0ZWQlMjZtc2Nsa2lkJTNkYTZmYTgxNGY2ZTFjMTAzNzM3ZDhlYmQyNmRmNGU1ZWMlMjZ1dG1fY2FtcGFpZ24lM2RCSU5HLVZNUC1JTlItU2VhcmNoLVVTQS1MMS1QaHJhc2UlMjZ1dG1fdGVybSUzZENJUyUyNTIwc2VjdXJpdHklMjUyMGJlbmNobWFya3MlMjZ1dG1fY29udGVudCUzZENJUyUyNTIwQ29tcGxpYW5jZQ&rlid=a6fa814f6e1c103737d8ebd26df4e5ec
+https://developers.redhat.com/articles/2026/09/04/build-ai-assisted-firewall-workflows-ansible-automation-platform
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://www.bing.com/aclick?ld=e8JHba3eRATxCQKrqKzbRHjjVUCUxgLVGeT-WAd5lsVxm-11aNS4_gzy0QgkYVnqlCZWuMLrRcT6_tQ1MvuIXdPiIPUpxPEp0zMenQxz4fk4NfdOAAdtNSFBd3HwJeOlsAx6rSE5l_giGR5eBQQ7Ns-EM-f-JPr7yE4UJUCIwZDdNoFH90BRL_T_ZDKWGowvbwXavPjY9XeYnAfIk-KyPmSJ_VHJ4&u=aHR0cHMlM2ElMmYlMmZ3d3cud2l6LmlvJTJmbHAlMmZjb250YWluZXItc2VjdXJpdHktYmVzdC1wcmFjdGljZXMtY2hlYXQtc2hlZXQlM2Z1dG1fc291cmNlJTNkYmluZyUyNnV0bV9tZWRpdW0lM2RwcGMlMjZ1dG1fY2FtcGFpZ24lM2Rub24tYnJhbmQtY29udGVudC10aWVyLTEtc2VhcmNoLXVzJTI2dXRtX3Rlcm0lM2RDb250YWluZXIlMjUyMFNlY3VyaXR5JTI1MjBCZXN0JTI1MjBQcmFjdGljZXMlMjZ1dG1fYWRncm91cG5hbWUlM2QlN2Jjb250YWluZXItc2VjdXJpdHklN2QlMjZ1dG1fZGV2aWNlJTNkYyUyNm1zY2xraWQlM2Q3MzJjMzFkMTk2MTAxMzI1ZmJhZjViNGM5MjMzNzkwNw&rlid=732c31d196101325fbaf5b4c92337907

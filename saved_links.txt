@@ -4563,3 +4563,15 @@ https://developers.redhat.com/articles/2026/09/04/build-ai-assisted-firewall-wor
  📂 CATEGORY: DOCKER & CONTAINERS
 =========================================
 https://www.bing.com/aclick?ld=e8JHba3eRATxCQKrqKzbRHjjVUCUxgLVGeT-WAd5lsVxm-11aNS4_gzy0QgkYVnqlCZWuMLrRcT6_tQ1MvuIXdPiIPUpxPEp0zMenQxz4fk4NfdOAAdtNSFBd3HwJeOlsAx6rSE5l_giGR5eBQQ7Ns-EM-f-JPr7yE4UJUCIwZDdNoFH90BRL_T_ZDKWGowvbwXavPjY9XeYnAfIk-KyPmSJ_VHJ4&u=aHR0cHMlM2ElMmYlMmZ3d3cud2l6LmlvJTJmbHAlMmZjb250YWluZXItc2VjdXJpdHktYmVzdC1wcmFjdGljZXMtY2hlYXQtc2hlZXQlM2Z1dG1fc291cmNlJTNkYmluZyUyNnV0bV9tZWRpdW0lM2RwcGMlMjZ1dG1fY2FtcGFpZ24lM2Rub24tYnJhbmQtY29udGVudC10aWVyLTEtc2VhcmNoLXVzJTI2dXRtX3Rlcm0lM2RDb250YWluZXIlMjUyMFNlY3VyaXR5JTI1MjBCZXN0JTI1MjBQcmFjdGljZXMlMjZ1dG1fYWRncm91cG5hbWUlM2QlN2Jjb250YWluZXItc2VjdXJpdHklN2QlMjZ1dG1fZGV2aWNlJTNkYyUyNm1zY2xraWQlM2Q3MzJjMzFkMTk2MTAxMzI1ZmJhZjViNGM5MjMzNzkwNw&rlid=732c31d196101325fbaf5b4c92337907
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://www.techtarget.com/it-infrastructure/tutorial/How-to-build-a-network-aware-CI-CD-pipeline-with-GitLab-and-Ansible
+https://docs.ansible.com/projects/ansible/latest/collections/community/general/gitlab_deploy_key_module.html
+https://stackoverflow.com/questions/66998978/specify-with-ansible-a-ufw-rule-involving-2-network-interfaces-and-the-direction
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://kanishkashakya9.medium.com/integrating-siem-tools-with-devops-using-kubernetes-docker-and-terraform-5c4b323adf68

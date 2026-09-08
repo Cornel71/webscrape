@@ -4575,3 +4575,40 @@ https://stackoverflow.com/questions/66998978/specify-with-ansible-a-ufw-rule-inv
  📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
 =========================================
 https://kanishkashakya9.medium.com/integrating-siem-tools-with-devops-using-kubernetes-docker-and-terraform-5c4b323adf68
+
+=========================================
+ 📂 CATEGORY: NGINX & WEB REVERSE PROXY
+=========================================
+https://devops.stackexchange.com/questions/12157/snake-bites-its-tail-problem-automating-configuration-of-certbot-with-ansible
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.4/html/red_hat_ansible_automation_platform_hardening_guide/hardening-aap
+https://ansible-collections.github.io/community.hashi_vault/pr/220/collections/community/hashi_vault/hashi_vault_lookup.html
+https://docs.cyberark.com/conjur-open-source/latest/en/content/integrations/ansible.html
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://www.bing.com/aclick?ld=e8Ar5P2TTJqbL-FA79HYBLAjVUCUw5G4vnXxoEFwC6opASUhZGDX5G7Cxd67QHGYy_FfYOdtiIUHQ0zcXctw3JMe4U2widZ0Tti3GIV3vvd0rhPp7rH_D4O2aYKJR22tNZx1zc8IgpskR-8zIdH-6gmfWYXpfRizg1AkTFwt2fFH1v1TxH2pl1P33R_FgM7BRvik19kj73DkruvHlidFRBLqhhaGheT2NXLc1K_ei2mBpM2eX_&u=aHR0cHMlM2ElMmYlMmZ3d3cuY2lzZWN1cml0eS5vcmclMmZjaXMtc2VjdXJlc3VpdGUlM2Z1dG1fc291cmNlJTNkYmluZyUyNnV0bV9tZWRpdW0lM2RwYWlkJTI2dXRtX2NhbXBhaWduJTNkc2VjdXJlc3VpdGUlMjZ1dG1fY29udGVudCUzZDI2LXNlY3VyZXN1aXRlLWV2LXNlY3VyZXN1aXRlX3NlYXJjaF9hcHBseV9ub3clMjZtc2Nsa2lkJTNkMzFlOTU0NDBmNzMyMWQ5YjlhMGQzZWRmNTE1MjhmMjQ&rlid=31e95440f7321d9b9a0d3edf51528f24
+https://www.bing.com/aclick?ld=e81ncBIItT_Tr8vB77L261cDVUCUwgSxUZRwRJuLvBSIpNMehFI4iPPDzuCKMEszQIXULn6tKt1M2uVQ6Dkk4AbXEf-h4Fp502yb5-9PQ_4qDPTQU-uxNsOWevX7vm7weUIggsElmif9IWvyUWhSlt0HGc7UZy-EKQoIT0FM1Kyy47aGUBNYG4m0GUqLH3fhgiKNZLI7_6-09y4usUmQCctBMQjwwduo_KezobP_425Pr5vySU&u=aHR0cHMlM2ElMmYlMmZ3d3cubWFuYWdlZW5naW5lLmNvbSUyZnZ1bG5lcmFiaWxpdHktbWFuYWdlbWVudCUyZmNpcy1jb21wbGlhbmNlLmh0bWwlM2Z1dG1fc291cmNlJTNkYmluZyUyNnV0bV9tZWRpdW0lM2RjcGMlMjZuZXR3b3JrJTNkbyUyNmRldmljZSUzZGMlMjZrZXl3b3JkJTNkQ0lTJTI1MjBzZWN1cml0eSUyNTIwYmVuY2htYXJrcyUyNmNhbXBhaWduaWQlM2Q0MDE1ODg1MTklMjZjcmVhdGl2ZSUzZCUyNm1hdGNodHlwZSUzZHAlMjZhZHBvc2l0aW9uJTNkJTI2cGxhY2VtZW50JTNkJTI2YWRncm91cCUzZDEzMDI5MjE2MjM1MDI1MTklMjZ0YXJnZXRpZCUzZGt3ZC04MTQzMjc4NjQ4MTk0MSUzYWxvYy0xOTAlMjZsb2NhdGlvbiUzZCU3YmxvY2F0aW9uJTdkJTI2c2VhcmNodGVybSUzZGFuc2libGUlMjUyMGFyY2hpdGVjdHVyZSUyNTIwY2lzJTI1MjBiZW5jaG1hcmtzJTI1MjBjb21wbGlhbmNlJTI1MjBhdXRvbWF0ZWQlMjZtc2Nsa2lkJTNkYjIzNDg0MTZjZjQ3MTlkYjMwZDBlZTg5NjkyNzI4ZWIlMjZ1dG1fY2FtcGFpZ24lM2RCSU5HLVZNUC1JTlItU2VhcmNoLVVTQS1MMS1QaHJhc2UlMjZ1dG1fdGVybSUzZENJUyUyNTIwc2VjdXJpdHklMjUyMGJlbmNobWFya3MlMjZ1dG1fY29udGVudCUzZENJUyUyNTIwQ29tcGxpYW5jZQ&rlid=b2348416cf4719db30d0ee89692728eb
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://www.bing.com/aclick?ld=e8AVSYj-JHu-UQCZlPoa1PKzVUCUxIDMvchwMnRQd6NZgBDcY-Kinyv7I35iBBA5_okCYF791-O0YQfplaeMefyo8E5TU4VBvJk7amvS_6_XGdX062TnA1oCjYwO-LCv7w0ssmNVcWHnNWrVznISC0Ia7FOaEUyHdmmrzz-dO2SDq9AVveTg1GqhIi4nUzsDl4A7wS7JINy77JVAInOo73S8qBrYY&u=aHR0cHMlM2ElMmYlMmZoeXBlcnByb29mLmlvJTJmJTNmaHN0a19jcmVhdGl2ZSUzZCUyNmhzdGtfY2FtcGFpZ24lM2Q0ODc4OTYyMjUlMjZoc3RrX25ldHdvcmslM2Rnb29nbGVBZHMlMjZ1dG1fdGVybSUzZGh5cGVycHJvb2YlMjUyMGNvbXBsaWFuY2UlMjZ1dG1fdGVybSUzZGh5cGVycHJvb2YlMjUyMGNvbXBsaWFuY2UlMjZ1dG1fY2FtcGFpZ24lM2RTZWFyY2glMmItJTJiQnJhbmRlZCUyNnV0bV9zb3VyY2UlM2RiaW5nJTI2dXRtX21lZGl1bSUzZHBwYyUyNmhzYV9hY2MlM2Q3Mjk0NDE5MzE5JTI2aHNhX2NhbSUzZDIzNTYyOTY2MTI1JTI2aHNhX2dycCUzZDEyMzkxNTExMDQ2Nzg4MjklMjZoc2FfYWQlM2QlMjZoc2Ffc3JjJTNkbyUyNmhzYV90Z3QlM2Rrd2QtNzc0NDc1OTM3ODgyMzglM2Fsb2MtMTkwJTI2aHNhX2t3JTNkaHlwZXJwcm9vZiUyNTIwY29tcGxpYW5jZSUyNmhzYV9tdCUzZHAlMjZoc2FfbmV0JTNkYWR3b3JkcyUyNmhzYV92ZXIlM2QzJTI2bXNjbGtpZCUzZDc1ODhhZTQ2MzEwZjFlYTFlMmZiYzRkOTk3NjZmODU5&rlid=7588ae46310f1ea1e2fbc4d99766f859
+https://medium.com/@hermanmaleiane/seamless-integration-between-ibm-qradar-siem-and-thehive-using-python-bf480ebd361e
+https://freundcloud.gitbook.io/devops-examples-from-real-life/security-and-compliance/security/siem-and-soar
+https://www.bing.com/aclick?ld=e8Z-VCSrx5X71sJgZ7207HiTVUCUxRoDnxqtp-lpHaodnufTxsrWl2Ta106Q1Q3EzxySHrl2QAbp76jI6fMblomn4ZJ3f4DVWmlaaT2Th9mLHIfuZrbkZp7uZj3QhnAOx1CUeyZALs5z_nYWq6GrZBGxQKiWvJgIlTtcUhQmkcBkl2E_HOk7Z6vAMOZ1GdRjad9bRF23o9mG8koop8T9m1sd3Lw8c&u=aHR0cHMlM2ElMmYlMmZ3d3cubWFuYWdlZW5naW5lLmNvbSUyZmNsb3VkLXNpZW0lMmYlM2ZjYW1pZCUzZDQ3MDg5MTk5NSUyNmFkZ2lkJTNkMTI5NTIyNTg0NDQ2NjUyOCUyNmt3ZCUzZGNsb3VkJTI1MjBzaWVtJTI1MjB0b29sJTI2bWF0Y2h0eXBlJTNkcCUyNmFkaWQlM2QlMjZuZXR3b3JrJTNkbyUyNmFkcG9zaXRpb24lM2QlMjZsb2MlM2Q0NjMxMyUyNnBsYWNlbWVudCUzZCUyNnRhcmdldCUzZCUyNnNlYXJjaHF1ZXJ5JTNkYW5zaWJsZSUyNTIwaW50ZWdyYXRpb24lMjUyMHNwbHVuayUyNTIwcXJhZGFyJTI1MjBzaWVtJTI1MjBhdXRvbWF0ZWQlMjZrd2RtYXRjaHR5cGUlM2RicCUyNm1zY2xraWQlM2Q3ZDMyYmY4NGIxYmQxNTJmYzIxYWQ1MWIxNzFhNTAwOQ&rlid=7d32bf84b1bd152fc21ad51b171a5009
+
+=========================================
+ 📂 CATEGORY: POSTGRESQL DATABASE MANAGEMENT
+=========================================
+https://www.bing.com/aclick?ld=e8ML18zkUvvAEgKxgToT9SizVUCUy063TeFU8dAOKPVX0XRtAjW2czaHYKnvNCBTbiS6gzskuH5QbVhTGsN7L6bTafnyZL-v2vQ5ZH6OaO7VMj_kC-9hRrUpIX076oz4xuWgUM0CA2sakNlMJ0ZQTf5CU2HHY7mFDttPGGpS_5gKje30UUelzSoaHR09hA8Vc_Z5kIyRHW15goYcZt_8M2wgjJSwo&u=aHR0cHMlM2ElMmYlMmZhZC5kb3VibGVjbGljay5uZXQlMmZzZWFyY2hhZHMlMmZsaW5rJTJmY2xpY2slM2ZsaWQlM2Q0MzcwMDA4MjgyODY5MzczMyUyNmRzX3Nfa3dnaWQlM2Q1ODcwMDAwODk2OTAxMzI3MyUyNmRzX2FfY2lkJTNkNjg1ODcwNzYzJTI2ZHNfYV9jYWlkJTNkMjMxOTQ3NDgzMTglMjZkc19hX2FnaWQlM2QxODY5MzI5MDI5OTklMjZkc19hX2xpZCUzZGt3ZC0xMjA3NzE0MCUyNiUyNmRzX2VfYWRpZCUzZDc2ODk3MzMxODMwNDY5JTI2ZHNfZV90YXJnZXRfaWQlM2Rrd2QtNzY4OTc2MDc1MDc0ODMlM2Fsb2MtMTkwJTI2JTI2ZHNfZV9uZXR3b3JrJTNkbyUyNmRzX3VybF92JTNkMiUyNmRzX2Rlc3RfdXJsJTNkaHR0cHMlM2ElMmYlMmZjbG91ZC5nb29nbGUuY29tJTJmc3FsJTNmdXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fbWVkaXVtJTNkY3BjJTI2dXRtX2NhbXBhaWduJTNkQ2xvdWQtU1MtRFItR0NQLTE3MTM2NTgtR0NQLURSLU5BLVVTLWVuLUJpbmctU0tXUy1QSFItQ2xvdWRTUUwlMjZ1dG1fY29udGVudCUzZGMtSHlicmlkJTJiJTI1N0MlMmJTS1dTJTJiLSUyYlBIUiUyYiUyNTdDJTJiVHh0LURhdGFiYXNlcy1SZWxhdGlvbmFsJTJiREItQ2xvdWQlMmJTUUwtMTIwNzcxNDAlMjZ1dG1fdGVybSUzZHJlbGF0aW9uYWwlMjUyMGRhdGFiYXNlJTI2Z2NsaWQlM2Q5MDZlZDU5YjVmNGExY2E3MzhkOGJmMDRmOTNiNTYwNSUyNmdjbHNyYyUzZDNwLmRzJTI2JTI2bXNjbGtpZCUzZDkwNmVkNTliNWY0YTFjYTczOGQ4YmYwNGY5M2I1NjA1JTI2dXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fbWVkaXVtJTNkY3BjJTI2dXRtX2NhbXBhaWduJTNkMTcxMzY1OCUyNTIwJTI1N0MlMjUyMEdDUCUyNTIwJTI1N0MlMjUyMERSJTI1MjAlMjU3QyUyNTIwRVNTMDElMjUyMCUyNTdDJTI1MjBOQSUyNTIwJTI1N0MlMjUyMFVTJTI1MjAlMjU3QyUyNTIwZW4lMjUyMCUyNTdDJTI1MjBIeWJyaWQlMjUyMCUyNTdDJTI1MjBTRU0lMjUyMCUyNTdDJTI1MjBTS1dTJTI1MjAtJTI1MjBQSFIlMjUyMCUyNTdDJTI1MjBUeHQlMjUyMCUyNTdDJTI1MjBCaW5nX0RhdGFiYXNlcyUyNnV0bV90ZXJtJTNkcmVsYXRpb25hbCUyNTIwZGF0YWJhc2UlMjZ1dG1fY29udGVudCUzZEh5YnJpZCUyNTIwJTI1N0MlMjUyMFNLV1MlMjUyMC0lMjUyMFBIUiUyNTIwJTI1N0MlMjUyMFR4dC1EYXRhYmFzZXMtUmVsYXRpb25hbCUyNTIwREItQ2xvdWQlMjUyMFNRTA&rlid=906ed59b5f4a1ca738d8bf04f93b5605
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://forum.ansible.com/t/execution-environment-from-docs-doesnt-install-python-in-container/46272
+https://www.bing.com/aclick?ld=e8GwCyJMOn4g1yLeboXT3scjVUCUwnMeKdPpTiqKbSRFCKjd7xZ-GBpfRM0_r4bZbn4GcJp_-tBntroN6N9Mexuv_yeQmaT85JMjHDN-l9kz2FexZRcxkGgsli7KT5XDmAMwWfIs7y7kuXbxLdXs8kvDDgokQL0oCmwLgXpBmGZgizDBehv5zEXoCG-pcx3U57kpJYvNL0aHN7RqeSY4IhcvCvk4w&u=aHR0cHMlM2ElMmYlMmZ3d3cud2l6LmlvJTJmbHAlMmZjb250YWluZXItc2VjdXJpdHktYmVzdC1wcmFjdGljZXMtY2hlYXQtc2hlZXQlM2Z1dG1fc291cmNlJTNkYmluZyUyNnV0bV9tZWRpdW0lM2RwcGMlMjZ1dG1fY2FtcGFpZ24lM2Rub24tYnJhbmQtY29udGVudC10aWVyLTEtc2VhcmNoLXVzJTI2dXRtX3Rlcm0lM2RDb250YWluZXIlMjUyMFNlY3VyaXR5JTI1MjBCZXN0JTI1MjBQcmFjdGljZXMlMjZ1dG1fYWRncm91cG5hbWUlM2QlN2Jjb250YWluZXItc2VjdXJpdHklN2QlMjZ1dG1fZGV2aWNlJTNkYyUyNm1zY2xraWQlM2Q1YTQ3YTQ1YmY3NGMxODg4ZjIwYWNlYzQ1MWQzM2U2NA&rlid=5a47a45bf74c1888f20acec451d33e64

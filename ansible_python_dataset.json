@@ -15,42 +15,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: Error handling in playbooks -- Ansible Community Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n- hosts: load_balancers_dc_a\n  any_errors_fatal: true\n  tasks:\n    - name: Shut down datacenter 'A'\n      ansible.builtin.command: /usr/bin/disable-dc\n- hosts: frontends_dc_a\n  tasks:\n    - name: Stop service\n      ansible.builtin.command: /usr/bin/stop-software\n    - name: Update software\n      ansible.builtin.command: /usr/bin/upgrade-software\n- hosts: load_balancers_dc_a\n  tasks:\n    - name: Start datacenter 'A'\n      ansible.builtin.command: /usr/bin/enable-dc"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Ansible Playbook for: ansible.builtin.shell module - Execute shell commands on targets -- Ansible Community Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "- name: Execute the command in remote shell; stdout goes to the specified file on the remote\n  ansible.builtin.shell: somescript.sh >> somelog.txt\n- name: Change the working directory to somedir/ before executing the command\n  ansible.builtin.shell: somescript.sh >> somelog.txt\n  args:\n    chdir: somedir/\n# You can also use the 'args' form to provide the options.\n- name: This command will change the working directory to somedir/ and will only run when somedir/somelog.txt doesn't exist\n  ansible.builtin.shell: somescript.sh >> somelog.txt\n  args:\n    chdir: somedir/\n    creates: somelog.txt\n# You can also use the 'cmd' parameter instead of free form format.\n- name: This command will change the working directory to somedir/\n  ansible.builtin.shell:\n    cmd: ls -l | grep log\n    chdir: somedir/\n- name: Run a command that uses non-posix shell-isms (in this example /bin/sh doesn't handle redirection and wildcards together but bash does)\n  ansible.builtin.shell: cat < /tmp/*txt\n  args:\n    executable: /bin/bash\n- name: Run a command using a templated variable (always use quote filter to avoid injection)\n  ansible.builtin.shell: cat {{ myfile|quote }}\n# You can use shell to run other executables to perform actions inline\n- name: Run expect to wait for a successful PXE boot via out-of-band CIMC\n  ansible.builtin.shell: |\n    set timeout 300\n    spawn ssh admin@{{ cimc_host }}\n    expect \"password:\"\n    send \"{{ cimc_password }}\\n\"\n    expect \"\\n{{ cimc_name }}\"\n    send \"connect host\\n\"\n    expect \"pxeboot.n12\"\n    send \"\\n\"\n    exit 0\n  args:\n    executable: /usr/bin/expect\n  delegate_to: localhost"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Ansible Playbook for: Handlers: running operations on change -- Ansible Community Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n- name: Verify apache installation\n  hosts: webservers\n  vars:\n    http_port: 80\n    max_clients: 200\n  remote_user: root\n  tasks:\n    - name: Ensure apache is at the latest version\n      ansible.builtin.yum:\n        name: httpd\n        state: latest\n    - name: Write the apache config file\n      ansible.builtin.template:\n        src: /srv/httpd.j2\n        dest: /etc/httpd.conf\n      notify:\n        - Restart apache\n    - name: Ensure apache is running\n      ansible.builtin.service:\n        name: httpd\n        state: started\n  handlers:\n    - name: Restart apache\n      ansible.builtin.service:\n        name: httpd\n        state: restarted"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Ansible Playbook for: handlers.yml"
       },
       {
@@ -63,71 +27,11 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: ansible.builtin.git module - Deploy software (or files) from git checkouts -- Ansible Community Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "- name: Git checkout\n  ansible.builtin.git:\n    repo: 'https://github.com/ansible/ansible.git'\n    dest: /tmp/checkout\n    version: release-0.22\n- name: Read-write git checkout from github\n  ansible.builtin.git:\n    repo: git@github.com:ansible/ansible.git\n    dest: /tmp/checkout\n- name: Just ensuring the repo checkout exists\n  ansible.builtin.git:\n    repo: 'https://github.com/ansible/ansible.git'\n    dest: /tmp/checkout\n    update: no\n- name: Just get information about the repository whether or not it has already been cloned locally\n  ansible.builtin.git:\n    repo: git@github.com:ansible/ansible.git\n    dest: /tmp/checkout\n    clone: no\n    update: no\n- name: Checkout a github repo and use refspec to fetch all pull requests\n  ansible.builtin.git:\n    repo: 'https://github.com/ansible/ansible.git'\n    dest: /tmp/checkout\n    refspec: '+refs/pull/*:refs/heads/*'\n- name: Create git archive from repo\n  ansible.builtin.git:\n    repo: git@github.com:ansible/ansible.git\n    dest: /tmp/checkout\n    archive: /tmp/ansible.zip\n- name: Clone a repo with separate git directory\n  ansible.builtin.git:\n    repo: 'https://github.com/ansible/ansible.git'\n    dest: /tmp/checkout\n    separate_git_dir: /tmp/repo\n- name: Example clone of a single branch\n  ansible.builtin.git:\n    repo: git@github.com:ansible/ansible.git\n    dest: /tmp/checkout\n    single_branch: yes\n    version: master\n- name: Avoid hanging when http(s) password is missing\n  ansible.builtin.git:\n    repo: 'https://github.com/ansible/ansible.git'\n    dest: /tmp/checkout\n  environment:\n    GIT_TERMINAL_PROMPT: 0 # reports \"terminal prompts disabled\" on missing password\n    # or GIT_ASKPASS: /bin/true # for git before version 2.3.0, reports \"Authentication failed\" on missing password"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Ansible Playbook for: Using - Ansible Lint Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "[{\"type\": \"issue\", \"check_name\": \"syntax-check[specific]\", \"categories\": [\"core\", \"unskippable\"], \"url\": \"https://docs.ansible.com/projects/lint/rules/syntax-check/\", \"severity\": \"major\", \"description\": \"The role 'node' was not found in: /home/docs/checkouts/readthedocs.org/user_builds/ansible-lint/checkouts/latest/examples/playbooks/roles:/home/docs/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles:/home/docs/checkouts/readthedocs.org/user_builds/ansible-lint/checkouts/latest/examples/playbooks\", \"fingerprint\": \"e3e498db6a0c4050d920350cb0843f89324c6682e03475384dfd5e7ad1de75b0\", \"location\": {\"path\": \"examples/playbooks/norole.yml\", \"positions\": {\"begin\": {\"line\": 5, \"column\": 7}}}}]"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Ansible Playbook for: Manipulating data -- Ansible Community Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "tasks:\n   - name: Show extracted list of keys from a list of dictionaries\n     ansible.builtin.debug:\n       msg: \"{{ chains | map('extract', chains_config) | map(attribute='configs') | flatten | map(attribute='type') | flatten }}\"\n     vars:\n       chains: [1, 2]\n       chains_config:\n           1:\n               foo: bar\n               configs:\n                   - type: routed\n                     version: 0.1\n                   - type: bridged\n                     version: 0.2\n           2:\n               foo: baz\n               configs:\n                   - type: routed\n                     version: 1.0\n                   - type: bridged\n                     version: 1.1"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Ansible Playbook for: Using filters to manipulate data -- Ansible Community Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "- name: Give me the largest permutations (order matters)\n  ansible.builtin.debug:\n    msg: \"{{ [1,2,3,4,5] | ansible.builtin.permutations | list }}\"\n# => [(1, 2, 3, 4, 5), (1, 2, 3, 5, 4), (1, 2, 4, 3, 5), (1, 2, 4, 5, 3), (1, 2, 5, 3, 4), (1, 2, 5, 4, 3), (1, 3, 2, 4, 5), (1, 3, 2, 5, 4), (1, 3, 4, 2, 5), (1, 3, 4, 5, 2), (1, 3, 5, 2, 4), (1, 3, 5, 4, 2), (1, 4, 2, 3, 5), (1, 4, 2, 5, 3), (1, 4, 3, 2, 5), (1, 4, 3, 5, 2), (1, 4, 5, 2, 3), (1, 4, 5, 3, 2), (1, 5, 2, 3, 4), (1, 5, 2, 4, 3), (1, 5, 3, 2, 4), (1, 5, 3, 4, 2), (1, 5, 4, 2, 3), (1, 5, 4, 3, 2), (2, 1, 3, 4, 5), (2, 1, 3, 5, 4), (2, 1, 4, 3, 5), (2, 1, 4, 5, 3), (2, 1, 5, 3, 4), (2, 1, 5, 4, 3), (2, 3, 1, 4, 5), (2, 3, 1, 5, 4), (2, 3, 4, 1, 5), (2, 3, 4, 5, 1), (2, 3, 5, 1, 4), (2, 3, 5, 4, 1), (2, 4, 1, 3, 5), (2, 4, 1, 5, 3), (2, 4, 3, 1, 5), (2, 4, 3, 5, 1), (2, 4, 5, 1, 3), (2, 4, 5, 3, 1), (2, 5, 1, 3, 4), (2, 5, 1, 4, 3), (2, 5, 3, 1, 4), (2, 5, 3, 4, 1), (2, 5, 4, 1, 3), (2, 5, 4, 3, 1), (3, 1, 2, 4, 5), (3, 1, 2, 5, 4), (3, 1, 4, 2, 5), (3, 1, 4, 5, 2), (3, 1, 5, 2, 4), (3, 1, 5, 4, 2), (3, 2, 1, 4, 5), (3, 2, 1, 5, 4), (3, 2, 4, 1, 5), (3, 2, 4, 5, 1), (3, 2, 5, 1, 4), (3, 2, 5, 4, 1), (3, 4, 1, 2, 5), (3, 4, 1, 5, 2), (3, 4, 2, 1, 5), (3, 4, 2, 5, 1), (3, 4, 5, 1, 2), (3, 4, 5, 2, 1), (3, 5, 1, 2, 4), (3, 5, 1, 4, 2), (3, 5, 2, 1, 4), (3, 5, 2, 4, 1), (3, 5, 4, 1, 2), (3, 5, 4, 2, 1), (4, 1, 2, 3, 5), (4, 1, 2, 5, 3), (4, 1, 3, 2, 5), (4, 1, 3, 5, 2), (4, 1, 5, 2, 3), (4, 1, 5, 3, 2), (4, 2, 1, 3, 5), (4, 2, 1, 5, 3), (4, 2, 3, 1, 5), (4, 2, 3, 5, 1), (4, 2, 5, 1, 3), (4, 2, 5, 3, 1), (4, 3, 1, 2, 5), (4, 3, 1, 5, 2), (4, 3, 2, 1, 5), (4, 3, 2, 5, 1), (4, 3, 5, 1, 2), (4, 3, 5, 2, 1), (4, 5, 1, 2, 3), (4, 5, 1, 3, 2), (4, 5, 2, 1, 3), (4, 5, 2, 3, 1), (4, 5, 3, 1, 2), (4, 5, 3, 2, 1), (5, 1, 2, 3, 4), (5, 1, 2, 4, 3), (5, 1, 3, 2, 4), (5, 1, 3, 4, 2), (5, 1, 4, 2, 3), (5, 1, 4, 3, 2), (5, 2, 1, 3, 4), (5, 2, 1, 4, 3), (5, 2, 3, 1, 4), (5, 2, 3, 4, 1), (5, 2, 4, 1, 3), (5, 2, 4, 3, 1), (5, 3, 1, 2, 4), (5, 3, 1, 4, 2), (5, 3, 2, 1, 4), (5, 3, 2, 4, 1), (5, 3, 4, 1, 2), (5, 3, 4, 2, 1), (5, 4, 1, 2, 3), (5, 4, 1, 3, 2), (5, 4, 2, 1, 3), (5, 4, 2, 3, 1), (5, 4, 3, 1, 2), (5, 4, 3, 2, 1)]\n- name: Give me permutations of sets of three\n  ansible.builtin.debug:\n    msg: \"{{ [1,2,3,4,5] | ansible.builtin.permutations(3) | list }}\"\n# => [(1, 2, 3), (1, 2, 4), (1, 2, 5), (1, 3, 2), (1, 3, 4), (1, 3, 5), (1, 4, 2), (1, 4, 3), (1, 4, 5), (1, 5, 2), (1, 5, 3), (1, 5, 4), (2, 1, 3), (2, 1, 4), (2, 1, 5), (2, 3, 1), (2, 3, 4), (2, 3, 5), (2, 4, 1), (2, 4, 3), (2, 4, 5), (2, 5, 1), (2, 5, 3), (2, 5, 4), (3, 1, 2), (3, 1, 4), (3, 1, 5), (3, 2, 1), (3, 2, 4), (3, 2, 5), (3, 4, 1), (3, 4, 2), (3, 4, 5), (3, 5, 1), (3, 5, 2), (3, 5, 4), (4, 1, 2), (4, 1, 3), (4, 1, 5), (4, 2, 1), (4, 2, 3), (4, 2, 5), (4, 3, 1), (4, 3, 2), (4, 3, 5), (4, 5, 1), (4, 5, 2), (4, 5, 3), (5, 1, 2), (5, 1, 3), (5, 1, 4), (5, 2, 1), (5, 2, 3), (5, 2, 4), (5, 3, 1), (5, 3, 2), (5, 3, 4), (5, 4, 1), (5, 4, 2), (5, 4, 3)]"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Ansible Playbook for: Ansible Jinja2 Filters -- map, select, reject, json_query"
       },
       {
         "from": "gpt",
         "value": "# combine (merge dicts)\n    - ansible.builtin.set_fact:\n        full_config: \"{{ defaults | combine(overrides, recursive=True) }}\"\n      vars:\n        defaults:\n          app: { port: 8080, workers: 4 }\n          db: { host: localhost }\n        overrides:\n          app: { port: 9090 }\n          db: { host: db.example.com }\n      # Result: {app: {port: 9090, workers: 4}, db: {host: \"db.example.com\"}}\n    # unique\n    - ansible.builtin.debug:\n        msg: \"{{ [1, 2, 2, 3, 3, 3] | unique | list }}\"\n      # Output: [1, 2, 3]\n    # flatten\n    - ansible.builtin.debug:\n        msg: \"{{ [[1, 2], [3, 4], [5]] | flatten }}\"\n      # Output: [1, 2, 3, 4, 5]\n    # difference / intersect / union\n    - ansible.builtin.debug:\n        msg: |\n          Diff: {{ [1,2,3] | difference([2,3,4]) }}\n          Inter: {{ [1,2,3] | intersect([2,3,4]) }}\n          Union: {{ [1,2,3] | union([2,3,4]) }}\n      # Diff: [1], Inter: [2, 3], Union: [1, 2, 3, 4]\n    # dict2items / items2dict\n    - ansible.builtin.debug:\n        msg: \"{{ my_dict | dict2items }}\"\n      vars:\n        my_dict: { a: 1, b: 2 }\n      # Output: [{\"key\": \"a\", \"value\": 1}, {\"key\": \"b\", \"value\": 2}]"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Ansible Playbook for: ansible.builtin.user module - Manage user accounts -- Ansible Community Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "- name: Add the user 'johnd' with a specific uid and a primary group of 'admin'\n  ansible.builtin.user:\n    name: johnd\n    comment: John Doe\n    uid: 1040\n    group: admin\n- name: Create a user 'johnd' with a home directory\n  ansible.builtin.user:\n    name: johnd\n    create_home: yes\n- name: Add the user 'james' with a bash shell, appending the group 'admins' and 'developers' to the user's groups\n  ansible.builtin.user:\n    name: james\n    shell: /bin/bash\n    groups: admins,developers\n    append: yes\n- name: Remove the user 'johnd'\n  ansible.builtin.user:\n    name: johnd\n    state: absent\n    remove: yes\n- name: Create a 2048-bit SSH key for user jsmith in ~jsmith/.ssh/id_rsa\n  ansible.builtin.user:\n    name: jsmith\n    generate_ssh_key: yes\n    ssh_key_bits: 2048\n    ssh_key_file: .ssh/id_rsa\n- name: Added a consultant whose account you want to expire\n  ansible.builtin.user:\n    name: james18\n    shell: /bin/zsh\n    groups: developers\n    expires: 1422403387\n- name: Starting at Ansible 2.6, modify user, remove expiry time\n  ansible.builtin.user:\n    name: james18\n    expires: -1\n- name: Set maximum expiration date for password\n  ansible.builtin.user:\n    name: ram19\n    password_expire_max: 10\n- name: Set minimum expiration date for password\n  ansible.builtin.user:\n    name: pushkar15\n    password_expire_min: 5\n- name: Set number of warning days for password expiration\n  ansible.builtin.user:\n    name: jane157\n    password_expire_warn: 30\n- name: Set number of days after password expires until account is disabled\n  ansible.builtin.user:\n    name: jimholden2016\n    password_expire_account_disable: 15"
       }
     ]
   },
@@ -159,35 +63,11 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: Blocks -- Ansible Community Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "tasks:\n   - name: Attempt and graceful roll back demo\n     block:\n       - name: Print a message\n         ansible.builtin.debug:\n           msg: 'I execute normally'\n       - name: Force a failure\n         ansible.builtin.command: /bin/false\n       - name: Never print this\n         ansible.builtin.debug:\n           msg: 'I never execute, due to the above task failing, :-('\n     rescue:\n       - name: Print when errors\n         ansible.builtin.debug:\n           msg: 'I caught an error'\n       - name: Force a failure in middle of recovery! >:-)\n         ansible.builtin.command: /bin/false\n       - name: Never print this\n         ansible.builtin.debug:\n           msg: 'I also never execute :-('\n     always:\n       - name: Always do this\n         ansible.builtin.debug:\n           msg: \"This always executes\""
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Ansible Playbook for: Handle exceptions in Ansible Playbooks with block and rescue"
       },
       {
         "from": "gpt",
         "value": "---\n- name: Test block/rescue\n  hosts: nodes\n  gather_facts: false\n  tasks:\n    - name: Main block\n      block:\n        - name: Role 1\n          ansible.builtin.include_role:\n            name: role1\n        - name: Role 2\n          ansible.builtin.include_role:\n            name: role2\n        - name: Accumulate success\n          ansible.builtin.set_fact:\n            _result:\n              host: \"{{ inventory_hostname }}\"\n              status: \"OK\"\n              interfaces: \"{{ ansible_facts['interfaces'] }}\"\n      rescue:\n        - name: Accumulate failure\n          ansible.builtin.set_fact:\n            _result:\n              host: \"{{ inventory_hostname }}\"\n              status: \"FAIL\"\n      always:\n        - name: Tasks that will always run after the main block\n          block:\n            - name: Collect results\n              ansible.builtin.set_fact:\n                _global_result: \"{{ (_global_result | default([])) + [hostvars[item]['_result']] }}\"\n              loop: \"{{ ansible_play_hosts }}\"\n            - name: Classify results\n              ansible.builtin.set_fact:\n                _result_ok: \"{{ _global_result | selectattr('status', 'equalto', 'OK') | list }}\"\n                _result_fail: \"{{ _global_result | selectattr('status', 'equalto', 'FAIL') | list }}\"\n            - name: Display results OK\n              ansible.builtin.debug:\n                msg: \"{{ _result_ok }}\"\n              when: (_result_ok | length ) > 0\n            - name: Display results FAIL\n              ansible.builtin.debug:\n                msg: \"{{ _result_fail }}\"\n              when: (_result_fail | length ) > 0\n          delegate_to: localhost\n          run_once: true\n..."
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Ansible Playbook for: Playbook Example: Continuous Delivery and Rolling Upgrades -- Ansible Community Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n# This playbook deploys the whole application stack in this site.\n# Apply common configuration to all hosts\n- hosts: all\n  roles:\n  - common\n# Configure and deploy database servers.\n- hosts: dbservers\n  roles:\n  - db\n# Configure and deploy the web servers. Note that we include two roles\n# here, the 'base-apache' role which simply sets up Apache, and 'web'\n# which includes our example web application.\n- hosts: webservers\n  roles:\n  - base-apache\n  - web\n# Configure and deploy the load balancer(s).\n- hosts: lbservers\n  roles:\n  - haproxy\n# Configure and deploy the Nagios monitoring node(s).\n- hosts: monitoring\n  roles:\n  - base-apache\n  - nagios"
       }
     ]
   },
@@ -243,6 +123,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: How to Use Ansible Vault in CI/CD Pipelines"
+      },
+      {
+        "from": "gpt",
+        "value": "# .github/workflows/deploy-multi-env.yml\nname: Deploy to Multiple Environments\non:\n  workflow_dispatch:\n    inputs:\n      environment:\n        description: 'Target environment'\n        required: true\n        type: choice\n        options:\n          - staging\n          - production\njobs:\n  deploy:\n    runs-on: ubuntu-latest\n    environment: ${{ github.event.inputs.environment }}\n    steps:\n      - uses: actions/checkout@v4\n      - name: Install Ansible\n        run: pip install ansible\n      - name: Deploy to ${{ github.event.inputs.environment }}\n        env:\n          VAULT_PASS_STAGING: ${{ secrets.VAULT_PASS_STAGING }}\n          VAULT_PASS_PROD: ${{ secrets.VAULT_PASS_PROD }}\n        run: |\n          # Create vault password scripts for each environment\n          cat > /tmp/vault_pass_staging.sh << 'SCRIPT'\n          #!/bin/bash\n          printf '%s\\n' \"${VAULT_PASS_STAGING}\"\n          SCRIPT\n          cat > /tmp/vault_pass_prod.sh << 'SCRIPT'\n          #!/bin/bash\n          printf '%s\\n' \"${VAULT_PASS_PROD}\"\n          SCRIPT\n          chmod 700 /tmp/vault_pass_staging.sh /tmp/vault_pass_prod.sh\n          ansible-playbook site.yml \\\n            -i \"inventory/${{ github.event.inputs.environment }}\" \\\n            --vault-id \"staging@/tmp/vault_pass_staging.sh\" \\\n            --vault-id \"prod@/tmp/vault_pass_prod.sh\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Ansible Playbook for: How to Store Ansible Vault Passwords in CI/CD Secrets"
       },
       {
@@ -284,18 +176,6 @@
       {
         "from": "gpt",
         "value": "# deploy-app.yml - Deploy application with database credentials\n---\n- name: Deploy web application\n  hosts: webservers\n  become: true\n  vars_files:\n    - vars/app-config.yml\n    - secrets.yml\n  tasks:\n    - name: Configure database connection\n      template:\n        src: templates/db-config.j2\n        dest: /etc/myapp/database.conf\n        owner: root\n        group: myapp\n        mode: '0640'\n    - name: Set API key in environment file\n      lineinfile:\n        path: /etc/myapp/env\n        regexp: '^API_KEY='\n        line: \"API_KEY={{ api_key }}\"\n        mode: '0640'"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Python script for: Managing vault passwords -- Ansible Community Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n# (c) 2014, Matt Martz <matt@sivel.net>\n# (c) 2016, Justin Mayer <https://justinmayer.com/>\n#\n# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)\n#\n# =============================================================================\n#\n# This script is to be used with ansible-vault's --vault-id arg\n# to retrieve the vault password via your OS's native keyring application.\n#\n# This file *MUST* be saved with executable permissions. Otherwise, Ansible\n# will try to parse as a password file and display: \"ERROR! Decryption failed\"\n#\n# The `keyring` Python module is required: https://pypi.org/project/keyring/\n#\n# By default, this script will store the specified password in the keyring of\n# the user that invokes the script. To specify a user keyring, add a [vault]\n# section to ~/ansible-vault.cfg file with a 'username' option. Example:\n#\n# [vault]\n# username = 'ansible-vault'\n#\n# In usage like:\n#\n#    ansible-vault --vault-id keyring_id@contrib/vault/vault-keyring-client.py view some_encrypted_file\n#\n#  --vault-id will call this script like:\n#\n#     contrib/vault/vault-keyring-client.py --vault-id keyring_id\n#\n# That will retrieve the password from users keyring for the\n# keyring service 'keyring_id'. The equivalent of:\n#\n#      keyring get keyring_id $USER\n#\n# If no vault-id name is specified to ansible command line, the vault-keyring-client.py\n# script will be called without a '--vault-id' and will default to the keyring service 'ansible'\n# This is equivalent to:\n#\n#    keyring get ansible $USER\n#\n# You can configure the `vault_password_file` option in ansible.cfg:\n#\n# [defaults]\n# ...\n# vault_password_file = /path/to/vault-keyring-client.py\n# ...\n#\n# To set your password, `cd` to your project directory and run:\n#\n#   # will use default keyring service / vault-id of 'ansible'\n#   /path/to/vault-keyring-client.py --set\n#\n# or to specify the keyring service / vault-id of 'my_ansible_secret':\n#\n#  /path/to/vault-keyring-client.py --vault-id my_ansible_secret --set\n#\n# If you choose not to configure the path to `vault_password_file` in\n# ansible.cfg, your `ansible-playbook` command might look like:\n#\n# ansible-playbook --vault-id=keyring_id@/path/to/vault-keyring-client.py site.yml\nfrom __future__ import (absolute_import, division, print_function)\n__metaclass__ = type\nimport argparse\nimport configparser\nimport os\nimport sys\nimport getpass\nimport keyring\nKEYNAME_UNKNOWN_RC = 2\ndef build_arg_parser():\n    parser = argparse.ArgumentParser(description='Get a vault password from user keyring')\n    parser.add_argument('--vault-id', action='store', default=None,\n                        dest='vault_id',\n                        help='name of the vault secret to get from keyring')\n    parser.add_argument('--username', action='store', default=None,\n                        help='the username whose keyring is queried')\n    parser.add_argument('--set', action='store_true', default=False,\n                        dest='set_password',\n                        help='set the password instead of getting it')\n    return parser\ndef main():\n    # Set default values\n    username = getpass.getuser()\n    keyname = 'ansible'\n    # Try to load values from config if one exists\n    config = configparser.ConfigParser()\n    config_file = os.path.expanduser(\"~/ansible-vault.cfg\")\n    config.read(config_file)\n    if config.has_option('vault', 'username'):\n        username = config.get('vault', 'username')\n    if config.has_option('vault', 'keyname'):\n        keyname = config.get('vault', 'keyname')\n    # Read values from command line (which override the previous if given)\n    arg_parser = build_arg_parser()\n    args = arg_parser.parse_args()\n    username = args.username or username\n    keyname = args.vault_id or keyname\n    if args.set_password:\n        intro = 'Storing password in \"{}\" user keyring using key name: {}\\n'\n        sys.stdout.write(intro.format(username, keyname))\n        password = getpass.getpass()\n        confirm = getpass.getpass('Confirm password: ')\n        if password == confirm:\n            keyring.set_password(keyname, username, password)\n        else:\n            sys.stderr.write('Passwords do not match\\n')\n            sys.exit(1)\n    else:\n        secret = keyring.get_password(keyname, username)\n        if secret is None:\n            sys.stderr.write('vault-keyring-client could not find key=\"%s\" for user=\"%s\" via backend=\"%s\"\\n' %\n                             (keyname, username, keyring.get_keyring().name))\n            sys.exit(KEYNAME_UNKNOWN_RC)\n        sys.stdout.write('%s\\n' % secret)\n    sys.exit(0)\nif __name__ == '__main__':\n    main()"
       }
     ]
   },
@@ -356,18 +236,6 @@
       {
         "from": "gpt",
         "value": "---\n- name: Configure web server firewall\n  hosts: webservers\n  become: true\n  tasks:\n    - name: Install UFW\n      ansible.builtin.apt:\n        name: ufw\n        state: present\n    - name: Allow SSH (before enabling!)\n      community.general.ufw:\n        rule: allow\n        port: \"22\"\n        proto: tcp\n    - name: Allow web ports\n      community.general.ufw:\n        rule: allow\n        port: \"{{ item }}\"\n        proto: tcp\n      loop: [\"80\", \"443\"]\n    - name: Allow app port from internal\n      community.general.ufw:\n        rule: allow\n        src: 10.0.0.0/24\n        port: \"{{ app_port }}\"\n        proto: tcp\n    - name: Enable UFW with default deny\n      community.general.ufw:\n        state: enabled\n        policy: deny"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Ansible Playbook for: community.general.ufw module - Manage firewall with UFW -- Ansible Community Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "- name: Allow everything and enable UFW\n  community.general.ufw:\n    state: enabled\n    policy: allow\n- name: Set logging\n  community.general.ufw:\n    logging: 'on'\n# Sometimes it is desirable to let the sender know when traffic is\n# being denied, rather than simply ignoring it. In these cases, use\n# reject instead of deny. In addition, log rejected connections:\n- community.general.ufw:\n    rule: reject\n    port: auth\n    log: true\n# ufw supports connection rate limiting, which is useful for protecting\n# against brute-force login attacks. ufw will deny connections if an IP\n# address has attempted to initiate 6 or more connections in the last\n# 30 seconds. See  http://www.debian-administration.org/articles/187\n# for details. Typical usage is:\n- community.general.ufw:\n    rule: limit\n    port: ssh\n    proto: tcp\n# Allow OpenSSH. (Note that as ufw manages its own state, simply removing\n# a rule=allow task can leave those ports exposed. Either use delete=true\n# or a separate state=reset task)\n- community.general.ufw:\n    rule: allow\n    name: OpenSSH\n- name: Delete OpenSSH rule\n  community.general.ufw:\n    rule: allow\n    name: OpenSSH\n    delete: true\n- name: Deny all access to port 53\n  community.general.ufw:\n    rule: deny\n    port: '53'\n- name: Allow port range 60000-61000\n  community.general.ufw:\n    rule: allow\n    port: 60000:61000\n    proto: tcp\n- name: Allow all access to tcp port 80\n  community.general.ufw:\n    rule: allow\n    port: '80'\n    proto: tcp\n- name: Allow all access from RFC1918 networks to this host\n  community.general.ufw:\n    rule: allow\n    src: '{{ item }}'\n  loop:\n    - 10.0.0.0/8\n    - 172.16.0.0/12\n    - 192.168.0.0/16\n- name: Deny access to udp port 514 from host 1.2.3.4 and include a comment\n  community.general.ufw:\n    rule: deny\n    proto: udp\n    src: 1.2.3.4\n    port: '514'\n    comment: Block syslog\n- name: Allow incoming access to eth0 from 1.2.3.5 port 5469 to 1.2.3.4 port 5469\n  community.general.ufw:\n    rule: allow\n    interface: eth0\n    direction: in\n    proto: udp\n    src: 1.2.3.5\n    from_port: '5469'\n    dest: 1.2.3.4\n    to_port: '5469'\n# Note that IPv6 must be enabled in /etc/default/ufw for IPv6 firewalling to work.\n- name: Deny all traffic from the IPv6 2001:db8::/32 to tcp port 25 on this host\n  community.general.ufw:\n    rule: deny\n    proto: tcp\n    src: 2001:db8::/32\n    port: '25'\n- name: Deny all IPv6 traffic to tcp port 20 on this host\n  # this should be the first IPv6 rule\n  community.general.ufw:\n    rule: deny\n    proto: tcp\n    port: '20'\n    to_ip: \"::\"\n    insert: 0\n    insert_relative_to: first-ipv6\n- name: Deny all IPv4 traffic to tcp port 20 on this host\n  # This should be the third to last IPv4 rule\n  # (insert: -1 addresses the second to last IPv4 rule;\n  #  so the new rule will be inserted before the second\n  #  to last IPv4 rule, and will be come the third to last\n  #  IPv4 rule.)\n  community.general.ufw:\n    rule: deny\n    proto: tcp\n    port: '20'\n    to_ip: \"::\"\n    insert: -1\n    insert_relative_to: last-ipv4\n# Can be used to further restrict a global FORWARD policy set to allow\n- name: Deny forwarded/routed traffic from subnet 1.2.3.0/24 to subnet 4.5.6.0/24\n  community.general.ufw:\n    rule: deny\n    route: true\n    src: 192.0.2.0/24\n    dest: 198.51.100.0/24"
       }
     ]
   },
@@ -459,42 +327,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: community.docker.docker_compose_v2 module - Manage multi-container Docker applications with Docker Compose CLI plugin -- Ansible Community Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n# Examples use the django example at https://docs.docker.com/compose/django. Follow it to create the\n# flask directory\n- name: Run using a project directory\n  hosts: localhost\n  gather_facts: false\n  tasks:\n    - name: Tear down existing services\n      community.docker.docker_compose_v2:\n        project_src: flask\n        state: absent\n    - name: Create and start services\n      community.docker.docker_compose_v2:\n        project_src: flask\n      register: output\n    - name: Show results\n      ansible.builtin.debug:\n        var: output\n    - name: Run `docker compose up` again\n      community.docker.docker_compose_v2:\n        project_src: flask\n      register: output\n    - name: Show results\n      ansible.builtin.debug:\n        var: output\n    - ansible.builtin.assert:\n        that: not output.changed\n    - name: Stop all services\n      community.docker.docker_compose_v2:\n        project_src: flask\n        state: stopped\n      register: output\n    - name: Show results\n      ansible.builtin.debug:\n        var: output\n    - name: Verify that web and db services are not running\n      ansible.builtin.assert:\n        that:\n          - web_container.State != 'running'\n          - db_container.State != 'running'\n      vars:\n        web_container: >-\n          {{ output.containers | selectattr(\"Service\", \"equalto\", \"web\") | first }}\n        db_container: >-\n          {{ output.containers | selectattr(\"Service\", \"equalto\", \"db\") | first }}\n    - name: Restart services\n      community.docker.docker_compose_v2:\n        project_src: flask\n        state: restarted\n      register: output\n    - name: Show results\n      ansible.builtin.debug:\n        var: output\n    - name: Verify that web and db services are running\n      ansible.builtin.assert:\n        that:\n          - web_container.State == 'running'\n          - db_container.State == 'running'\n      vars:\n        web_container: >-\n          {{ output.containers | selectattr(\"Service\", \"equalto\", \"web\") | first }}\n        db_container: >-\n          {{ output.containers | selectattr(\"Service\", \"equalto\", \"db\") | first }}"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Ansible Playbook for: community.docker.docker_container module - manage Docker containers -- Ansible Community Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n- name: Create a data container\n  community.docker.docker_container:\n    name: mydata\n    image: busybox\n    volumes:\n      - /data\n- name: Re-create a redis container\n  community.docker.docker_container:\n    name: myredis\n    image: redis\n    command: redis-server --appendonly yes\n    state: present\n    recreate: true\n    exposed_ports:\n      - 6379\n    volumes_from:\n      - mydata\n- name: Restart a container\n  community.docker.docker_container:\n    name: myapplication\n    image: someuser/appimage\n    state: started\n    restart: true\n    links:\n      - \"myredis:aliasedredis\"\n    devices:\n      - \"/dev/sda:/dev/xvda:rwm\"\n    ports:\n     # Publish container port 9000 as host port 8080\n      - \"8080:9000\"\n     # Publish container UDP port 9001 as host port 8081 on interface 127.0.0.1\n      - \"127.0.0.1:8081:9001/udp\"\n     # Publish container port 9002 as a random host port\n      - \"9002\"\n     # Publish container port 9003 as a free host port in range 8000-8100\n     # (the host port will be selected by the Docker daemon)\n      - \"8000-8100:9003\"\n     # Publish container ports 9010-9020 to host ports 7000-7010\n      - \"7000-7010:9010-9020\"\n    env:\n      SECRET_KEY: \"ssssh\"\n      # Values which might be parsed as numbers, booleans or other types by the YAML parser need to be quoted\n      BOOLEAN_KEY: \"yes\"\n- name: Container present\n  community.docker.docker_container:\n    name: mycontainer\n    state: present\n    image: ubuntu:14.04\n    command: sleep infinity\n- name: Stop a container\n  community.docker.docker_container:\n    name: mycontainer\n    state: stopped\n- name: Start 4 load-balanced containers\n  community.docker.docker_container:\n    name: \"container{{ item }}\"\n    recreate: true\n    image: someuser/anotherappimage\n    command: sleep 1d\n  with_sequence: count=4\n- name: Remove container\n  community.docker.docker_container:\n    name: ohno\n    state: absent\n- name: Syslogging output\n  community.docker.docker_container:\n    name: myservice\n    image: busybox\n    log_driver: syslog\n    log_options:\n      syslog-address: tcp://my-syslog-server:514\n      syslog-facility: daemon\n      # NOTE: in Docker 1.13+ the \"syslog-tag\" option was renamed to \"tag\" for\n      # older docker installs, use \"syslog-tag\" instead\n      tag: myservice\n- name: Create db container and connect to network\n  community.docker.docker_container:\n    name: db_test\n    image: \"postgres:latest\"\n    networks:\n      - name: \"{{ docker_network_name }}\"\n- name: Start container, connect to network and link\n  community.docker.docker_container:\n    name: sleeper\n    image: ubuntu:14.04\n    networks:\n      - name: TestingNet\n        ipv4_address: \"172.16.1.100\"\n        aliases:\n          - sleepyzz\n        links:\n          - db_test:db\n      - name: TestingNet2\n- name: Start a container with a command\n  community.docker.docker_container:\n    name: sleepy\n    image: ubuntu:14.04\n    command: [\"sleep\", \"infinity\"]\n- name: Add container to networks\n  community.docker.docker_container:\n    name: sleepy\n    networks:\n      - name: TestingNet\n        ipv4_address: 172.16.1.18\n        links:\n          - sleeper\n      - name: TestingNet2\n        ipv4_address: 172.16.10.20\n- name: Update network with aliases\n  community.docker.docker_container:\n    name: sleepy\n    networks:\n      - name: TestingNet\n        aliases:\n          - sleepyz\n          - zzzz\n- name: Remove container from one network\n  community.docker.docker_container:\n    name: sleepy\n    networks:\n      - name: TestingNet2\n    comparisons:\n      networks: strict\n- name: Remove container from all networks\n  community.docker.docker_container:\n    name: sleepy\n    comparisons:\n      networks: strict\n- name: Start a container and use an env file\n  community.docker.docker_container:\n    name: agent\n    image: jenkinsci/ssh-slave\n    env_file: /var/tmp/jenkins/agent.env\n- name: Create a container with limited capabilities\n  community.docker.docker_container:\n    name: sleepy\n    image: ubuntu:16.04\n    command: sleep infinity\n    capabilities:\n      - sys_time\n    cap_drop:\n      - all\n- name: Finer container restart/update control\n  community.docker.docker_container:\n    name: test\n    image: ubuntu:18.04\n    env:\n      arg1: \"true\"\n      arg2: \"whatever\"\n    volumes:\n      - /tmp:/tmp\n    comparisons:\n      image: ignore # do not restart containers with older versions of the image\n      env: strict # we want precisely this environment\n      volumes: allow_more_present # if there are more volumes, that's ok, as long as `/tmp:/tmp` is there\n- name: Finer container restart/update control II\n  community.docker.docker_container:\n    name: test\n    image: ubuntu:18.04\n    env:\n      arg1: \"true\"\n      arg2: \"whatever\"\n    comparisons:\n      '*': ignore # by default, ignore *all* options (including image)\n      env: strict # except for environment variables; there, we want to be strict\n- name: Start container with healthstatus\n  community.docker.docker_container:\n    name: nginx-proxy\n    image: nginx:1.13\n    state: started\n    healthcheck:\n      # Check if nginx server is healthy by curl'ing the server.\n      # If this fails or timeouts, the healthcheck fails.\n      test: [\"CMD\", \"curl\", \"--fail\", \"http://nginx.host.com\"]\n      interval: 1m30s\n      timeout: 10s\n      retries: 3\n      start_period: 30s\n      start_interval: 10s\n- name: Remove healthcheck from container\n  community.docker.docker_container:\n    name: nginx-proxy\n    image: nginx:1.13\n    state: started\n    healthcheck:\n      # The \"NONE\" check needs to be specified\n      test: [\"NONE\"]\n- name: Create a tmpfs with a size and mode\n  community.docker.docker_container:\n    name: tmpfs test\n    image: ubuntu:22.04\n    state: started\n    mounts:\n      - type: tmpfs\n        target: /cache\n        tmpfs_mode: \"1700\" # only readable to the owner\n        tmpfs_size: \"16G\"\n- name: Start container with block device read limit\n  community.docker.docker_container:\n    name: test\n    image: ubuntu:18.04\n    state: started\n    device_read_bps:\n      # Limit read rate for /dev/sda to 20 mebibytes per second\n      - path: /dev/sda\n        rate: 20M\n    device_read_iops:\n      # Limit read rate for /dev/sdb to 300 IO per second\n      - path: /dev/sdb\n        rate: 300\n- name: Start container with GPUs\n  community.docker.docker_container:\n    name: test\n    image: ubuntu:18.04\n    state: started\n    device_requests:\n      # Add some specific devices to this container\n      - device_ids:\n          - '0'\n          - 'GPU-3a23c669-1f69-c64e-cf85-44e9b07e7a2a'\n      # Add nVidia GPUs to this container\n      - driver: nvidia\n        count: -1 # this means we want all\n        capabilities:\n        # We have one OR condition: 'gpu' AND 'utility'\n          - - gpu\n            - utility\n        # See https://github.com/NVIDIA/nvidia-container-runtime#supported-driver-capabilities\n        # for a list of capabilities supported by the nvidia driver\n- name: Start container with storage options\n  community.docker.docker_container:\n    name: test\n    image: ubuntu:18.04\n    state: started\n    storage_opts:\n      # Limit root filesystem to 12 MB - note that this requires special storage backends\n      # (https://fabianlee.org/2020/01/15/docker-use-overlay2-with-an-xfs-backing-filesystem-to-limit-rootfs-size/)\n      size: 12m"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Ansible Playbook for: community.docker.docker_container module - manage Docker containers -- Ansible Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "- name: Create a data container\n  community.docker.docker_container:\n    name: mydata\n    image: busybox\n    volumes:\n      - /data\n- name: Re-create a redis container\n  community.docker.docker_container:\n    name: myredis\n    image: redis\n    command: redis-server --appendonly yes\n    state: present\n    recreate: true\n    exposed_ports:\n      - 6379\n    volumes_from:\n      - mydata\n- name: Restart a container\n  community.docker.docker_container:\n    name: myapplication\n    image: someuser/appimage\n    state: started\n    restart: true\n    links:\n     - \"myredis:aliasedredis\"\n    devices:\n     - \"/dev/sda:/dev/xvda:rwm\"\n    ports:\n     # Publish container port 9000 as host port 8080\n     - \"8080:9000\"\n     # Publish container UDP port 9001 as host port 8081 on interface 127.0.0.1\n     - \"127.0.0.1:8081:9001/udp\"\n     # Publish container port 9002 as a random host port\n     - \"9002\"\n     # Publish container port 9003 as a free host port in range 8000-8100\n     # (the host port will be selected by the Docker daemon)\n     - \"8000-8100:9003\"\n     # Publish container ports 9010-9020 to host ports 7000-7010\n     - \"7000-7010:9010-9020\"\n    env:\n        SECRET_KEY: \"ssssh\"\n        # Values which might be parsed as numbers, booleans or other types by the YAML parser need to be quoted\n        BOOLEAN_KEY: \"yes\"\n- name: Container present\n  community.docker.docker_container:\n    name: mycontainer\n    state: present\n    image: ubuntu:14.04\n    command: sleep infinity\n- name: Stop a container\n  community.docker.docker_container:\n    name: mycontainer\n    state: stopped\n- name: Start 4 load-balanced containers\n  community.docker.docker_container:\n    name: \"container{{ item }}\"\n    recreate: true\n    image: someuser/anotherappimage\n    command: sleep 1d\n  with_sequence: count=4\n- name: Remove container\n  community.docker.docker_container:\n    name: ohno\n    state: absent\n- name: Syslogging output\n  community.docker.docker_container:\n    name: myservice\n    image: busybox\n    log_driver: syslog\n    log_options:\n      syslog-address: tcp://my-syslog-server:514\n      syslog-facility: daemon\n      # NOTE: in Docker 1.13+ the \"syslog-tag\" option was renamed to \"tag\" for\n      # older docker installs, use \"syslog-tag\" instead\n      tag: myservice\n- name: Create db container and connect to network\n  community.docker.docker_container:\n    name: db_test\n    image: \"postgres:latest\"\n    networks:\n      - name: \"{{ docker_network_name }}\"\n- name: Start container, connect to network and link\n  community.docker.docker_container:\n    name: sleeper\n    image: ubuntu:14.04\n    networks:\n      - name: TestingNet\n        ipv4_address: \"172.16.1.100\"\n        aliases:\n          - sleepyzz\n        links:\n          - db_test:db\n      - name: TestingNet2\n- name: Start a container with a command\n  community.docker.docker_container:\n    name: sleepy\n    image: ubuntu:14.04\n    command: [\"sleep\", \"infinity\"]\n- name: Add container to networks\n  community.docker.docker_container:\n    name: sleepy\n    networks:\n      - name: TestingNet\n        ipv4_address: 172.16.1.18\n        links:\n          - sleeper\n      - name: TestingNet2\n        ipv4_address: 172.16.10.20\n- name: Update network with aliases\n  community.docker.docker_container:\n    name: sleepy\n    networks:\n      - name: TestingNet\n        aliases:\n          - sleepyz\n          - zzzz\n- name: Remove container from one network\n  community.docker.docker_container:\n    name: sleepy\n    networks:\n      - name: TestingNet2\n    comparisons:\n      networks: strict\n- name: Remove container from all networks\n  community.docker.docker_container:\n    name: sleepy\n    comparisons:\n      networks: strict\n- name: Start a container and use an env file\n  community.docker.docker_container:\n    name: agent\n    image: jenkinsci/ssh-slave\n    env_file: /var/tmp/jenkins/agent.env\n- name: Create a container with limited capabilities\n  community.docker.docker_container:\n    name: sleepy\n    image: ubuntu:16.04\n    command: sleep infinity\n    capabilities:\n      - sys_time\n    cap_drop:\n      - all\n- name: Finer container restart/update control\n  community.docker.docker_container:\n    name: test\n    image: ubuntu:18.04\n    env:\n      arg1: \"true\"\n      arg2: \"whatever\"\n    volumes:\n      - /tmp:/tmp\n    comparisons:\n      image: ignore   # do not restart containers with older versions of the image\n      env: strict   # we want precisely this environment\n      volumes: allow_more_present   # if there are more volumes, that's ok, as long as `/tmp:/tmp` is there\n- name: Finer container restart/update control II\n  community.docker.docker_container:\n    name: test\n    image: ubuntu:18.04\n    env:\n      arg1: \"true\"\n      arg2: \"whatever\"\n    comparisons:\n      '*': ignore  # by default, ignore *all* options (including image)\n      env: strict   # except for environment variables; there, we want to be strict\n- name: Start container with healthstatus\n  community.docker.docker_container:\n    name: nginx-proxy\n    image: nginx:1.13\n    state: started\n    healthcheck:\n      # Check if nginx server is healthy by curl'ing the server.\n      # If this fails or timeouts, the healthcheck fails.\n      test: [\"CMD\", \"curl\", \"--fail\", \"http://nginx.host.com\"]\n      interval: 1m30s\n      timeout: 10s\n      retries: 3\n      start_period: 30s\n- name: Remove healthcheck from container\n  community.docker.docker_container:\n    name: nginx-proxy\n    image: nginx:1.13\n    state: started\n    healthcheck:\n      # The \"NONE\" check needs to be specified\n      test: [\"NONE\"]\n- name: Create a tmpfs with a size and mode\n  community.docker.docker_container:\n    name: tmpfs test\n    image: ubuntu:22.04\n    state: started\n    mounts:\n      - type: tmpfs\n        target: /cache\n        tmpfs_mode: \"1700\" # only readable to the owner\n        tmpfs_size: \"16G\"\n- name: Start container with block device read limit\n  community.docker.docker_container:\n    name: test\n    image: ubuntu:18.04\n    state: started\n    device_read_bps:\n      # Limit read rate for /dev/sda to 20 mebibytes per second\n      - path: /dev/sda\n        rate: 20M\n    device_read_iops:\n      # Limit read rate for /dev/sdb to 300 IO per second\n      - path: /dev/sdb\n        rate: 300\n- name: Start container with GPUs\n  community.docker.docker_container:\n    name: test\n    image: ubuntu:18.04\n    state: started\n    device_requests:\n      - # Add some specific devices to this container\n        device_ids:\n          - '0'\n          - 'GPU-3a23c669-1f69-c64e-cf85-44e9b07e7a2a'\n      - # Add nVidia GPUs to this container\n        driver: nvidia\n        count: -1  # this means we want all\n        capabilities:\n          # We have one OR condition: 'gpu' AND 'utility'\n          - - gpu\n            - utility\n          # See https://github.com/NVIDIA/nvidia-container-runtime#supported-driver-capabilities\n          # for a list of capabilities supported by the nvidia driver\n- name: Start container with storage options\n  community.docker.docker_container:\n    name: test\n    image: ubuntu:18.04\n    state: started\n    storage_opts:\n      # Limit root filesystem to 12 MB - note that this requires special storage backends\n      # (https://fabianlee.org/2020/01/15/docker-use-overlay2-with-an-xfs-backing-filesystem-to-limit-rootfs-size/)\n      size: 12m"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Ansible Playbook for: Ansible Docker -- Containers & Images | AnsibleByExample"
       },
       {
@@ -567,30 +399,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: ansible.posix.sysctl module - Manage entries in sysctl.conf. -- Ansible Community Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "# Set vm.swappiness to 5 in /etc/sysctl.conf\n- ansible.posix.sysctl:\n    name: vm.swappiness\n    value: '5'\n    state: present\n# Remove kernel.panic entry from /etc/sysctl.conf\n- ansible.posix.sysctl:\n    name: kernel.panic\n    state: absent\n    sysctl_file: /etc/sysctl.conf\n# Set kernel.panic to 3 in /tmp/test_sysctl.conf\n- ansible.posix.sysctl:\n    name: kernel.panic\n    value: '3'\n    sysctl_file: /tmp/test_sysctl.conf\n    reload: false\n# Enable resource limits management in FreeBSD\n- ansible.posix.sysctl:\n    name: kern.racct.enable\n    value: '1'\n    sysctl_file: /boot/loader.conf\n    reload: false\n# Set ip forwarding on in /proc and verify token value with the sysctl command\n- ansible.posix.sysctl:\n    name: net.ipv4.ip_forward\n    value: '1'\n    sysctl_set: true\n# Set ip forwarding on in /proc and in the sysctl file and reload if necessary\n- ansible.posix.sysctl:\n    name: net.ipv4.ip_forward\n    value: '1'\n    sysctl_set: true\n    state: present\n    reload: true"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Ansible Playbook for: community.general.lvol module - Configure LVM logical volumes -- Ansible Community Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "- name: Create a logical volume of 512m\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: 512\n- name: Create a logical volume of 512m with disks /dev/sda and /dev/sdb\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: 512\n    pvs:\n      - /dev/sda\n      - /dev/sdb\n- name: Create cache pool logical volume\n  community.general.lvol:\n    vg: firefly\n    lv: lvcache\n    size: 512m\n    opts: --type cache-pool\n- name: Create a logical volume of 512g.\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: 512g\n- name: Create a logical volume the size of all remaining space in the volume group\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: 100%FREE\n- name: Create a logical volume with special options\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: 512g\n    opts: -r 16\n- name: Extend the logical volume to 1024m.\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: 1024\n- name: Extend the logical volume to consume all remaining space in the volume group\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: +100%FREE\n- name: Extend the logical volume by given space\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: +512M\n- name: Extend the logical volume to take all remaining space of the PVs and resize the underlying filesystem\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: 100%PVS\n    resizefs: true\n- name: Resize the logical volume to % of VG\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: 80%VG\n    force: true\n- name: Reduce the logical volume to 512m\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: 512\n    force: true\n- name: Reduce the logical volume by given space\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: -512M\n    force: true\n- name: Set the logical volume to 512m and do not try to shrink if size is lower than current one\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: 512\n    shrink: false\n- name: Remove the logical volume.\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    state: absent\n    force: true\n- name: Create a snapshot volume of the test logical volume.\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    snapshot: snap1\n    size: 100m\n- name: Deactivate a logical volume\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    active: false\n- name: Create a deactivated logical volume\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: 512g\n    active: false\n- name: Create a thin pool of 512g\n  community.general.lvol:\n    vg: firefly\n    thinpool: testpool\n    size: 512g\n- name: Create a thin volume of 128g\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    thinpool: testpool\n    size: 128g"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Ansible Playbook for: How to Use Ansible to Configure LVM (Logical Volume Manager)"
       },
       {
@@ -632,18 +440,6 @@
       {
         "from": "gpt",
         "value": "- hosts: all\n  vars_files:\n    - vault.yml\n    - vars.yml\n  handlers:\n    - name: Restart postgresql\n      ansible.builtin.systemd:\n        name: postgresql\n        state: restarted\n  tasks:\n    - name: Install PostgreSQL and psycopg2\n      ansible.builtin.dnf:\n        name: postgresql-server,postgresql-contrib,python3-psycopg2\n        state: present\n        update_cache: true\n    - name: Create the cluster\n      ansible.builtin.command:\n        cmd: postgresql-setup --initdb\n        creates: /var/lib/pgsql/data/PG_VERSION\n    - name: Start and enable the service\n      ansible.builtin.systemd:\n        name: postgresql\n        state: started\n        enabled: true\n    - name: Set options\n      community.postgresql.postgresql_set:\n        name: \"{{ item.name }}\"\n        value: \"{{ item.value }}\"\n      become: true\n      become_user: postgres\n      with_items: \"{{ postgresql_options | default([]) }}\"\n      notify:\n        - Restart postgresql\n    - name: Create the databases\n      community.postgresql.postgresql_db:\n        name: \"{{ item }}\"\n        encoding: \"UTF-8\"\n      become: true\n      become_user: postgres\n      with_items: \"{{ postgresql_databases }}\"\n    - name: Create the users\n      community.postgresql.postgresql_user:\n        db: \"{{ item.db }}\"\n        name: \"{{ item.name }}\"\n        password: \"{{ item.password | default(omit) }}\"\n      become: true\n      become_user: postgres\n      environment:\n        PGOPTIONS: \"-c password_encryption=scram-sha-256\"\n      with_items: \"{{ postgresql_users }}\"\n    - name: Create the schemas\n      community.postgresql.postgresql_schema:\n        db: \"{{ item.db }}\"\n        name: \"{{ item.name }}\"\n        owner: \"{{ item.name }}\"\n      become: true\n      become_user: postgres\n      with_items: \"{{ postgresql_schemas }}\"\n    - name: Set the user privileges\n      community.postgresql.postgresql_privs:\n        database: \"{{ item.db }}\"\n        state: present\n        objs: \"{{ item.objs | default(omit) }}\"\n        privs: \"{{ item.privs }}\"\n        type: \"{{ item.type | default(omit) }}\"\n        roles: \"{{ item.roles | default(omit) }}\"\n      become: true\n      become_user: postgres\n      with_items: \"{{ postgresql_privs | default([]) }}\"\n    - name: Add entries to pg_hba\n      community.postgresql.postgresql_pg_hba:\n        dest: \"/var/lib/pgsql/data/pg_hba.conf\"\n        address: \"{{ item.address | default(omit) }}\"\n        contype: \"{{ item.contype }}\"\n        databases: \"{{ item.databases }}\"\n        method: \"{{ item.method }}\"\n        users: \"{{ item.users }}\"\n      become: true\n      become_user: postgres\n      with_items: \"{{ postgresql_hba_entries }}\"\n      notify:\n        - Restart postgresql\n    - name: Enable the HSTORE extension\n      community.postgresql.postgresql_ext:\n        name: \"{{ item.name }}\"\n        db: \"{{ item.db }}\"\n        state: present\n      become: true\n      become_user: postgres\n      with_items: \"{{ postgresql_extensions | default([]) }}\"\n      notify:\n        - Restart postgresql"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Ansible Playbook for: community.postgresql.postgresql_user module - Create, alter, or remove a user (role) from a PostgreSQL server instance -- Ansible Community Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "- name: Connect to acme database, create django user\n  community.postgresql.postgresql_user:\n    login_db: acme\n    name: django\n    password: ceec4eif7ya\n    expires: \"Jan 31 2020\"\n- name: Add a comment on django user\n  community.postgresql.postgresql_user:\n    login_db: acme\n    name: django\n    comment: This is a test user\n# Connect to default database, create rails user, set its password (MD5- or SHA256-hashed),\n# and set flags to allow the user to create databases\n# and demote rails from super user status if user exists\n# the hash from the corresponding pg_authid entry.\n- name: Create rails user, set MD5-hashed password, set flags\n  community.postgresql.postgresql_user:\n    name: rails\n    password: md59543f1d82624df2b31672ec0f7050460\n    # password: SCRAM-SHA-256$4096:zFuajwIVdli9mK=NJkcv1Q++$JC4gWIrEHmF6sqRbEiZw5FFW45HUPrpVzNdoM72o730+;fqA4vLN3mCZGbhcbQyvNYY7anCrUTsem1eCh/4YA94=\n    role_attr_flags: CREATEDB,NOSUPERUSER\n  # When using sha256-hashed password:\n  # environment:\n  #   PGOPTIONS: \"-c password_encryption=scram-sha-256\"\n- name: Connect to test database, remove test user from cluster\n  community.postgresql.postgresql_user:\n    login_db: test\n    name: test\n    state: absent\n- name: Connect to acme database and set user's password with no expire date\n  community.postgresql.postgresql_user:\n    login_db: acme\n    name: django\n    password: mysupersecretword\n    expires: infinity\n- name: Connect to test database and remove an existing user's password\n  community.postgresql.postgresql_user:\n    login_db: test\n    user: test\n    password: \"\"\n# Create user with a cleartext password if it does not exist or update its password.\n# The password will be encrypted with SCRAM algorithm (available since PostgreSQL 10)\n- name: Create appclient user with SCRAM-hashed password\n  community.postgresql.postgresql_user:\n    name: appclient\n    password: \"secret123\"\n  environment:\n    PGOPTIONS: \"-c password_encryption=scram-sha-256\"\n# Create a user and set a default-configuration that is active when they start a session\n- name: Create a user with config-parameter\n  community.postgresql.postgresql_user:\n    name: appclient\n    password: \"secret123\"\n    configuration:\n      work_mem: \"16MB\"\n# Make sure user has only specified default configuration parameters\n- name: Clear all configuration that is not explicitly defined for user\n  community.postgresql.postgresql_user:\n    name: appclient\n    password: \"secret123\"\n    configuration:\n      work_mem: \"16MB\"\n    reset_unspecified_configuration: true\n- name: Set search_path for user\n  community.postgresql.postgresql_user:\n    name: postgres_exporter\n    quote_configuration_values: false\n    configuration:\n      search_path: postgres_exporter, pg_catalog, public"
       }
     ]
   },
@@ -4767,18 +4563,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: Ansible 12 Porting Guide -- Ansible Community Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "- assert:\n    that:\n      # Unlike earlier versions, complex_var is defined even though complex_var.nested is not.\n      - complex_var is defined\n      # Unlike earlier versions, the default value is not applied because complex_var is defined.\n      - (complex_var | default(unused)).nested is undefined\n      # Like earlier versions, directly accessing complex_var.nested evaluates as undefined.\n      - complex_var.nested is undefined\n  vars:\n    complex_var:\n      # Before 2.19, complex_var.nested is evaluated immediately when complex_var is accessed.\n      # In 2.19, complex_var.nested is evaluated only when it is accessed.\n      nested: \"{{ undefined_variable }}\"\n    unused:\n      # This variable is used only if complex_var is undefined.\n      # This only happens in ansible-core before 2.19.\n      nested: default"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Ansible Playbook for: Ansible"
       },
       {
@@ -4995,18 +4779,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: ansible.posix.sysctl module - Manage entries in sysctl.conf. -- Ansible Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "# Set vm.swappiness to 5 in /etc/sysctl.conf\n- ansible.posix.sysctl:\n    name: vm.swappiness\n    value: '5'\n    state: present\n# Remove kernel.panic entry from /etc/sysctl.conf\n- ansible.posix.sysctl:\n    name: kernel.panic\n    state: absent\n    sysctl_file: /etc/sysctl.conf\n# Set kernel.panic to 3 in /tmp/test_sysctl.conf\n- ansible.posix.sysctl:\n    name: kernel.panic\n    value: '3'\n    sysctl_file: /tmp/test_sysctl.conf\n    reload: no\n# Set ip forwarding on in /proc and verify token value with the sysctl command\n- ansible.posix.sysctl:\n    name: net.ipv4.ip_forward\n    value: '1'\n    sysctl_set: yes\n# Set ip forwarding on in /proc and in the sysctl file and reload if necessary\n- ansible.posix.sysctl:\n    name: net.ipv4.ip_forward\n    value: '1'\n    sysctl_set: yes\n    state: present\n    reload: yes"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Ansible Playbook for: 5 ways to harden your Linux server with Ansible"
       },
       {
@@ -5024,18 +4796,6 @@
       {
         "from": "gpt",
         "value": "- name: playbook for PV creation\n  hosts: all\n  become: true\n  tasks:\n    - name: Create a physical volume on disks /dev/sdb\n      community.general.parted:\n          device: /dev/sdb\n          number: 1\n          flags: [ lvm ]\n          state: present\n          part_end: 100%\n    - name: Create a physical volume on disks /dev/sdc\n      community.general.parted:\n          device: /dev/sdc\n          number: 1\n          flags: [ lvm ]\n          state: present\n          part_end: 100%"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Ansible Playbook for: General tips -- Ansible Community Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "- name: Use include_vars to include OS-specific variables and print them\n  hosts: all\n  tasks:\n    - name: Set OS distribution dependent variables\n      ansible.builtin.include_vars: \"os_{{ ansible_facts['distribution'] }}.yml\"\n    - name: Print the variable\n      ansible.builtin.debug:\n        var: asdf"
       }
     ]
   },
@@ -5211,18 +4971,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: community.postgresql.postgresql_user - Create, alter, or remove a user (role) from a PostgreSQL server instance -- Ansible Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "- name: Connect to acme database, create django user, and grant access to database and products table\n  community.postgresql.postgresql_user:\n    db: acme\n    name: django\n    password: ceec4eif7ya\n    priv: \"CONNECT/products:ALL\"\n    expires: \"Jan 31 2020\"\n- name: Add a comment on django user\n  community.postgresql.postgresql_user:\n    db: acme\n    name: django\n    comment: This is a test user\n# Connect to default database, create rails user, set its password (MD5-hashed),\n# and grant privilege to create other databases and demote rails from super user status if user exists\n- name: Create rails user, set MD5-hashed password, grant privs\n  community.postgresql.postgresql_user:\n    name: rails\n    password: md59543f1d82624df2b31672ec0f7050460\n    role_attr_flags: CREATEDB,NOSUPERUSER\n- name: Connect to acme database and remove test user privileges from there\n  community.postgresql.postgresql_user:\n    db: acme\n    name: test\n    priv: \"ALL/products:ALL\"\n    state: absent\n    fail_on_user: no\n- name: Connect to test database, remove test user from cluster\n  community.postgresql.postgresql_user:\n    db: test\n    name: test\n    priv: ALL\n    state: absent\n- name: Connect to acme database and set user's password with no expire date\n  community.postgresql.postgresql_user:\n    db: acme\n    name: django\n    password: mysupersecretword\n    priv: \"CONNECT/products:ALL\"\n    expires: infinity\n# Example privileges string format\n# INSERT,UPDATE/table:SELECT/anothertable:ALL\n- name: Connect to test database and remove an existing user's password\n  community.postgresql.postgresql_user:\n    db: test\n    user: test\n    password: \"\"\n- name: Create user test and grant group user_ro and user_rw to it\n  community.postgresql.postgresql_user:\n    name: test\n    groups:\n    - user_ro\n    - user_rw\n# Create user with a cleartext password if it does not exist or update its password.\n# The password will be encrypted with SCRAM algorithm (available since PostgreSQL 10)\n- name: Create appclient user with SCRAM-hashed password\n  community.postgresql.postgresql_user:\n    name: appclient\n    password: \"secret123\"\n  environment:\n    PGOPTIONS: \"-c password_encryption=scram-sha-256\""
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Ansible Playbook for: Efficient Web Server Setup Using Ansible Playbook"
       },
       {
@@ -5331,18 +5079,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: YAML Syntax -- Ansible Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n# An employee record\nname: Martin D'vloper\njob: Developer\nskill: Elite\nemployed: True\nfoods:\n  - Apple\n  - Orange\n  - Strawberry\n  - Mango\nlanguages:\n  perl: Elite\n  python: Elite\n  pascal: Lame\neducation: |\n  4 GCSEs\n  3 A-Levels\n  BSc in the Internet of Things"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Ansible Playbook for: Bootstrap"
       },
       {
@@ -5384,18 +5120,6 @@
       {
         "from": "gpt",
         "value": "- name: test playbook\n  hosts: all\n  tasks:\n    - shell: uname -a\n      ignore_errors: yes\n      register: uname_result\n    - debug: msg=\"{{ uname_result.stdout }}\""
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Ansible Playbook for: Connection methods and details -- Ansible Community Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n- name: update webservers\n  hosts: webservers\n  remote_user: admin\n  tasks:\n  - name: thing to do first in this playbook\n  # ..."
       }
     ]
   },
@@ -5516,6 +5240,18 @@
       {
         "from": "gpt",
         "value": "- name: Install and Configure Apache on RHEL\n  hosts: webservers\n  become: yes\n  tasks:\n    - name: Install Apache HTTP server\n      yum:\n        name: httpd\n        state: present\n    - name: Start and enable Apache service\n      service:\n        name: httpd\n        state: started\n        enabled: yes\n    - name: Create a custom index.html\n      copy:\n        content: \"<h1>Welcome to Ansible on RHEL!</h1>\"\n        dest: /var/www/html/index.html"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: How to Set Up SSH From a Brain Server to All Node Machines | Xtream Solutions"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- hosts: all_scrapers\n  tasks:\n    - name: Add brain server public key to authorized_keys\n      authorized_key:\n        user: your-username\n        state: present\n        key: \"{{ lookup('file', '~/.ssh/id_ed25519.pub') }}\"\n        path: /home/your-username/.ssh/authorized_keys"
       }
     ]
   },
@@ -6111,6 +5847,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: Controlling playbook execution: strategies and more -- Ansible Community Documentation"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: test play\n  hosts: webservers\n  serial: 3\n  gather_facts: False\n  tasks:\n    - name: first task\n      command: hostname\n    - name: second task\n      command: hostname"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Ansible Playbook for: Ansible Handlers: Automate Smart with Real Use Cases"
       },
       {
@@ -6411,6 +6159,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: ansible.builtin.file module - Manage files and file properties -- Ansible Community Documentation"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Change file ownership, group and permissions\n  ansible.builtin.file:\n    path: /etc/foo.conf\n    owner: foo\n    group: foo\n    mode: '0644'\n- name: Change file group using gid\n  ansible.builtin.file:\n    path: /etc/bar.conf\n    group: \"1000\"\n- name: Give insecure permissions to an existing file\n  ansible.builtin.file:\n    path: /work\n    owner: root\n    group: root\n    mode: '1777'\n- name: Create a symbolic link\n  ansible.builtin.file:\n    src: /file/to/link/to\n    dest: /path/to/symlink\n    owner: foo\n    group: foo\n    state: link\n- name: Create two hard links\n  ansible.builtin.file:\n    src: '/tmp/{{ item.src }}'\n    dest: '{{ item.dest }}'\n    state: hard\n  loop:\n    - { src: x, dest: y }\n    - { src: z, dest: k }\n- name: Touch a file, using symbolic modes to set the permissions (equivalent to 0644)\n  ansible.builtin.file:\n    path: /etc/foo.conf\n    state: touch\n    mode: u=rw,g=r,o=r\n- name: Touch the same file, but add/remove some permissions\n  ansible.builtin.file:\n    path: /etc/foo.conf\n    state: touch\n    mode: u+rw,g-wx,o-rwx\n- name: Touch again the same file, but do not change times this makes the task idempotent\n  ansible.builtin.file:\n    path: /etc/foo.conf\n    state: touch\n    mode: u+rw,g-wx,o-rwx\n    modification_time: preserve\n    access_time: preserve\n- name: Create a directory if it does not exist\n  ansible.builtin.file:\n    path: /etc/some_directory\n    state: directory\n    mode: '0755'\n- name: Update modification and access time of given file\n  ansible.builtin.file:\n    path: /etc/some_file\n    state: file\n    modification_time: now\n    access_time: now\n- name: Set access time based on seconds from epoch value\n  ansible.builtin.file:\n    path: /etc/another_file\n    state: file\n    access_time: '{{ \"%Y%m%d%H%M.%S\" | strftime(stat_var.stat.atime) }}'\n- name: Recursively change ownership of a directory\n  ansible.builtin.file:\n    path: /etc/foo\n    state: directory\n    recurse: yes\n    owner: foo\n    group: foo\n- name: Remove file (delete file)\n  ansible.builtin.file:\n    path: /etc/foo.txt\n    state: absent\n- name: Recursively remove directory\n  ansible.builtin.file:\n    path: /etc/foo\n    state: absent"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Ansible Playbook for: Bootstrap"
       },
       {
@@ -6555,11 +6315,47 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: community.windows.win_firewall_rule module - Windows firewall automation -- Ansible Community Documentation"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Firewall rule to allow SMTP on TCP port 25\n  community.windows.win_firewall_rule:\n    name: SMTP\n    localport: 25\n    action: allow\n    direction: in\n    protocol: tcp\n    state: present\n    enabled: true\n- name: Firewall rule to allow RDP on TCP port 3389\n  community.windows.win_firewall_rule:\n    name: Remote Desktop\n    localport: 3389\n    action: allow\n    direction: in\n    protocol: tcp\n    profiles: private\n    state: present\n    enabled: true\n- name: Firewall rule to be created for application group\n  community.windows.win_firewall_rule:\n    name: SMTP\n    group: application\n    localport: 25\n    action: allow\n    direction: in\n    protocol: tcp\n    state: present\n    enabled: true\n- name: Enable all the Firewall rules in application group\n  win_firewall_rule:\n    group: application\n    enabled: true\n- name: Firewall rule to allow port range\n  community.windows.win_firewall_rule:\n    name: Sample port range\n    localport: 5000-5010\n    action: allow\n    direction: in\n    protocol: tcp\n    state: present\n    enabled: true\n- name: Firewall rule to allow ICMP v4 echo (ping)\n  community.windows.win_firewall_rule:\n    name: ICMP Allow incoming V4 echo request\n    enabled: true\n    state: present\n    profiles: private\n    action: allow\n    direction: in\n    protocol: icmpv4\n    icmp_type_code:\n      - '8:*'\n- name: Firewall rule to alloc ICMP v4 on all type codes\n  community.windows.win_firewall_rule:\n    name: ICMP Allow incoming V4 echo request\n    enabled: true\n    state: present\n    profiles: private\n    action: allow\n    direction: in\n    protocol: icmpv4\n    icmp_type_code: '*'"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: community.docker.docker_container_exec module - Execute command in a docker container -- Ansible Documentation"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Run a simple command (command)\n  community.docker.docker_container_exec:\n    container: foo\n    command: /bin/bash -c \"ls -lah\"\n    chdir: /root\n  register: result\n- name: Print stdout\n  ansible.builtin.debug:\n    var: result.stdout\n- name: Run a simple command (argv)\n  community.docker.docker_container_exec:\n    container: foo\n    argv:\n      - /bin/bash\n      - \"-c\"\n      - \"ls -lah > /dev/stderr\"\n    chdir: /root\n  register: result\n- name: Print stderr lines\n  ansible.builtin.debug:\n    var: result.stderr_lines"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Ansible Playbook for: Security & Compliance - Hardening, CIS, STIG & Secrets | Teach me Ansible"
       },
       {
         "from": "gpt",
         "value": "---\n- name: Linux security hardening\n  hosts: all\n  become: yes\n  tasks:\n    # SSH Hardening\n    - name: Secure SSH configuration\n      lineinfile:\n        path: /etc/ssh/sshd_config\n        regexp: \"{{ item.regexp }}\"\n        line: \"{{ item.line }}\"\n      loop:\n        - { regexp: '^PermitRootLogin', line: 'PermitRootLogin no' }\n        - { regexp: '^PasswordAuthentication', line: 'PasswordAuthentication no' }\n        - { regexp: '^PubkeyAuthentication', line: 'PubkeyAuthentication yes' }\n        - { regexp: '^PermitEmptyPasswords', line: 'PermitEmptyPasswords no' }\n        - { regexp: '^X11Forwarding', line: 'X11Forwarding no' }\n        - { regexp: '^MaxAuthTries', line: 'MaxAuthTries 3' }\n        - { regexp: '^ClientAliveInterval', line: 'ClientAliveInterval 300' }\n        - { regexp: '^ClientAliveCountMax', line: 'ClientAliveCountMax 2' }\n      notify: restart sshd\n    # Firewall configuration\n    - name: Install firewalld\n      yum:\n        name: firewalld\n        state: present\n    - name: Enable firewalld\n      service:\n        name: firewalld\n        state: started\n        enabled: yes\n    - name: Configure firewall rules\n      firewalld:\n        service: \"{{ item }}\"\n        permanent: yes\n        state: enabled\n      loop:\n        - ssh\n        - https\n      notify: reload firewall\n    # Disable unnecessary services\n    - name: Disable unnecessary services\n      service:\n        name: \"{{ item }}\"\n        state: stopped\n        enabled: no\n      loop:\n        - telnet\n        - rsh\n        - rlogin\n      ignore_errors: yes\n    # Security updates\n    - name: Install security updates (RHEL/CentOS)\n      yum:\n        name: '*'\n        security: yes\n        state: latest\n      when: ansible_os_family == \"RedHat\"\n    # Audit logging\n    - name: Enable auditd\n      service:\n        name: auditd\n        state: started\n        enabled: yes\n    - name: Configure audit rules\n      copy:\n        dest: /etc/audit/rules.d/ansible.rules\n        content: |\n          # Monitor user/group changes\n          -w /etc/group -p wa -k identity\n          -w /etc/passwd -p wa -k identity\n          -w /etc/shadow -p wa -k identity\n          # Monitor sudo usage\n          -w /etc/sudoers -p wa -k sudoers\n          -w /var/log/sudo.log -p wa -k sudoers\n          # Monitor SSH\n          -w /etc/ssh/sshd_config -p wa -k sshd\n      notify: restart auditd\n  handlers:\n    - name: restart sshd\n      service:\n        name: sshd\n        state: restarted\n    - name: reload firewall\n      command: firewall-cmd --reload\n    - name: restart auditd\n      service:\n        name: auditd\n        state: restarted"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: ansible.posix.mount module - Control active and configured mount points -- Ansible Community Documentation"
+      },
+      {
+        "from": "gpt",
+        "value": "# Before 2.3, option 'name' was used instead of 'path'\n- name: Mount DVD read-only\n  ansible.posix.mount:\n    path: /mnt/dvd\n    src: /dev/sr0\n    fstype: iso9660\n    opts: ro,noauto\n    state: present\n- name: Mount up device by label\n  ansible.posix.mount:\n    path: /srv/disk\n    src: LABEL=SOME_LABEL\n    fstype: ext4\n    state: present\n- name: Mount up device by UUID\n  ansible.posix.mount:\n    path: /home\n    src: UUID=b3e48f45-f933-4c8e-a700-22a159ec9077\n    fstype: xfs\n    opts: noatime\n    state: present\n- name: Unmount a mounted volume\n  ansible.posix.mount:\n    path: /tmp/mnt-pnt\n    state: unmounted\n- name: Remount a mounted volume\n  ansible.posix.mount:\n    path: /tmp/mnt-pnt\n    state: remounted\n# The following will not save changes to fstab, and only be temporary until\n# a reboot, or until calling \"state: unmounted\" followed by \"state: mounted\"\n# on the same \"path\"\n- name: Remount a mounted volume and append exec to the existing options\n  ansible.posix.mount:\n    path: /tmp\n    state: remounted\n    opts: exec\n- name: Mount and bind a volume\n  ansible.posix.mount:\n    path: /system/new_volume/boot\n    src: /boot\n    opts: bind\n    state: mounted\n    fstype: none\n- name: Mount an NFS volume\n  ansible.posix.mount:\n    src: 192.168.1.100:/nfs/ssd/shared_data\n    path: /mnt/shared_data\n    opts: rw,sync,hard\n    state: mounted\n    fstype: nfs\n- name: Mount NFS volumes with noauto according to boot option\n  ansible.posix.mount:\n    src: 192.168.1.100:/nfs/ssd/shared_data\n    path: /mnt/shared_data\n    opts: rw,sync,hard\n    boot: false\n    state: mounted\n    fstype: nfs\n- name: Mount ephemeral SMB volume\n  ansible.posix.mount:\n    src: //192.168.1.200/share\n    path: /mnt/smb_share\n    opts: \"rw,vers=3,file_mode=0600,dir_mode=0700,dom={{ ad_domain }},username={{ ad_username }},password={{ ad_password }}\"\n    opts_no_log: true\n    fstype: cifs\n    state: ephemeral"
       }
     ]
   },
@@ -7503,18 +7299,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: From Dropbox to Daily Driver Part 8: An Ansible Control Node, a Second Pi, and What changed=0 Actually Proves | Micheal Garner"
-      },
-      {
-        "from": "gpt",
-        "value": "- name: Note the manual-update gap this role doesn't close\n  ansible.builtin.debug:\n    msg: >-\n      Raspberry Pi's own kernel/firmware packages from archive.raspberrypi.com\n      are NOT covered by unattended-upgrades -- a manual apt upgrade is still\n      what keeps those current."
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Ansible Playbook for: Vm creation with ansible playbook - Ansible - KodeKloud - DevOps Learning Community"
       },
       {
@@ -7748,6 +7532,42 @@
       {
         "from": "gpt",
         "value": "---\n- name: RHEL9 CIS Audit\n  hosts: all\n  become: true\n  roles:\n    - name: \"RHEL9-CIS\"\n      vars:\n        setup_audit: true\n        run_audit: true\n        goss_url: https://github.com/goss-org/goss/releases/download/v0.3.23/goss-linux-arm64\n        goss_version:\n          release: v0.3.23\n          checksum: 'sha256:7b0794fa590857e7d64ef436e1a100ca26f6039f269a6138009aa837d27d7f9e'"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: community.hashi_vault.hashi_vault lookup - Retrieve secrets from HashiCorp's Vault -- Ansible collections documentation"
+      },
+      {
+        "from": "gpt",
+        "value": "- ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/hello:value token=c975b780-d1be-8016-866b-01d0f9b688a5 url=http://myvault:8200') }}\"\n- name: Return all secrets from a path\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/hello token=c975b780-d1be-8016-866b-01d0f9b688a5 url=http://myvault:8200') }}\"\n- name: Vault that requires authentication via LDAP\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/hello:value auth_method=ldap mount_point=ldap username=myuser password=mypas') }}\"\n- name: Vault that requires authentication via username and password\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/hola:val auth_method=userpass username=myuser password=psw url=http://vault:8200') }}\"\n- name: Connect to Vault using TLS\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/hola:value token=c975b780-d1be-8016-866b-01d0f9b688a5 validate_certs=False') }}\"\n- name: using certificate auth\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/hi:val token=xxxx url=https://vault:8200 validate_certs=True cacert=/cacert/path/ca.pem') }}\"\n- name: Authenticate with a Vault app role\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/hello:value auth_method=approle role_id=myroleid secret_id=mysecretid') }}\"\n- name: Return all secrets from a path in a namespace\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/hello token=c975b780-d1be-8016-866b-01d0f9b688a5 namespace=teama/admins') }}\"\n# When using KV v2 the PATH should include \"data\" between the secret engine mount and path (e.g. \"secret/data/:path\")\n# see: https://www.vaultproject.io/api/secret/kv/kv-v2.html#read-secret-version\n- name: Return latest KV v2 secret from path\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/data/hello token=my_vault_token url=http://myvault_url:8200') }}\"\n# The following examples show more modern syntax, with parameters specified separately from the term string.\n- name: secret= is not required if secret is first\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/hello token=<token> url=http://myvault_url:8200') }}\"\n- name: options can be specified as parameters rather than put in term string\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/hello', token=my_token_var, url='http://myvault_url:8200') }}\"\n# return_format (or its alias 'as') can control how secrets are returned to you\n- name: return secrets as a dict (default)\n  ansible.builtin.set_fact:\n    my_secrets: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/manysecrets', token=my_token_var, url='http://myvault_url:8200') }}\"\n- ansible.builtin.debug:\n    msg: \"{{ my_secrets['secret_key'] }}\"\n- ansible.builtin.debug:\n    msg: \"Secret '{{ item.key }}' has value '{{ item.value }}'\"\n  loop: \"{{ my_secrets | dict2items }}\"\n- name: return secrets as values only\n  ansible.builtin.debug:\n    msg: \"A secret value: {{ item }}\"\n  loop: \"{{ query('community.hashi_vault.hashi_vault', 'secret/data/manysecrets', token=my_token_var, url='http://vault_url:8200', return_format='values') }}\"\n- name: return raw secret from API, including metadata\n  ansible.builtin.set_fact:\n    my_secret: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/hello:value', token=my_token_var, url='http://myvault_url:8200', as='raw') }}\"\n- ansible.builtin.debug:\n    msg: \"This is version {{ my_secret['metadata']['version'] }} of hello:value. The secret data is {{ my_secret['data']['data']['value'] }}\"\n# AWS IAM authentication method\n# uses Ansible standard AWS options\n- name: authenticate with aws_iam\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/hello:value', auth_method='aws_iam', role_id='myroleid', profile=my_boto_profile) }}\"\n# JWT auth\n- name: Authenticate with a JWT\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/hola:val', auth_method='jwt', role_id='myroleid', jwt='myjwt', url='https://vault:8200') }}\"\n# Disabling Token Validation\n# Use this when your token does not have the lookup-self capability. Usually this is applied to all tokens via the default policy.\n# However you can choose to create tokens without applying the default policy, or you can modify your default policy not to include it.\n# When disabled, your invalid or expired token will be indistinguishable from insufficent permissions.\n- name: authenticate without token validation\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/hello:value', token=my_token, token_validate=False) }}\"\n# \"none\" auth method does no authentication and does not send a token to the Vault address.\n# One example of where this could be used is with a Vault agent where the agent will handle authentication to Vault.\n# https://www.vaultproject.io/docs/agent\n- name: authenticate with vault agent\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/hello:value', auth_method='none', url='http://127.0.0.1:8100') }}\"\n# Use a proxy\n- name: use a proxy with login/password\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=... token=... url=https://... proxies=https://user:pass@myproxy:8080') }}\"\n- name: 'use a socks proxy (need some additional dependencies, see: https://requests.readthedocs.io/en/master/user/advanced/#socks )'\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=... token=... url=https://... proxies=socks5://myproxy:1080') }}\"\n- name: use proxies with a dict (as param)\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', '...', proxies={'http': 'http://myproxy1', 'https': 'http://myproxy2'}) }}\"\n- name: use proxies with a dict (as param, pre-defined var)\n  vars:\n    prox:\n      http: http://myproxy1\n      https: https://myproxy2\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', '...', proxies=prox }}\"\n- name: use proxies with a dict (as direct ansible var)\n  vars:\n    ansible_hashi_vault_proxies:\n      http: http://myproxy1\n      https: https://myproxy2\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', '...' }}\"\n- name: use proxies with a dict (in the term string, JSON syntax)\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', '... proxies={\\\"http\\\":\\\"http://myproxy1\\\",\\\"https\\\":\\\"http://myproxy2\\\"}') }}\"\n- name: use ansible vars to supply some options\n  vars:\n    ansible_hashi_vault_url: 'https://myvault:8282'\n    ansible_hashi_vault_auth_method: token\n  set_fact:\n    secret1: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/secret1') }}\"\n    secret2: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/secret2') }}\"\n- name: use a custom timeout\n  debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/secret1', timeout=120) }}\"\n- name: use a custom timeout and retry on failure 3 times (with collection retry defaults)\n  vars:\n    ansible_hashi_vault_timeout: 5\n    ansible_hashi_vault_retries: 3\n  debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/secret1') }}\"\n- name: retry on failure (with custom retry settings and no warnings)\n  vars:\n    ansible_hashi_vault_retries:\n      total: 6\n      backoff_factor: 0.9\n      status_forcelist: [500, 502]\n      allowed_methods:\n        - GET\n        - PUT\n  debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/secret1', retry_action='warn') }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: Ansible"
+      },
+      {
+        "from": "gpt",
+        "value": "tasks:\n  - name: Get JWT for Conjur auth\n    uri:\n      url: \"https://<identity-tenant-id>.id.cyberark.cloud/oauth2/token/<oauth2server>\"\n      method: POST\n      timeout: 10\n      body_format: form-urlencoded\n      body:\n      - [ grant_type, client_credentials ]\n      - [ client_id, \"{{ lookup('ansible.builtin.env', 'CLIENT_ID') }}\" ]\n      - [ client_secret, \"{{ lookup('ansible.builtin.env', 'CLIENT_SECRET') }}\" ]\n      return_content: yes\n      status_code: 200\n    register: access_token\n  - set_fact: access_token=\"{{ access_token.json.access_token }}\"\n  - debug:\n      msg: \"{{ access_token }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: SIEM and SOAR | DevOps help for Cloud Platform Engineers"
+      },
+      {
+        "from": "gpt",
+        "value": "import boto3\ndef lambda_handler(event, context):\n    # Example: Disable IAM user on alert\n    iam = boto3.client('iam')\n    user = event['detail']['userIdentity']['userName']\n    iam.update_login_profile(UserName=user, PasswordResetRequired=True)\n    # Notify via SNS, Slack, etc."
       }
     ]
   }

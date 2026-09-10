@@ -4612,3 +4612,18 @@ https://www.bing.com/aclick?ld=e8ML18zkUvvAEgKxgToT9SizVUCUy063TeFU8dAOKPVX0XRtA
 =========================================
 https://forum.ansible.com/t/execution-environment-from-docs-doesnt-install-python-in-container/46272
 https://www.bing.com/aclick?ld=e8GwCyJMOn4g1yLeboXT3scjVUCUwnMeKdPpTiqKbSRFCKjd7xZ-GBpfRM0_r4bZbn4GcJp_-tBntroN6N9Mexuv_yeQmaT85JMjHDN-l9kz2FexZRcxkGgsli7KT5XDmAMwWfIs7y7kuXbxLdXs8kvDDgokQL0oCmwLgXpBmGZgizDBehv5zEXoCG-pcx3U57kpJYvNL0aHN7RqeSY4IhcvCvk4w&u=aHR0cHMlM2ElMmYlMmZ3d3cud2l6LmlvJTJmbHAlMmZjb250YWluZXItc2VjdXJpdHktYmVzdC1wcmFjdGljZXMtY2hlYXQtc2hlZXQlM2Z1dG1fc291cmNlJTNkYmluZyUyNnV0bV9tZWRpdW0lM2RwcGMlMjZ1dG1fY2FtcGFpZ24lM2Rub24tYnJhbmQtY29udGVudC10aWVyLTEtc2VhcmNoLXVzJTI2dXRtX3Rlcm0lM2RDb250YWluZXIlMjUyMFNlY3VyaXR5JTI1MjBCZXN0JTI1MjBQcmFjdGljZXMlMjZ1dG1fYWRncm91cG5hbWUlM2QlN2Jjb250YWluZXItc2VjdXJpdHklN2QlMjZ1dG1fZGV2aWNlJTNkYyUyNm1zY2xraWQlM2Q1YTQ3YTQ1YmY3NGMxODg4ZjIwYWNlYzQ1MWQzM2U2NA&rlid=5a47a45bf74c1888f20acec451d33e64
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://github.com/stoleas/ansible-skills
+https://github.com/ansible/test-playbooks/blob/main/handler.yml
+https://stackoverflow.com/questions/76822330/show-ansible-steps-as-separate-tasks-in-a-github-action
+https://www.redbooks.ibm.com/blueprints
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://developer.harness.io/infrastructure-as-code-management/use-iacm/configuration-management/get-started
+https://serverfault.com/questions/733955/forced-to-change-expired-password-when-using-ssh-key
+https://stackhpc-kayobe-config.readthedocs.io/en/stackhpc-2025.1/configuration/security-hardening.html

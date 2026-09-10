@@ -1287,6 +1287,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: Best Practices - PCC-IT International"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: copy a file from a fileshare with custom credentials\n  ansible.windows.win_copy:\n    src: \\\\server\\share\\data\\file.txt\n    dest: C:\\temp\\file.txt\n    remote_src: yes\n  vars:\n    ansible_become: yes\n    ansible_become_method: runas\n    ansible_become_user: DOMAIN\\user\n    ansible_become_password: Password01\n    ansible_become_flags: logon_type=new_credentials logon_flags=netcredentials_only\n- name: run a command under a batch logon\n  ansible.windows.win_whoami:\n  become: yes\n  become_flags: logon_type=batch\n- name: run a command and not load the user profile\n  ansible.windows.win_whomai:\n  become: yes\n  become_flags: logon_flags="
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Python script for: Jinja2 Tutorial - Part 4 - Template filters |"
       },
       {
@@ -3423,7 +3435,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: Ansible user Module -- Manage Accounts | AnsibleByExample"
+        "value": "Ansible Playbook for: ansible.builtin.user Module: Manage Linux Accounts"
       },
       {
         "from": "gpt",
@@ -4016,6 +4028,18 @@
       {
         "from": "gpt",
         "value": "- vars:\n    users:\n      - { name: alice, role: admin, active: true }\n      - { name: bob, role: user, active: true }\n      - { name: charlie, role: admin, active: false }\n  debug:\n    msg:\n      - \"Admins: {{ users | selectattr('role', 'eq', 'admin') | list }}\"\n      - \"Active: {{ users | selectattr('active') | list }}\"\n      - \"Admin names: {{ users | selectattr('role', 'eq', 'admin') | map(attribute='name') | list }}\"\n      # ['alice', 'charlie']\n      # [alice_dict, bob_dict]\n      # ['alice', 'charlie']"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: Ansible Privilege Escalation (become, become_user)"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Orchestrate Application Services\n  hosts: webservers\n  become: false # Disabled by default for the entire play\n  tasks:\n    - name: Pull code from a public repository\n      ansible.builtin.git:\n        repo: 'https://github.com/example/app.git'\n        dest: /home/automation/app\n      # Runs safely as an unprivileged connection user\n    - name: Install system dependencies\n      ansible.builtin.apt:\n        name: libjpeg-dev\n        state: present\n      become: true # Explicitly enabled only for this administrative task"
       }
     ]
   },
@@ -4851,6 +4875,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: 🛡️ Ansible in DevSecOps: A Comprehensive Tutorial - SRE School"
+      },
+      {
+        "from": "gpt",
+        "value": "# playbook.yml\n- hosts: web\n  become: yes\n  tasks:\n    - name: Install NGINX\n      apt:\n        name: nginx\n        state: present"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Ansible Playbook for: Ansible Configure Firewall Rules -- Complete Guide"
       },
       {
@@ -5396,18 +5432,6 @@
       {
         "from": "gpt",
         "value": "[{\n   \"firstname\": \"Billy\",\n   \"lastname\": \"gu\",\n   \"email\": \"billsgu@example.com\",\n   \"pets\": []\n}, {\n   \"firstname\": \"Trevor\",\n   \"lastname\": \"Palmer\",\n   \"email\": \"palmer928@example.com\",\n   \"pets\": [{\n      \"name\": \"Butter\",\n      \"type\": \"dog\"\n   }]\n}, {\n   \"firstname\": \"Jimmy\",\n   \"lastname\": \"Bauer\",\n   \"email\": \"jbles45@example2.com\",\n   \"pets\": [{\n      \"name\": \"Biscuit\",\n      \"type\": \"cat\"\n   }, {\n      \"name\": \"Pepper\",\n      \"type\": \"cat\"\n   }]\n}]"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Ansible Playbook for: Ansible Security & Compliance"
-      },
-      {
-        "from": "gpt",
-        "value": "# .github/workflows/ansible-security.yml (GitHub Actions)\nname: Ansible Security Gate\non: [pull_request]\njobs:\n  lint:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Install dependencies\n        run: pip install ansible ansible-lint\n      - name: Syntax check\n        run: ansible-playbook --syntax-check site.yml -i inventory/staging\n      - name: ansible-lint (production profile)\n        run: ansible-lint --profile production\n  molecule:\n    needs: lint\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Run Molecule tests\n        run: molecule test\n        env:\n          MOLECULE_DISTRO: registry.access.redhat.com/ubi9/ubi-init\n  secrets-scan:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Detect committed secrets\n        uses: trufflesecurity/trufflehog@main\n        with:\n          path: ./\n          base: ${{ github.event.repository.default_branch }}"
       }
     ]
   },
@@ -5979,6 +6003,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: AWS EC2 Instance Creation Using Ansible Playbook Automation"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n  - name: Provision an EC2 Instance\n    hosts: localhost\n    connection: local\n    gather_facts: False\n    tags: provisioning\n    vars:\n      instance_type: t2.micro\n      security_group: webservers\n      image: ami-0080e4c5bc078760e\n      region: us-east-1\n      keypair: sshkeypair\n      count: 1\n    tasks:\n      - name: Create New security group with below given name\n        local_action:\n          module: ec2_group\n          name: \"{{ security_group }}\"\n          description: Security Group for Newly Created EC2 Instance\n          region: \"{{ region }}\"\n          rules:\n            - proto: tcp\n              from_port: 22\n              to_port: 22\n              cidr_ip: 0.0.0.0/0\n            - proto: tcp\n              from_port: 80\n              to_port: 80\n              cidr_ip: 0.0.0.0/0\n          rules_egress:\n            - proto: all\n              cidr_ip: 0.0.0.0/0\n      - name: Launch the new t2 micro EC2 Instance\n        local_action: ec2\n                      group={{ security_group }}\n                      instance_type={{ instance_type}}\n                      image={{ image }}\n                      wait=true\n                      region={{ region }}\n                      keypair={{ keypair }}\n                      count={{count}}\n        register: ec2\n      - name: Wait for EC2 Instance to Spin-up and ready for SSH access\n        local_action: wait_for\n                      host={{ item.public_ip }}\n                      port=22\n                      state=started\n        with_items: \"{{ ec2.instances }}\"\n      - name: Adding Tags to Identify\n        local_action: ec2_tag resource={{ item.id }} region={{ region }} state=present\n        with_items: \"{{ ec2.instances }}\"\n        args:\n          tags:\n            Name: Web Server\n            Owner: Ravi Kumar\n            PurPose: Testing EC2 Instance From Ansible"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Python script for: Tab Ð¿Ð¾Ð´ÑÑÐ°Ð½Ð¾Ð²ÐºÐ° Ñ Ð¾ÑÑÐ¾Ð² Ð¸Ð· Ansible inventory Ð´Ð»Ñ ansible, ssh, scp, rsync | ÐÐ¾ÑÐ¾Ð½Ð¸Ð¹ Ð±Ð»Ð¾Ð³"
       },
       {
@@ -6272,6 +6308,18 @@
       {
         "from": "gpt",
         "value": "---\n- name: Test Ansible SSH Key Setup\n  hosts: webservers\n  tasks:\n    - name: Ping the web servers\n      ping:"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Nginx Automating TLS with Let's Encrypt & Certbot"
+      },
+      {
+        "from": "gpt",
+        "value": "# 1. HTTP Server - Redirect to HTTPS and Handle ACME Challenges\nserver {\n    listen 80;\n    listen [::]:80;\n    server_name example.com www.example.com;\n    # Location block dedicated to ACME HTTP-01 Challenges\n    location /.well-known/acme-challenge/ {\n        root /var/www/html;\n        allow all;\n    }\n    # Redirect all other HTTP traffic to HTTPS\n    location / {\n        return 301 https://example.com$request_uri;\n    }\n}\n# 2. Primary HTTPS Server\nserver {\n    listen 443 ssl;\n    listen [::]:443 ssl;\n    server_name example.com www.example.com;\n    # Enable HTTP/2 (Modern Nginx 1.25.1+ Syntax)\n    http2 on;\n    root /var/www/example/public;\n    index index.html index.php;\n    # Let's Encrypt Certificate Paths\n    ssl_certificate     /etc/letsencrypt/live/example.com/fullchain.pem;\n    ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;\n    # Basic SSL Protocol Settings\n    ssl_protocols TLSv1.2 TLSv1.3;\n    ssl_session_timeout 1d;\n    ssl_session_cache shared:SSL:10m;\n    ssl_session_tickets off;\n    location / {\n        try_files $uri $uri/ =404;\n    }\n}"
       }
     ]
   },
@@ -6855,6 +6903,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: Asynchronous actions and polling -- Ansible Community Documentation"
+      },
+      {
+        "from": "gpt",
+        "value": "#####################\n# main.yml\n#####################\n- name: Run items asynchronously in batch of two items\n  vars:\n    sleep_durations:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n    durations: \"{{ item }}\"\n  include_tasks: execute_batch.yml\n  loop: \"{{ sleep_durations | batch(2) | list }}\"\n#####################\n# execute_batch.yml\n#####################\n- name: Async sleeping for batched_items\n  ansible.builtin.command: sleep {{ async_item }}\n  async: 45\n  poll: 0\n  loop: \"{{ durations }}\"\n  loop_control:\n    loop_var: \"async_item\"\n  register: async_results\n- name: Check sync status\n  async_status:\n    jid: \"{{ async_result_item.ansible_job_id }}\"\n  loop: \"{{ async_results.results }}\"\n  loop_control:\n    loop_var: \"async_result_item\"\n  register: async_poll_results\n  until: async_poll_results is finished\n  retries: 30"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Ansible Playbook for: Ansible Playbook Error Handling -- CopyPasteLearn"
       },
       {
@@ -7412,6 +7472,30 @@
       {
         "from": "gpt",
         "value": "import boto3\ndef lambda_handler(event, context):\n    # Example: Disable IAM user on alert\n    iam = boto3.client('iam')\n    user = event['detail']['userIdentity']['userName']\n    iam.update_login_profile(UserName=user, PasswordResetRequired=True)\n    # Notify via SNS, Slack, etc."
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: handler.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- hosts: all\n  gather_facts: false\n  tasks:\n    - name: task with status \"changed\"\n      command: /bin/true\n      changed_when: true\n      notify: handler\n  handlers:\n    - name: handler\n      command: /bin/true"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: Get Started With Ansible | Infrastructure as Code Management | Harness"
+      },
+      {
+        "from": "gpt",
+        "value": "- stage:\n    name: Ansible\n    identifier: Ansible\n    description: \"\"\n    type: IACM\n    spec:\n      infrastructure:\n        type: KubernetesDirect\n        spec:\n          connectorRef: account.k8connector\n          namespace: harness-delegate\n          volumes: []\n          annotations: {}\n          labels: {}\n          automountServiceAccountToken: true\n          nodeSelector: {}\n          containerSecurityContext:\n            capabilities:\n              drop: []\n              add: []\n          os: Linux\n          hostNames: []\n      execution:\n        steps:\n          - step:\n              type: IACMAnsiblePlugin\n              name: Run\n              identifier: Run\n              spec:\n                command: run\n                timeout: 1h\n      playbooks:\n        - test-playbook\n      inventories:\n        - test-inventory\n    tags: {}"
       }
     ]
   }

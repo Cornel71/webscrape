@@ -4023,6 +4023,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: Loops -- Ansible Documentation"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: with_dict\n  debug:\n    msg: \"{{ item.key }} - {{ item.value }}\"\n  with_dict: \"{{ dictionary }}\"\n- name: with_dict -> loop (option 1)\n  debug:\n    msg: \"{{ item.key }} - {{ item.value }}\"\n  loop: \"{{ dictionary|dict2items }}\"\n- name: with_dict -> loop (option 2)\n  debug:\n    msg: \"{{ item.0 }} - {{ item.1 }}\"\n  loop: \"{{ dictionary|dictsort }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Ansible Playbook for: Ansible selectattr Filter: Filter a List by Attribute Value"
       },
       {
@@ -5055,18 +5067,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: Ansible Error Handling and Fail Handling"
-      },
-      {
-        "from": "gpt",
-        "value": "- name: Testing block-rescue directives\n  hosts: localhost\n  tasks:\n    - name: Handling the error tasks status\n      block:\n          - debug:\n                  msg: 'This task is successful'\n          - name: This will force failure\n            command: /bin/false\n          - debug:\n                  msg: 'This task will not be executed'\n      rescue:\n          - name: Sleep for 30 seconds and continue with play\n            wait_for:\n              timeout: 30\n            delegate_to: localhost\n          - debug:\n                  msg: 'As there was a failure in block section, rescue section will run'"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Ansible Playbook for: Integrate with Ansible"
       },
       {
@@ -5432,6 +5432,18 @@
       {
         "from": "gpt",
         "value": "[{\n   \"firstname\": \"Billy\",\n   \"lastname\": \"gu\",\n   \"email\": \"billsgu@example.com\",\n   \"pets\": []\n}, {\n   \"firstname\": \"Trevor\",\n   \"lastname\": \"Palmer\",\n   \"email\": \"palmer928@example.com\",\n   \"pets\": [{\n      \"name\": \"Butter\",\n      \"type\": \"dog\"\n   }]\n}, {\n   \"firstname\": \"Jimmy\",\n   \"lastname\": \"Bauer\",\n   \"email\": \"jbles45@example2.com\",\n   \"pets\": [{\n      \"name\": \"Biscuit\",\n      \"type\": \"cat\"\n   }, {\n      \"name\": \"Pepper\",\n      \"type\": \"cat\"\n   }]\n}]"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: Ansible Security & Compliance"
+      },
+      {
+        "from": "gpt",
+        "value": "# .github/workflows/ansible-security.yml (GitHub Actions)\nname: Ansible Security Gate\non: [pull_request]\njobs:\n  lint:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Install dependencies\n        run: pip install ansible ansible-lint\n      - name: Syntax check\n        run: ansible-playbook --syntax-check site.yml -i inventory/staging\n      - name: ansible-lint (production profile)\n        run: ansible-lint --profile production\n  molecule:\n    needs: lint\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Run Molecule tests\n        run: molecule test\n        env:\n          MOLECULE_DISTRO: registry.access.redhat.com/ubi9/ubi-init\n  secrets-scan:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Detect committed secrets\n        uses: trufflesecurity/trufflehog@main\n        with:\n          path: ./\n          base: ${{ github.event.repository.default_branch }}"
       }
     ]
   },
@@ -6903,18 +6915,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: Asynchronous actions and polling -- Ansible Community Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "#####################\n# main.yml\n#####################\n- name: Run items asynchronously in batch of two items\n  vars:\n    sleep_durations:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n    durations: \"{{ item }}\"\n  include_tasks: execute_batch.yml\n  loop: \"{{ sleep_durations | batch(2) | list }}\"\n#####################\n# execute_batch.yml\n#####################\n- name: Async sleeping for batched_items\n  ansible.builtin.command: sleep {{ async_item }}\n  async: 45\n  poll: 0\n  loop: \"{{ durations }}\"\n  loop_control:\n    loop_var: \"async_item\"\n  register: async_results\n- name: Check sync status\n  async_status:\n    jid: \"{{ async_result_item.ansible_job_id }}\"\n  loop: \"{{ async_results.results }}\"\n  loop_control:\n    loop_var: \"async_result_item\"\n  register: async_poll_results\n  until: async_poll_results is finished\n  retries: 30"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Ansible Playbook for: Ansible Playbook Error Handling -- CopyPasteLearn"
       },
       {
@@ -7496,6 +7496,30 @@
       {
         "from": "gpt",
         "value": "- stage:\n    name: Ansible\n    identifier: Ansible\n    description: \"\"\n    type: IACM\n    spec:\n      infrastructure:\n        type: KubernetesDirect\n        spec:\n          connectorRef: account.k8connector\n          namespace: harness-delegate\n          volumes: []\n          annotations: {}\n          labels: {}\n          automountServiceAccountToken: true\n          nodeSelector: {}\n          containerSecurityContext:\n            capabilities:\n              drop: []\n              add: []\n          os: Linux\n          hostNames: []\n      execution:\n        steps:\n          - step:\n              type: IACMAnsiblePlugin\n              name: Run\n              identifier: Run\n              spec:\n                command: run\n                timeout: 1h\n      playbooks:\n        - test-playbook\n      inventories:\n        - test-inventory\n    tags: {}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: 5 ways to harden a new system with Ansible"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- hosts: all\n  vars:\n    allowed_ssh_networks:\n      - 192.168.122.0/24\n      - 10.10.10.0/24\n    unnecessary_services:\n      - postfix\n      - telnet\n    unnecessary_software:\n      - tcpdump\n      - nmap-ncat\n      - wpa_supplicant\n  tasks:\n    - name: Perform full patching\n      package:\n        name: '*'\n        state: latest\n    - name: Add admin group\n      group:\n        name: admin\n        state: present\n    - name: Add local user\n      user:\n        name: admin\n        group: admin\n        shell: /bin/bash\n        home: /home/admin\n        create_home: yes\n        state: present\n    - name: Add SSH public key for user\n      authorized_key:\n        user: admin\n        key: \"{{ lookup('file', '~/.ssh/id_rsa.pub') }}\"\n        state: present\n    - name: Add sudoer rule for local user\n      copy:\n        dest: /etc/sudoers.d/admin\n        src: etc/sudoers.d/admin\n        owner: root\n        group: root\n        mode: 0440\n        validate: /usr/sbin/visudo -csf %s\n    - name: Add hardened SSH config\n      copy:\n        dest: /etc/ssh/sshd_config\n        src: etc/ssh/sshd_config\n        owner: root\n        group: root\n        mode: 0600\n      notify: Reload SSH\n    - name: Add SSH port to internal zone\n      firewalld:\n        zone: internal\n        service: ssh\n        state: enabled\n        immediate: yes\n        permanent: yes\n    - name: Add permitted networks to internal zone\n      firewalld:\n        zone: internal\n        source: \"{{ item }}\"\n        state: enabled\n        immediate: yes\n        permanent: yes\n      with_items: \"{{ allowed_ssh_networks }}\"\n    - name: Drop ssh from the public zone\n      firewalld:\n        zone: public\n        service: ssh\n        state: disabled\n        immediate: yes\n        permanent: yes\n    - name: Remove undesirable packages\n      package:\n        name: \"{{ unnecessary_software }}\"\n        state: absent\n    - name: Stop and disable unnecessary services\n      service:\n        name: \"{{ item }}\"\n        state: stopped\n        enabled: no\n      with_items: \"{{ unnecessary_services }}\"\n      ignore_errors: yes\n    - name: Set a message of the day\n      copy:\n        dest: /etc/motd\n        src: etc/motd\n        owner: root\n        group: root\n        mode: 0644\n    - name: Set a login banner\n      copy:\n        dest: \"{{ item }}\"\n        src: etc/issue\n        owner: root\n        group: root\n        mode: 0644\n      with_items:\n        - /etc/issue\n        - /etc/issue.net\n  handlers:\n    - name: Reload SSH\n      service:\n        name: sshd\n        state: reloaded"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: sudo on z/OS: The Missing Piece for Ansible Privilege Escalation"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Test sudo privilege escalation on USS\n  hosts: zos_host\n  gather_facts: false\n  tasks:\n    - name: Attempt to create a file BEFORE escalating privileges\n      ansible.builtin.shell: touch /u/usrt003/test1.txt\n      become: false\n      ignore_errors: true\n    - name: Create a file AFTER escalating privileges\n      ansible.builtin.shell: touch /u/usrt003/test1.txt\n      become: true\n      vars:\n        ansible_become_method: sudo\n        ansible_become_exe: \"/zopen/usr/local/bin/sudo\""
       }
     ]
   }

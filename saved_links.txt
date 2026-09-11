@@ -4627,3 +4627,26 @@ https://www.redbooks.ibm.com/blueprints
 https://developer.harness.io/infrastructure-as-code-management/use-iacm/configuration-management/get-started
 https://serverfault.com/questions/733955/forced-to-change-expired-password-when-using-ssh-key
 https://stackhpc-kayobe-config.readthedocs.io/en/stackhpc-2025.1/configuration/security-hardening.html
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://cloudcaptain.io/docs/tools/ansible/examples
+https://www.myshyft.com/blog/ansible-deployment-automation/
+https://docs.ansible.com/projects/ansible/latest/community/secure_development_practices.html
+https://gist.github.com/wombelejay/5037f5f3e0c4a98bd605b2cf8b2c9e06
+https://www.suse.com/c/suse-multi-linux-manager-azure-patch-compliance-2/
+https://www.utclisolutions.com/blog/3871
+https://www.ibm.com/products/qradar-siem/integrations
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://www.sudo.academy/blog/ansible-vault-secrets-management-encrypting-production-credentials-in-git-repos-0c2751
+https://www.redhat.com/en/blog/harden-new-system-ansible
+https://securew2.com/blog/ssh-without-password-setup-guide
+https://dev.to/abhishek_korde_31/how-to-configure-passwordless-authentication-using-ansible-3boj
+https://community.ibm.com/community/user/blogs/yogesh-rana/2026/09/01/sudo-on-zos-ansible-privilege-escalation
+https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/copy_module.html
+https://github.com/JesManLabs/Ansible_Lab_Hardening
+https://geekyscript.com/tutorial/ansible-configuration/ansible-vault-and-security-best-practices

@@ -1059,6 +1059,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: community.hashi_vault.hashi_vault lookup - Retrieve secrets from HashiCorp's Vault -- Ansible Community Documentation"
+      },
+      {
+        "from": "gpt",
+        "value": "- ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/hello:value token=c975b780-d1be-8016-866b-01d0f9b688a5 url=http://myvault:8200') }}\"\n- name: Return all secrets from a path\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/hello token=c975b780-d1be-8016-866b-01d0f9b688a5 url=http://myvault:8200') }}\"\n- name: Vault that requires authentication via LDAP\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/hello:value auth_method=ldap mount_point=ldap username=myuser password=mypas') }}\"\n- name: Vault that requires authentication via username and password\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/hola:val auth_method=userpass username=myuser password=psw url=http://vault:8200') }}\"\n- name: Connect to Vault using TLS\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/hola:value token=c975b780-d1be-8016-866b-01d0f9b688a5 validate_certs=False') }}\"\n- name: using certificate auth\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/hi:val token=xxxx url=https://vault:8200 validate_certs=True cacert=/cacert/path/ca.pem') }}\"\n- name: Authenticate with a Vault app role\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/hello:value auth_method=approle role_id=myroleid secret_id=mysecretid') }}\"\n- name: Return all secrets from a path in a namespace\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/hello token=c975b780-d1be-8016-866b-01d0f9b688a5 namespace=teama/admins') }}\"\n# When using KV v2 the PATH should include \"data\" between the secret engine mount and path (e.g. \"secret/data/:path\")\n# see: https://www.vaultproject.io/api/secret/kv/kv-v2.html#read-secret-version\n- name: Return latest KV v2 secret from path\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/data/hello token=my_vault_token url=http://myvault_url:8200') }}\"\n# The following examples show more modern syntax, with parameters specified separately from the term string.\n- name: secret= is not required if secret is first\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/hello token=<token> url=http://myvault_url:8200') }}\"\n- name: options can be specified as parameters rather than put in term string\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/hello', token=my_token_var, url='http://myvault_url:8200') }}\"\n# return_format (or its alias 'as') can control how secrets are returned to you\n- name: return secrets as a dict (default)\n  ansible.builtin.set_fact:\n    my_secrets: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/manysecrets', token=my_token_var, url='http://myvault_url:8200') }}\"\n- ansible.builtin.debug:\n    msg: \"{{ my_secrets['secret_key'] }}\"\n- ansible.builtin.debug:\n    msg: \"Secret '{{ item.key }}' has value '{{ item.value }}'\"\n  loop: \"{{ my_secrets | dict2items }}\"\n- name: return secrets as values only\n  ansible.builtin.debug:\n    msg: \"A secret value: {{ item }}\"\n  loop: \"{{ query('community.hashi_vault.hashi_vault', 'secret/data/manysecrets', token=my_token_var, url='http://vault_url:8200', return_format='values') }}\"\n- name: return raw secret from API, including metadata\n  ansible.builtin.set_fact:\n    my_secret: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/hello:value', token=my_token_var, url='http://myvault_url:8200', as='raw') }}\"\n- ansible.builtin.debug:\n    msg: \"This is version {{ my_secret['metadata']['version'] }} of hello:value. The secret data is {{ my_secret['data']['data']['value'] }}\"\n# AWS IAM authentication method\n# uses Ansible standard AWS options\n- name: authenticate with aws_iam\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/hello:value', auth_method='aws_iam', role_id='myroleid', profile=my_boto_profile) }}\"\n# JWT auth\n- name: Authenticate with a JWT\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/hola:val', auth_method='jwt', role_id='myroleid', jwt='myjwt', url='https://vault:8200') }}\"\n#GCP auth\n- name: Authenticate with GCP\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/hola:val', auth_method='gcp', role_id='myroleid', jwt='myjwt', url='https://vault:8200') }}\"\n# Disabling Token Validation\n# Use this when your token does not have the lookup-self capability. Usually this is applied to all tokens via the default policy.\n# However you can choose to create tokens without applying the default policy, or you can modify your default policy not to include it.\n# When disabled, your invalid or expired token will be indistinguishable from insufficent permissions.\n- name: authenticate without token validation\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/hello:value', token=my_token, token_validate=False) }}\"\n# \"none\" auth method does no authentication and does not send a token to the Vault address.\n# One example of where this could be used is with a Vault agent where the agent will handle authentication to Vault.\n# https://www.vaultproject.io/docs/agent\n- name: authenticate with vault agent\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/hello:value', auth_method='none', url='http://127.0.0.1:8100') }}\"\n# Use a proxy\n- name: use a proxy with login/password\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=... token=... url=https://... proxies=https://user:pass@myproxy:8080') }}\"\n- name: 'use a socks proxy (need some additional dependencies, see: https://requests.readthedocs.io/en/master/user/advanced/#socks )'\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=... token=... url=https://... proxies=socks5://myproxy:1080') }}\"\n- name: use proxies with a dict (as param)\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', '...', proxies={'http': 'http://myproxy1', 'https': 'http://myproxy2'}) }}\"\n- name: use proxies with a dict (as param, pre-defined var)\n  vars:\n    prox:\n      http: http://myproxy1\n      https: https://myproxy2\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', '...', proxies=prox }}\"\n- name: use proxies with a dict (as direct ansible var)\n  vars:\n    ansible_hashi_vault_proxies:\n      http: http://myproxy1\n      https: https://myproxy2\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', '...' }}\"\n- name: use proxies with a dict (in the term string, JSON syntax)\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', '... proxies={\\\"http\\\":\\\"http://myproxy1\\\",\\\"https\\\":\\\"http://myproxy2\\\"}') }}\"\n- name: use ansible vars to supply some options\n  vars:\n    ansible_hashi_vault_url: 'https://myvault:8282'\n    ansible_hashi_vault_auth_method: token\n  set_fact:\n    secret1: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/secret1') }}\"\n    secret2: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/secret2') }}\"\n- name: use a custom timeout\n  debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/secret1', timeout=120) }}\"\n- name: use a custom timeout and retry on failure 3 times (with collection retry defaults)\n  vars:\n    ansible_hashi_vault_timeout: 5\n    ansible_hashi_vault_retries: 3\n  debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/secret1') }}\"\n- name: retry on failure (with custom retry settings and no warnings)\n  vars:\n    ansible_hashi_vault_retries:\n      total: 6\n      backoff_factor: 0.9\n      status_forcelist: [500, 502]\n      allowed_methods:\n        - GET\n        - PUT\n  debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/secret1', retry_action='warn') }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Ansible Playbook for: How to use a secret in place of a Credential - Get Help - Ansible"
       },
       {
@@ -1100,6 +1112,18 @@
       {
         "from": "gpt",
         "value": "- hosts: all\n  become: true\n  gather_facts: false\n  tasks:\n    - name: Confirm privileged command works\n      ansible.builtin.command: id\n      changed_when: false"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: ansible.builtin.package module - Generic OS package manager -- Ansible Community Documentation"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Install ntpdate\n  ansible.builtin.package:\n    name: ntpdate\n    state: present\n# This uses a variable as this changes per distribution.\n- name: Remove the apache package\n  ansible.builtin.package:\n    name: \"{{ apache }}\"\n    state: absent\n- name: Install the latest version of Apache and MariaDB\n  ansible.builtin.package:\n    name:\n      - httpd\n      - mariadb-server\n    state: latest\n- name: Use the dnf package manager to install httpd\n  ansible.builtin.package:\n    name: httpd\n    state: present\n    use: dnf"
       }
     ]
   },
@@ -1203,11 +1227,35 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: community.general.lvol module - Configure LVM logical volumes -- Ansible Documentation"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Create a logical volume of 512m\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: 512\n- name: Create a logical volume of 512m with disks /dev/sda and /dev/sdb\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: 512\n    pvs: /dev/sda,/dev/sdb\n- name: Create cache pool logical volume\n  community.general.lvol:\n    vg: firefly\n    lv: lvcache\n    size: 512m\n    opts: --type cache-pool\n- name: Create a logical volume of 512g.\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: 512g\n- name: Create a logical volume the size of all remaining space in the volume group\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: 100%FREE\n- name: Create a logical volume with special options\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: 512g\n    opts: -r 16\n- name: Extend the logical volume to 1024m.\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: 1024\n- name: Extend the logical volume to consume all remaining space in the volume group\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: +100%FREE\n- name: Extend the logical volume by given space\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: +512M\n- name: Extend the logical volume to take all remaining space of the PVs and resize the underlying filesystem\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: 100%PVS\n    resizefs: true\n- name: Resize the logical volume to % of VG\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: 80%VG\n    force: true\n- name: Reduce the logical volume to 512m\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: 512\n    force: true\n- name: Reduce the logical volume by given space\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: -512M\n    force: true\n- name: Set the logical volume to 512m and do not try to shrink if size is lower than current one\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: 512\n    shrink: false\n- name: Remove the logical volume.\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    state: absent\n    force: true\n- name: Create a snapshot volume of the test logical volume.\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    snapshot: snap1\n    size: 100m\n- name: Deactivate a logical volume\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    active: false\n- name: Create a deactivated logical volume\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    size: 512g\n    active: false\n- name: Create a thin pool of 512g\n  community.general.lvol:\n    vg: firefly\n    thinpool: testpool\n    size: 512g\n- name: Create a thin volume of 128g\n  community.general.lvol:\n    vg: firefly\n    lv: test\n    thinpool: testpool\n    size: 128g"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Ansible Playbook for: Ansible postgresql_user: Create & Manage | AnsiblePilot"
       },
       {
         "from": "gpt",
         "value": "---\n- name: postgresql Playbook\n  hosts: all\n  become: true\n  vars:\n    db_user: myuser\n    db_password: MySecretPassword123\n  tasks:\n    - name: Utility present\n      ansible.builtin.package:\n        name: python3-psycopg2\n        state: present\n    - name: Create db user\n      community.postgresql.postgresql_user:\n        state: present\n        name: \"{{ db_user }}\"\n        password: \"{{ db_password }}\"\n      become: true\n      become_user: postgres\n      no_log: true"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: community.postgresql.postgresql_user module - Create, alter, or remove a user (role) from a PostgreSQL server instance -- Ansible Community Documentation"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Connect to acme database, create django user\n  community.postgresql.postgresql_user:\n    login_db: acme\n    name: django\n    password: ceec4eif7ya\n    expires: \"Jan 31 2020\"\n- name: Add a comment on django user\n  community.postgresql.postgresql_user:\n    login_db: acme\n    name: django\n    comment: This is a test user\n# Connect to default database, create rails user, set its password (MD5- or SHA256-hashed),\n# and set flags to allow the user to create databases\n# and demote rails from super user status if user exists\n# the hash from the corresponding pg_authid entry.\n- name: Create rails user, set MD5-hashed password, set flags\n  community.postgresql.postgresql_user:\n    name: rails\n    password: md59543f1d82624df2b31672ec0f7050460\n    # password: SCRAM-SHA-256$4096:zFuajwIVdli9mK=NJkcv1Q++$JC4gWIrEHmF6sqRbEiZw5FFW45HUPrpVzNdoM72o730+;fqA4vLN3mCZGbhcbQyvNYY7anCrUTsem1eCh/4YA94=\n    role_attr_flags: CREATEDB,NOSUPERUSER\n  # When using sha256-hashed password:\n  # environment:\n  #   PGOPTIONS: \"-c password_encryption=scram-sha-256\"\n- name: Connect to test database, remove test user from cluster\n  community.postgresql.postgresql_user:\n    login_db: test\n    name: test\n    state: absent\n- name: Connect to acme database and set user's password with no expire date\n  community.postgresql.postgresql_user:\n    login_db: acme\n    name: django\n    password: mysupersecretword\n    expires: infinity\n- name: Connect to test database and remove an existing user's password\n  community.postgresql.postgresql_user:\n    login_db: test\n    user: test\n    password: \"\"\n# Create user with a cleartext password if it does not exist or update its password.\n# The password will be encrypted with SCRAM algorithm (available since PostgreSQL 10)\n- name: Create appclient user with SCRAM-hashed password\n  community.postgresql.postgresql_user:\n    name: appclient\n    password: \"secret123\"\n  environment:\n    PGOPTIONS: \"-c password_encryption=scram-sha-256\"\n# Create a user and set a default-configuration that is active when they start a session\n- name: Create a user with config-parameter\n  community.postgresql.postgresql_user:\n    name: appclient\n    password: \"secret123\"\n    configuration:\n      work_mem: \"16MB\"\n# Make sure user has only specified default configuration parameters\n- name: Clear all configuration that is not explicitly defined for user\n  community.postgresql.postgresql_user:\n    name: appclient\n    password: \"secret123\"\n    configuration:\n      work_mem: \"16MB\"\n    reset_unspecified_configuration: true\n- name: Set search_path for user\n  community.postgresql.postgresql_user:\n    name: postgres_exporter\n    quote_configuration_values: false\n    configuration:\n      search_path: postgres_exporter, pg_catalog, public"
       }
     ]
   },
@@ -1304,6 +1352,18 @@
       {
         "from": "gpt",
         "value": "# get_peer_info.py\nimport ipaddress\ndef get_peer_info(our_port_info, hostvars):\n    peer_info = {\"name\": our_port_info[\"peer\"]}\n    our_net = ipaddress.IPv4Interface(our_port_info[\"ip\"]).network\n    peer_vars = hostvars[peer_info[\"name\"]]\n    for _, peer_port_info in peer_vars[\"ports\"].items():\n        if not peer_port_info[\"ip\"]:\n            continue\n        peer_net_obj = ipaddress.IPv4Interface(peer_port_info[\"ip\"])\n        if our_net == peer_net_obj.network:\n            peer_info[\"ip\"] = peer_net_obj.ip\n            break\n    return peer_info\nclass FilterModule(object):\n    def filters(self):\n        return {\n            'get_peer_info': get_peer_info\n        }"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: community.general.htpasswd module - Manage user files for basic authentication -- Ansible Community Documentation"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Add a user to a password file and ensure permissions are set\n  community.general.htpasswd:\n    path: /etc/nginx/passwdfile\n    name: janedoe\n    password: '9s36?;fyNp'\n    owner: root\n    group: www-data\n    mode: '0640'\n- name: Remove a user from a password file\n  community.general.htpasswd:\n    path: /etc/apache2/passwdfile\n    name: foobar\n    state: absent\n- name: Add a user to a password file suitable for use by libpam-pwdfile\n  community.general.htpasswd:\n    path: /etc/mail/passwords\n    name: alex\n    password: oedu2eGh\n    hash_scheme: md5_crypt"
       }
     ]
   },
@@ -1448,6 +1508,18 @@
       {
         "from": "gpt",
         "value": "- name: Configure Machine Credentials using Vault Signed SSH\n  ansible.controller.credential:\n    name: \"hashicorp_vault_ssh_machine_creds_{{ tenant }}\"\n    description: \"HashiCorp Vault signed dynamic SSH credentials\"\n    organization: \"{{ organization_name }}\"\n    credential_type: \"Machine\"\n    state: \"{{ state }}\"\n    inputs:\n      username: \"{{ machine_user }}\"\n      ssh_key_data: \"{{ ssh_private_key | default(None) }}\"\n    controller_host: \"{{ aap_url }}\"\n    controller_username: \"{{ lookup('env', 'CONTROLLER_USERNAME') }}\"\n    controller_password: \"{{ lookup('env', 'CONTROLLER_PASSWORD') }}\"\n    validate_certs: true\n  register: ssh_vault_machine_credentials\n- name: Use HashiCorp Vault Signed SSH as Credential Source\n  ansible.controller.credential_input_source:\n    input_field_name: \"ssh_public_key_data\"\n    target_credential: \"{{ ssh_vault_machine_credentials.id }}\"\n    source_credential: \"hashicorp_vault_ssh_approle_{{ tenant }}\"\n    state: \"{{ state | default('present') }}\"\n    metadata:\n      public_key: \"{{ ssh_public_key | default(None) }}\"\n      auth_path: \"{{ auth_path | default('approle')}}\"\n      role: \"{{ ssh_vault_role | default('aap_tenant') }}\"\n      secret_path: \"{{ secret_path | default('ssh') }}\"\n    controller_host: \"{{ aap_url }}\"\n    controller_username: \"{{ lookup('env', 'CONTROLLER_USERNAME') }}\"\n    controller_password: \"{{ lookup('env', 'CONTROLLER_PASSWORD') }}\"\n    validate_certs: true\n  register: vault_ssh_credential_source"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: 6 Ways to Speed Up Ansible Playbook Execution - Notch"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Ansible Playbook\n  hosts: webservers\n  become: True\n  gather_facts: false\n  roles:\n    - kafka\n    - nginx"
       }
     ]
   },
@@ -1712,6 +1784,18 @@
       {
         "from": "gpt",
         "value": "- name: Add users to sudoers file using variables\n  hosts: all\n  become: yes\n  vars:\n    sudoers_entries:\n      - { user: 'user1', permission: 'ALL=(ALL) ALL' }\n      - { user: 'user2', permission: 'ALL=(ALL) NOPASSWD: ALL' }\n  tasks:\n    - name: Add users to sudoers file\n      lineinfile:\n        path: /etc/sudoers\n        line: '{{ item.user }} {{ item.permission }}'\n        validate: 'visudo -cf %s'\n      with_items: \"{{ sudoers_entries }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: Ansible Tutorial â SSH Key Management -"
+      },
+      {
+        "from": "gpt",
+        "value": "# Add a single SSH key\n- name: Add SSH key for alice\n  ansible.posix.authorized_key:\n    user: alice\n    key: \"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBx... alice@workstation\"\n    state: present\n# Add SSH key from a file\n- name: Add SSH key from file\n  ansible.posix.authorized_key:\n    user: deploy\n    key: \"{{ lookup('file', 'files/deploy_key.pub') }}\"\n    state: present\n# Add SSH key from a URL\n- name: Add key from GitHub\n  ansible.posix.authorized_key:\n    user: alice\n    key: \"https://github.com/alice.keys\"\n    state: present"
       }
     ]
   },
@@ -2883,6 +2967,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: Ansible Advanced â Serial & Rolling Updates -"
+      },
+      {
+        "from": "gpt",
+        "value": "# Canary deployment: 1 server first, then 20%, then the rest\n- name: Canary deploy\n  hosts: appservers\n  serial:\n    - 1       # First batch: 1 server (canary)\n    - \"20%\"   # Second batch: 20% of remaining\n    - \"100%\"  # Third batch: all remaining\n  tasks:\n    - name: Deploy and restart\n      ansible.builtin.systemd:\n        name: myapp\n        state: restarted"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Ansible Playbook for: Learn Ansible in Y Minutes"
       },
       {
@@ -3039,7 +3135,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: Playbooks - Ansible Best Practices"
+        "value": "Ansible Playbook for: Playbook - Ansible Best Practices"
       },
       {
         "from": "gpt",
@@ -3272,6 +3368,18 @@
       {
         "from": "gpt",
         "value": "- name: setting up httpd\n  hosts: localhost\n  tasks:\n    - name: Install the latest httpd and restart\n      block:\n        - name: install httpd\n          yum:\n            name: htt\n            state: latest\n      rescue:\n        - name: restart httpd\n          service:\n            name: httpd\n            state: started\n        - name: Install autofs\n          yum:\n            name: autofs\n      always:\n        - name: restart autofs\n          service:\n            name: autofs\n            state: started"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: Ansible Advanced â Zero-Downtime Deployment -"
+      },
+      {
+        "from": "gpt",
+        "value": "- hosts: webservers\n  become: true\n  serial: \"25%\"                    # Update 25% at a time\n  max_fail_percentage: 0           # Stop if ANY host fails\n  pre_tasks:\n    - name: Deregister from ALB\n      community.aws.elb_target:\n        target_group_arn: \"{{ '{{ alb_target_group_arn }}' }}\"\n        target_id: \"{{ '{{ ec2_instance_id }}' }}\"\n        state: absent\n      delegate_to: localhost\n    - name: Wait for connections to drain\n      ansible.builtin.pause:\n        seconds: 30\n  roles:\n    - deploy-app\n  post_tasks:\n    - name: Wait for app to be healthy\n      ansible.builtin.uri:\n        url: \"http://localhost:{{ '{{ app_port }}' }}/health\"\n        status_code: 200\n      register: health\n      until: health.status == 200\n      retries: 30\n      delay: 5\n    - name: Re-register with ALB\n      community.aws.elb_target:\n        target_group_arn: \"{{ '{{ alb_target_group_arn }}' }}\"\n        target_id: \"{{ '{{ ec2_instance_id }}' }}\"\n        target_port: \"{{ '{{ app_port }}' }}\"\n        state: present\n      delegate_to: localhost\n    - name: Wait for ALB health check\n      ansible.builtin.pause:\n        seconds: 15"
       }
     ]
   },
@@ -5043,6 +5151,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: YAML Syntax -- Ansible Documentation"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n# An employee record\nname: Martin D'vloper\njob: Developer\nskill: Elite\nemployed: True\nfoods:\n  - Apple\n  - Orange\n  - Strawberry\n  - Mango\nlanguages:\n  perl: Elite\n  python: Elite\n  pascal: Lame\neducation: |\n  4 GCSEs\n  3 A-Levels\n  BSc in the Internet of Things"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Ansible Playbook for: Bootstrap"
       },
       {
@@ -5067,11 +5187,35 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: Ansible Error Handling and Fail Handling"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Testing block-rescue directives\n  hosts: localhost\n  tasks:\n    - name: Handling the error tasks status\n      block:\n          - debug:\n                  msg: 'This task is successful'\n          - name: This will force failure\n            command: /bin/false\n          - debug:\n                  msg: 'This task will not be executed'\n      rescue:\n          - name: Sleep for 30 seconds and continue with play\n            wait_for:\n              timeout: 30\n            delegate_to: localhost\n          - debug:\n                  msg: 'As there was a failure in block section, rescue section will run'"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Ansible Playbook for: Integrate with Ansible"
       },
       {
         "from": "gpt",
         "value": "- name: test playbook\n  hosts: all\n  tasks:\n    - shell: uname -a\n      ignore_errors: yes\n      register: uname_result\n    - debug: msg=\"{{ uname_result.stdout }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: Connection methods and details -- Ansible Community Documentation"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: update webservers\n  hosts: webservers\n  remote_user: admin\n  tasks:\n  - name: thing to do first in this playbook\n  # ..."
       }
     ]
   },
@@ -5307,6 +5451,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: community.docker.docker_container_info module - Retrieves facts about docker container -- Ansible Community Documentation"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Get infos on container\n  community.docker.docker_container_info:\n    name: mydata\n  register: result\n- name: Does container exist?\n  ansible.builtin.debug:\n    msg: \"The container {{ 'exists' if result.exists else 'does not exist' }}\"\n- name: Print information about container\n  ansible.builtin.debug:\n    var: result.container\n  when: result.exists"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Python script for: Automation Platform 2.5 reverse proxy to gateway - Get Help - Ansible"
       },
       {
@@ -5439,11 +5595,11 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: Ansible Security & Compliance"
+        "value": "Ansible Playbook for: How to build your inventory -- Ansible Community Documentation"
       },
       {
         "from": "gpt",
-        "value": "# .github/workflows/ansible-security.yml (GitHub Actions)\nname: Ansible Security Gate\non: [pull_request]\njobs:\n  lint:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Install dependencies\n        run: pip install ansible ansible-lint\n      - name: Syntax check\n        run: ansible-playbook --syntax-check site.yml -i inventory/staging\n      - name: ansible-lint (production profile)\n        run: ansible-lint --profile production\n  molecule:\n    needs: lint\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Run Molecule tests\n        run: molecule test\n        env:\n          MOLECULE_DISTRO: registry.access.redhat.com/ubi9/ubi-init\n  secrets-scan:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Detect committed secrets\n        uses: trufflesecurity/trufflehog@main\n        with:\n          path: ./\n          base: ${{ github.event.repository.default_branch }}"
+        "value": "- hosts: dbservers\n  tasks:\n  - name: Allow access from 10.0.0.1\n    ansible.builtin.iptables:\n      chain: INPUT\n      jump: ACCEPT\n      source: 10.0.0.1"
       }
     ]
   },
@@ -6879,11 +7035,11 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: Ansible Chrony Playbook for NTP Configuration"
+        "value": "Ansible Playbook for: Manage Chrony NTP Configuration with Ansible"
       },
       {
         "from": "gpt",
-        "value": "---\n- name: Deploy chrony configuration and validate (auto-fix)\n  hosts: all\n  become: yes\n  tasks:\n    - name: Deploy chrony.conf from template\n      template:\n        src: ../templates/chrony.conf.j2     # Here is the template file\n        dest: /etc/chrony.conf\n        owner: root\n        group: root\n        mode: '0644'\n      notify: Restart chronyd\n    - name: Pause to allow chronyd restart\n      pause:\n        seconds: 3\n    - name: Check if chrony is synchronized\n      shell: chronyc sources | grep '\\^\\*'\n      register: chrony_sync\n      failed_when: false      # don't fail here\n      changed_when: false\n    - name: Restart chronyd if not synchronized\n      service:\n        name: chronyd\n        state: restarted\n      when: chrony_sync.rc != 0\n    - name: Wait and re-check synchronization after fix\n      shell: chronyc sources | grep '\\^\\*'\n      register: chrony_sync_after\n      when: chrony_sync.rc != 0\n      failed_when: false\n      changed_when: false\n    - name: Final validation -- fail if still not synced\n      fail:\n        msg: \"Chrony is still NOT synchronized after auto-fix\"\n      when: (chrony_sync_after is defined) and ((chrony_sync_after.rc | default(0)) != 0)\n    - name: Success message\n      debug:\n        msg: \"Chrony synchronized successfully\"\n      when: (chrony_sync_after is defined) and ((chrony_sync_after.rc | default(0)) != 0)\n  handlers:\n    - name: Restart chronyd\n      service:\n        name: chronyd\n        state: restarted"
+        "value": "---\n- name: Manage Chrony configuration on Linux systems\n  hosts: all\n  become: true\n  tasks:\n    - name: Ensure Chrony is installed\n      ansible.builtin.package:\n        name: chrony\n        state: present\n    - name: Deploy chrony.conf from template\n      ansible.builtin.template:\n        src: ../templates/chrony.conf.j2\n        dest: /etc/chrony.conf\n        owner: root\n        group: root\n        mode: '0644'\n        backup: true\n      notify: Restart chronyd\n    - name: Ensure chronyd is enabled and running\n      ansible.builtin.systemd_service:\n        name: chronyd\n        state: started\n        enabled: true\n    - name: Apply pending chronyd restart before validation\n      ansible.builtin.meta: flush_handlers\n    - name: Wait for Chrony to synchronize\n      ansible.builtin.command:\n        argv:\n          - chronyc\n          - waitsync\n          - \"12\"\n          - \"0.1\"\n      register: chrony_waitsync\n      changed_when: false\n    - name: Show Chrony sources\n      ansible.builtin.command:\n        argv:\n          - chronyc\n          - sources\n          - -v\n      register: chrony_sources\n      changed_when: false\n    - name: Display Chrony source status\n      ansible.builtin.debug:\n        var: chrony_sources.stdout_lines\n  handlers:\n    - name: Restart chronyd\n      ansible.builtin.systemd_service:\n        name: chronyd\n        state: restarted"
       }
     ]
   },
@@ -7520,6 +7676,18 @@
       {
         "from": "gpt",
         "value": "- name: Test sudo privilege escalation on USS\n  hosts: zos_host\n  gather_facts: false\n  tasks:\n    - name: Attempt to create a file BEFORE escalating privileges\n      ansible.builtin.shell: touch /u/usrt003/test1.txt\n      become: false\n      ignore_errors: true\n    - name: Create a file AFTER escalating privileges\n      ansible.builtin.shell: touch /u/usrt003/test1.txt\n      become: true\n      vars:\n        ansible_become_method: sudo\n        ansible_become_exe: \"/zopen/usr/local/bin/sudo\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: Ansible Best Practices â Production Playbook Patterns"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Rolling NGINX config update\n  hosts: webservers\n  become: yes\n  serial: \"25%\"           # update 25% of hosts at a time\n  max_fail_percentage: 10 # abort if more than 10% fail\n  tasks:\n    - name: Drain this host from load balancer\n      ansible.builtin.uri:\n        url: \"http://lb/drain/{{ inventory_hostname }}\"\n        method: POST\n    - name: Deploy new nginx config\n      ansible.builtin.template:\n        src: nginx.conf.j2\n        dest: /etc/nginx/nginx.conf\n      notify: reload nginx\n    - name: Wait for nginx health check\n      ansible.builtin.uri:\n        url: \"http://{{ inventory_hostname }}/health\"\n        status_code: 200\n      register: health\n      until: health.status == 200\n      retries: 10\n      delay: 3\n    - name: Re-add this host to load balancer\n      ansible.builtin.uri:\n        url: \"http://lb/enable/{{ inventory_hostname }}\"\n        method: POST"
       }
     ]
   }

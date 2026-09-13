@@ -4681,3 +4681,15 @@ https://www.bing.com/aclick?ld=e8_z9CCBBHVEwYk7SC1btObDVUCUxWbLDV1lo_7M-4cp-UPqb
 =========================================
 https://www.bing.com/aclick?ld=e8MN2tGm6keJp8UpS7RZecojVUCUzqjr_LhNkltc0qOQIJSkSKvye9TSqRVsnEkRjgEVXtfYdQkah5cY2q8kwH6EgWXUx0cqLDmYVxAF85cyoOEbIafNWU0m2JeZp0Lf4kj2Dkkt_z3MYIoFoYWAvhAQg2VCvhzw925BHMMtvXaaKdhXc8hHtKs-E8dCIfmNx-QLIafA&u=aHR0cHMlM2ElMmYlMmZ3d3cuY29sbGlicmEuY29tJTJmbGVhcm4lMmZjb21wbGlhbmNlJTNmdXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fbWVkaXVtJTNkcGFpZC1zZWFyY2glMjZ1dG1fY2FtcGFpZ24lM2RDT0xfTkFNRVItQUxMLUFMTF9DT01QTElBTkNFX0VOVEVSUFJJU0VfREVNX0FMV0FZU09OX0ctU0NSX05CUk5EX1JPSSUyNnFnYWQlM2QlMjZxZ3Rlcm0lM2Rjb21wbGlhbmNlJTI1MjBtb25pdG9yaW5nJTI2dXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fbWVkaXVtJTNkcGFpZC1zZWFyY2glMjZ1dG1fY2FtcGFpZ24lM2RDT0xfTkFNRVItQUxMLUFMTF9DT01QTElBTkNFX0VOVEVSUFJJU0VfREVNX0FMV0FZU09OX0ctU0NSX05CUk5EX1JPSSUyNm1zY2xraWQlM2QzNzIxMTE2MjFlMjYxM2NlOTM4OTdiYzZmNTdiZmViMQ&rlid=372111621e2613ce93897bc6f57bfeb1
 https://www.bing.com/aclick?ld=e8ojdJKawm3noi27rGUk7XaDVUCUye3O8EabiZFpokhdIdZmfXEFRlr_H5kCt-dATTZuUmkw2eYcmmuJ2Bb9HgEotANr_T7qJ0CzuNFIMtsVjFTGIOfeK9GX9bK67LaUdPoyny3JsPPQVp0flIcNE7QFDa1jEn88BNzj2cqeiY21pS4m1N_MJfQzN6T7ZFhuSbP63YTA&u=aHR0cHMlM2ElMmYlMmZzbnlrLmlvJTJmbHAlMmZtb2Rlcm4tZGV2c2Vjb3BzLWFpLWJlc3QtcHJhY3RpY2VzJTJmJTNmdXRtX21lZGl1bSUzZHBhaWQtc2VhcmNoJTI2dXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fY2FtcGFpZ24lM2RkbV9taWNyb3NvZnQtcHNfYW9tXzI2MDIxNV9hc3NldC1kb3dubG9hZF9uYnIlMjZ1dG1fY29udGVudCUzZGRldnNlYy10b29scyUyNmFkX2lkJTNkODUyMTI3NDQxMzkyMTYlMjZhZGdyb3VwX2lkJTNkMTM2MzM5NzEzMTY2MTIxNCUyNmNhbXBhaWduX2lkJTNkNTMzNDQ5OTYyJTI2dXRtX3Rlcm0lM2RkZXZvcHMlMjUyMHRvb2xzJTI2bWF0Y2hfdHlwZSUzZHAlMjZtc2Nsa2lkJTNkMTVjMWU5NDEyNWIxMWJjZmE1OGY4M2U1Y2VkMDU0YTg&rlid=15c1e94125b11bcfa58f83e5ced054a8
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://dev.to/atomax/how-to-automate-deployment-with-ansible-and-github-actions-e2k
+https://contextqmd.com/libraries/ansible-documentation/versions/2.21.0b3/pages/docs/docsite/rst/playbook_guide/playbooks_privilege_escalation
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://github.com/nak8saio/ansible-pipeline
+https://developers.redhat.com/products/ansible/overview

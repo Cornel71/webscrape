@@ -4693,3 +4693,32 @@ https://contextqmd.com/libraries/ansible-documentation/versions/2.21.0b3/pages/d
 =========================================
 https://github.com/nak8saio/ansible-pipeline
 https://developers.redhat.com/products/ansible/overview
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://github.com/djdanielsson/automation-good-practices
+https://www.ansiblejunky.com/blog/ansible-101-linting/
+https://www.redhat.com/en/blog/automating-security-compliance-ease
+https://martin.preisler.me/
+https://forum.ansible.com/t/rescue-fails-to-execute-after-a-failed-task-in-a-block/46167
+https://galaxy.ansible.com/ui/repo/published/ibofn/rhel_management/content/role/rolling_patch/
+https://securityinfinity.com/cybersecurity/cybersecurity-automation-courses
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://galaxy.ansible.com/ui/repo/published/code3tech/devtools/content/role/gitlab_ci_runners/
+https://arxiv.org/html/2608.24962v1
+https://medium.com/@FadeIntoTech/automating-threat-detection-and-response-with-ansible-a-guide-for-cloud-security-engineers-427cd98b8b2c
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://www.redhat.com/es/blog/ansible-vault-secure-playbooks
+https://labex.io/tutorials/linux-how-to-manage-linux-sudo-privileges-securely-420095
+https://blog.stackademic.com/project-2-production-linux-server-hardening-automated-configuration-platform-381c66f58f0d
+https://serverfault.com/questions/1192821/how-to-generate-reproducible-ssh-key
+https://medium.com/@amandubey_6607/mastering-ansible-conditionals-a-comprehensive-guide-for-devops-engineers-35c77aa3d26d
+https://ansible-collections.github.io/community.hashi_vault/branch/main/collections/community/hashi_vault/hashi_vault_lookup.html
+https://www.conxiea.com/blog/signs-your-network-team-has-outgrown-ansible

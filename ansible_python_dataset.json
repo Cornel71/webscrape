@@ -1731,6 +1731,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: Ansible Tutorial â SSH Key Management -"
+      },
+      {
+        "from": "gpt",
+        "value": "# Add a single SSH key\n- name: Add SSH key for alice\n  ansible.posix.authorized_key:\n    user: alice\n    key: \"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBx... alice@workstation\"\n    state: present\n# Add SSH key from a file\n- name: Add SSH key from file\n  ansible.posix.authorized_key:\n    user: deploy\n    key: \"{{ lookup('file', 'files/deploy_key.pub') }}\"\n    state: present\n# Add SSH key from a URL\n- name: Add key from GitHub\n  ansible.posix.authorized_key:\n    user: alice\n    key: \"https://github.com/alice.keys\"\n    state: present"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Ansible Playbook for: Ansible Firewall -- firewalld & UFW | AnsibleByExample"
       },
       {
@@ -2391,6 +2403,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: Infrastructure as Code Is Still Code: How to Lint and Format Terraform and Ansible"
+      },
+      {
+        "from": "gpt",
+        "value": "# .github/workflows/iac-quality.yml\nname: IaC Quality Checks\non: [pull_request]\njobs:\n  terraform:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: hashicorp/setup-terraform@v3\n      - name: Terraform Format Check\n        run: terraform fmt -check -recursive\n      - name: Terraform Validate\n        run: |\n          terraform init -backend=false\n          terraform validate\n      - name: TFLint\n        uses: terraform-linters/setup-tflint@v4\n        with:\n          tflint_version: latest\n      - run: tflint --recursive\n      - name: Checkov Security Scan\n        uses: bridgecrewio/checkov-action@master\n        with:\n          directory: .\n          framework: terraform\n  ansible:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Install tools\n        run: pip install ansible-lint yamllint\n      - name: yamllint\n        run: yamllint playbooks/\n      - name: ansible-lint\n        run: ansible-lint playbooks/"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Ansible Playbook for: Ansible Split Examples - With String, List and File Content"
       },
       {
@@ -2883,6 +2907,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: Ansible Advanced â Serial & Rolling Updates -"
+      },
+      {
+        "from": "gpt",
+        "value": "# Canary deployment: 1 server first, then 20%, then the rest\n- name: Canary deploy\n  hosts: appservers\n  serial:\n    - 1       # First batch: 1 server (canary)\n    - \"20%\"   # Second batch: 20% of remaining\n    - \"100%\"  # Third batch: all remaining\n  tasks:\n    - name: Deploy and restart\n      ansible.builtin.systemd:\n        name: myapp\n        state: restarted"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Ansible Playbook for: Learn Ansible in Y Minutes"
       },
       {
@@ -3272,6 +3308,18 @@
       {
         "from": "gpt",
         "value": "- name: setting up httpd\n  hosts: localhost\n  tasks:\n    - name: Install the latest httpd and restart\n      block:\n        - name: install httpd\n          yum:\n            name: htt\n            state: latest\n      rescue:\n        - name: restart httpd\n          service:\n            name: httpd\n            state: started\n        - name: Install autofs\n          yum:\n            name: autofs\n      always:\n        - name: restart autofs\n          service:\n            name: autofs\n            state: started"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: Ansible Advanced â Zero-Downtime Deployment -"
+      },
+      {
+        "from": "gpt",
+        "value": "- hosts: webservers\n  become: true\n  serial: \"25%\"                    # Update 25% at a time\n  max_fail_percentage: 0           # Stop if ANY host fails\n  pre_tasks:\n    - name: Deregister from ALB\n      community.aws.elb_target:\n        target_group_arn: \"{{ '{{ alb_target_group_arn }}' }}\"\n        target_id: \"{{ '{{ ec2_instance_id }}' }}\"\n        state: absent\n      delegate_to: localhost\n    - name: Wait for connections to drain\n      ansible.builtin.pause:\n        seconds: 30\n  roles:\n    - deploy-app\n  post_tasks:\n    - name: Wait for app to be healthy\n      ansible.builtin.uri:\n        url: \"http://localhost:{{ '{{ app_port }}' }}/health\"\n        status_code: 200\n      register: health\n      until: health.status == 200\n      retries: 30\n      delay: 5\n    - name: Re-register with ALB\n      community.aws.elb_target:\n        target_group_arn: \"{{ '{{ alb_target_group_arn }}' }}\"\n        target_id: \"{{ '{{ ec2_instance_id }}' }}\"\n        target_port: \"{{ '{{ app_port }}' }}\"\n        state: present\n      delegate_to: localhost\n    - name: Wait for ALB health check\n      ansible.builtin.pause:\n        seconds: 15"
       }
     ]
   },
@@ -4179,18 +4227,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: community.crypto.openssh_keypair module - Generate OpenSSH private and public keys -- Ansible Community Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n- name: Generate an OpenSSH keypair with the default values (4096 bits, rsa)\n  community.crypto.openssh_keypair:\n    path: /tmp/id_ssh_rsa\n- name: Generate an OpenSSH keypair with the default values (4096 bits, rsa) and encrypted private key\n  community.crypto.openssh_keypair:\n    path: /tmp/id_ssh_rsa\n    passphrase: super_secret_password\n- name: Generate an OpenSSH rsa keypair with a different size (2048 bits)\n  community.crypto.openssh_keypair:\n    path: /tmp/id_ssh_rsa\n    size: 2048\n- name: Force regenerate an OpenSSH keypair if it already exists\n  community.crypto.openssh_keypair:\n    path: /tmp/id_ssh_rsa\n    force: true\n- name: Regenerate SSH keypair only if format or options mismatch\n  community.crypto.openssh_keypair:\n    path: /home/devops/.ssh/id_ed25519\n    type: ed25519\n    regenerate: full_idempotence\n    private_key_format: ssh\n- name: Generate an OpenSSH keypair with a different algorithm (dsa)\n  community.crypto.openssh_keypair:\n    path: /tmp/id_ssh_dsa\n    type: dsa"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Ansible Playbook for: Automating UFW Configuration with Ansible: Locking Down the Digital Fortress - Tom's IT Cafe"
       },
       {
@@ -4676,6 +4712,18 @@
       {
         "from": "gpt",
         "value": "- hosts: localhost\n  tasks:\n    - name: Check file existence on remote host\n      stat:\n        path: /home/labex/file.txt\n      register: file_info\n    - name: Print file existence\n      debug:\n        msg: \"File exists: {{ file_info.stat.exists }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: ansible - Jinja2 filter list using string contains test"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- hosts: localhost\n  vars:\n    my_list:\n      - item1\n      - item2\n      - substring1\n      - substring2\n  tasks:\n    - name: Filter list based on substring\n      debug:\n        var: my_list | select(\"search\", \"substring\") | list"
       }
     ]
   },
@@ -5516,6 +5564,18 @@
       {
         "from": "gpt",
         "value": "---\n- name: Harden Ubuntu VPS Security Configuration\n  hosts: vpsDemo\n  gather_facts: true\n  vars_prompt:\n    - name: 'custom_admin_user'\n      prompt: 'Enter the custom username for your main administrator account'\n      private: false\n  tasks:\n    # 1. GENERATE RANDOM PASSWORD\n    - name: Generate random password\n      set_fact:\n        new_admin_password: \"{{ lookup('password', '/dev/null chars=ascii_letters,digits,hexdigits length=16') }}\"\n    # 2. CREATE SUDO USER\n    - name: Ensure the custom admin user exists\n      ansible.builtin.user:\n        name: '{{ custom_admin_user }}'\n        password: \"{{ new_admin_password | password_hash('sha512') }}\"\n        shell: /bin/bash\n        state: present\n        groups: sudo\n        append: true\n    - name: Allow the admin user to use sudo without a password prompt\n      ansible.builtin.copy:\n        content: \"{{ custom_admin_user }} ALL=(ALL) NOPASSWD:ALL\\n\"\n        dest: '/etc/sudoers.d/{{ custom_admin_user }}'\n        mode: '0440'\n        validate: /usr/sbin/visudo -cf %s\n    # 3. CONFIGURE UFW FIREWALL\n    - name: Reset UFW to default settings\n      community.general.ufw:\n        state: reset\n    - name: Set UFW default policies to deny incoming\n      community.general.ufw:\n        policy: deny\n        direction: incoming\n    - name: Open Port 80 (HTTP)\n      community.general.ufw:\n        rule: allow\n        port: '80'\n        proto: tcp\n    - name: Open Port 443 (HTTPS)\n      community.general.ufw:\n        rule: allow\n        port: '443'\n        proto: tcp\n    - name: Open Custom SSH Port 2222\n      community.general.ufw:\n        rule: allow\n        port: '2222'\n        proto: tcp\n    - name: Enable UFW Firewall\n      community.general.ufw:\n        state: enabled\n    # 4. INSTALL FAIL2BAN\n    - name: Install Fail2Ban\n      ansible.builtin.apt:\n        name: fail2ban\n        state: present\n        update_cache: true\n    - name: Ensure Fail2Ban is running and enabled on boot\n      ansible.builtin.service:\n        name: fail2ban\n        state: started\n        enabled: true\n    # 5. HARDEN SSH\n    - name: Configure SSH to use custom port 2222\n      ansible.builtin.lineinfile:\n        path: /etc/ssh/sshd_config\n        regexp: '^#?Port\\s'\n        line: 'Port 2222'\n        state: present\n    - name: Disable Root SSH Login\n      ansible.builtin.lineinfile:\n        path: /etc/ssh/sshd_config\n        regexp: '^#?PermitRootLogin\\s'\n        line: 'PermitRootLogin no'\n        state: present\n    # 6. FIX SYSTEMD SSH SOCKET\n    - name: Create systemd override directory for SSH socket\n      ansible.builtin.file:\n        path: /etc/systemd/system/ssh.socket.d\n        state: directory\n        mode: '0755'\n    - name: Write dual-stack IPv4/IPv6 socket configuration\n      ansible.builtin.copy:\n        dest: /etc/systemd/system/ssh.socket.d/listen.conf\n        mode: '0644'\n        content: |\n          [Socket]\n          ListenStream=\n          ListenStream=0.0.0.0:2222\n          ListenStream=[::]:2222\n    - name: Reload systemd daemon\n      ansible.builtin.systemd_service:\n        daemon_reload: true\n    - name: Restart SSH socket\n      ansible.builtin.service:\n        name: ssh.socket\n        state: restarted\n    - name: Restart SSH service\n      ansible.builtin.service:\n        name: ssh\n        state: restarted\n    # 7. DISPLAY CREDENTIALS\n    - name: Display your new credentials (SAVE THESE IMMEDIATELY)\n      ansible.builtin.debug:\n        msg:\n          - '========================================================'\n          - 'NEW SUDO USERNAME: {{ custom_admin_user }}'\n          - 'NEW PASSWORD: {{ new_admin_password }}'\n          - 'CUSTOM SSH PORT: 2222'\n          - '========================================================'"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: DRY Infrastructure: How to Architect Modular Ansible Playbooks for Next.js"
+      },
+      {
+        "from": "gpt",
+        "value": "# roles/nextjs-app/tasks/deploy.yml\n- name: Generate release timestamp\n  ansible.builtin.set_fact:\n    release_timestamp: \"{{ ansible_date_time.epoch }}\"\n  tags: [deploy]\n- name: Create release directory\n  ansible.builtin.file:\n    path: \"{{ app_releases_dir }}/{{ release_timestamp }}\"\n    state: directory\n    owner: \"{{ app_user }}\"\n    group: \"{{ app_group }}\"\n    mode: \"0755\"\n  tags: [deploy]\n- name: Upload Next.js standalone build\n  ansible.builtin.synchronize:\n    src: \"{{ local_build_path }}/.next/standalone/\"\n    dest: \"{{ app_releases_dir }}/{{ release_timestamp }}\"\n    delete: true\n    rsync_opts:\n      - \"--exclude=.git\"\n  tags: [deploy]\n- name: Upload static assets\n  ansible.builtin.synchronize:\n    src: \"{{ local_build_path }}/.next/static/\"\n    dest: \"{{ app_releases_dir }}/{{ release_timestamp }}/.next/static/\"\n  tags: [deploy]\n- name: Template environment file\n  ansible.builtin.template:\n    src: env.j2\n    dest: \"{{ app_releases_dir }}/{{ release_timestamp }}/.env.local\"\n    owner: \"{{ app_user }}\"\n    group: \"{{ app_group }}\"\n    mode: \"0640\"           # restrict read to app user only\n  tags: [deploy]\n- name: Update current symlink atomically\n  ansible.builtin.file:\n    src: \"{{ app_releases_dir }}/{{ release_timestamp }}\"\n    dest: \"{{ app_base_dir }}/current\"\n    state: link\n    owner: \"{{ app_user }}\"\n    group: \"{{ app_group }}\"\n  notify: Reload PM2\n  tags: [deploy]"
       }
     ]
   },

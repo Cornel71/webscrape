@@ -699,7 +699,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: Ansible Secrets: A Practical Guide to Secure Automation a..."
+        "value": "Ansible Playbook for: Ansible Secrets: A Practical Guide to Secure Automation at Scale"
       },
       {
         "from": "gpt",
@@ -1280,18 +1280,6 @@
       {
         "from": "gpt",
         "value": "tasks:\n  - name: Restart everything\n    command: echo \"this task will restart the web services\"\n    notify: \"restart web services\"\nhandlers:\n  - name: Restart memcached\n    service:\n      name: memcached\n      state: restarted\n    listen: \"restart web services\"\n  - name: Restart apache\n    service:\n      name: apache\n      state: restarted\n    listen: \"restart web services\""
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Ansible Playbook for: Best Practices - PCC-IT International"
-      },
-      {
-        "from": "gpt",
-        "value": "- name: copy a file from a fileshare with custom credentials\n  ansible.windows.win_copy:\n    src: \\\\server\\share\\data\\file.txt\n    dest: C:\\temp\\file.txt\n    remote_src: yes\n  vars:\n    ansible_become: yes\n    ansible_become_method: runas\n    ansible_become_user: DOMAIN\\user\n    ansible_become_password: Password01\n    ansible_become_flags: logon_type=new_credentials logon_flags=netcredentials_only\n- name: run a command under a batch logon\n  ansible.windows.win_whoami:\n  become: yes\n  become_flags: logon_type=batch\n- name: run a command and not load the user profile\n  ansible.windows.win_whomai:\n  become: yes\n  become_flags: logon_flags="
       }
     ]
   },
@@ -2151,7 +2139,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: Ansible Vault: Encrypt Secrets & Manage | AnsiblePilot"
+        "value": "Ansible Playbook for: Ansible Vault: Encrypt Secrets & Manage Credentials (2026)"
       },
       {
         "from": "gpt",
@@ -2295,7 +2283,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: ansible.posix.sysctl: Configure Linux Kernel | AnsiblePilot"
+        "value": "Ansible Playbook for: ansible.posix.sysctl: Set Kernel Parameters Persistently"
       },
       {
         "from": "gpt",
@@ -3615,7 +3603,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: Ansible selectattr Filter: Filter Lists by Condition"
+        "value": "Ansible Playbook for: Ansible selectattr: Filter & Select List Items by Attribute"
       },
       {
         "from": "gpt",
@@ -3987,7 +3975,7 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: ansible.posix.sysctl: Configure Linux Kernel | AnsiblePilot"
+        "value": "Ansible Playbook for: ansible.posix.sysctl: Set Kernel Parameters Persistently"
       },
       {
         "from": "gpt",
@@ -4088,18 +4076,6 @@
       {
         "from": "gpt",
         "value": "- vars:\n    users:\n      - { name: alice, role: admin, active: true }\n      - { name: bob, role: user, active: true }\n      - { name: charlie, role: admin, active: false }\n  debug:\n    msg:\n      - \"Admins: {{ users | selectattr('role', 'eq', 'admin') | list }}\"\n      - \"Active: {{ users | selectattr('active') | list }}\"\n      - \"Admin names: {{ users | selectattr('role', 'eq', 'admin') | map(attribute='name') | list }}\"\n      # ['alice', 'charlie']\n      # [alice_dict, bob_dict]\n      # ['alice', 'charlie']"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Ansible Playbook for: Ansible Privilege Escalation (become, become_user)"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n- name: Orchestrate Application Services\n  hosts: webservers\n  become: false # Disabled by default for the entire play\n  tasks:\n    - name: Pull code from a public repository\n      ansible.builtin.git:\n        repo: 'https://github.com/example/app.git'\n        dest: /home/automation/app\n      # Runs safely as an unprivileged connection user\n    - name: Install system dependencies\n      ansible.builtin.apt:\n        name: libjpeg-dev\n        state: present\n      become: true # Explicitly enabled only for this administrative task"
       }
     ]
   },
@@ -4719,18 +4695,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: ansible - Jinja2 filter list using string contains test"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n- hosts: localhost\n  vars:\n    my_list:\n      - item1\n      - item2\n      - substring1\n      - substring2\n  tasks:\n    - name: Filter list based on substring\n      debug:\n        var: my_list | select(\"search\", \"substring\") | list"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Ansible Playbook for: Ansible become: Privilege Escalation with sudo, su, runas"
       },
       {
@@ -4959,18 +4923,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: 🛡️ Ansible in DevSecOps: A Comprehensive Tutorial - SRE School"
-      },
-      {
-        "from": "gpt",
-        "value": "# playbook.yml\n- hosts: web\n  become: yes\n  tasks:\n    - name: Install NGINX\n      apt:\n        name: nginx\n        state: present"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Ansible Playbook for: Ansible Configure Firewall Rules -- Complete Guide"
       },
       {
@@ -5180,18 +5132,6 @@
       {
         "from": "gpt",
         "value": "---\n# ansible-playbook bootstrap-ansible-target.yml -b -e 'user=user'\n- hosts: \"{{ host }}\"\n  remote_user: \"{{ user | default('root') }}\"\n  gather_facts: no\n  pre_tasks:\n  - name: attempt to update apt's cache\n    raw: test -e /usr/bin/apt-get && apt-get update\n    ignore_errors: yes\n  - name: attempt to install Python on Debian-based systems\n    raw: test -e /usr/bin/apt-get && apt-get -y install python-simplejson python\n    ignore_errors: yes\n  - name: attempt to install Python on CentOS-based systems\n    raw: test -e /usr/bin/yum && yum -y install python-simplejson python\n    ignore_errors: yes\n  - setup:\n  tasks:\n  - name: Create admin user group\n    group:\n      name: admin\n      system: yes\n      state: present\n  - name: Ensure sudo is installed\n    package:\n      name: sudo\n      state: present\n  - name: Create Ansible user\n    user:\n      name: ansible\n      shell: /bin/bash\n      comment: \"Ansible management user\"\n      home: /home/ansible\n      createhome: yes\n  - name: Add Ansible user to admin group\n    user:\n      name: ansible\n      groups: admin\n      append: yes\n  - name: Add authorized key\n    authorized_key:\n      user: ansible\n      state: present\n      key: \"{{ lookup('file', '/etc/ansible/.ssh/id_rsa.pub') }}\"\n  - name: Copy sudoers file\n    command: cp -f /etc/sudoers /etc/sudoers.tmp\n  - name: Backup sudoers file\n    command: cp -f /etc/sudoers /etc/sudoers.bak\n  - name: Ensure admin group can sudo\n    lineinfile:\n      dest: /etc/sudoers.tmp\n      state: present\n      regexp: '^%admin'\n      line: '%admin ALL=(ALL) NOPASSWD: ALL'\n    when: ansible_os_family == 'Debian'\n  - name: Ensure admin group can sudo\n    lineinfile:\n      dest: /etc/sudoers.tmp\n      state: present\n      regexp: '^%admin'\n      insertafter: '^root'\n      line: '%admin ALL=(ALL) NOPASSWD: ALL'\n    when: ansible_os_family == 'RedHat'\n  - name: Replace sudoers file\n    shell: visudo -q -c -f /etc/sudoers.tmp && cp -f /etc/sudoers.tmp /etc/sudoers\n  - name: Test Ansible user's access\n    local_action: shell ssh ansible@{{ host }} \"sudo echo success\"\n    become: False\n    register: ansible_success\n  - name: Remove Ansible SSH key from bootstrap user's authorized keys\n    lineinfile:\n      path: \"{{ ansible_env.HOME }}/.ssh/authorized_keys\"\n      state: absent\n      regexp: '^ssh-rsa AAAAB3N'\n    when: ansible_success.stdout == \"success\""
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Ansible Playbook for: How to Fix `UNREACHABLE! => {\"msg\": \"Failed to connect to the host via ssh\"}` [2026 Updated Guide] | ( ･∀･)つ〃∩ troubleshooting!!"
-      },
-      {
-        "from": "gpt",
-        "value": "# Playbook to manage SSH host keys\n- name: Manage SSH host keys\n  hosts: localhost\n  tasks:\n    - name: Add host keys to known_hosts\n      ansible.builtin.known_hosts:\n        name: \"{{ item }}\"\n        key: \"{{ lookup('pipe', 'ssh-keyscan -t ed25519 ' + item) }}\"\n        state: present\n      loop:\n        - web01.example.com\n        - web02.example.com\n        - db01.example.com"
       }
     ]
   },
@@ -6099,18 +6039,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: AWS EC2 Instance Creation Using Ansible Playbook Automation"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n  - name: Provision an EC2 Instance\n    hosts: localhost\n    connection: local\n    gather_facts: False\n    tags: provisioning\n    vars:\n      instance_type: t2.micro\n      security_group: webservers\n      image: ami-0080e4c5bc078760e\n      region: us-east-1\n      keypair: sshkeypair\n      count: 1\n    tasks:\n      - name: Create New security group with below given name\n        local_action:\n          module: ec2_group\n          name: \"{{ security_group }}\"\n          description: Security Group for Newly Created EC2 Instance\n          region: \"{{ region }}\"\n          rules:\n            - proto: tcp\n              from_port: 22\n              to_port: 22\n              cidr_ip: 0.0.0.0/0\n            - proto: tcp\n              from_port: 80\n              to_port: 80\n              cidr_ip: 0.0.0.0/0\n          rules_egress:\n            - proto: all\n              cidr_ip: 0.0.0.0/0\n      - name: Launch the new t2 micro EC2 Instance\n        local_action: ec2\n                      group={{ security_group }}\n                      instance_type={{ instance_type}}\n                      image={{ image }}\n                      wait=true\n                      region={{ region }}\n                      keypair={{ keypair }}\n                      count={{count}}\n        register: ec2\n      - name: Wait for EC2 Instance to Spin-up and ready for SSH access\n        local_action: wait_for\n                      host={{ item.public_ip }}\n                      port=22\n                      state=started\n        with_items: \"{{ ec2.instances }}\"\n      - name: Adding Tags to Identify\n        local_action: ec2_tag resource={{ item.id }} region={{ region }} state=present\n        with_items: \"{{ ec2.instances }}\"\n        args:\n          tags:\n            Name: Web Server\n            Owner: Ravi Kumar\n            PurPose: Testing EC2 Instance From Ansible"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Python script for: Tab Ð¿Ð¾Ð´ÑÑÐ°Ð½Ð¾Ð²ÐºÐ° Ñ Ð¾ÑÑÐ¾Ð² Ð¸Ð· Ansible inventory Ð´Ð»Ñ ansible, ssh, scp, rsync | ÐÐ¾ÑÐ¾Ð½Ð¸Ð¹ Ð±Ð»Ð¾Ð³"
       },
       {
@@ -6404,18 +6332,6 @@
       {
         "from": "gpt",
         "value": "---\n- name: Test Ansible SSH Key Setup\n  hosts: webservers\n  tasks:\n    - name: Ping the web servers\n      ping:"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Python script for: Nginx Automating TLS with Let's Encrypt & Certbot"
-      },
-      {
-        "from": "gpt",
-        "value": "# 1. HTTP Server - Redirect to HTTPS and Handle ACME Challenges\nserver {\n    listen 80;\n    listen [::]:80;\n    server_name example.com www.example.com;\n    # Location block dedicated to ACME HTTP-01 Challenges\n    location /.well-known/acme-challenge/ {\n        root /var/www/html;\n        allow all;\n    }\n    # Redirect all other HTTP traffic to HTTPS\n    location / {\n        return 301 https://example.com$request_uri;\n    }\n}\n# 2. Primary HTTPS Server\nserver {\n    listen 443 ssl;\n    listen [::]:443 ssl;\n    server_name example.com www.example.com;\n    # Enable HTTP/2 (Modern Nginx 1.25.1+ Syntax)\n    http2 on;\n    root /var/www/example/public;\n    index index.html index.php;\n    # Let's Encrypt Certificate Paths\n    ssl_certificate     /etc/letsencrypt/live/example.com/fullchain.pem;\n    ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;\n    # Basic SSL Protocol Settings\n    ssl_protocols TLSv1.2 TLSv1.3;\n    ssl_session_timeout 1d;\n    ssl_session_cache shared:SSL:10m;\n    ssl_session_tickets off;\n    location / {\n        try_files $uri $uri/ =404;\n    }\n}"
       }
     ]
   },
@@ -7579,7 +7495,7 @@
       },
       {
         "from": "gpt",
-        "value": "- stage:\n    name: Ansible\n    identifier: Ansible\n    description: \"\"\n    type: IACM\n    spec:\n      infrastructure:\n        type: KubernetesDirect\n        spec:\n          connectorRef: account.k8connector\n          namespace: harness-delegate\n          volumes: []\n          annotations: {}\n          labels: {}\n          automountServiceAccountToken: true\n          nodeSelector: {}\n          containerSecurityContext:\n            capabilities:\n              drop: []\n              add: []\n          os: Linux\n          hostNames: []\n      execution:\n        steps:\n          - step:\n              type: IACMAnsiblePlugin\n              name: Run\n              identifier: Run\n              spec:\n                command: run\n                timeout: 1h\n      playbooks:\n        - test-playbook\n      inventories:\n        - test-inventory\n    tags: {}"
+        "value": "- stage:\n    name: Ansible\n    identifier: Ansible\n    description: \"\"\n    type: IACM\n    spec:\n      infrastructure:\n        type: KubernetesDirect\n        spec:\n          connectorRef: account.k8connector\n          namespace: harness-delegate\n          volumes: []\n          annotations: {}\n          labels: {}\n          automountServiceAccountToken: true\n          nodeSelector: {}\n          containerSecurityContext:\n            capabilities:\n              drop: []\n              add: []\n          os: Linux\n          hostNames: []\n      execution:\n        steps:\n          - step:\n              type: IACMAnsiblePlugin\n              name: Run\n              identifier: Run\n              spec:\n                command: run\n                timeout: 1h\n                filters:\n                  tags:\n                    - webservers\n                    - dbservers\n                  skipTags:\n                    - staging\n                  limit: \"webservers:!staging\"\n      playbooks:\n        - test-playbook\n      inventories:\n        - test-inventory\n    tags: {}"
       }
     ]
   },
@@ -7664,6 +7580,18 @@
       {
         "from": "gpt",
         "value": "- ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/hello:value token=c975b780-d1be-8016-866b-01d0f9b688a5 url=http://myvault:8200') }}\"\n- name: Return all secrets from a path\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/hello token=c975b780-d1be-8016-866b-01d0f9b688a5 url=http://myvault:8200') }}\"\n- name: Vault that requires authentication via LDAP\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/hello:value auth_method=ldap mount_point=ldap username=myuser password=mypas') }}\"\n- name: Vault that requires authentication via username and password\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/hola:val auth_method=userpass username=myuser password=psw url=http://vault:8200') }}\"\n- name: Connect to Vault using TLS\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/hola:value token=c975b780-d1be-8016-866b-01d0f9b688a5 validate_certs=False') }}\"\n- name: using certificate auth\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/hi:val token=xxxx url=https://vault:8200 validate_certs=True cacert=/cacert/path/ca.pem') }}\"\n- name: Authenticate with a Vault app role\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/hello:value auth_method=approle role_id=myroleid secret_id=mysecretid') }}\"\n- name: Return all secrets from a path in a namespace\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/hello token=c975b780-d1be-8016-866b-01d0f9b688a5 namespace=teama/admins') }}\"\n# When using KV v2 the PATH should include \"data\" between the secret engine mount and path (e.g. \"secret/data/:path\")\n# see: https://www.vaultproject.io/api/secret/kv/kv-v2.html#read-secret-version\n- name: Return latest KV v2 secret from path\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/data/hello token=my_vault_token url=http://myvault_url:8200') }}\"\n# The following examples show more modern syntax, with parameters specified separately from the term string.\n- name: secret= is not required if secret is first\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/hello token=<token> url=http://myvault_url:8200') }}\"\n- name: options can be specified as parameters rather than put in term string\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/hello', token=my_token_var, url='http://myvault_url:8200') }}\"\n# return_format (or its alias 'as') can control how secrets are returned to you\n- name: return secrets as a dict (default)\n  ansible.builtin.set_fact:\n    my_secrets: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/manysecrets', token=my_token_var, url='http://myvault_url:8200') }}\"\n- ansible.builtin.debug:\n    msg: \"{{ my_secrets['secret_key'] }}\"\n- ansible.builtin.debug:\n    msg: \"Secret '{{ item.key }}' has value '{{ item.value }}'\"\n  loop: \"{{ my_secrets | dict2items }}\"\n- name: return secrets as values only\n  ansible.builtin.debug:\n    msg: \"A secret value: {{ item }}\"\n  loop: \"{{ query('community.hashi_vault.hashi_vault', 'secret/data/manysecrets', token=my_token_var, url='http://vault_url:8200', return_format='values') }}\"\n- name: return raw secret from API, including metadata\n  ansible.builtin.set_fact:\n    my_secret: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/hello:value', token=my_token_var, url='http://myvault_url:8200', as='raw') }}\"\n- ansible.builtin.debug:\n    msg: \"This is version {{ my_secret['metadata']['version'] }} of hello:value. The secret data is {{ my_secret['data']['data']['value'] }}\"\n# AWS IAM authentication method\n# uses Ansible standard AWS options\n- name: authenticate with aws_iam\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/hello:value', auth_method='aws_iam', role_id='myroleid', profile=my_boto_profile) }}\"\n# JWT auth\n- name: Authenticate with a JWT\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/hola:val', auth_method='jwt', role_id='myroleid', jwt='myjwt', url='https://vault:8200') }}\"\n#GCP auth\n- name: Authenticate with GCP\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/hola:val', auth_method='gcp', role_id='myroleid', jwt='myjwt', url='https://vault:8200') }}\"\n# Disabling Token Validation\n# Use this when your token does not have the lookup-self capability. Usually this is applied to all tokens via the default policy.\n# However you can choose to create tokens without applying the default policy, or you can modify your default policy not to include it.\n# When disabled, your invalid or expired token will be indistinguishable from insufficent permissions.\n- name: authenticate without token validation\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/hello:value', token=my_token, token_validate=False) }}\"\n# \"none\" auth method does no authentication and does not send a token to the Vault address.\n# One example of where this could be used is with a Vault agent where the agent will handle authentication to Vault.\n# https://www.vaultproject.io/docs/agent\n- name: authenticate with vault agent\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/hello:value', auth_method='none', url='http://127.0.0.1:8100') }}\"\n# Use a proxy\n- name: use a proxy with login/password\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=... token=... url=https://... proxies=https://user:pass@myproxy:8080') }}\"\n- name: 'use a socks proxy (need some additional dependencies, see: https://requests.readthedocs.io/en/master/user/advanced/#socks )'\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=... token=... url=https://... proxies=socks5://myproxy:1080') }}\"\n- name: use proxies with a dict (as param)\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', '...', proxies={'http': 'http://myproxy1', 'https': 'http://myproxy2'}) }}\"\n- name: use proxies with a dict (as param, pre-defined var)\n  vars:\n    prox:\n      http: http://myproxy1\n      https: https://myproxy2\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', '...', proxies=prox }}\"\n- name: use proxies with a dict (as direct ansible var)\n  vars:\n    ansible_hashi_vault_proxies:\n      http: http://myproxy1\n      https: https://myproxy2\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', '...' }}\"\n- name: use proxies with a dict (in the term string, JSON syntax)\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', '... proxies={\\\"http\\\":\\\"http://myproxy1\\\",\\\"https\\\":\\\"http://myproxy2\\\"}') }}\"\n- name: use ansible vars to supply some options\n  vars:\n    ansible_hashi_vault_url: 'https://myvault:8282'\n    ansible_hashi_vault_auth_method: token\n  set_fact:\n    secret1: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/secret1') }}\"\n    secret2: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/secret2') }}\"\n- name: use a custom timeout\n  debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/secret1', timeout=120) }}\"\n- name: use a custom timeout and retry on failure 3 times (with collection retry defaults)\n  vars:\n    ansible_hashi_vault_timeout: 5\n    ansible_hashi_vault_retries: 3\n  debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/secret1') }}\"\n- name: retry on failure (with custom retry settings and no warnings)\n  vars:\n    ansible_hashi_vault_retries:\n      total: 6\n      backoff_factor: 0.9\n      status_forcelist: [500, 502]\n      allowed_methods:\n        - GET\n        - PUT\n  debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/secret1', retry_action='warn') }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: create_db_user.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: create datebase and user\n  hosts: db\n  become: true\n  tasks:\n    - name: cearte database\n      postgresql_db:\n        name: mydb\n        state: present\n      become_user: postgres\n    - name: create db_user\n      postgresql_user:\n        name: admin\n        password: admin\n        state: present\n      become_user: postgres\n    - name: give user access to mydb\n      community.postgresql.postgresql_privs:\n        login_db: mydb\n        roles: admin\n        type: database\n        privs: all\n        state: present\n      become_user: postgres\n    - name: enable md5 auth\n      community.postgresql.postgresql_pg_hba:\n        dest: \"/etc/postgresql/17/main/pg_hba.conf\"\n        contype: host\n        create: true\n        state: present\n      become_user: postgres\n    - name: create some database contant\n      become_user: postgres\n      shell: psql mydb < /tmp/dump.sql\n    - name: handler\n      service:\n        name: postgresql\n        state: restarted"
       }
     ]
   }

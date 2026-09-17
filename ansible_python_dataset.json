@@ -315,18 +315,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: Install Docker with Ansible on Ubuntu (Official Repo + Docker Compose) - DEV Community"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n- name: Install Docker on Ubuntu using official Docker repo\n  hosts: all\n  become: true\n  tasks:\n    - name: Update apt cache\n      ansible.builtin.apt:\n        update_cache: yes\n    - name: Ensure dependencies are installed\n      ansible.builtin.package:\n        name:\n          - bc\n          - curl\n          - expect\n          - git\n          - ca-certificates\n        state: present\n    - name: Create Docker GPG key directory\n      ansible.builtin.file:\n        path: /etc/apt/keyrings\n        state: directory\n        mode: \"0755\"\n    - name: Download Docker's official GPG key\n      ansible.builtin.get_url:\n        url: https://download.docker.com/linux/ubuntu/gpg\n        dest: /etc/apt/keyrings/docker.asc\n        mode: \"0644\"\n    - name: Add Docker repository to Apt sources\n      ansible.builtin.apt_repository:\n        repo: \"deb [arch={{ ansible_architecture }} signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable\"\n        state: present\n        filename: docker\n    - name: Update apt cache after adding Docker repository\n      ansible.builtin.apt:\n        update_cache: yes\n    - name: Install Docker and Docker Compose\n      ansible.builtin.package:\n        name:\n          - docker-ce\n          - docker-ce-cli\n          - containerd.io\n          - docker-buildx-plugin\n          - docker-compose-plugin\n        state: present\n    - name: Ensure Docker service is enabled and started\n      ansible.builtin.service:\n        name: docker\n        state: started\n        enabled: yes\n    - name: Add ubuntu user to docker group\n      ansible.builtin.user:\n        name: ubuntu\n        groups: docker\n        append: yes"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Ansible Playbook for: Ansible Docker -- Containers & Images | AnsibleByExample"
       },
       {
@@ -1287,6 +1275,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: Best Practices - PCC-IT International"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: copy a file from a fileshare with custom credentials\n  ansible.windows.win_copy:\n    src: \\\\server\\share\\data\\file.txt\n    dest: C:\\temp\\file.txt\n    remote_src: yes\n  vars:\n    ansible_become: yes\n    ansible_become_method: runas\n    ansible_become_user: DOMAIN\\user\n    ansible_become_password: Password01\n    ansible_become_flags: logon_type=new_credentials logon_flags=netcredentials_only\n- name: run a command under a batch logon\n  ansible.windows.win_whoami:\n  become: yes\n  become_flags: logon_type=batch\n- name: run a command and not load the user profile\n  ansible.windows.win_whomai:\n  become: yes\n  become_flags: logon_flags="
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Python script for: Jinja2 Tutorial - Part 4 - Template filters |"
       },
       {
@@ -1760,18 +1760,6 @@
       {
         "from": "gpt",
         "value": "- name: Configure RHEL firewall\n  hosts: webservers\n  become: true\n  tasks:\n    - name: Ensure firewalld is running\n      ansible.builtin.service:\n        name: firewalld\n        state: started\n        enabled: true\n    - name: Allow web services\n      ansible.posix.firewalld:\n        service: \"{{ item }}\"\n        permanent: true\n        immediate: true\n        state: enabled\n      loop:\n        - http\n        - https\n    - name: Allow custom app port\n      ansible.posix.firewalld:\n        port: 8080/tcp\n        permanent: true\n        immediate: true\n        state: enabled\n    - name: Allow monitoring from internal\n      ansible.posix.firewalld:\n        rich_rule: 'rule family=\"ipv4\" source address=\"10.0.0.0/24\" port port=\"9100\" protocol=\"tcp\" accept'\n        permanent: true\n        immediate: true\n        state: enabled"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Ansible Playbook for: How to use Ansible with the Hashicorp Vault secret manager? - Tom's IT Cafe"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n- name: Play test 2\n  hosts: all\n  tasks:\n    - name: Reading data with community.hashi_vault.vault_read\n      community.hashi_vault.vault_read:\n        url: http://127.0.0.1:8200\n        path: secret/data/ansible\n      register: secret_data\n    - name: Echo the secret_data\n      ansible.builtin.debug:\n        msg: \"{{ secret_data }}\""
       }
     ]
   },
@@ -4083,6 +4071,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: Ansible Privilege Escalation (become, become_user)"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Orchestrate Application Services\n  hosts: webservers\n  become: false # Disabled by default for the entire play\n  tasks:\n    - name: Pull code from a public repository\n      ansible.builtin.git:\n        repo: 'https://github.com/example/app.git'\n        dest: /home/automation/app\n      # Runs safely as an unprivileged connection user\n    - name: Install system dependencies\n      ansible.builtin.apt:\n        name: libjpeg-dev\n        state: present\n      become: true # Explicitly enabled only for this administrative task"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Ansible Playbook for: Ansible become: Privilege Escalation with sudo, su, runas"
       },
       {
@@ -4196,18 +4196,6 @@
       {
         "from": "gpt",
         "value": "- name: Modify sshd_config with backup and external backup server\n  hosts: servers\n  become: true\n  tasks:\n    - name: Backup sshd_config file to remote server #before any modification\n      ansible.builtin.copy:\n        src: /etc/ssh/sshd_config\n        dest: /path/to/remote/backup/sshd_config_{{ ansible_hostname }}.bak\n    - name: Backup and change PermitRootLogin in sshd_config file\n      ansible.builtin.replace:\n        path: /etc/ssh/sshd_config\n        regexp: 'PermitRootLogin yes'\n        replace: 'PermitRootLogin no'\n        backup: true\n    - name: Backup and change PasswordAuthentication in sshd_config file\n      ansible.builtin.replace:\n        path: /etc/ssh/sshd_config\n        regexp: 'PasswordAuthentication yes'\n        replace: 'PasswordAuthentication no'\n        backup: true\n    - name: Restart SSH service to apply changes\n      ansible.builtin.systemd:\n        name: sshd\n        state: restarted"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Ansible Playbook for: Automating UFW Configuration with Ansible: Locking Down the Digital Fortress - Tom's IT Cafe"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n- name: Lock down server with UFW\n  hosts: yourserver\n  become: yes\n  tasks:\n    - name: Set default UFW policies\n      ufw:\n        state: enabled\n        default: deny\n        direction: incoming\n        policy: deny\n    - name: Allow SSH connections\n      ufw:\n        rule: allow\n        name: OpenSSH\n    - name: Allow HTTP and HTTPS traffic\n      ufw:\n        rule: allow\n        name: 'Apache Full'\n    - name: Reload UFW to apply changes\n      ufw:\n        state: reloaded"
       }
     ]
   },
@@ -4695,6 +4683,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: ansible - Jinja2 filter list using string contains test"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- hosts: localhost\n  vars:\n    my_list:\n      - item1\n      - item2\n      - substring1\n      - substring2\n  tasks:\n    - name: Filter list based on substring\n      debug:\n        var: my_list | select(\"search\", \"substring\") | list"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Ansible Playbook for: Ansible become: Privilege Escalation with sudo, su, runas"
       },
       {
@@ -4923,6 +4923,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: 🛡️ Ansible in DevSecOps: A Comprehensive Tutorial - SRE School"
+      },
+      {
+        "from": "gpt",
+        "value": "# playbook.yml\n- hosts: web\n  become: yes\n  tasks:\n    - name: Install NGINX\n      apt:\n        name: nginx\n        state: present"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Ansible Playbook for: Ansible Configure Firewall Rules -- Complete Guide"
       },
       {
@@ -5091,18 +5103,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: Ansible Error Handling and Fail Handling"
-      },
-      {
-        "from": "gpt",
-        "value": "- name: Testing block-rescue directives\n  hosts: localhost\n  tasks:\n    - name: Handling the error tasks status\n      block:\n          - debug:\n                  msg: 'This task is successful'\n          - name: This will force failure\n            command: /bin/false\n          - debug:\n                  msg: 'This task will not be executed'\n      rescue:\n          - name: Sleep for 30 seconds and continue with play\n            wait_for:\n              timeout: 30\n            delegate_to: localhost\n          - debug:\n                  msg: 'As there was a failure in block section, rescue section will run'"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Ansible Playbook for: Integrate with Ansible"
       },
       {
@@ -5132,6 +5132,18 @@
       {
         "from": "gpt",
         "value": "---\n# ansible-playbook bootstrap-ansible-target.yml -b -e 'user=user'\n- hosts: \"{{ host }}\"\n  remote_user: \"{{ user | default('root') }}\"\n  gather_facts: no\n  pre_tasks:\n  - name: attempt to update apt's cache\n    raw: test -e /usr/bin/apt-get && apt-get update\n    ignore_errors: yes\n  - name: attempt to install Python on Debian-based systems\n    raw: test -e /usr/bin/apt-get && apt-get -y install python-simplejson python\n    ignore_errors: yes\n  - name: attempt to install Python on CentOS-based systems\n    raw: test -e /usr/bin/yum && yum -y install python-simplejson python\n    ignore_errors: yes\n  - setup:\n  tasks:\n  - name: Create admin user group\n    group:\n      name: admin\n      system: yes\n      state: present\n  - name: Ensure sudo is installed\n    package:\n      name: sudo\n      state: present\n  - name: Create Ansible user\n    user:\n      name: ansible\n      shell: /bin/bash\n      comment: \"Ansible management user\"\n      home: /home/ansible\n      createhome: yes\n  - name: Add Ansible user to admin group\n    user:\n      name: ansible\n      groups: admin\n      append: yes\n  - name: Add authorized key\n    authorized_key:\n      user: ansible\n      state: present\n      key: \"{{ lookup('file', '/etc/ansible/.ssh/id_rsa.pub') }}\"\n  - name: Copy sudoers file\n    command: cp -f /etc/sudoers /etc/sudoers.tmp\n  - name: Backup sudoers file\n    command: cp -f /etc/sudoers /etc/sudoers.bak\n  - name: Ensure admin group can sudo\n    lineinfile:\n      dest: /etc/sudoers.tmp\n      state: present\n      regexp: '^%admin'\n      line: '%admin ALL=(ALL) NOPASSWD: ALL'\n    when: ansible_os_family == 'Debian'\n  - name: Ensure admin group can sudo\n    lineinfile:\n      dest: /etc/sudoers.tmp\n      state: present\n      regexp: '^%admin'\n      insertafter: '^root'\n      line: '%admin ALL=(ALL) NOPASSWD: ALL'\n    when: ansible_os_family == 'RedHat'\n  - name: Replace sudoers file\n    shell: visudo -q -c -f /etc/sudoers.tmp && cp -f /etc/sudoers.tmp /etc/sudoers\n  - name: Test Ansible user's access\n    local_action: shell ssh ansible@{{ host }} \"sudo echo success\"\n    become: False\n    register: ansible_success\n  - name: Remove Ansible SSH key from bootstrap user's authorized keys\n    lineinfile:\n      path: \"{{ ansible_env.HOME }}/.ssh/authorized_keys\"\n      state: absent\n      regexp: '^ssh-rsa AAAAB3N'\n    when: ansible_success.stdout == \"success\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: How to Fix `UNREACHABLE! => {\"msg\": \"Failed to connect to the host via ssh\"}` [2026 Updated Guide] | ( ･∀･)つ〃∩ troubleshooting!!"
+      },
+      {
+        "from": "gpt",
+        "value": "# Playbook to manage SSH host keys\n- name: Manage SSH host keys\n  hosts: localhost\n  tasks:\n    - name: Add host keys to known_hosts\n      ansible.builtin.known_hosts:\n        name: \"{{ item }}\"\n        key: \"{{ lookup('pipe', 'ssh-keyscan -t ed25519 ' + item) }}\"\n        state: present\n      loop:\n        - web01.example.com\n        - web02.example.com\n        - db01.example.com"
       }
     ]
   },
@@ -6039,6 +6051,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: AWS EC2 Instance Creation Using Ansible Playbook Automation"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n  - name: Provision an EC2 Instance\n    hosts: localhost\n    connection: local\n    gather_facts: False\n    tags: provisioning\n    vars:\n      instance_type: t2.micro\n      security_group: webservers\n      image: ami-0080e4c5bc078760e\n      region: us-east-1\n      keypair: sshkeypair\n      count: 1\n    tasks:\n      - name: Create New security group with below given name\n        local_action:\n          module: ec2_group\n          name: \"{{ security_group }}\"\n          description: Security Group for Newly Created EC2 Instance\n          region: \"{{ region }}\"\n          rules:\n            - proto: tcp\n              from_port: 22\n              to_port: 22\n              cidr_ip: 0.0.0.0/0\n            - proto: tcp\n              from_port: 80\n              to_port: 80\n              cidr_ip: 0.0.0.0/0\n          rules_egress:\n            - proto: all\n              cidr_ip: 0.0.0.0/0\n      - name: Launch the new t2 micro EC2 Instance\n        local_action: ec2\n                      group={{ security_group }}\n                      instance_type={{ instance_type}}\n                      image={{ image }}\n                      wait=true\n                      region={{ region }}\n                      keypair={{ keypair }}\n                      count={{count}}\n        register: ec2\n      - name: Wait for EC2 Instance to Spin-up and ready for SSH access\n        local_action: wait_for\n                      host={{ item.public_ip }}\n                      port=22\n                      state=started\n        with_items: \"{{ ec2.instances }}\"\n      - name: Adding Tags to Identify\n        local_action: ec2_tag resource={{ item.id }} region={{ region }} state=present\n        with_items: \"{{ ec2.instances }}\"\n        args:\n          tags:\n            Name: Web Server\n            Owner: Ravi Kumar\n            PurPose: Testing EC2 Instance From Ansible"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Python script for: Tab Ð¿Ð¾Ð´ÑÑÐ°Ð½Ð¾Ð²ÐºÐ° Ñ Ð¾ÑÑÐ¾Ð² Ð¸Ð· Ansible inventory Ð´Ð»Ñ ansible, ssh, scp, rsync | ÐÐ¾ÑÐ¾Ð½Ð¸Ð¹ Ð±Ð»Ð¾Ð³"
       },
       {
@@ -6116,18 +6140,6 @@
       {
         "from": "gpt",
         "value": "---\n- hosts: all\n  tasks:\n  - name: create john.doe account\n    ansible.builtin.user:\n      name: john.doe\n      comment: John Doe\n      password: \"{{ 'itsasecret' | password_hash('sha512') }}\"\n      groups: wheel\n      create_home: true\n      home: /home/john.doe\n      shell: /bin/bash\n      uid: 1234\n      expires: -1\n      state: present\n..."
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
-        "value": "Ansible Playbook for: Privilege Escalation - KodeKloud"
-      },
-      {
-        "from": "gpt",
-        "value": "# playbook file\n---\n- name: Install nginx\n  hosts: all\n  tasks:\n    - yum:\n        name: nginx\n        state: latest"
       }
     ]
   },
@@ -6332,6 +6344,18 @@
       {
         "from": "gpt",
         "value": "---\n- name: Test Ansible SSH Key Setup\n  hosts: webservers\n  tasks:\n    - name: Ping the web servers\n      ping:"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Python script for: Nginx Automating TLS with Let's Encrypt & Certbot"
+      },
+      {
+        "from": "gpt",
+        "value": "# 1. HTTP Server - Redirect to HTTPS and Handle ACME Challenges\nserver {\n    listen 80;\n    listen [::]:80;\n    server_name example.com www.example.com;\n    # Location block dedicated to ACME HTTP-01 Challenges\n    location /.well-known/acme-challenge/ {\n        root /var/www/html;\n        allow all;\n    }\n    # Redirect all other HTTP traffic to HTTPS\n    location / {\n        return 301 https://example.com$request_uri;\n    }\n}\n# 2. Primary HTTPS Server\nserver {\n    listen 443 ssl;\n    listen [::]:443 ssl;\n    server_name example.com www.example.com;\n    # Enable HTTP/2 (Modern Nginx 1.25.1+ Syntax)\n    http2 on;\n    root /var/www/example/public;\n    index index.html index.php;\n    # Let's Encrypt Certificate Paths\n    ssl_certificate     /etc/letsencrypt/live/example.com/fullchain.pem;\n    ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;\n    # Basic SSL Protocol Settings\n    ssl_protocols TLSv1.2 TLSv1.3;\n    ssl_session_timeout 1d;\n    ssl_session_cache shared:SSL:10m;\n    ssl_session_tickets off;\n    location / {\n        try_files $uri $uri/ =404;\n    }\n}"
       }
     ]
   },

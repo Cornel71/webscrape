@@ -4764,3 +4764,45 @@ https://www.bing.com/aclick?ld=e8KYALuqksB3k2PkZg6GHBFjVUCUy-BNcLd19qkBKAMimL4Ch
  📂 CATEGORY: POSTGRESQL DATABASE MANAGEMENT
 =========================================
 https://github.com/gitcorse/ansible/blob/main/postgresql/create_db_user.yml
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://medium.com/@george.shuklin/deep-down-to-the-ansible-3bd00b9ac210
+https://www.linkedin.com/posts/mayank-shrimali-3104b6281_rhce-redhat-ansible-activity-7491778112544874496-uuZX
+https://www.ansiblepilot.com/articles/leveraging-ansible-callback-plugins-for-enhanced-performance
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://github.com/49-3/ansible-dynamic-vault
+https://github.com/Ayamigah16/jenkins-pipeline
+https://skillbyexample.com/ansible/ci-cd-integration/
+https://docs.cyberark.com/secrets-manager-sh/12.9/en/content/hometileslps/lp-tile4.htm
+https://community.cyberark.com/s/article/Secrets-Manager-CP-CCP-ISV-Integrations-Licensing
+https://www.linkedin.com/posts/shuja_navigating-ai-vulnerability-discovery-and-activity-7488237082054942720-nfve
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://www.squadgroup.com/en/news/2024/10/2/automatisation-de-projets-dinfrastructure-code-pipeline-gitlab-ci-docker-bash-proxmox-ansible-trivy-heberge-sur-un-cloud-prive/
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://docs.ansible.com/projects/molecule/examples/docker/
+
+=========================================
+ 📂 CATEGORY: NGINX & WEB REVERSE PROXY
+=========================================
+https://blog.devops.dev/deploying-an-nginx-load-balancer-with-ansible-and-jinja2-templates-0e2c22fd4901
+
+=========================================
+ 📂 CATEGORY: STORAGE & LVM MANAGEMENT
+=========================================
+https://docs.ansible.com/projects/ansible/latest/collections/community/general/aix_lvol_module.html
+
+=========================================
+ 📂 CATEGORY: POSTGRESQL DATABASE MANAGEMENT
+=========================================
+https://docs.ansible.com/projects/awx-operator/en/latest/user-guide/database-configuration.html

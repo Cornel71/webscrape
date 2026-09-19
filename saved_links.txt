@@ -4806,3 +4806,39 @@ https://docs.ansible.com/projects/ansible/latest/collections/community/general/a
  📂 CATEGORY: POSTGRESQL DATABASE MANAGEMENT
 =========================================
 https://docs.ansible.com/projects/awx-operator/en/latest/user-guide/database-configuration.html
+
+=========================================
+ 📂 CATEGORY: GENERAL AUTOMATION & SYSTEM TOOLS
+=========================================
+https://hansrobo.github.io/cheatsheets/ansible-examples
+https://apix-drive.com/en/blog/other/ansible-automation-platform-best-practices
+https://github.com/marketplace/actions/play-ansible-playbook
+https://labex.io/tutorials/ansible-how-to-handle-permissions-when-copying-a-file-with-ansible-414919
+https://www.quora.com/I-keep-revealing-secrets-of-some-people-to-others-and-tell-others-to-keep-quiet-How-do-I-stop
+https://www.linkedin.com/posts/kai-strawford-72410b246_cybersecurity-infosec-responsibledisclosure-activity-7373806739806224384-UTLg
+https://www.linkedin.com/posts/mayank-shrimali-3104b6281_rhce-redhat-ansible-activity-7491774837028241408-O_U-
+
+=========================================
+ 📂 CATEGORY: SECURITY & HARDENING
+=========================================
+https://dataplexa.com/6137-ansible-lesson-37-ansible-in-cicd-2/
+https://systhoughts.com/posts/setting-up-bare-debian-server-with-ansible
+https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/hardening_and_compliance/assembly-managed-node-configuration
+https://forum.ansible.com/t/securing-the-supply-chain-together-security-concepts-every-ansible-contributor-should-know/46021
+https://docs.w3cub.com/ansible~2.11/collections/community/general/ufw_module.html
+https://linuxjunkies.org/guides/ansible-vault-and-secrets
+
+=========================================
+ 📂 CATEGORY: NGINX & WEB REVERSE PROXY
+=========================================
+https://sudo.academy/blog/automating-nginx-reverse-proxy-configs-with-ansible-templates-and-jinja2-17a5d6
+
+=========================================
+ 📂 CATEGORY: GITLAB CI/CD PIPELINES
+=========================================
+https://ai.techclick.in/blog/ansible_cis_hardening
+
+=========================================
+ 📂 CATEGORY: DOCKER & CONTAINERS
+=========================================
+https://overcast.blog/automating-docker-deployments-with-ansible-8c23780d667c

@@ -12,7 +12,7 @@ HEADERS = {
                   '(KHTML, like Gecko) Chrome/128.0 Safari/537.36'
 }
 #in case github rate limit reached
-#GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
+GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
 INPUT_FILE  = "saved_links.txt"
 OUTPUT_FILE = "ansible_yaml_dataset.json"
 

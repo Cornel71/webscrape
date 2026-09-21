@@ -20,15 +20,18 @@ from urllib.parse import urlparse
 import serpapi
 
 SEARCH_SUBJECTS_FILE = Path("search_subjects.txt")
-OUTPUT_FILE = Path("saved_links.txt")
+OUTPUT_FILE = Path("saved_links_google.txt")
 
-SERPAPI_API_KEY = os.getenv("SERPAPI_KEY")
+SERPAPI_API_KEY = ""
 
-MAX_RESULTS_FROM_SEARCH = 12
-MAX_LINKS_PER_SUBJECT = 3
+MAX_RESULTS_FROM_SEARCH = 5
+MAX_LINKS_PER_SUBJECT = 1
 REQUEST_DELAY_SECONDS = 3
 
 DOMAIN_BLACKLIST = {
+    "x.com",
+    "khanacademy.org",
+    "facebook.com",
     "oneuptime.com",
     "youtube.com",
     "reddit.com",

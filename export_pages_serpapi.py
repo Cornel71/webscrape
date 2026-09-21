@@ -29,6 +29,7 @@ MAX_LINKS_PER_SUBJECT = 1
 REQUEST_DELAY_SECONDS = 3
 
 DOMAIN_BLACKLIST = {
+    "linkedin.com",
     "x.com",
     "khanacademy.org",
     "facebook.com",

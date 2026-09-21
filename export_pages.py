@@ -14,6 +14,10 @@ SEARCH_SUBJECTS_FILE = "search_subjects.txt"
 OUTPUT_FILE = "saved_links.txt"
 
 DOMAIN_BLACKLIST = [
+    "linkedin.com",
+    "x.com",
+    "khanacademy.org",
+    "facebook.com",
     "oneuptime.com",
     "youtube.com",
     "reddit.com",

@@ -10,9 +10,10 @@ HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
                   '(KHTML, like Gecko) Chrome/128.0 Safari/537.36'
 }
-
+#in case github rate limit reached
+#GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
 INPUT_FILE  = "saved_links.txt"
-OUTPUT_FILE = "ansible_python_dataset.json"
+OUTPUT_FILE = "ansible_yaml_dataset.json"
 _HTML_TAG_RE    = re.compile(r'<[a-zA-Z][^>]{0,200}>')
 _DOCTYPE_RE     = re.compile(r'<!DOCTYPE\s', re.IGNORECASE)
 _HTML_OPEN_RE   = re.compile(r'<html[\s>]', re.IGNORECASE)
@@ -93,31 +94,121 @@ def is_yaml_code(text: str) -> bool:
 
     return False
 
-_PYTHON_PATTERNS = [
-    re.compile(r'^\s*import\s+\w+', re.MULTILINE),
-    re.compile(r'^\s*from\s+[\w.]+\s+import\s+', re.MULTILINE),
-    re.compile(r'^\s*def\s+\w+\s*\(', re.MULTILINE),
-    re.compile(r'^\s*class\s+\w+', re.MULTILINE),
-    re.compile(r'^\s*if\s+__name__\s*==', re.MULTILINE),
-    re.compile(r'\bprint\('),
-    re.compile(r'^\s*return\s+', re.MULTILINE),
-]
-
-def is_python_code(text: str) -> bool:
-    """
-    Return True only if the text has real Python syntax. Deliberately
-    does NOT match on the bare substring 'ansible.' or 'module_utils',
-    since those also appear inside YAML FQCN module names.
-    """
-    return any(p.search(text) for p in _PYTHON_PATTERNS)
-
 def clean_content(text: str) -> str:
     """Strip control characters, trailing whitespace, and normalize unicode."""
     text = re.sub(r'[\x00-\x08\x0B\x0C\x0E-\x1F\x7F-\x9F]', '', text)
     lines = [line.rstrip() for line in text.split('\n') if line.strip()]
     return clean_text('\n'.join(lines))
 
+_GITHUB_URL_RE = re.compile(
+    r'github\.com/(?P<owner>[^/]+)/(?P<repo>[^/]+?)(?:\.git)?'
+    r'(?:/(?:tree|blob)/(?P<branch>[^/]+)(?:/(?P<path>[^?#]*))?)?'
+    r'/?(?:[?#].*)?$'
+)
+
+def _github_api_headers() -> dict:
+    h = dict(HEADERS)
+    h["Accept"] = "application/vnd.github+json"
+    if GITHUB_TOKEN:
+        h["Authorization"] = f"Bearer {GITHUB_TOKEN}"
+    return h
+
+def parse_github_url(url: str):
+    """Parse a github.com URL into (owner, repo, branch_or_None, path_or_None)."""
+    m = _GITHUB_URL_RE.search(url.strip())
+    if not m or not m.group('owner') or not m.group('repo'):
+        return None
+    return m.group('owner'), m.group('repo'), m.group('branch'), m.group('path')
+
+def get_default_branch(owner: str, repo: str) -> str:
+    resp = requests.get(f"https://api.github.com/repos/{owner}/{repo}",
+                         headers=_github_api_headers(), timeout=20)
+    resp.raise_for_status()
+    return resp.json()["default_branch"]
+
+def list_repo_yaml_urls(owner: str, repo: str, branch: str | None = None,
+                         subpath: str | None = None) -> list[str]:
+    """
+    Recursively walk the whole repo tree (one call to the GitHub Trees API,
+    recursive=1) and return raw.githubusercontent.com URLs for every
+    .yml/.yaml file found anywhere in it, optionally restricted to files
+    under `subpath` (so a /tree/branch/some/folder URL only pulls that
+    folder and its subdirectories).
+    """
+    if not branch:
+        branch = get_default_branch(owner, repo)
+
+    api_url = f"https://api.github.com/repos/{owner}/{repo}/git/trees/{branch}?recursive=1"
+    resp = requests.get(api_url, headers=_github_api_headers(), timeout=30)
+    resp.raise_for_status()
+    data = resp.json()
+
+    if data.get("truncated"):
+        print("   ⚠️  GitHub API truncated the tree (repo is very large); "
+              "some deeply nested files may be missing")
+
+    raw_base = f"https://raw.githubusercontent.com/{owner}/{repo}/{branch}/"
+    subpath = subpath.strip('/') if subpath else None
+
+    yaml_urls = []
+    for item in data.get("tree", []):
+        if item.get("type") != "blob":
+            continue
+        path = item["path"]
+        if subpath and not (path == subpath or path.startswith(subpath + '/')):
+            continue
+        if path.endswith(('.yml', '.yaml')):
+            yaml_urls.append(raw_base + path)
+    return yaml_urls
+
+def expand_github_url(url: str) -> list[str]:
+    """
+    Given any github.com URL, return the list of raw file URLs to scrape:
+      - repo root, or a /tree/branch/subdir URL -> every .yml/.yaml file
+        under it, walking all subdirectories recursively
+      - a /blob/ URL to a .yml/.yaml file        -> that single raw file
+      - a /blob/ URL to anything else             -> [] (not YAML, skipped)
+    """
+    parsed = parse_github_url(url)
+    if not parsed:
+        print(f"   ⚠️  Could not parse as a GitHub URL → {url}")
+        return []
+    owner, repo, branch, path = parsed
+
+    is_blob = '/blob/' in url
+    if is_blob:
+        if path and path.endswith(('.yml', '.yaml')):
+            return [convert_to_raw_github_url(url)]
+        print(f"   ⚠️  Skipped: linked file isn't YAML → {url}")
+        return []
+
+    print(f"   🔍 Traversing GitHub repo {owner}/{repo}"
+          f"{' (' + path + ')' if path else ''} for YAML files, including subdirs ...")
+    try:
+        yaml_urls = list_repo_yaml_urls(owner, repo, branch, path)
+    except Exception as e:
+        print(f"   ❌ Failed to list repo contents: {e}")
+        return []
+    print(f"   📄 Found {len(yaml_urls)} YAML file(s)")
+    return yaml_urls
+
+def gather_urls_to_scrape(input_url: str) -> list[str]:
+    """
+    Resolve one line of saved_links.txt into the URL(s) to actually fetch.
+      - GitHub links: expanded to every YAML file found, recursing into
+        all subdirectories.
+      - Anything else: scraped as-is; scrape_url() extracts YAML only.
+    """
+    if 'github.com' in input_url:
+        return expand_github_url(input_url)
+    return [input_url]
+
 def scrape_url(url: str) -> dict | None:
+    """
+    Fetch a single URL and, if it contains YAML (Ansible-style) content,
+    return a training-conversation dict. This pipeline collects YAML only
+    (no Python) — non-YAML content is discarded.
+    """
     try:
         original_url = url.strip()
         url = convert_to_raw_github_url(original_url)
@@ -125,61 +216,52 @@ def scrape_url(url: str) -> dict | None:
         resp = requests.get(url, headers=HEADERS, timeout=20)
         resp.raise_for_status()
         raw_text = resp.text.strip()
-        if 'github.com' in original_url or url.endswith(('.yml', '.yaml', '.py')):
+
+        if 'github.com' in original_url or url.endswith(('.yml', '.yaml')):
             filename = original_url.split('/')[-1].split('?')[0]
             if is_html_content(raw_text):
                 print(f"   ⚠️  Skipped: raw content looks like HTML → {filename}")
                 return None
-            if is_yaml_code(raw_text):
-                prompt = f"Ansible Playbook for: {filename}"
-                lang   = "YAML"
-            elif is_python_code(raw_text):
-                prompt = f"Python script for: {filename}"
-                lang   = "Python"
-            else:
-                print(f"   ⚠️  Skipped: no YAML/Python code detected → {filename}")
+            if not is_yaml_code(raw_text):
+                print(f"   ⚠️  Skipped: no Ansible YAML detected → {filename}")
                 return None
-            print(f"   ✅ SUCCESS ({lang}) → {filename}")
+            print(f"   ✅ SUCCESS (YAML) → {filename}")
             return {"conversations": [
-                {"from": "human", "value": clean_text(prompt)},
+                {"from": "human", "value": clean_text(f"Ansible Playbook for: {filename}")},
                 {"from": "gpt",   "value": clean_content(raw_text)},
             ]}
+
         soup = BeautifulSoup(resp.text, 'html.parser')
         title_tag  = soup.find('title')
         page_title = title_tag.get_text(strip=True) if title_tag else "Ansible Guide"
         page_title = clean_text(re.sub(r'\s+', ' ', page_title)[:160])
+
         code_blocks = []
         for pre in soup.find_all('pre'):
             code_tag = pre.find('code') or pre
             block = code_tag.get_text().strip()
-            if (len(block) > 100
-                    and not is_html_content(block)
-                    and (is_yaml_code(block) or is_python_code(block))):
+            if len(block) > 100 and not is_html_content(block) and is_yaml_code(block):
                 code_blocks.append(block)
-        selectors = [
-            'div.highlight', 'pre.highlight', 'div.code',
-            'div.language-yaml', 'div.language-python',
-        ]
+
+        selectors = ['div.highlight', 'pre.highlight', 'div.code', 'div.language-yaml']
         for selector in selectors:
             for el in soup.select(selector):
                 block = el.get_text().strip()
-                if (len(block) > 120
-                        and not is_html_content(block)
-                        and (is_yaml_code(block) or is_python_code(block))):
+                if len(block) > 120 and not is_html_content(block) and is_yaml_code(block):
                     code_blocks.append(block)
+
         if not code_blocks:
-            print(f"   ⚠️  Skipped: no YAML or Python code found → {page_title}")
+            print(f"   ⚠️  Skipped: no YAML code found → {page_title}")
             return None
+
         best_code = clean_content(max(code_blocks, key=len))
         if is_html_content(best_code):
             print(f"   ⚠️  Skipped: best block is HTML → {page_title}")
             return None
-        prompt = (f"Ansible Playbook for: {page_title}"
-                  if is_yaml_code(best_code)
-                  else f"Python script for: {page_title}")
-        print("   ✅ SUCCESS → YAML/Python code extracted from page")
+
+        print("   ✅ SUCCESS → YAML code extracted from page")
         return {"conversations": [
-            {"from": "human", "value": clean_text(prompt)},
+            {"from": "human", "value": clean_text(f"Ansible Playbook for: {page_title}")},
             {"from": "gpt",   "value": best_code},
         ]}
 
@@ -190,19 +272,32 @@ def scrape_url(url: str) -> dict | None:
 if __name__ == "__main__":
     if not os.path.exists(INPUT_FILE):
         with open(INPUT_FILE, 'w', encoding='utf-8') as f:
-            f.write("# One URL per line. Lines starting with # are ignored.\n")
+            f.write(
+                "# One URL per line. Lines starting with # are ignored.\n"
+                "# GitHub links (repo root, /tree/branch/subdir, or /blob/file.yml)\n"
+                "# are expanded automatically to every YAML file found,\n"
+                "# including files in subdirectories.\n"
+            )
         print(f"Created {INPUT_FILE} — add your URLs and re-run.")
     else:
         with open(INPUT_FILE, 'r', encoding='utf-8') as f:
-            urls = [l.strip() for l in f if l.strip() and not l.strip().startswith('#')]
-        print(f"📋 Loaded {len(urls)} URLs\n")
+            seed_urls = [l.strip() for l in f if l.strip() and not l.strip().startswith('#')]
+        print(f"📋 Loaded {len(seed_urls)} seed URL(s)\n")
+
         dataset = []
-        for i, url in enumerate(urls, 1):
-            print(f"[{i}/{len(urls)}]")
-            result = scrape_url(url)
-            if result:
-                dataset.append(result)
-            time.sleep(1.5)
+        for i, seed_url in enumerate(seed_urls, 1):
+            print(f"[{i}/{len(seed_urls)}] {seed_url}")
+            urls_to_scrape = gather_urls_to_scrape(seed_url)
+            if not urls_to_scrape:
+                print("   ⚠️  Nothing to scrape from this URL (no YAML found/linked)\n")
+                continue
+            for url in urls_to_scrape:
+                result = scrape_url(url)
+                if result:
+                    dataset.append(result)
+                time.sleep(1.5)
+            print()
+
         with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
             json.dump(dataset, f, indent=2, ensure_ascii=False)
         print(f"\n🎉 Done! Saved {len(dataset)} conversations → {OUTPUT_FILE}")

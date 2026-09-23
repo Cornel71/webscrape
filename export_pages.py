@@ -14,6 +14,7 @@ SEARCH_SUBJECTS_FILE = "search_subjects.txt"
 OUTPUT_FILE = "saved_links.txt"
 
 DOMAIN_BLACKLIST = [
+    "bing.com",
     "linkedin.com",
     "x.com",
     "khanacademy.org",

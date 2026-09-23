@@ -1,1 +1,5 @@
 https://github.com/oracle-samples/ansible-playbooks
+https://dev.to/dpuig/creating-an-ansible-playbook-to-install-and-configure-nginx-for-hosting-static-websites-3n6j
+https://github.com/geerlingguy/ansible-role-mysql
+https://github.com/ansible-community/ansible-vault
+https://dperfectdude.medium.com/create-multiple-users-with-ansible-85c1cd636bcb

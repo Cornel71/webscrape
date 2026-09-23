@@ -658,5 +658,653 @@
         "value": "- hosts: all\n  tasks:\n  - name: install openscap scanner\n    package:\n      name: openscap\n      state: latest\n    with_items:\n    - openscap-scanner\n    - scap-security-guide\n    - openscap-utils\n  - name: run openscap\n    command: oscap xccdf eval \\\n               --profile stig \\\n               --results /tmp/ssg.xml\n               --report /var/www/html/ssg-results.html \\\n               --cpe /usr/share/xml/scap/ssg/content/ssg-ol8-cpe-dictionary.xml \\\n               /usr/share/xml/scap/ssg/content/ssg-ol8-xccdf.xml \\\n    ignore_errors: True"
       }
     ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: Ansible Playbook - Install and Configure Nginx - DEV Community"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Install and configure nginx for static website hosting\n  hosts: webservers\n  become: yes\n  tasks:\n    - name: Install nginx\n      apt:\n        name: nginx\n        state: latest\n        update_cache: yes\n    - name: Add user to group root\n      user:\n        name: \"{{ user }}\"\n        groups: root\n        state: present\n    - name: Remove default nginx configuration\n      file:\n        path: /etc/nginx/sites-enabled/default\n        state: absent\n    - name: Add nginx configuration\n      copy:\n        src: <control-node-path-to>/static-site-config\n        dest: /etc/nginx/sites-available/\n        owner: \"{{ user }}\"\n        group: root\n        mode: '0644'\n    - name: Enable website configuration\n      file:\n        src: /etc/nginx/sites-available/static-site-config\n        dest: /etc/nginx/sites-enabled/static-site-config\n        state: link\n    - name: Ensure nginx is running\n      systemd:\n        name: nginx\n        state: started\n        enabled: yes\n  vars:\n    user: \"ubuntu\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: ci.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\nname: CI\n'on':\n  pull_request:\n  push:\n    branches:\n      - master\n  schedule:\n    - cron: \"0 1 * * 3\"\ndefaults:\n  run:\n    working-directory: 'geerlingguy.mysql'\njobs:\n  lint:\n    name: Lint\n    runs-on: ubuntu-latest\n    steps:\n      - name: Check out the codebase.\n        uses: actions/checkout@v4\n        with:\n          path: 'geerlingguy.mysql'\n      - name: Set up Python 3.\n        uses: actions/setup-python@v5\n        with:\n          python-version: '3.13'  # Can't go to 3.14+ until Ansible 13.x\n      - name: Install test dependencies.\n        run: pip3 install yamllint\n      - name: Lint code.\n        run: |\n          yamllint .\n  molecule:\n    name: Molecule\n    runs-on: ubuntu-latest\n    strategy:\n      matrix:\n        distro:\n          - rockylinux10\n          - ubuntu2604\n          - ubuntu2404\n          - ubuntu2204\n          - debian13\n          - debian12\n        playbook:\n          - converge.yml\n          - converge-mariadb.yml\n        exclude:\n          # Exclude distros which already default to MariaDB.\n          - distro: rockylinux10\n            playbook: converge-mariadb.yml\n          - distro: debian12\n            playbook: converge-mariadb.yml\n          - distro: debian13\n            playbook: converge-mariadb.yml\n    steps:\n      - name: Check out the codebase.\n        uses: actions/checkout@v4\n        with:\n          path: 'geerlingguy.mysql'\n      - name: Set up Python 3.\n        uses: actions/setup-python@v5\n        with:\n          python-version: '3.13'  # Can't go to 3.14+ until Ansible 13.x\n      - name: Install test dependencies.\n        run: pip3 install ansible molecule molecule-plugins[docker] docker\n      # See: https://github.com/geerlingguy/ansible-role-mysql/issues/422\n      - name: Disable AppArmor on Debian.\n        run: |\n            set -x\n            sudo apt-get update\n            sudo apt-get install apparmor-profiles\n            sudo ln -s /etc/apparmor.d/usr.sbin.mysqld /etc/apparmor.d/disable/\n            sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld\n        if: ${{ startsWith(matrix.distro, 'debian') }}\n      - name: Run Molecule tests.\n        run: molecule test\n        env:\n          PY_COLORS: '1'\n          ANSIBLE_FORCE_COLOR: '1'\n          MOLECULE_DISTRO: ${{ matrix.distro }}\n          MOLECULE_PLAYBOOK: ${{ matrix.playbook }}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: release.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n# This workflow requires a GALAXY_API_KEY secret present in the GitHub\n# repository or organization.\n#\n# See: https://github.com/marketplace/actions/publish-ansible-role-to-galaxy\n# See: https://github.com/ansible/galaxy/issues/46\nname: Release\n'on':\n  push:\n    tags:\n      - '*'\ndefaults:\n  run:\n    working-directory: 'geerlingguy.mysql'\njobs:\n  release:\n    name: Release\n    runs-on: ubuntu-latest\n    steps:\n      - name: Check out the codebase.\n        uses: actions/checkout@v4\n        with:\n          path: 'geerlingguy.mysql'\n      - name: Set up Python 3.\n        uses: actions/setup-python@v5\n        with:\n          python-version: '3.13'  # Can't go to 3.14+ until Ansible 13.x\n      - name: Install Ansible.\n        run: pip3 install ansible-core\n      - name: Trigger a new import on Galaxy.\n        run: >-\n          ansible-galaxy role import --api-key ${{ secrets.GALAXY_API_KEY }}\n          $(echo ${{ github.repository }} | cut -d/ -f1) $(echo ${{ github.repository }} | cut -d/ -f2)"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: stale.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\nname: Close inactive issues\n'on':\n  schedule:\n    - cron: \"55 20 * * 6\"  # semi-random time\njobs:\n  close-issues:\n    runs-on: ubuntu-latest\n    permissions:\n      issues: write\n      pull-requests: write\n    steps:\n      - uses: actions/stale@v8\n        with:\n          days-before-stale: 120\n          days-before-close: 60\n          exempt-issue-labels: bug,pinned,security,planned\n          exempt-pr-labels: bug,pinned,security,planned\n          stale-issue-label: \"stale\"\n          stale-pr-label: \"stale\"\n          stale-issue-message: |\n            This issue has been marked 'stale' due to lack of recent activity. If there is no further activity, the issue will be closed in another 30 days. Thank you for your contribution!\n            Please read [this blog post](https://www.jeffgeerling.com/blog/2020/enabling-stale-issue-bot-on-my-github-repositories) to see the reasons why I mark issues as stale.\n          close-issue-message: |\n            This issue has been closed due to inactivity. If you feel this is in error, please reopen the issue or file a new issue with the relevant details.\n          stale-pr-message: |\n            This pr has been marked 'stale' due to lack of recent activity. If there is no further activity, the issue will be closed in another 30 days. Thank you for your contribution!\n            Please read [this blog post](https://www.jeffgeerling.com/blog/2020/enabling-stale-issue-bot-on-my-github-repositories) to see the reasons why I mark issues as stale.\n          close-pr-message: |\n            This pr has been closed due to inactivity. If you feel this is in error, please reopen the issue or file a new issue with the relevant details.\n          repo-token: ${{ secrets.GITHUB_TOKEN }}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: main.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: restart mysql\n  ansible.builtin.service:\n    name: \"{{ mysql_daemon }}\"\n    state: restarted"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: converge-mariadb.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Converge (MariaDB)\n  hosts: all\n  pre_tasks:\n    # On Debian/Ubuntu the role defaults to Oracle MySQL (vars/Debian.yml).\n    # Override here to install MariaDB instead. RedHat-based distros and newer\n    # Debian versions already default to MariaDB in their OS-specific vars files\n    # and are excluded from the CI matrix for this playbook.\n    - name: Set MariaDB packages for Debian/Ubuntu.\n      ansible.builtin.set_fact:\n        mysql_daemon: mariadb\n        mysql_packages:\n          - mariadb-server\n          - mariadb-client\n          - python3-pymysql\n      when: ansible_facts.os_family == 'Debian'\n  roles:\n    - role: geerlingguy.mysql\n  post_tasks:\n    - name: Make sure we can connect to MariaDB via Unix socket.\n      ansible.builtin.command: \"mysql -u root -e 'show databases;'\"\n      changed_when: false"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: converge.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Converge\n  hosts: all\n  # become: true\n  roles:\n    - role: geerlingguy.mysql\n  post_tasks:\n    - name: Make sure we can connect to MySQL via Unix socket.\n      ansible.builtin.command: \"mysql -u root -proot -e 'show databases;'\"\n      changed_when: false\n    - name: Make sure we can connect to MySQL via TCP on old MySQL version.\n      ansible.builtin.command: \"mysql -u root -proot -h 127.0.0.1 -e 'show databases;'\"\n      register: result\n      changed_when: false\n      failed_when:\n        - result.rc != 0 and not (\n            ansible_facts.system == \"Linux\" and (\n              (mysql_cli_version is version('8.0.34', '>=') and mysql_daemon == 'mysql') or\n              (mysql_cli_version is version('10.4', '>=') and mysql_daemon == 'mariadb')\n            )\n          )\n        - result.rc == 0 and (\n            ansible_facts.system == \"Linux\" and (\n              (mysql_cli_version is version('8.0.34', '>=') and mysql_daemon == 'mysql') or\n              (mysql_cli_version is version('10.4', '>=') and mysql_daemon == 'mariadb')\n            )\n          )\n    - name: Make sure we can connect to MySQL via socket on modern MySQL version.\n      ansible.builtin.command: \"mysql -u root -e 'show databases;'\"\n      register: result\n      changed_when: false\n      failed_when:\n        - result.rc == 0 and (\n            ansible_facts.system == \"Linux\" and (\n              (mysql_cli_version is version('8.0.34', '>=') and mysql_daemon == 'mysql') or\n              (mysql_cli_version is version('10.4', '>=') and mysql_daemon == 'mariadb')\n            )\n          )\n        - result.rc != 0 and not (\n            ansible_facts.system == \"Linux\" and (\n              (mysql_cli_version is version('8.0.34', '>=') and mysql_daemon == 'mysql') or\n              (mysql_cli_version is version('10.4', '>=') and mysql_daemon == 'mariadb')\n            )\n          )"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: configure.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Get MySQL version\n  block:\n    - name: Run mysql --version\n      ansible.builtin.command: '{{ mysql_daemon }} --version'\n      register: mysql_cli_version\n      changed_when: false\n      check_mode: false\n    - name: Extract MySQL version\n      ansible.builtin.set_fact:\n        mysql_cli_version: >-\n          {{ mysql_cli_version.stdout | regex_search('\\d+\\.\\d+\\.\\d+(-[a-zA-Z]+)?') }}\n- name: Copy my.cnf global MySQL configuration.\n  ansible.builtin.template:\n    src: my.cnf.j2\n    dest: \"{{ mysql_config_file }}\"\n    owner: root\n    group: root\n    mode: 0644\n    force: \"{{ overwrite_global_mycnf }}\"\n  notify: restart mysql\n- name: Verify mysql include directory exists.\n  ansible.builtin.file:\n    path: \"{{ mysql_config_include_dir }}\"\n    state: directory\n    owner: root\n    group: root\n    mode: 0755\n  when: mysql_config_include_files | length | bool\n- name: Copy my.cnf override files into include directory.\n  ansible.builtin.template:\n    src: \"{{ item.src }}\"\n    dest: \"{{ mysql_config_include_dir }}/{{ item.src | basename }}\"\n    owner: root\n    group: root\n    mode: 0644\n    force: \"{{ item.force | default(false) }}\"\n  with_items: \"{{ mysql_config_include_files }}\"\n  notify: restart mysql\n- name: Create datadir if it does not exist\n  ansible.builtin.file:\n    path: \"{{ mysql_datadir }}\"\n    state: directory\n    owner: mysql\n    group: mysql\n    mode: 0755\n    setype: mysqld_db_t\n- name: Ensure error log directory exists\n  ansible.builtin.file:\n    path: \"{{ mysql_log_error | dirname }}\"\n    state: directory\n    owner: mysql\n    group: \"{{ mysql_log_file_group }}\"\n    mode: \"0755\"\n  when:\n    - mysql_log_error | default('') | length > 0\n    - mysql_log_error != 'syslog'\n- name: Ensure slow query log file exists and has correct permissions\n  ansible.builtin.file:\n    path: \"{{ mysql_slow_query_log_file }}\"\n    state: touch\n    owner: mysql\n    group: \"{{ mysql_log_file_group }}\"\n    mode: \"0640\"\n    modification_time: preserve\n    access_time: preserve\n  when: mysql_slow_query_log_enabled | bool\n- name: Ensure error log file exists and has correct permissions\n  ansible.builtin.file:\n    path: \"{{ mysql_log_error }}\"\n    state: touch\n    owner: mysql\n    group: \"{{ mysql_log_file_group }}\"\n    mode: \"0640\"\n    modification_time: preserve\n    access_time: preserve\n  when:\n    - mysql_log | default('') | length > 0\n    - mysql_log_error | default('') | length > 0\n    - mysql_log_error != 'syslog'\n  tags: ['skip_ansible_galaxy']\n- name: Ensure MySQL is started and enabled on boot.\n  ansible.builtin.service:\n    name: \"{{ mysql_daemon }}\"\n    state: started\n    enabled: \"{{ mysql_enabled_on_startup }}\"\n  register: mysql_service_configuration"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: databases.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Ensure MySQL databases are present.\n  mysql_db:\n    name: \"{{ item.name }}\"\n    collation: \"{{ item.collation | default('utf8_general_ci') }}\"\n    encoding: \"{{ item.encoding | default('utf8') }}\"\n    state: \"{{ item.state | default('present') }}\"\n    target: \"{{ item.target | default(omit) }}\"\n  with_items: \"{{ mysql_databases }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: main.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n# Variable configuration.\n- ansible.builtin.include_tasks: variables.yml\n# Setup/install tasks.\n- ansible.builtin.include_tasks: setup-RedHat.yml\n  when: ansible_facts.os_family == 'RedHat'\n- ansible.builtin.include_tasks: setup-Debian.yml\n  when: ansible_facts.os_family == 'Debian'\n- ansible.builtin.include_tasks: setup-Archlinux.yml\n  when: ansible_facts.os_family == 'Archlinux'\n- name: Check if MySQL packages were installed.\n  ansible.builtin.set_fact:\n    mysql_install_packages: \"{{ (rh_mysql_install_packages is defined and rh_mysql_install_packages.changed)\n      or (deb_mysql_install_packages is defined and deb_mysql_install_packages.changed)\n      or (arch_mysql_install_packages is defined and arch_mysql_install_packages.changed) }}\"\n# Configure MySQL.\n- ansible.builtin.include_tasks: configure.yml\n- ansible.builtin.include_tasks: secure-installation.yml\n- ansible.builtin.include_tasks: databases.yml\n- ansible.builtin.include_tasks: users.yml\n- ansible.builtin.include_tasks: replication.yml"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: replication.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Ensure replication user exists on master.\n  mysql_user:\n    name: \"{{ mysql_replication_user.name }}\"\n    host: \"{{ mysql_replication_user.host | default('%') }}\"\n    password: \"{{ mysql_replication_user.password }}\"\n    priv: \"{{ mysql_replication_user.priv | default('*.*:REPLICATION SLAVE,REPLICATION CLIENT') }}\"\n    update_password: \"{{ mysql_replication_user.update_password | default('always') }}\"\n    tls_requires: \"{{ mysql_replication_user.tls_requires | default({}) }}\"\n    state: present\n  no_log: \"{{ mysql_hide_passwords }}\"\n  when:\n    - mysql_replication_role == 'master'\n    - mysql_replication_user.name is defined\n    - (mysql_replication_master | length) > 0\n  tags: ['skip_ansible_galaxy']\n- name: Check slave replication status.\n  mysql_replication:\n    mode: getreplica\n    login_user: \"{{ mysql_root_username }}\"\n    login_password: \"{{ mysql_root_password }}\"\n  no_log: \"{{ mysql_hide_passwords }}\"\n  ignore_errors: true\n  register: slave\n  when:\n    - mysql_replication_role == 'slave'\n    - (mysql_replication_master | length) > 0\n  tags: ['skip_ansible_galaxy']\n# https://github.com/ansible/ansible/issues/82264\n- name: Check master replication status.\n  mysql_replication:\n    mode: getprimary\n  delegate_to: \"{{ mysql_replication_master_inventory_host | default(omit, true) }}\"\n  register: master\n  when:\n    - >\n      (slave.Is_Slave is defined and not slave.Is_Slave) or\n      (slave.Is_Replica is defined and not slave.Is_Replica) or\n      (slave.Is_Slave is not defined and slave.Is_Replica is not defined and slave is failed)\n    - mysql_replication_role == 'slave'\n    - (mysql_replication_master | length) > 0\n  tags: ['skip_ansible_galaxy']\n- name: Configure replication on the slave.\n  mysql_replication:\n    mode: changeprimary\n    master_host: \"{{ mysql_replication_master }}\"\n    master_user: \"{{ mysql_replication_user.name }}\"\n    master_password: \"{{ mysql_replication_user.password }}\"\n    master_log_file: \"{{ master.File }}\"\n    master_log_pos: \"{{ master.Position }}\"\n  no_log: \"{{ mysql_hide_passwords }}\"\n  ignore_errors: true\n  when:\n    - >\n      (slave.Is_Slave is defined and not slave.Is_Slave) or\n      (slave.Is_Replica is defined and not slave.Is_Replica) or\n      (slave.Is_Slave is not defined and slave.Is_Replica is not defined and slave is failed)\n    - mysql_replication_role == 'slave'\n    - mysql_replication_user.name is defined\n    - (mysql_replication_master | length) > 0\n- name: Start replication.\n  mysql_replication:\n    mode: startreplica\n  when:\n    - >\n      (slave.Is_Slave is defined and slave.Is_Slave) or\n      (slave.Is_Replica is defined and slave.Is_Replica) or\n      (slave.Is_Slave is not defined and slave.Is_Replica is not defined and slave is failed)\n    - mysql_replication_role == 'slave'\n    - (mysql_replication_master | length) > 0\n  tags: ['skip_ansible_galaxy']"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: secure-installation.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Ensure default user is present.\n  mysql_user:\n    name: \"{{ mysql_user_name }}\"\n    host: 'localhost'\n    password: \"{{ mysql_user_password }}\"\n    priv: '*.*:ALL,GRANT'\n    state: present\n  no_log: \"{{ mysql_hide_passwords }}\"\n  when: mysql_user_name != mysql_root_username\n# Has to be after the password assignment, for idempotency.\n- name: Copy user-my.cnf file with password credentials.\n  ansible.builtin.template:\n    src: \"user-my.cnf.j2\"\n    dest: \"{{ mysql_user_home }}/.my.cnf\"\n    owner: \"{{ mysql_user_name }}\"\n    mode: 0600\n  no_log: \"{{ mysql_hide_passwords }}\"\n  when: >\n    mysql_user_name != mysql_root_username\n    and (mysql_install_packages | bool or mysql_user_password_update)\n- name: Disallow root login remotely\n  ansible.builtin.command: '{{ mysql_daemon }} -NBe \"{{ item }}\"'\n  with_items:\n    - DELETE FROM mysql.user WHERE User='{{ mysql_root_username }}' AND Host NOT IN ('localhost', '127.0.0.1', '::1')\n  changed_when: false\n- name: Get list of hosts for the root user.\n  ansible.builtin.command: >\n    {{ mysql_daemon }} -NBe\n    \"SELECT Host\n    FROM mysql.user\n    WHERE User = '{{ mysql_root_username }}'\n    ORDER BY (Host='localhost') ASC\"\n  register: mysql_root_hosts\n  changed_when: false\n  check_mode: false\n  when: mysql_install_packages | bool or mysql_root_password_update\n# Note: We do not use mysql_user for this operation, as it doesn't always update\n# the root password correctly. See: https://goo.gl/MSOejW\n# Set root password for MySQL >= 8.4 and MariaDB ≥ 10.4\n- name: Update MySQL root authentication via socket for localhost (Linux, MySQL ≥ 8.4)\n  ansible.builtin.shell: >\n    {{ mysql_daemon }} -u root -NBe\n    \"ALTER USER '{{ mysql_root_username }}'@'{{ item }}'\n     IDENTIFIED {{ (mysql_daemon == 'mariadb') | ternary('VIA unix_socket', 'WITH auth_socket') }}; FLUSH PRIVILEGES;\"\n  no_log: \"{{ mysql_hide_passwords }}\"\n  with_items: \"{{ mysql_root_hosts.stdout_lines|default([]) }}\"\n  when:\n    - (mysql_install_packages | bool) or mysql_root_password_update\n    - ansible_facts.system == \"Linux\"\n    - (mysql_cli_version is version('8.0.34', '>=') and mysql_daemon == 'mysql') or\n      (mysql_cli_version is version('10.4', '>=') and mysql_daemon == 'mariadb')\n# Note: We do not use mysql_user for this operation, as it doesn't always update\n# the root password correctly. See: https://goo.gl/MSOejW\n# Set root password for 5.7.x. ≤ MySQL < 8.4 and MariaDB ≥ 10.4\n- name: Update MySQL root password for localhost root account (5.7.x ≤ MySQL < 8.4)\n  ansible.builtin.shell: >\n    {{ mysql_daemon }} -u root -NBe\n    \"ALTER USER '{{ mysql_root_username }}'@'{{ item }}'\n     IDENTIFIED {{ (mysql_daemon == 'mariadb') | ternary('VIA', 'WITH') }} mysql_native_password\n     BY '{{ mysql_root_password }}'; FLUSH PRIVILEGES;\"\n  no_log: \"{{ mysql_hide_passwords }}\"\n  with_items: \"{{ mysql_root_hosts.stdout_lines|default([]) }}\"\n  when:\n    - (mysql_install_packages | bool) or mysql_root_password_update\n    - (\n        mysql_daemon == 'mysql' and (\n          mysql_cli_version is version('5.7', '>=') and\n          mysql_cli_version is version('8.4', '<')\n        )\n      ) or\n      (mysql_daemon == 'mariadb' and mysql_cli_version is version('10.4', '<'))\n# Set root password for MySQL < 5.7.x.\n- name: Update MySQL root password for localhost root account (< 5.7.x).\n  ansible.builtin.shell: >\n    {{ mysql_daemon }} -NBe\n    'SET PASSWORD FOR \"{{ mysql_root_username }}\"@\"{{ item }}\" = PASSWORD(\"{{ mysql_root_password }}\"); FLUSH PRIVILEGES;'\n  no_log: \"{{ mysql_hide_passwords }}\"\n  with_items: \"{{ mysql_root_hosts.stdout_lines|default([]) }}\"\n  when:\n    - (mysql_install_packages | bool) or mysql_root_password_update\n    - (mysql_daemon == 'mysql' and mysql_cli_version is version('5.7', '<'))\n# Has to be after the root password assignment, for idempotency.\n- name: Copy .my.cnf file with root password credentials.\n  ansible.builtin.template:\n    src: \"root-my.cnf.j2\"\n    dest: \"{{ mysql_root_home }}/.my.cnf\"\n    owner: root\n    group: root\n    mode: 0600\n  no_log: \"{{ mysql_hide_passwords }}\"\n  when:\n    - mysql_install_packages | bool or mysql_root_password_update\n    - mysql_copy_root_user_mycnf\n- name: Get list of hosts for the anonymous user.\n  ansible.builtin.command: >\n    {{ mysql_daemon }} -NBe \"SELECT Host FROM mysql.user WHERE User = ''\"\n  register: mysql_anonymous_hosts\n  changed_when: false\n  check_mode: false\n- name: Remove anonymous MySQL users.\n  mysql_user:\n    name: \"\"\n    host: \"{{ item }}\"\n    state: absent\n  with_items: \"{{ mysql_anonymous_hosts.stdout_lines|default([]) }}\"\n- name: Remove MySQL test database.\n  mysql_db:\n    name: 'test'\n    state: absent"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: setup-Archlinux.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Ensure MySQL Python libraries are installed.\n  community.general.pacman:\n    name: mysql-python\n    state: present\n- name: Ensure MySQL packages are installed.\n  community.general.pacman:\n    name: \"{{ mysql_packages }}\"\n    state: present\n  register: arch_mysql_install_packages\n- name: Run mysql_install_db if MySQL packages were changed.\n  ansible.builtin.command: mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql\n  when: arch_mysql_install_packages.changed\n  tags: ['skip_ansible_lint']"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: setup-Debian.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Check if MySQL is already installed.\n  ansible.builtin.stat:\n    path: \"{{ mysql_config_file }}\"\n  register: mysql_installed\n- name: Update apt cache if MySQL is not yet installed.\n  ansible.builtin.apt:\n    update_cache: true\n  changed_when: false\n  when: not mysql_installed.stat.exists\n- name: Ensure MySQL Python libraries are installed.\n  ansible.builtin.apt:\n    name: \"{{ mysql_python_package_debian }}\"\n    state: present\n- name: Ensure MySQL packages are installed.\n  ansible.builtin.apt:\n    name: \"{{ mysql_packages }}\"\n    state: present\n    policy_rc_d: 101\n  register: deb_mysql_install_packages\n# Because Ubuntu starts MySQL as part of the install process, we need to stop\n# mysql and remove the logfiles in case the user set a custom log file size.\n- name: Ensure MySQL is stopped after initial install.\n  ansible.builtin.service:\n    name: \"{{ mysql_daemon }}\"\n    state: stopped\n  when: not mysql_installed.stat.exists\n- name: Delete innodb log files created by apt package after initial install.\n  ansible.builtin.file:\n    path: \"{{ mysql_datadir }}/{{ item }}\"\n    state: absent\n  with_items:\n    - ib_logfile0\n    - ib_logfile1\n  when: >\n    not mysql_installed.stat.exists\n    and ansible_facts.distribution_major_version | int < 12"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: setup-RedHat.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Ensure MySQL packages are installed.\n  ansible.builtin.yum:\n    name: \"{{ mysql_packages }}\"\n    state: present\n    enablerepo: \"{{ mysql_enablerepo | default(omit, true) }}\"\n  register: rh_mysql_install_packages"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: users.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Ensure MySQL users are present.\n  mysql_user:\n    name: \"{{ item.name }}\"\n    host: \"{{ item.host | default('localhost') }}\"\n    password: \"{{ item.password | default(omit) }}\"\n    priv: \"{{ item.priv | default('*.*:USAGE') }}\"\n    state: \"{{ item.state | default('present') }}\"\n    append_privs: \"{{ item.append_privs | default(false) }}\"\n    encrypted: \"{{ item.encrypted | default(false) }}\"\n    column_case_sensitive: \"{{ item.case_sensitive | default(false) }}\"\n    update_password: \"{{ item.update_password | default('always') }}\"\n    plugin: \"{{ item.plugin | default(omit) }}\"\n    plugin_auth_string: \"{{ item.plugin_auth_string | default(omit) }}\"\n    plugin_hash_string: \"{{ item.plugin_hash_string | default(omit) }}\"\n    tls_requires: \"{{ item.tls_requires | default({}) }}\"\n  with_items: \"{{ mysql_users }}\"\n  no_log: \"{{ mysql_hide_passwords }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: variables.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n# Variable configuration.\n- name: Include OS-specific variables.\n  ansible.builtin.include_vars: \"{{ item }}\"\n  with_first_found:\n    - files:\n        - \"vars/{{ ansible_facts.os_family }}-{{ ansible_facts.distribution_major_version }}.yml\"\n        - \"vars/{{ ansible_facts.os_family }}.yml\"\n      skip: true\n- name: Define mysql_packages.\n  ansible.builtin.set_fact:\n    mysql_packages: \"{{ __mysql_packages | list }}\"\n  when: mysql_packages is not defined\n- name: Define mysql_daemon.\n  ansible.builtin.set_fact:\n    mysql_daemon: \"{{ __mysql_daemon }}\"\n  when: mysql_daemon is not defined\n- name: Include distribution and database engine-specific variable overrides.\n  ansible.builtin.include_vars: \"{{ item }}\"\n  with_first_found:\n    - files:\n        - \"vars/{{ ansible_facts.distribution }}-{{ ansible_facts.distribution_major_version }}-{{ mysql_daemon }}.yml\"\n      skip: true\n- name: Define mysql_slow_query_log_file.\n  ansible.builtin.set_fact:\n    mysql_slow_query_log_file: \"{{ __mysql_slow_query_log_file }}\"\n  when: mysql_slow_query_log_file is not defined\n- name: Define mysql_log_error.\n  ansible.builtin.set_fact:\n    mysql_log_error: \"{{ __mysql_log_error }}\"\n  when: mysql_log_error is not defined\n- name: Define mysql_syslog_tag.\n  ansible.builtin.set_fact:\n    mysql_syslog_tag: \"{{ __mysql_syslog_tag }}\"\n  when: mysql_syslog_tag is not defined\n- name: Define mysql_pid_file.\n  ansible.builtin.set_fact:\n    mysql_pid_file: \"{{ __mysql_pid_file }}\"\n  when: mysql_pid_file is not defined\n- name: Define mysql_config_file.\n  ansible.builtin.set_fact:\n    mysql_config_file: \"{{ __mysql_config_file }}\"\n  when: mysql_config_file is not defined\n- name: Define mysql_config_include_dir.\n  ansible.builtin.set_fact:\n    mysql_config_include_dir: \"{{ __mysql_config_include_dir }}\"\n  when: mysql_config_include_dir is not defined\n- name: Define mysql_socket.\n  ansible.builtin.set_fact:\n    mysql_socket: \"{{ __mysql_socket }}\"\n  when: mysql_socket is not defined\n- name: Define mysql_supports_innodb_large_prefix.\n  ansible.builtin.set_fact:\n    mysql_supports_innodb_large_prefix: \"{{ __mysql_supports_innodb_large_prefix }}\"\n  when: mysql_supports_innodb_large_prefix is not defined"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: ansible-lint.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\nname: Ansible Lint\non:\n  push:\n    tags_ignore:\n      - '*'\n  pull_request:\njobs:\n  lint:\n    runs-on: ubuntu-24.04\n    steps:\n      - uses: actions/checkout@v4\n      - name: Run ansible-lint\n        uses: ansible/ansible-lint@main\n        with:\n          args: \"-r molecule/requirements.yml\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: commitlint.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "name: Lint Commit Messages\non:\n  push:\n    branches:\n      - main\n  pull_request:\njobs:\n  commitlint:\n    runs-on: ubuntu-24.04\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 0\n      - uses: wagoid/commitlint-github-action@v5"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: molecule.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\nname: Ansible Molecule\non:\n  push:\n    tags-ignore:\n      - \"*\"\n  pull_request:\nenv:\n  ANSIBLE_FORCE_COLOR: \"1\"\n  PY_COLORS: \"1\"\njobs:\n  discover-scenarios:\n    runs-on: ubuntu-24.04\n    outputs:\n      scenarios: ${{ steps.set-scenarios.outputs.scenarios }}\n    steps:\n      - name: Check out codebase\n        uses: actions/checkout@v3\n        with:\n          path: ansible-vault\n      - name: Discover scenarios\n        id: set-scenarios\n        # Find the name of all scenarios (molecule scenarios are identified by leaf dir, not full path)\n        run: |\n          cd ansible-vault\n          scenarios=$(find molecule -mindepth 3 -maxdepth 3 -name molecule.yml -exec dirname {} \\; | sed 's#^molecule/##' | sort | while read -r p; do\n            printf '{\"path\":\"%s\",\"name\":\"%s\"},' \"$p\" \"$(basename \"$p\")\"\n          done)\n          echo \"scenarios=[${scenarios%,}]\" >> $GITHUB_OUTPUT\n  test:\n    needs:\n      - discover-scenarios\n    runs-on: ubuntu-24.04\n    strategy:\n      fail-fast: false\n      matrix:\n        scenario: ${{ fromJson(needs.discover-scenarios.outputs.scenarios) }}\n    steps:\n      - name: checkout\n        uses: actions/checkout@v3\n        with:\n          path: ansible-vault\n      - name: molecule\n        uses: gofrolist/molecule-action@v2\n        env:\n          ANSIBLE_ROLES_PATH: \"/github/workspace:/github/home/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles\"\n          MOLECULE_GLOB: \"molecule/${{ matrix.scenario.path }}/molecule.yml\"\n        with:\n          molecule_working_dir: ansible-vault\n          molecule_command: test\n          molecule_args: --scenario-name ${{ matrix.scenario.name }}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: release.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "name: Semantic Releaser\non:\n  push:\n    branches:\n      - master\npermissions:\n  contents: write\n  packages: write\n  pull-requests: write\njobs:\n  semrel:\n    if: github.repository == 'ansible-community/ansible-vault'\n    runs-on: ubuntu-24.04\n    steps:\n      - name: Checkout\n        uses: actions/checkout@v4\n      - name: Semantic Release\n        uses: cycjimmy/semantic-release-action@v4\n        with:\n          extra_plugins: |\n            @semantic-release/changelog@6.0.0\n            @semantic-release/git@10.0.0\n            conventional-changelog-conventionalcommits@8.0.0\n        env:\n          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: requirements.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "- src: https://github.com/ansible-community/ansible-vault.git\n  name: ansible-community.ansible-vault\n  scm: git\n  version: master"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: site.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n# File: site.yml - Example Vault server playbook (Filesystem storage)\n- name: Install Vault Vagrant Development Server\n  hosts: vault_instances\n  any_errors_fatal: true\n  become: true\n  become_user: root\n  roles:\n    - {role: ansible-community.ansible-vault, vault_backend: file, vault_seal_type: shamir}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: site_consul.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n# File: site_consul.yml - Example Vault server playbook (Consul storage)\n- name: Install Vault\n  hosts: consul_nodes\n  any_errors_fatal: true\n  become: true\n  become_user: root\n  roles:\n    - {role: brianshumate.vault}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: main.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n# handlers file for vault\n- name: Restart vault\n  become: true\n  ansible.builtin.service:\n    name: '{{ vault_systemd_service_name }}'\n    state: restarted\n  when:\n    - not (vault_agent_supervisor_mode | bool)\n    - vault_service_restart | bool\n- name: Reload vault\n  become: true\n  ansible.builtin.service:\n    name: '{{ vault_systemd_service_name }}'\n    state: reloaded\n  when:\n    - not (vault_agent_supervisor_mode | bool)\n    - vault_service_reload | bool"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: converge.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Converge\n  hosts: all\n  tasks:\n    - name: \"Include molecule\"\n      ansible.builtin.include_role:\n        name: \"{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: prepare.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Prepare Debian\n  hosts: all\n  gather_facts: false\n  tasks:\n    - name: Bootstrap Python\n      ansible.builtin.raw: \"test -e /usr/bin/python || apt-get install --update python3 -y\"\n      changed_when: true\n- name: Common prepare\n  ansible.builtin.import_playbook: ../../prepare.yml"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: converge.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Validate Vault seal selector\n  hosts: all\n  gather_facts: true\n  tasks:\n    - name: Accept the default Shamir selector\n      ansible.builtin.include_role:\n        name: \"{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}\"\n        tasks_from: asserts\n    - name: Accept a Transit selector with complete credentials\n      ansible.builtin.include_role:\n        name: \"{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}\"\n        tasks_from: asserts\n      vars:\n        vault_seal_type: transit\n        vault_transit_address: https://vault-unseal.example.com\n        vault_transit_token: test-token\n    - name: Accept one legacy seal flag with the default selector\n      ansible.builtin.include_role:\n        name: \"{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}\"\n        tasks_from: asserts\n      vars:\n        vault_seal_type: shamir\n        vault_transit: true\n        vault_transit_address: https://vault-unseal.example.com\n        vault_transit_token: test-token\n    - name: Accept PKCS11 with Vault Enterprise\n      ansible.builtin.include_role:\n        name: \"{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}\"\n        tasks_from: asserts\n      vars:\n        vault_enterprise: true\n        vault_seal_type: pkcs11\n    - name: Verify invalid selectors are rejected\n      block:\n        - name: Run assertions with an invalid selector\n          ansible.builtin.include_role:\n            name: \"{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}\"\n            tasks_from: asserts\n          vars:\n            vault_seal_type: invalid\n        - name: Fail if the invalid selector was accepted\n          ansible.builtin.fail:\n            msg: \"The invalid Vault seal selector was accepted.\"\n      rescue:\n        - name: Check the invalid selector failure\n          ansible.builtin.assert:\n            that:\n              - \"'vault_seal_type must be' in ansible_failed_result.msg\"\n    - name: Verify conflicting legacy flags are rejected\n      block:\n        - name: Run assertions with conflicting legacy flags\n          ansible.builtin.include_role:\n            name: \"{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}\"\n            tasks_from: asserts\n          vars:\n            vault_seal_type: shamir\n            vault_transit: true\n            vault_awskms: true\n            vault_transit_address: https://vault-unseal.example.com\n            vault_transit_token: test-token\n        - name: Fail if conflicting legacy flags were accepted\n          ansible.builtin.fail:\n            msg: \"Conflicting legacy Vault seal flags were accepted.\"\n      rescue:\n        - name: Check the conflicting legacy flags failure\n          ansible.builtin.assert:\n            that:\n              - \"'Only one legacy Vault seal flag' in ansible_failed_result.msg\"\n    - name: Verify selector and legacy flag conflicts are rejected\n      block:\n        - name: Run assertions with a selector and legacy flag conflict\n          ansible.builtin.include_role:\n            name: \"{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}\"\n            tasks_from: asserts\n          vars:\n            vault_seal_type: transit\n            vault_transit: false\n            vault_awskms: true\n        - name: Fail if the selector and legacy flag conflict was accepted\n          ansible.builtin.fail:\n            msg: \"A conflicting Vault seal selector and legacy flag were accepted.\"\n      rescue:\n        - name: Check the selector and legacy flag conflict failure\n          ansible.builtin.assert:\n            that:\n              - \"'vault_seal_type conflicts' in ansible_failed_result.msg\"\n    - name: Verify PKCS11 requires Vault Enterprise\n      block:\n        - name: Run assertions with PKCS11 on Vault OSS\n          ansible.builtin.include_role:\n            name: \"{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}\"\n            tasks_from: asserts\n          vars:\n            vault_enterprise: false\n            vault_seal_type: pkcs11\n        - name: Fail if PKCS11 was accepted for Vault OSS\n          ansible.builtin.fail:\n            msg: \"The PKCS11 seal was accepted for Vault OSS.\"\n      rescue:\n        - name: Check the PKCS11 Enterprise failure\n          ansible.builtin.assert:\n            that:\n              - \"'pkcs11 seal requires vault_enterprise' in ansible_failed_result.msg\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: prepare.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Prepare Debian\n  hosts: all\n  gather_facts: false\n  tasks:\n    - name: Bootstrap Python\n      ansible.builtin.raw: \"test -e /usr/bin/python || apt-get install --update python3 -y\"\n      changed_when: true\n- name: Common prepare\n  ansible.builtin.import_playbook: ../../prepare.yml"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: prepare.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Common prepare\n  ansible.builtin.import_playbook: ../../prepare.yml\n- name: Prepare Rocky\n  hosts: all\n  tasks:\n    - name: Set Permission on /etc/shadow\n      ansible.builtin.file:\n        path: /etc/shadow\n        mode: \"0640\"\n        owner: root\n        group: root"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: prepare.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Common prepare\n  ansible.builtin.import_playbook: ../../prepare.yml\n- name: Prepare Rocky\n  hosts: all\n  tasks:\n    - name: Set Permission on /etc/shadow\n      ansible.builtin.file:\n        path: /etc/shadow\n        mode: \"0640\"\n        owner: root\n        group: root"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: prepare.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Common prepare\n  ansible.builtin.import_playbook: ../../prepare.yml\n- name: Prepare AlmaLinux\n  hosts: all\n  tasks:\n    - name: Set Permission on /etc/shadow\n      ansible.builtin.file:\n        path: /etc/shadow\n        mode: \"0640\"\n        owner: root\n        group: root"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: prepare.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Bootstrap Python\n  hosts: all\n  gather_facts: false\n  tasks:\n    # default /usr/bin/python3 on EL8 is 3.6, too old for current ansible-core modules\n    - name: Install python3.11\n      ansible.builtin.raw: \"test -e /usr/bin/python3.11 || (dnf install -y python3.11 || yum install -y python3.11)\"\n      changed_when: true\n- name: Common prepare\n  ansible.builtin.import_playbook: ../../prepare.yml\n- name: Prepare AlmaLinux\n  hosts: all\n  tasks:\n    - name: Set Permission on /etc/shadow\n      ansible.builtin.file:\n        path: /etc/shadow\n        mode: \"0640\"\n        owner: root\n        group: root"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: prepare.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Common prepare\n  ansible.builtin.import_playbook: ../../prepare.yml\n- name: Prepare AlmaLinux\n  hosts: all\n  tasks:\n    - name: Set Permission on /etc/shadow\n      ansible.builtin.file:\n        path: /etc/shadow\n        mode: \"0640\"\n        owner: root\n        group: root"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: prepare.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Common prepare\n  ansible.builtin.import_playbook: ../../prepare.yml\n- name: Prepare Amazon Linux\n  hosts: all\n  tasks:\n    # sudo's PAM account phase fails without sssd running unless \"files\" comes first.\n    - name: Prefer files over sss in nsswitch.conf\n      ansible.builtin.replace:\n        path: /etc/nsswitch.conf\n        regexp: \"(?m)^(passwd|group|shadow):.*$\"\n        replace: '\\1: files sss systemd'"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: prepare.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Common prepare\n  ansible.builtin.import_playbook: ../../prepare.yml\n- name: Prepare ArchLinux\n  hosts: all\n  tasks:\n    - name: Install prerequisites\n      ansible.builtin.package:\n        name:\n          - sudo\n          - unzip\n          - tar\n        state: present"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: prepare.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Prepare Debian\n  hosts: all\n  gather_facts: false\n  tasks:\n    - name: Bootstrap Python\n      ansible.builtin.raw: \"test -e /usr/bin/python || apt-get install --update python3 -y\"\n      changed_when: true\n- name: Common prepare\n  ansible.builtin.import_playbook: ../../prepare.yml"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: prepare.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Common prepare\n  ansible.builtin.import_playbook: ../../prepare.yml\n- name: Prepare Rocky\n  hosts: all\n  tasks:\n    - name: Set Permission on /etc/shadow\n      ansible.builtin.file:\n        path: /etc/shadow\n        mode: \"0640\"\n        owner: root\n        group: root"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: prepare.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Bootstrap Python\n  hosts: all\n  gather_facts: false\n  tasks:\n    # default /usr/bin/python3 on EL8 is 3.6, too old for current ansible-core modules\n    - name: Install python3.11\n      ansible.builtin.raw: \"test -e /usr/bin/python3.11 || (dnf install -y python3.11 || yum install -y python3.11)\"\n      changed_when: true\n- name: Common prepare\n  ansible.builtin.import_playbook: ../../prepare.yml\n- name: Prepare Rocky\n  hosts: all\n  tasks:\n    - name: Set Permission on /etc/shadow\n      ansible.builtin.file:\n        path: /etc/shadow\n        mode: \"0640\"\n        owner: root\n        group: root"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: prepare.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Common prepare\n  ansible.builtin.import_playbook: ../../prepare.yml\n- name: Prepare Rocky\n  hosts: all\n  tasks:\n    - name: Set Permission on /etc/shadow\n      ansible.builtin.file:\n        path: /etc/shadow\n        mode: \"0640\"\n        owner: root\n        group: root"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: prepare.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Prepare host\n  hosts: localhost\n  connection: local\n  tasks:\n    - name: Prepare CI environment\n      when: lookup('env', 'CI') is truthy\n      block:\n        - name: Install OS packages on controlling host\n          when: ansible_distribution != 'MacOSX'\n          ansible.builtin.package:\n            name: unzip\n          become: true\n        - name: Install netaddr dependency on controlling host\n          ansible.builtin.pip:\n            name: netaddr\n          become: false"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: requirements.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "collections:\n  - name: community.general"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: verify.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Verify\n  hosts: all\n  become: true\n  vars:\n    goss_version: v0.3.7\n    goss_arch: amd64\n    goss_dst: /usr/local/bin/goss\n    goss_sha256sum: 357f5c7f2e7949b412bce44349cd32ab19eb3947255a8ac805f884cc2c326059\n    goss_url: \"https://github.com/aelsabbahy/goss/releases/download/{{ goss_version }}/goss-linux-{{ goss_arch }}\"\n    goss_test_directory: /tmp\n    goss_format: tap\n  tasks:\n    - name: Download and install Goss\n      ansible.builtin.get_url:\n        url: \"{{ goss_url }}\"\n        dest: \"{{ goss_dst }}\"\n        checksum: \"sha256:{{ goss_sha256sum }}\"\n        mode: \"0755\"\n      register: download_goss\n      until: download_goss is succeeded\n      retries: 3\n    - name: Copy Goss tests to remote\n      ansible.builtin.template:\n        src: \"{{ item }}\"\n        dest: \"{{ goss_test_directory }}/{{ item | basename | splitext | first }}\"\n        mode: \"0644\"\n      with_fileglob:\n        - \"{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}/molecule/tests/goss/*.yml.j2\"\n    - name: Register test files\n      ansible.builtin.shell: \"ls {{ goss_test_directory }}/*.yml\"\n      changed_when: false\n      register: test_files\n    - name: Execute Goss tests\n      environment:\n        # yamllint disable-line rule:line-length\n        PATH: \"/opt/rh/rh-git218/root/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\"\n      ansible.builtin.command: \"{{ goss_dst }} -g {{ item }} validate -f {{ goss_format }}\"\n      changed_when: false\n      register: test_results\n      with_items: \"{{ test_files.stdout_lines }}\"\n    - name: Display details about the Goss results\n      ansible.builtin.debug:\n        msg: \"{{ item.stdout_lines }}\"\n      with_items: \"{{ test_results.results }}\"\n    - name: Fail when tests fail\n      ansible.builtin.fail:\n        msg: \"Goss failed to validate\"\n      when: item.rc != 0\n      with_items: \"{{ test_results.results }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: asserts.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n# File: tasks/asserts.yml - Asserts for this role\n- name: Check distribution compatibility\n  ansible.builtin.fail:\n    msg: \"{{ ansible_distribution }} is not supported by this role\"\n  when:\n    - ansible_distribution not in _vault_nix_distros\n    - ansible_os_family != 'Windows'\n- name: Fail if not a new release of Red Hat / CentOS\n  ansible.builtin.fail:\n    msg: \"{{ ansible_distribution_version }} is not a supported version of {{ ansible_distribution }} for this role\"\n  when:\n    - ansible_distribution in ['RedHat', 'CentOS']\n    - ansible_distribution_version is version(7, '<')\n- name: Fail if not a new release of Debian\n  ansible.builtin.fail:\n    msg: \"{{ ansible_distribution_version }} is not a supported version of {{ ansible_distribution }} for this role\"\n  when:\n    - ansible_distribution == \"Debian\"\n    - (ansible_distribution_version != 'buster/sid') and (ansible_distribution_version is version(8.5, '<'))\n- name: Fail if not a new release of FreeBSD\n  ansible.builtin.fail:\n    msg: \"{{ ansible_distribution_version }} is not a supported version.\"\n  when:\n    - ansible_distribution == \"FreeBSD\"\n    - ansible_distribution_version is version(10, '<')\n- name: Fail if not a new release of Ubuntu\n  ansible.builtin.fail:\n    msg: \"{{ ansible_distribution_version }} is not a supported version of {{ ansible_distribution }} for this role\"\n  when:\n    - ansible_distribution == \"Ubuntu\"\n    - ansible_distribution_version is version(13.04, '<')\n- name: Check for vault_redirect_address usage\n  ansible.builtin.debug:\n    msg: \"vault_redirect_address is deprecated. Check for vault_api_addr in the README.\"\n  when: vault_redirect_address is defined\n- name: Validate Vault seal type\n  ansible.builtin.assert:\n    that:\n      - vault_seal_type | lower in ['shamir', 'transit', 'awskms', 'azurekeyvault', 'gcpckms', 'ocikms', 'pkcs11']\n    fail_msg: \"vault_seal_type must be: shamir, transit, awskms, azurekeyvault, gcpckms, ocikms, or pkcs11.\"\n- name: Validate legacy Vault seal flags\n  ansible.builtin.assert:\n    that:\n      - >-\n        (vault_transit | bool | int)\n        + (vault_awskms | bool | int)\n        + (vault_azurekeyvault | bool | int)\n        + (vault_gkms | bool | int)\n        + (vault_ocikms | bool | int)\n        + (vault_enterprise_hsm | bool | int) <= 1\n    fail_msg: \"Only one legacy Vault seal flag may be enabled. Use vault_seal_type to select one seal.\"\n- name: Validate Vault seal type agrees with legacy flag\n  ansible.builtin.assert:\n    that:\n      - >-\n        vault_seal_type | lower == 'shamir'\n        or not (vault_transit | bool or vault_awskms | bool or vault_azurekeyvault | bool\n        or vault_gkms | bool or vault_ocikms | bool or vault_enterprise_hsm | bool)\n        or (vault_seal_type | lower == 'transit' and vault_transit | bool)\n        or (vault_seal_type | lower == 'awskms' and vault_awskms | bool)\n        or (vault_seal_type | lower == 'azurekeyvault' and vault_azurekeyvault | bool)\n        or (vault_seal_type | lower == 'gcpckms' and vault_gkms | bool)\n        or (vault_seal_type | lower == 'ocikms' and vault_ocikms | bool)\n        or (vault_seal_type | lower == 'pkcs11' and vault_enterprise_hsm | bool)\n    fail_msg: \"vault_seal_type conflicts with the enabled legacy Vault seal flag.\"\n- name: Validate PKCS#11 seal requires Vault Enterprise\n  ansible.builtin.assert:\n    that:\n      - not (vault_enterprise_hsm | bool) or vault_enterprise | bool\n    fail_msg: \"The pkcs11 seal requires vault_enterprise to be enabled.\"\n- name: Check if vault_transit_address and vault_transit_token has been specified\n  ansible.builtin.assert:\n    that:\n      - vault_transit_address | length > 0\n      - vault_transit_token | length > 0\n    fail_msg: \"vault_transit_address and vault_transit_token must both be defined for the Vault Transit seal.\"\n  when:\n    - vault_transit | bool"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: backend_tls.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n# File: tasks/backend_tls.yml - Backend TLS tasks for Vault\n- name: Create backend TLS directory\n  become: true\n  ansible.builtin.file:\n    path: \"{{ vault_backend_tls_certs_path }}\"\n    state: directory\n    owner: \"{{ vault_user }}\"\n    group: \"{{ vault_group }}\"\n    mode: \"{{ vault_harden_file_perms | ternary('0555', '0755') }}\"\n  when: vault_tls_copy_keys | bool\n  tags:\n    - tls\n- name: Create private backend TLS directory\n  become: true\n  ansible.builtin.file:\n    path: \"{{ vault_backend_tls_private_path }}\"\n    state: directory\n    owner: \"{{ vault_user }}\"\n    group: \"{{ vault_group }}\"\n    mode: \"{{ vault_harden_file_perms | ternary('0500', '0700') }}\"\n  when:\n    - vault_tls_copy_keys | bool\n    - vault_backend_tls_certs_path != vault_backend_tls_private_path\n  tags:\n    - tls\n- name: Vault backend SSL Certificate and Key\n  become: true\n  ansible.builtin.copy:\n    remote_src: \"{{ vault_tls_files_remote_src }}\"\n    src: \"{{ item.src }}\"\n    dest: \"{{ item.dest }}\"\n    owner: \"{{ vault_user }}\"\n    group: \"{{ vault_group }}\"\n    mode: \"{{ item.mode }}\"\n  with_items:\n    - src: \"{{ vault_backend_tls_src_files }}/{{ vault_backend_tls_ca_file }}\"\n      dest: \"{{ vault_backend_tls_certs_path }}/{{ vault_backend_tls_ca_file }}\"\n      mode: \"{{ vault_harden_file_perms | ternary('0444', '0644') }}\"\n    - src: \"{{ vault_backend_tls_src_files }}/{{ vault_backend_tls_cert_file }}\"\n      dest: \"{{ vault_backend_tls_certs_path }}/{{ vault_backend_tls_cert_file }}\"\n      mode: \"{{ vault_harden_file_perms | ternary('0444', '0644') }}\"\n    - src: \"{{ vault_backend_tls_src_files }}/{{ vault_backend_tls_key_file }}\"\n      dest: \"{{ vault_backend_tls_private_path }}/{{ vault_backend_tls_key_file }}\"\n      mode: \"{{ vault_harden_file_perms | ternary('0400', '0600') }}\"\n  when: vault_tls_copy_keys | bool\n  tags:\n    - tls"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: hardening.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n# File: tasks/hardening.yml - host hardening tasks for Vault\n- name: Check active swap devices\n  become: true\n  ansible.builtin.command:\n    cmd: swapon --summary --noheadings\n  register: vault_active_swap\n  changed_when: false\n  failed_when: false\n  when:\n    - ansible_system == \"Linux\"\n    - vault_disable_swap | bool\n- name: Disable active swap\n  become: true\n  ansible.builtin.command:\n    cmd: swapoff -a\n  register: vault_swapoff\n  changed_when: vault_swapoff.rc == 0\n  when:\n    - ansible_system == \"Linux\"\n    - vault_disable_swap | bool\n    - vault_active_swap.stdout | default('') | trim | length > 0\n- name: Disable swap entries in /etc/fstab\n  become: true\n  ansible.builtin.replace:\n    path: /etc/fstab\n    regexp: '^(\\s*[^#\\s]\\S*\\s+\\S+\\s+swap\\s+\\S+\\s+\\S+\\s+\\S+.*)$'\n    replace: '# \\1 # disabled by ansible-vault role'\n  when:\n    - ansible_system == \"Linux\"\n    - vault_disable_swap | bool\n    - vault_disable_swap_persist | bool\n- name: Gather passwd database for shell history hardening\n  ansible.builtin.getent:\n    database: passwd\n  when:\n    - ansible_os_family != \"Windows\"\n    - vault_disable_shell_history | bool\n- name: Configure bash history to ignore vault commands\n  become: true\n  ansible.builtin.blockinfile:\n    path: \"{{ ansible_facts.getent_passwd[vault_user][4] }}/.bashrc\"\n    marker: \"# {mark} ANSIBLE MANAGED BLOCK - vault history hardening (bash)\"\n    create: true\n    owner: \"{{ vault_user }}\"\n    mode: \"0600\"\n    block: |\n      # Ignore vault commands in bash history.\n      export HISTIGNORE=\"${HISTIGNORE:+$HISTIGNORE:}vault:vault *\"\n  when:\n    - ansible_os_family != \"Windows\"\n    - vault_disable_shell_history | bool\n    - (ansible_facts.getent_passwd[vault_user][5] | basename) == 'bash'\n- name: Configure zsh history to ignore vault commands\n  become: true\n  ansible.builtin.blockinfile:\n    path: \"{{ ansible_facts.getent_passwd[vault_user][4] }}/.zshrc\"\n    marker: \"# {mark} ANSIBLE MANAGED BLOCK - vault history hardening (zsh)\"\n    create: true\n    owner: \"{{ vault_user }}\"\n    mode: \"0600\"\n    block: |\n      # Ignore vault commands in zsh history.\n      function vault_history_ignore() {\n        case \"$1\" in\n          vault|vault\\ *) return 1 ;;\n        esac\n        return 0\n      }\n      autoload -Uz add-zsh-hook\n      add-zsh-hook zshaddhistory vault_history_ignore\n  when:\n    - ansible_os_family != \"Windows\"\n    - vault_disable_shell_history | bool\n    - (ansible_facts.getent_passwd[vault_user][5] | basename) == 'zsh'"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: install.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n# File: tasks/install.yml - package installation tasks for vault\n- name: Check Vault package file (local)\n  ansible.builtin.stat:\n    path: \"{{ role_path }}/files/{{ vault_pkg }}\"\n  become: false\n  run_once: true\n  register: vault_package\n  delegate_to: 127.0.0.1\n- name: \"Download Vault (local) → {{ vault_zip_url }}\"\n  ansible.builtin.get_url:\n    url: \"{{ vault_zip_url }}\"\n    dest: \"{{ role_path }}/files/{{ vault_pkg }}\"\n    checksum:\n      \"sha256:{{ (lookup('url', vault_checksum_file_url, wantlist=true) | select('match', '.*' + (vault_pkg | regex_escape()) + '$') | first).split()[0] }}\"\n    timeout: 42\n    mode: \"0644\"\n  become: \"{{ vault_privileged_install }}\"\n  run_once: true\n  register: __vault_download_local_package\n  retries: 6\n  until: __vault_download_local_package is succeeded\n  delay: 10\n  tags: installation\n  when: not vault_package.stat.exists | bool\n  delegate_to: 127.0.0.1\n- name: Unarchive Vault (local)\n  ansible.builtin.unarchive:\n    src: \"{{ role_path }}/files/{{ vault_pkg }}\"\n    dest: \"{{ role_path }}/files/\"\n    creates: \"{{ role_path }}/files/vault\"\n  become: \"{{ vault_privileged_install }}\"\n  run_once: true\n  tags: installation\n  delegate_to: 127.0.0.1\n- name: Install Vault\n  become: true\n  ansible.builtin.copy:\n    src: \"{{ role_path }}/files/vault\"\n    dest: \"{{ vault_bin_path }}\"\n    owner: \"{{ vault_user }}\"\n    group: \"{{ vault_group }}\"\n    mode: \"{{ vault_harden_file_perms | ternary('0555', '0755') }}\"\n  notify: Restart vault\n  tags: installation\n- name: Cleanup (local)\n  ansible.builtin.file:\n    path: \"{{ item }}\"\n    state: \"absent\"\n  become: \"{{ vault_privileged_install }}\"\n  with_fileglob: \"{{ role_path }}/files/vault\"\n  run_once: true\n  tags: installation\n  delegate_to: 127.0.0.1"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: install_hashi_repo.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n# File: tasks/install_hashi_repo.yml\n#       Install Vault via HashiCorp Linux repository\n- name: Add Vault/Hashicorp rpm repo\n  ansible.builtin.yum_repository:\n    name: hashicorp\n    description: Hashicorp Stable - $basearch\n    baseurl: \"{{ vault_repository_url }}\"\n    gpgkey: \"{{ vault_repository_key_url }}\"\n    gpgcheck: true\n    enabled: true\n  become: true\n  when:\n    - ansible_pkg_mgr in ['yum', 'dnf', 'dnf5']\n    - vault_rhsm_repo_id is falsy\n- name: Make sure apt keyring directory exists\n  ansible.builtin.file:\n    path: /etc/apt/keyrings\n    state: directory\n    mode: \"0755\"\n  become: true\n  when: ansible_pkg_mgr == 'apt'\n- name: Add Vault/Hashicorp apt key\n  ansible.builtin.get_url:\n    url: \"{{ vault_repository_key_url }}\"\n    dest: /etc/apt/keyrings/hashicorp-archive-keyring.asc\n    mode: \"0644\"\n  register: __vault_hashicorp_apt_key_download\n  retries: 6\n  until: __vault_hashicorp_apt_key_download is succeeded\n  delay: 10\n  become: true\n  when: ansible_pkg_mgr == 'apt'\n- name: Add Vault/Hashicorp apt repo\n  ansible.builtin.apt_repository:\n    repo: \"deb [signed-by=/etc/apt/keyrings/hashicorp-archive-keyring.asc] {{ vault_repository_url }} {{ ansible_distribution_release }} main\"\n    state: present\n  become: true\n  when: ansible_pkg_mgr == 'apt'\n- name: Attach RHSM subscription / repo\n  when: vault_rhsm_repo_id is truthy\n  become: true\n  block:\n    - name: Check if Hashicorp/Vault RHSM repo subscription is enabled\n      ansible.builtin.command:\n        cmd: \"subscription-manager list --consumed --matches={{ vault_rhsm_subscription_name | quote }} --pool-only\"\n      register: _subscription_manager_consumed\n      changed_when: false\n      when: vault_rhsm_subscription_name is truthy\n    - name: Find Hashicorp/Vault RHSM repo subscription pool id\n      ansible.builtin.command:\n        cmd: \"subscription-manager list --available --matches={{ vault_rhsm_subscription_name | quote }} --pool-only\"\n      register: _subscription_manager_available\n      changed_when: false\n      when:\n        - vault_rhsm_subscription_name is truthy\n        - _subscription_manager_consumed.stdout | length <= 0\n    - name: Attach Hashicorp/Vault RHSM subscription\n      ansible.builtin.command:\n        cmd: \"subscription-manager attach --pool={{ _subscription_manager_available.stdout }}\"\n      register: _subscription_manager_attach\n      changed_when: _subscription_manager_attach.stdout is search('Successfully attached a subscription')\n      failed_when: _subscription_manager_attach.stdout is search('could not be found')\n      when:\n        - vault_rhsm_subscription_name is truthy\n        - _subscription_manager_consumed.stdout | default() | length <= 0\n        - _subscription_manager_available.stdout | default() | length > 0\n    - name: Enable RHSM repository\n      community.general.rhsm_repository:\n        name: \"{{ vault_rhsm_repo_id }}\"\n        state: enabled\n- name: Compute Vault package names for HashiCorp repositories\n  ansible.builtin.set_fact:\n    _vault_repo_pkg_name: \"{{ _vault_repo_pkg_base }}{{ '-hsm' if (vault_enterprise | bool and vault_enterprise_hsm | bool) else '' }}\"\n  vars:\n    _vault_repo_pkg_base: \"{{ 'vault' ~ ('-enterprise' if vault_enterprise | bool else '') }}\"\n- name: Compute conflicting Vault package names for HashiCorp repositories\n  ansible.builtin.set_fact:\n    _vault_repo_conflicting_pkgs: \"{{ ['vault', 'vault-enterprise', 'vault-enterprise-hsm'] | difference([_vault_repo_pkg_name]) }}\"\n- name: Ensure Enterprise package is not present when OSS is desired and vice versa\n  ansible.builtin.package:\n    name: \"{{ _vault_repo_conflicting_pkgs }}\"\n    state: absent\n  become: true\n- name: Ensure dnf versionlock plugin is installed when version locking is enabled\n  ansible.builtin.package:\n    name: python3-dnf-plugin-versionlock\n    state: present\n  become: true\n  when:\n    - ansible_pkg_mgr == 'dnf'\n    - vault_version_lock | bool\n- name: Reject unsupported package managers for version locking\n  ansible.builtin.fail:\n    msg: \"vault_version_lock is supported only with apt, dnf, and dnf5; detected {{ ansible_pkg_mgr }}\"\n  when:\n    - vault_version_lock | bool\n    - ansible_pkg_mgr not in ['apt', 'dnf', 'dnf5']\n- name: Remove Vault dnf versionlock if Vault is already installed\n  community.general.dnf_versionlock:\n    name: \"{{ _vault_repo_pkg_name }}\"\n    state: absent\n  become: true\n  when:\n    - ansible_pkg_mgr == 'dnf'\n    - vault_version_lock | bool\n- name: Check for an existing Vault dnf5 versionlock\n  ansible.builtin.command:\n    cmd: \"dnf5 versionlock list\"\n  register: _vault_dnf5_versionlock_list\n  changed_when: false\n  become: true\n  when:\n    - ansible_pkg_mgr == 'dnf5'\n    - vault_version_lock | bool\n- name: Remove Vault dnf5 versionlock if Vault is already installed\n  ansible.builtin.command:\n    cmd: \"dnf5 versionlock delete {{ _vault_repo_pkg_name }}\"\n  changed_when: true\n  become: true\n  when:\n    - ansible_pkg_mgr == 'dnf5'\n    - vault_version_lock | bool\n    - _vault_dnf5_versionlock_list.stdout is search(_vault_repo_pkg_name)\n- name: Gather package facts for apt version locking\n  ansible.builtin.package_facts:\n    manager: auto\n  become: true\n  when:\n    - ansible_pkg_mgr == 'apt'\n    - vault_version_lock | bool\n- name: Remove Vault apt hold if Vault is already installed\n  ansible.builtin.dpkg_selections:\n    name: \"{{ _vault_repo_pkg_name }}\"\n    selection: install\n  become: true\n  when:\n    - ansible_pkg_mgr == 'apt'\n    - vault_version_lock | bool\n    - _vault_repo_pkg_name in ansible_facts.packages\n- name: \"Install Vault package {{ _vault_repo_pkg }}\"\n  ansible.builtin.package:\n    name: \"{{ _vault_repo_pkg }}\"\n    state: present\n  become: true\n  vars:\n    _vault_repo_pkg: \"{% if (ansible_pkg_mgr in ['yum', 'dnf', 'dnf5']) %}\\\n      {{ _vault_repo_pkg_name }}-{{ vault_version }}{{ vault_version_repo_suffix }}\\\n      {% else %}\\\n      {{ _vault_repo_pkg_name }}={{ vault_version }}{{ vault_version_repo_suffix }}\\\n      {% endif %}\"\n  notify: Restart vault\n- name: Lock Vault package version with dnf if version locking is enabled\n  community.general.dnf_versionlock:\n    name: \"{{ _vault_repo_pkg_name }}\"\n    state: present\n  become: true\n  when:\n    - ansible_pkg_mgr == 'dnf'\n    - vault_version_lock | bool\n- name: Lock Vault package version with dnf5 if version locking is enabled\n  ansible.builtin.command:\n    cmd: \"dnf5 versionlock add {{ _vault_repo_pkg_name }}\"\n  changed_when: true\n  become: true\n  when:\n    - ansible_pkg_mgr == 'dnf5'\n    - vault_version_lock | bool\n- name: Lock Vault package version with apt if version locking is enabled\n  ansible.builtin.dpkg_selections:\n    name: \"{{ _vault_repo_pkg_name }}\"\n    selection: hold\n  become: true\n  when:\n    - ansible_pkg_mgr == 'apt'\n    - vault_version_lock | bool\n- name: Mask default Vault config from package\n  become: true\n  ansible.builtin.copy:\n    owner: root\n    group: root\n    mode: \"{{ vault_harden_file_perms | ternary('0444', '0644') }}\"\n    dest: /etc/vault.d/vault.hcl\n    content: |\n      # Placeholder to mask default RPM/DPKG Vault config file.\n      #\n      # Package-installed config would interfere with Ansible-managed config files\n      # in this directory. Keeping an empty placeholder prevents package updates\n      # from re-installing the default config.\n  when: ansible_pkg_mgr in ['yum', 'dnf', 'dnf5', 'apt']\n- name: Harden binary perms\n  become: true\n  ansible.builtin.file:\n    path: \"{{ vault_bin_path }}/vault\"\n    mode: \"0755\" # Package default is 0775\n    owner: root # Package default\n    group: root # Package default\n  when: vault_harden_file_perms\n- name: Delete vault.env\n  become: true\n  ansible.builtin.file:\n    state: absent\n    path: /etc/vault.d/vault.env\n  when: vault_harden_file_perms\n- name: Harden perms of default cert/key\n  ansible.builtin.file:\n    path: \"/opt/vault/tls/{{ item }}\"\n    mode: \"0400\"\n  with_items:\n    - tls.crt\n    - tls.key\n  when:\n    - vault_harden_file_perms\n    - not vault_tls_disable\n    - not vault_tls_copy_keys\n- name: Delete default cert/key\n  become: true\n  ansible.builtin.file:\n    state: absent\n    path: \"/opt/vault/tls/{{ item }}\"\n  with_items:\n    - tls.crt\n    - tls.key\n  when: vault_tls_disable or vault_tls_copy_keys"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: install_remote.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n# File: tasks/install_remote.yml\n#       Package installation tasks for vault\n- name: Ensure remote vault dir exists\n  ansible.builtin.file:\n    path: /tmp/vault\n    state: directory\n    mode: \"0750\"\n- name: Check Vault package file\n  ansible.builtin.stat:\n    path: \"/tmp/vault/{{ vault_pkg }}\"\n  register: vault_package\n  tags: installation\n- name: \"Download Vault → {{ vault_zip_url }}\"\n  ansible.builtin.get_url:\n    url: \"{{ vault_zip_url }}\"\n    dest: \"/tmp/vault/{{ vault_pkg }}\"\n    checksum: \"sha256:{{ (lookup('url', vault_checksum_file_url, wantlist=true) | select('match', '.*' + vault_pkg + '$') | first).split()[0] }}\"\n    timeout: 42\n    mode: \"0644\"\n  register: __vault_download_remote_package\n  retries: 6\n  until: __vault_download_remote_package is succeeded\n  delay: 10\n  tags: installation\n  when: not vault_package.stat.exists | bool\n- name: Unarchive Vault and install binary\n  become: true\n  ansible.builtin.unarchive:\n    remote_src: true\n    src: \"/tmp/vault/{{ vault_pkg }}\"\n    dest: \"{{ vault_bin_path }}\"\n    owner: \"{{ vault_user }}\"\n    group: \"{{ vault_group }}\"\n    mode: \"{{ vault_harden_file_perms | ternary('0555', '0755') }}\"\n  notify: Restart vault\n  tags: installation\n- name: Cleanup\n  ansible.builtin.file:\n    path: \"/tmp/vault\"\n    state: absent\n  tags: installation"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: main.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Include asserts\n  ansible.builtin.include_tasks: asserts.yml\n- name: Include OS-specific variables\n  ansible.builtin.include_vars: \"{{ lookup('first_found', params) }}\"\n  vars:\n    params:\n      files:\n        - \"{{ ansible_os_family }}{{ ansible_distribution_major_version }}.yml\"\n        - \"{{ ansible_os_family }}.yml\"\n      paths:\n        - vars\n- name: Run preinstall tasks\n  ansible.builtin.include_tasks: preinstall.yml\n  tags: preinstall\n- name: Run hardening tasks\n  ansible.builtin.include_tasks: hardening.yml\n  tags: hardening\n- name: Check Vault installation\n  ansible.builtin.shell:\n    cmd: command -v vault # noqa command-instead-of-shell  # command is a shell builtin\n  environment:\n    PATH: \"{{ vault_bin_path }}:{{ ansible_env.PATH }}\"\n  register: vault_installation\n  changed_when: false\n  ignore_errors: true\n  check_mode: false\n- name: Get installed Vault version\n  ansible.builtin.shell:\n    cmd: |\n      set -o pipefail\n      {{ vault_installation.stdout }} -version | cut -d' ' -f2 | tr -d 'v'\n  args:\n    executable: /bin/bash\n  when: not vault_installation is failed\n  changed_when: false\n  check_mode: false\n  register: installed_vault_version\n- name: Compute if installation is required\n  ansible.builtin.set_fact:\n    installation_required: \"{{ vault_installation is failed or installed_vault_version.stdout != vault_version~('+ent' if vault_enterprise) }}\"\n- name: Install OS packages and Vault via control host\n  ansible.builtin.include_tasks: install.yml\n  when:\n    - not vault_install_remotely | bool\n    - not vault_install_hashi_repo | bool\n    - installation_required | bool\n- name: Install Vault via HashiCorp repository\n  ansible.builtin.include_tasks: install_hashi_repo.yml\n  when:\n    - not vault_install_remotely | bool\n    - vault_install_hashi_repo | bool\n    - installation_required | bool\n- name: Install OS packages and Vault via remote hosts\n  ansible.builtin.include_tasks: install_remote.yml\n  when:\n    - not vault_enterprise | bool\n    - vault_install_remotely | bool\n    - not vault_install_hashi_repo | bool\n    - installation_required | bool\n- name: Check Vault mlock capability\n  become: true\n  ansible.builtin.command:\n    cmd: \"setcap cap_ipc_lock=+ep {{ vault_bin_path }}/vault\"\n  changed_when: false # read-only task\n  ignore_errors: true\n  register: vault_mlock_capability\n  when: not vault_disable_mlock | bool\n- name: Enable non root mlock capability\n  become: true\n  ansible.builtin.command:\n    cmd: \"setcap cap_ipc_lock=+ep {{ vault_bin_path }}/vault\"\n  register: output\n  changed_when: output.rc != 0\n  when:\n    - not vault_disable_mlock | bool\n    - vault_mlock_capability is failed\n- name: Create directories\n  become: true\n  ansible.builtin.file:\n    path: \"{{ item.path }}\"\n    state: directory\n    owner: \"{{ vault_user }}\"\n    group: \"{{ vault_group }}\"\n    mode: \"{{ item.mode }}\"\n  with_items:\n    - path: \"{{ vault_config_path }}\"\n      mode: \"{{ vault_harden_file_perms | ternary('0550', '0750') }}\"\n    - path: \"{{ vault_plugin_path }}\"\n      mode: \"{{ vault_harden_file_perms | ternary('0555', '0755') }}\"\n    - path: \"{{ vault_data_path }}\"\n      mode: \"0750\"\n- name: Create log directory\n  become: true\n  ansible.builtin.file:\n    path: \"{{ vault_log_path }}\"\n    state: directory\n    owner: \"{{ vault_user }}\"\n    group: \"{{ vault_group }}\"\n    mode: \"0750\"\n  when: vault_enable_log | bool\n- name: Create run directory\n  become: true\n  ansible.builtin.file:\n    path: \"{{ vault_run_path }}\"\n    state: directory\n    owner: \"{{ vault_user }}\"\n    group: \"{{ vault_group }}\"\n    mode: \"0750\"\n  when: not vault_install_hashi_repo | bool\n- name: Create directory for vault logs\n  become: true\n  ansible.builtin.file:\n    path: \"{{ vault_log_path }}\"\n    state: directory\n    owner: \"{{ vault_user }}\"\n    group: \"{{ vault_group }}\"\n    mode: \"0750\"\n  when: vault_enable_log | bool\n- name: TLS configuration\n  ansible.builtin.include_tasks: tls.yml\n  when: not vault_tls_disable | bool\n- name: Backend storage TLS configuration\n  ansible.builtin.include_tasks: backend_tls.yml\n  when: vault_tls_gossip | bool\n- name: \"Get content of GCP Credentials from file\"\n  ansible.builtin.set_fact:\n    vault_gkms_credentials_content: \"{{ lookup('file', vault_gkms_credentials_src_file) }}\"\n  when:\n    - vault_gkms | bool\n    - vault_gkms_credentials_src_file | length > 0\n- name: \"Copy over GCP Credentials for Auto Unseal\" # noqa template-instead-of-copy  # https://github.com/ansible/ansible-lint/issues/2501\n  ansible.builtin.copy:\n    content: \"{{ vault_gkms_credentials_content }}\"\n    dest: \"{{ vault_gkms_credentials }}\"\n    owner: \"{{ vault_user }}\"\n    group: \"{{ vault_group }}\"\n    mode: \"{{ vault_harden_file_perms | ternary('0400', '0600') }}\"\n  when:\n    - vault_gkms | bool\n    - vault_gkms_credentials_content | length > 0 or\n      vault_gkms_copy_sa | bool\n- name: \"Copy GCP Credentials for gcs backend\"\n  ansible.builtin.copy:\n    src: \"{{ vault_gcs_credentials_src_file }}\"\n    dest: \"{{ vault_gcs_credentials_dst_file }}\"\n    owner: \"{{ vault_user }}\"\n    group: \"{{ vault_group }}\"\n    mode: \"{{ vault_harden_file_perms | ternary('0400', '0600') }}\"\n  when:\n    - vault_backend == \"gcs\"\n    - vault_gcs_copy_sa | bool\n- name: Vault main configuration\n  become: true\n  ansible.builtin.template:\n    src: \"{{ vault_main_configuration_template }}\"\n    dest: \"{{ vault_main_config }}\"\n    owner: \"{{ vault_user }}\"\n    group: \"{{ vault_group }}\"\n    mode: \"{{ vault_harden_file_perms | ternary('0400', '0600') }}\"\n    backup: \"{{ vault_backup_config | default('false') | bool | lower }}\"\n  notify:\n    - Restart vault\n    - Reload vault\n- name: Vault transit seal configuration\n  become: true\n  ansible.builtin.template:\n    src: \"{{ vault_transit_backend }}\"\n    dest: \"{{ vault_transit_config }}\"\n    owner: \"{{ vault_user }}\"\n    group: \"{{ vault_group }}\"\n    mode: \"{{ vault_harden_file_perms | ternary('0400', '0600') }}\"\n    backup: \"{{ vault_backup_config | default('false') | bool | lower }}\"\n  when: vault_transit | bool\n  notify: Restart vault\n- name: Vault awskms seal configuration\n  become: true\n  ansible.builtin.template:\n    src: \"{{ vault_awskms_backend }}\"\n    dest: \"{{ vault_awskms_config }}\"\n    owner: \"{{ vault_user }}\"\n    group: \"{{ vault_group }}\"\n    mode: \"{{ vault_harden_file_perms | ternary('0400', '0600') }}\"\n    backup: \"{{ vault_backup_config | default('false') | bool | lower }}\"\n  when: vault_awskms | bool\n  notify: Restart vault\n- name: Vault azurekeyvault seal configuration\n  become: true\n  ansible.builtin.template:\n    src: \"{{ vault_azurekeyvault_backend }}\"\n    dest: \"{{ vault_azurekeyvault_config }}\"\n    owner: \"{{ vault_user }}\"\n    group: \"{{ vault_group }}\"\n    mode: \"{{ vault_harden_file_perms | ternary('0400', '0600') }}\"\n    backup: \"{{ vault_backup_config | default('false') | bool | lower }}\"\n  when: vault_azurekeyvault | bool\n  notify: Restart vault\n- name: Upload Vault license file to vault_license_path\n  become: true\n  ansible.builtin.copy:\n    src: \"{{ vault_license_file }}\"\n    dest: \"{{ vault_license_path }}\"\n    owner: \"{{ vault_user }}\"\n    group: \"{{ vault_group }}\"\n    mode: \"{{ vault_harden_file_perms | ternary('0400', '0644') }}\"\n  when:\n    - vault_configure_enterprise_license | bool\n    - vault_license_file | length > 0\n- name: Upload Vault license content to vault_license_path\n  become: true\n  ansible.builtin.copy:\n    content: \"{{ vault_license_content }}\"\n    dest: \"{{ vault_license_path }}\"\n    owner: \"{{ vault_user }}\"\n    group: \"{{ vault_group }}\"\n    mode: \"{{ vault_harden_file_perms | ternary('0400', '0644') }}\"\n  when:\n    - vault_configure_enterprise_license | bool\n    - vault_license_content | length > 0\n- name: Configure and start Vault service\n  ansible.builtin.include_tasks: service.yml\n  when: not (vault_agent_supervisor_mode | bool)\n- name: Compute TLS friendly vault_addr\n  ansible.builtin.set_fact:\n    vault_addr: \"{{ (vault_address == '0.0.0.0') | ternary('127.0.0.1', vault_address) }}\"\n- name: Insert http(s) export in dotfile\n  become: true\n  ansible.builtin.lineinfile:\n    path: \"{{ vault_home }}/{{ vault_dotfile }}\"\n    regexp: \"^export VAULT_ADDR=\"\n    line: \"export VAULT_ADDR='{{ vault_tls_disable | ternary('http', 'https') }}://{{ vault_addr }}:{{ vault_port }}'\"\n    owner: \"{{ vault_user }}\"\n    group: \"{{ vault_group }}\"\n    create: true\n    mode: \"0600\"\n  when:\n    - not vault_dotfile_disable\n    - ansible_os_family != 'Windows'\n- name: Insert CA cert export in dotfile\n  become: true\n  ansible.builtin.lineinfile:\n    path: \"{{ vault_home }}/{{ vault_dotfile }}\"\n    regexp: \"^export VAULT_CACERT=\"\n    line: \"export VAULT_CACERT={{ vault_tls_certs_path }}/{{ vault_tls_ca_file }}\"\n    owner: \"{{ vault_user }}\"\n    group: \"{{ vault_group }}\"\n    create: true\n    mode: \"0600\"\n  when:\n    - not vault_dotfile_disable\n    - not vault_tls_disable | bool\n    - ansible_os_family != 'Windows'\n# This should succeed regardless of seal state\n- name: Vault API reachable?\n  # Attempt to help with long lines > 160 issues\n  vars:\n    vault_addr_protocol: \"{{ vault_tls_disable | ternary('http', 'https') }}\"\n  environment:\n    no_proxy: \"{{ vault_api_addr | urlsplit('hostname') }}\"\n  ansible.builtin.uri:\n    validate_certs: \"{{ validate_certs_during_api_reachable_check | bool }}\"\n    url: \"{{ vault_api_addr }}/v1/sys/health\"\n    method: GET\n    # 200 if initialized, unsealed, and active\n    # 429 if unsealed and standby\n    # 472 if data recovery mode replication secondary and active\n    # 473 if performance standby\n    # 501 if not initialized\n    # 503 if sealed\n    # See: https://www.vaultproject.io/api/system/health.html\n    status_code: 200, 429, 472, 473, 501, 503\n    body_format: json\n  register: check_result\n  retries: 6\n  until: check_result is succeeded\n  delay: 10\n  changed_when: false\n  tags:\n    - check_vault\n  when:\n    - not vault_disable_api_health_check | bool\n- name: Install/configure vault plugins\n  ansible.builtin.include_tasks: \"plugins/{{ _index_plugin }}.yml\"\n  loop:\n    \"{{ ('molecule-notest' not in ansible_skip_tags) | ternary(vault_plugins_enable,\n    lookup('fileglob', 'tasks/plugins/*.yml', wantlist=true) | map('basename') | map('splitext') | map('first')) }}\"\n  loop_control:\n    loop_var: _index_plugin\n  args:\n    apply:\n      environment:\n        VAULT_ADDR: \"{{ lookup('env', 'VAULT_ADDR') |\n          default(vault_tls_disable | ternary('http', 'https') ~ '://' ~ vault_addr ~ ':' ~ vault_port, true) }}\"\n        VAULT_CACERT: \"{{ lookup('env', 'VAULT_CACERT') |\n          default(vault_tls_config_path ~ '/' ~ vault_tls_ca_file if not (vault_tls_disable) else '', true) }}\"\n        VAULT_TOKEN: \"{{ lookup('env', 'VAULT_TOKEN') | default(lookup('file', '~/.vault-token', errors='ignore'), true) }}\"\n  when: vault_plugin_install | bool\n- name: Vault status\n  ansible.builtin.debug:\n    msg: \"Vault is {{ vault_http_status[check_result.status | string] }}\"\n  tags:\n    - check_vault\n  when:\n    - not vault_disable_api_health_check | bool"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: acme.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Looking up latest version of acme plugin\n  ansible.builtin.set_fact:\n    vault_plugin_acme_version: \"{{ (lookup('url', 'https://api.github.com/repos/remilapeyre/vault-acme/releases', split_lines=false) |\n                                from_json)[0].get('tag_name') | replace('v', '') }}\"\n  when: 'vault_plugin_acme_version == \"latest\"'\n- name: Vault acme plugin installation\n  block:\n    - name: Fetch acme vault plugin\n      delegate_to: \"{{ (vault_plugin_acme_install == 'local') | ternary('localhost', inventory_hostname) }}\"\n      block:\n        - name: Create temporary directory for acme vault plugin\n          ansible.builtin.file:\n            path: \"{{ (vault_plugin_acme_install == 'local') | ternary(vault_plugins_src_dir_local, vault_plugins_src_dir_remote) }}/acme\"\n            state: directory\n            mode: \"0755\"\n            owner: \"{{ (vault_plugin_acme_install == 'local') | ternary(omit, vault_user) }}\"\n            group: \"{{ (vault_plugin_acme_install == 'local') | ternary(omit, vault_group) }}\"\n          register: __vault_plugin_acme_zip_dir\n          run_once: \"{{ (vault_plugin_acme_install == 'local') }}\"\n        - name: Download acme vault plugin\n          ansible.builtin.get_url:\n            url: \"{{ vault_plugin_acme_release_url }}/{{ vault_plugin_acme_zip }}\"\n            dest: \"{{ __vault_plugin_acme_zip_dir.path }}\"\n            checksum: \"sha256:{{ vault_plugin_acme_zip_sha256sum }}\"\n            mode: \"0644\"\n          register: __vault_plugin_acme_zip_file\n          retries: 6\n          until: __vault_plugin_acme_zip_file is succeeded\n          delay: 10\n          run_once: \"{{ (vault_plugin_acme_install == 'local') }}\"\n        - name: Extract acme vault plugin\n          ansible.builtin.unarchive:\n            remote_src: \"{{ (vault_plugin_acme_install == 'remote') }}\"\n            src: \"{{ __vault_plugin_acme_zip_file.dest }}\"\n            dest: \"{{ __vault_plugin_acme_zip_dir.path }}\"\n            mode: \"0644\"\n          run_once: \"{{ (vault_plugin_acme_install == 'local') }}\"\n    - name: Install acme vault plugin\n      ansible.builtin.copy:\n        remote_src: \"{{ (vault_plugin_acme_install == 'remote') }}\"\n        src: \"{{ __vault_plugin_acme_zip_dir.path }}/{{ item.src }}\"\n        dest: \"{{ item.dest }}\"\n        mode: \"{{ vault_harden_file_perms | ternary('0555', '0755') }}\"\n        owner: \"{{ vault_user }}\"\n        group: \"{{ vault_group }}\"\n      when: (item.when | default(true))\n      loop:\n        - src: \"acme-plugin\"\n          dest: \"{{ vault_plugin_path }}/acme\"\n        - src: \"sidecar\"\n          dest: \"/usr/local/bin/vault-acme-sidecar\"\n          when: \"{{ vault_plugin_acme_sidecar_install }}\"\n  always:\n    - name: \"Clean up src directory\"\n      ansible.builtin.file:\n        path: \"{{ __vault_plugin_acme_zip_dir.path }}\"\n        state: absent\n      delegate_to: \"{{ (vault_plugin_acme_install == 'local') | ternary('localhost', inventory_hostname) }}\"\n      run_once: \"{{ (vault_plugin_acme_install == 'local') }}\"\n      when: (vault_plugins_src_dir_cleanup)\n- name: \"Check vault authentication\"\n  ansible.builtin.command:\n    cmd: vault token lookup\n  changed_when: false\n  failed_when: false\n  register: __vault_token_lookup\n  no_log: true\n- name: Enable acme plugin\n  when:\n    - (check_result.status == 200)\n    - (__vault_token_lookup.rc == 0)\n  block:\n    - name: \"Look up registered acme plugin sha256\"\n      ansible.builtin.command:\n        cmd: vault plugin info -field=sha256 secret acme\n      changed_when: false\n      failed_when: false\n      register: __vault_plugin_acme_registered_sha256\n    - name: \"Get acme plugin sha256sum\"\n      ansible.builtin.stat:\n        path: \"{{ vault_plugin_path }}/acme\"\n        checksum_algorithm: sha256\n      register: __vault_plugin_acme_sha256sum\n    - name: \"Register acme plugin in vault catalog\"\n      ansible.builtin.command:\n        cmd: \"vault write sys/plugins/catalog/secret/acme\n              sha_256={{ __vault_plugin_acme_sha256sum.stat.checksum }}\n              version={{ vault_plugin_acme_version }} command=acme\"\n      become: true\n      become_user: \"{{ vault_user }}\"\n      register: __vault_write_acme\n      changed_when: __vault_write_acme.stdout is search('Success!')\n      when: __vault_plugin_acme_registered_sha256.stdout != __vault_plugin_acme_sha256sum.stat.checksum\n    - name: \"Enable acme plugin\"\n      ansible.builtin.command:\n        cmd: vault secrets enable -path acme -plugin-name acme plugin\n      register: __vault_plugin_acme_enable\n      changed_when: __vault_plugin_acme_enable.stdout is search('Enabled the acme secrets engine')\n      failed_when: __vault_plugin_acme_enable.stdout is search('plugin not found in the catalog')"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: preinstall.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n# File: tasks/preinstall.yml - pre-installation tasks for vault\n- name: Add Vault group\n  become: true\n  ansible.builtin.group:\n    name: \"{{ vault_group }}\"\n    state: present\n  when: vault_manage_group | bool\n- name: Add Vault user\n  become: true\n  ansible.builtin.user:\n    name: \"{{ vault_user }}\"\n    comment: \"Vault user\"\n    group: \"{{ vault_group }}\"\n    groups: \"{{ vault_groups }}\"\n    system: true\n  when: vault_manage_user | bool\n- name: Check whether HSM group is present\n  become: true\n  ansible.builtin.getent:\n    database: group\n    key: \"{{ vault_hsm_group }}\"\n    fail_key: false\n  when: vault_enterprise_hsm | bool\n- name: Add Vault user to HSM group\n  become: true\n  ansible.builtin.user:\n    name: \"{{ vault_user }}\"\n    groups: \"{{ vault_hsm_group }}\"\n    append: true\n  when:\n    - vault_enterprise_hsm | bool\n    - ansible_facts.getent_group[vault_hsm_group] | default(none) is not none\n  notify: Restart vault\n- name: Update package cache\n  become: true\n  ansible.builtin.package:\n    update_cache: true\n  tags:\n    - update_cache\n    - molecule-idempotence-notest\n  when: vault_os_packages | default([]) | length > 0\n- name: OS packages\n  become: true\n  ansible.builtin.package:\n    name: \"{{ vault_os_packages }}\"\n    state: present\n  when: vault_os_packages | default([]) | length > 0"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: service.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: BSD init script\n  ansible.builtin.template:\n    src: \"{{ vault_bsdinit_template }}\"\n    dest: /etc/rc.d/vault\n    owner: root\n    group: wheel\n    mode: \"0755\"\n  when: ansible_os_family == \"FreeBSD\"\n- name: SYSV init script\n  ansible.builtin.template:\n    src: \"{{ vault_sysvinit_template }}\"\n    dest: /etc/init.d/vault\n    owner: root\n    group: root\n    mode: \"0755\"\n  when:\n    - not ansible_service_mgr == \"systemd\"\n    - not ansible_os_family == \"Debian\"\n    - not ansible_os_family == \"FreeBSD\"\n    - not ansible_os_family == \"Solaris\"\n- name: Debian init script\n  ansible.builtin.template:\n    src: \"{{ vault_debian_init_template }}\"\n    dest: /etc/init.d/vault\n    owner: root\n    group: root\n    mode: \"0755\"\n  when:\n    - not ansible_service_mgr == \"systemd\"\n    - ansible_os_family == \"Debian\"\n    - not ansible_os_family == \"FreeBSD\"\n    - not ansible_os_family == \"Solaris\"\n- name: Extract systemd version\n  ansible.builtin.shell:\n    cmd: |\n      set -o pipefail\n      systemctl --version systemd | head -n 1 | cut -d' ' -f2\n  args:\n    executable: /bin/bash\n  changed_when: false\n  check_mode: false\n  register: systemd_version\n  when:\n    - ansible_service_mgr == \"systemd\"\n    - not ansible_os_family == \"FreeBSD\"\n    - not ansible_os_family == \"Solaris\"\n  tags: skip_ansible_lint\n- name: Systemd unit\n  become: true\n  ansible.builtin.template:\n    src: \"{{ vault_systemd_template }}\"\n    dest: \"{{ vault_systemd_unit_path }}/{{ vault_systemd_service_name }}.service\"\n    force: true\n    owner: root\n    group: root\n    mode: \"0644\"\n  register: systemd_unit\n  when:\n    - ansible_service_mgr == \"systemd\"\n    - not ansible_os_family == \"FreeBSD\"\n    - not ansible_os_family == \"Solaris\"\n    - systemd_version is defined\n- name: Reload systemd\n  become: true\n  ansible.builtin.systemd:\n    daemon_reload: true\n  notify: Restart Vault\n  when:\n    - ansible_service_mgr == \"systemd\"\n    - not ansible_os_family == \"FreeBSD\"\n    - not ansible_os_family == \"Solaris\"\n    - systemd_version is defined\n    - systemd_unit is changed\n- name: Start Vault\n  become: true\n  ansible.builtin.service:\n    name: '{{ vault_systemd_service_name }}'\n    state: started\n    enabled: true\n  register: start_vault\n- name: Pause to let Vault startup correctly\n  ansible.builtin.pause:\n    seconds: \"{{ vault_start_pause_seconds }}\"\n  when:\n    - start_vault is changed   # noqa no-handler\n    - vault_start_pause_seconds | int > 0\n- name: Restart Vault if needed\n  ansible.builtin.meta: flush_handlers"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: tls.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n# File: tasks/tls.yml - TLS tasks for Vault\n- name: Create TLS directory\n  become: true\n  ansible.builtin.file:\n    path: \"{{ vault_tls_certs_path }}\"\n    state: directory\n    owner: \"{{ vault_user }}\"\n    group: \"{{ vault_group }}\"\n    mode: \"{{ vault_harden_file_perms | ternary('0555', '0755') }}\"\n  when: vault_tls_copy_keys | bool\n  tags:\n    - tls\n- name: Create private TLS directory\n  become: true\n  ansible.builtin.file:\n    path: \"{{ vault_tls_private_path }}\"\n    state: directory\n    owner: \"{{ vault_user }}\"\n    group: \"{{ vault_group }}\"\n    mode: \"{{ vault_harden_file_perms | ternary('0500', '0700') }}\"\n  when:\n    - vault_tls_copy_keys | bool\n    - vault_tls_certs_path != vault_tls_private_path\n  tags:\n    - tls\n- name: Vault SSL Certificate and Key\n  become: true\n  ansible.builtin.copy:\n    remote_src: \"{{ vault_tls_files_remote_src }}\"\n    src: \"{{ item.src }}\"\n    dest: \"{{ item.dest }}\"\n    owner: \"{{ vault_user }}\"\n    group: \"{{ vault_group }}\"\n    mode: \"{{ item.mode }}\"\n  with_items:\n    - src: \"{{ vault_tls_src_files }}/{{ vault_tls_ca_file }}\"\n      dest: \"{{ vault_tls_certs_path }}/{{ vault_tls_ca_file }}\"\n      mode: \"{{ vault_harden_file_perms | ternary('0444', '0644') }}\"\n    - src: \"{{ vault_tls_src_files }}/{{ vault_tls_cert_file }}\"\n      dest: \"{{ vault_tls_certs_path }}/{{ vault_tls_cert_file }}\"\n      mode: \"{{ vault_harden_file_perms | ternary('0444', '0644') }}\"\n    - src: \"{{ vault_tls_src_files }}/{{ vault_tls_key_file }}\"\n      dest: \"{{ vault_tls_private_path }}/{{ vault_tls_key_file }}\"\n      mode: \"{{ vault_harden_file_perms | ternary('0400', '0600') }}\"\n  when: vault_tls_copy_keys | bool\n  notify:\n    - Restart vault\n    - Reload vault\n  tags:\n    - tls"
+      }
+    ]
   }
 ]

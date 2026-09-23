@@ -49,6 +49,7 @@ jobs:
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "41898282+github-actions[bot]@github.com"
+        git add -A
         git add ansible_python_dataset.json saved_links.txt
         git commit -m "🤖 Auto-update raw dataset from cloud scraping [skip ci]" || echo "No changes to commit"
         git pull --rebase -X theirs https://x-access-token:$RECON_TOKEN@github.com/$REPO_NAME.git $BRANCH_NAME

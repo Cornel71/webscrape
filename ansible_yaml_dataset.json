@@ -1306,5 +1306,29 @@
         "value": "---\n# File: tasks/tls.yml - TLS tasks for Vault\n- name: Create TLS directory\n  become: true\n  ansible.builtin.file:\n    path: \"{{ vault_tls_certs_path }}\"\n    state: directory\n    owner: \"{{ vault_user }}\"\n    group: \"{{ vault_group }}\"\n    mode: \"{{ vault_harden_file_perms | ternary('0555', '0755') }}\"\n  when: vault_tls_copy_keys | bool\n  tags:\n    - tls\n- name: Create private TLS directory\n  become: true\n  ansible.builtin.file:\n    path: \"{{ vault_tls_private_path }}\"\n    state: directory\n    owner: \"{{ vault_user }}\"\n    group: \"{{ vault_group }}\"\n    mode: \"{{ vault_harden_file_perms | ternary('0500', '0700') }}\"\n  when:\n    - vault_tls_copy_keys | bool\n    - vault_tls_certs_path != vault_tls_private_path\n  tags:\n    - tls\n- name: Vault SSL Certificate and Key\n  become: true\n  ansible.builtin.copy:\n    remote_src: \"{{ vault_tls_files_remote_src }}\"\n    src: \"{{ item.src }}\"\n    dest: \"{{ item.dest }}\"\n    owner: \"{{ vault_user }}\"\n    group: \"{{ vault_group }}\"\n    mode: \"{{ item.mode }}\"\n  with_items:\n    - src: \"{{ vault_tls_src_files }}/{{ vault_tls_ca_file }}\"\n      dest: \"{{ vault_tls_certs_path }}/{{ vault_tls_ca_file }}\"\n      mode: \"{{ vault_harden_file_perms | ternary('0444', '0644') }}\"\n    - src: \"{{ vault_tls_src_files }}/{{ vault_tls_cert_file }}\"\n      dest: \"{{ vault_tls_certs_path }}/{{ vault_tls_cert_file }}\"\n      mode: \"{{ vault_harden_file_perms | ternary('0444', '0644') }}\"\n    - src: \"{{ vault_tls_src_files }}/{{ vault_tls_key_file }}\"\n      dest: \"{{ vault_tls_private_path }}/{{ vault_tls_key_file }}\"\n      mode: \"{{ vault_harden_file_perms | ternary('0400', '0600') }}\"\n  when: vault_tls_copy_keys | bool\n  notify:\n    - Restart vault\n    - Reload vault\n  tags:\n    - tls"
       }
     ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: Install and configure Nginx using Ansible"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- hosts: all\n  tasks:\n    - name: ensure nginx is at the latest version\n      apt: name=nginx state=latest\n      become: yes\n    - name: start nginx\n      service:\n          name: nginx\n          state: started\n      become: yes\n    - name: copy the nginx config file and restart nginx\n      copy:\n        src: /home/foo/static_site.cfg\n        dest: /etc/nginx/sites-available/static_site.cfg\n      become: yes\n    - name: create symlink\n      file:\n        src: /etc/nginx/sites-available/static_site.cfg\n        dest: /etc/nginx/sites-enabled/default\n        state: link\n      become: yes\n    - name: copy the content of the web site\n      copy:\n        src: /home/foo/static-site-src/\n        dest: /home/foo/static-site\n    - name: restart nginx\n      service:\n        name: nginx\n        state: restarted\n      become: yes"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: Add Users and Groups using Ansible User Module"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Manage user accounts across multiple environments\n  hosts: all\n  vars_files:\n    - users.yml\n    - environments.yml\n  tasks:\n    - name: Ensure users exist\n      user:\n        name: \"{{ item.name }}\"\n        state: present\n        generate_ssh_key: yes\n        ssh_key_type: rsa\n        ssh_key_bits: 4096\n      loop: \"{{ users }}\"\n      notify:\n        - Add SSH key for user\n    - name: Ensure user is part of required groups\n      user:\n        name: \"{{ item }}\"\n        groups: \"{{ groups }}\"\n        append: yes\n      loop: \"{{ environment_users }}\"\n      when: environment_users is defined\n    - name: Add users to sudoers if required\n      lineinfile:\n        path: /etc/sudoers.d/{{ item }}\n        state: \"{{ 'present' if item in sudo_users else 'absent' }}\"\n        create: yes\n        line: \"{{ item }} ALL=(ALL) NOPASSWD:ALL\"\n        validate: 'visudo -cf %s'\n      loop: \"{{ environment_users }}\"\n      when: sudo_users is defined\n    - name: Remove users not in the current environment\n      user:\n        name: \"{{ item }}\"\n        state: absent\n        remove: yes\n      loop: \"{{ removed_users }}\"\n      when: removed_users is defined\n  handlers:\n    - name: Add SSH key for user\n      authorized_key:\n        user: \"{{ item.name }}\"\n        state: present\n        key: \"{{ item.ssh_key }}\"\n      loop: \"{{ users }}\"\n  vars:\n    environment_users: \"{{ environments | selectattr('name', 'equalto', ansible_hostname) | map(attribute='users') | first }}\"\n    sudo_users: \"{{ environments | selectattr('name', 'equalto', ansible_hostname) | map(attribute='sudo') | first }}\"\n    removed_users: \"{{ users | map(attribute='name') | difference(environment_users | map(attribute='dev') | list | union(environment_users | map(attribute='qa') | list | union(environment_users | map(attribute='prod') | list))) }}\""
+      }
+    ]
   }
 ]

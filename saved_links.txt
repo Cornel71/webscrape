@@ -3,3 +3,7 @@ https://dev.to/dpuig/creating-an-ansible-playbook-to-install-and-configure-nginx
 https://github.com/geerlingguy/ansible-role-mysql
 https://github.com/ansible-community/ansible-vault
 https://dperfectdude.medium.com/create-multiple-users-with-ansible-85c1cd636bcb
+https://code-maven.com/install-and-configure-nginx-using-ansible
+https://medium.com/splunkuserdeveloperadministrator/creating-mysql-databases-with-ansible-925ab28598ab
+https://docs.ansible.com/ansible/2.9/plugins/lookup/hashi_vault.html
+https://linuxbuz.com/devops/ansible-user-module

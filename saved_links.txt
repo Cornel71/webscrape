@@ -11,3 +11,7 @@ https://github.com/geerlingguy/ansible-role-nginx
 https://severalnines.com/blog/introduction-mysql-deployment-using-ansible-role/
 https://github.com/ansible-collections/hashicorp.vault
 https://medium.com/@fawazcp/how-to-create-users-and-groups-in-ansible-8280fb703fad
+https://charlesreid1.com/wiki/Ansible/Nginx_Playbook
+https://github.com/garethrees/ansible-mysql-service/blob/master/ansible/playbook.yml
+https://docs.ansible.com/projects/ansible/latest/collections/community/hashi_vault/hashi_vault_lookup.html
+https://forum.ansible.com/t/playbook-to-create-multiple-users/12853

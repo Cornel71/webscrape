@@ -15,3 +15,7 @@ https://charlesreid1.com/wiki/Ansible/Nginx_Playbook
 https://github.com/garethrees/ansible-mysql-service/blob/master/ansible/playbook.yml
 https://docs.ansible.com/projects/ansible/latest/collections/community/hashi_vault/hashi_vault_lookup.html
 https://forum.ansible.com/t/playbook-to-create-multiple-users/12853
+https://www.ansiblebyexample.com/articles/ansible-nginx-install-configure-deploy
+https://www.geeksforgeeks.org/how-to-install-mysql-using-ansible-playbook/
+https://medium.com/@mitesh_shamra/setup-hashicorp-vault-using-ansible-fa8073a70a56
+https://stackoverflow.com/questions/62358569/ansible-create-users-and-group

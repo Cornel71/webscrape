@@ -19,3 +19,7 @@ https://www.ansiblebyexample.com/articles/ansible-nginx-install-configure-deploy
 https://www.geeksforgeeks.org/how-to-install-mysql-using-ansible-playbook/
 https://medium.com/@mitesh_shamra/setup-hashicorp-vault-using-ansible-fa8073a70a56
 https://stackoverflow.com/questions/62358569/ansible-create-users-and-group
+https://github.com/nginx/ansible-role-nginx
+https://docs.ansible.com/ansible/latest/collections/community/mysql/mysql_db_module.html
+https://ivanpiskunov.medium.com/keeping-secrets-in-hashicorp-vault-for-ansible-fa0e8d731f03
+https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/managing_idm_users_groups_hosts_and_access_control_rules/managing-user-accounts-using-ansible-playbooks_managing-users-groups-hosts

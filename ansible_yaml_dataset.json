@@ -1323,18 +1323,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: Add Users and Groups using Ansible User Module"
-      },
-      {
-        "from": "gpt",
-        "value": "---\n- name: Manage user accounts across multiple environments\n  hosts: all\n  vars_files:\n    - users.yml\n    - environments.yml\n  tasks:\n    - name: Ensure users exist\n      user:\n        name: \"{{ item.name }}\"\n        state: present\n        generate_ssh_key: yes\n        ssh_key_type: rsa\n        ssh_key_bits: 4096\n      loop: \"{{ users }}\"\n      notify:\n        - Add SSH key for user\n    - name: Ensure user is part of required groups\n      user:\n        name: \"{{ item }}\"\n        groups: \"{{ groups }}\"\n        append: yes\n      loop: \"{{ environment_users }}\"\n      when: environment_users is defined\n    - name: Add users to sudoers if required\n      lineinfile:\n        path: /etc/sudoers.d/{{ item }}\n        state: \"{{ 'present' if item in sudo_users else 'absent' }}\"\n        create: yes\n        line: \"{{ item }} ALL=(ALL) NOPASSWD:ALL\"\n        validate: 'visudo -cf %s'\n      loop: \"{{ environment_users }}\"\n      when: sudo_users is defined\n    - name: Remove users not in the current environment\n      user:\n        name: \"{{ item }}\"\n        state: absent\n        remove: yes\n      loop: \"{{ removed_users }}\"\n      when: removed_users is defined\n  handlers:\n    - name: Add SSH key for user\n      authorized_key:\n        user: \"{{ item.name }}\"\n        state: present\n        key: \"{{ item.ssh_key }}\"\n      loop: \"{{ users }}\"\n  vars:\n    environment_users: \"{{ environments | selectattr('name', 'equalto', ansible_hostname) | map(attribute='users') | first }}\"\n    sudo_users: \"{{ environments | selectattr('name', 'equalto', ansible_hostname) | map(attribute='sudo') | first }}\"\n    removed_users: \"{{ users | map(attribute='name') | difference(environment_users | map(attribute='dev') | list | union(environment_users | map(attribute='qa') | list | union(environment_users | map(attribute='prod') | list))) }}\""
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Ansible Playbook for: ci.yml"
       },
       {
@@ -2708,6 +2696,930 @@
       {
         "from": "gpt",
         "value": "---\n- name: Setup Nginx web server\n  hosts: webservers\n  become: true\n  vars:\n    domain: example.com\n    admin_email: admin@example.com\n    document_root: /var/www/{{ domain }}\n  tasks:\n    - name: Install Nginx\n      ansible.builtin.apt:\n        name: nginx\n        state: present\n    - name: Create document root\n      ansible.builtin.file:\n        path: \"{{ document_root }}\"\n        state: directory\n        owner: www-data\n        group: www-data\n    - name: Deploy Nginx config\n      ansible.builtin.template:\n        src: nginx.conf.j2\n        dest: /etc/nginx/nginx.conf\n        validate: \"nginx -t -c %s\"\n      notify: Reload Nginx\n    - name: Deploy virtual host\n      ansible.builtin.template:\n        src: vhost.conf.j2\n        dest: /etc/nginx/sites-available/{{ domain }}.conf\n      notify: Reload Nginx\n    - name: Enable site\n      ansible.builtin.file:\n        src: /etc/nginx/sites-available/{{ domain }}.conf\n        dest: /etc/nginx/sites-enabled/{{ domain }}.conf\n        state: link\n      notify: Reload Nginx\n    - name: Start Nginx\n      ansible.builtin.service:\n        name: nginx\n        state: started\n        enabled: true\n  handlers:\n    - name: Reload Nginx\n      ansible.builtin.service:\n        name: nginx\n        state: reloaded"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: bug_report.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\nname: 🐛 Bug report\ndescription: Create a report to help us improve\nlabels: bug\nbody:\n  - type: markdown\n    attributes:\n      value: |\n        Thanks for taking the time to fill out this bug report!\n        Before you continue filling out this report, please take a moment to check that your bug has not been [already reported on GitHub][issue search] 🙌\n        Remember to redact any sensitive information such as authentication credentials and/or license keys!\n        **Note:** If you are seeking community support or have a question, please consider starting a new thread via [GitHub discussions][discussions] or the [NGINX Community forum][forum].\n        [issue search]: https://github.com/nginx/ansible-role-nginx/issues\n        [discussions]: https://github.com/nginx/ansible-role-nginx/discussions\n        [forum]: https://community.nginx.org\n  - type: textarea\n    id: overview\n    attributes:\n      label: Bug Overview\n      description: A clear and concise overview of the bug.\n      placeholder: When I do \"X\" with the NGINX Ansible role, \"Y\" happens instead of \"Z\".\n    validations:\n      required: true\n  - type: textarea\n    id: behavior\n    attributes:\n      label: Expected Behavior\n      description: A clear and concise description of what you expected to happen.\n      placeholder: When I do \"X\" with the NGINX Ansible role, I expect \"Z\" to happen.\n    validations:\n      required: true\n  - type: textarea\n    id: steps\n    attributes:\n      label: Steps to Reproduce the Bug\n      description: Detail the series of steps required to reproduce the bug.\n      value: |\n        1. I have deployed/run the NGINX Ansible role using the following `playbook.yml`...\n        2. I have seen the following error(s) on my terminal/logs...\n    validations:\n      required: true\n  - type: textarea\n    id: environment\n    attributes:\n      label: Environment Details\n      description: Please provide details about your environment.\n      value: |\n        - Target deployment platforms: [e.g. AWS/GCP/local cluster/etc...]\n        - Target OSs: [e.g. RHEL 9/Ubuntu 24.04/etc...]\n        - Host OS (where you are running Ansible from): [e.g. RHEL 9/Ubuntu 24.04/etc...]\n        - Version of the NGINX Ansible role (or specific commit): [e.g. 0.25.0/commit hash]\n        - Version of Ansible: [e.g. 2.16.5]\n        - How is Ansible being managed: [e.g. CLI/pipeline/Automation Hub/etc...]\n        - Version of Jinja2 (if you are using any templating capability): [e.g. 3.1.1]\n    validations:\n      required: true\n  - type: textarea\n    id: context\n    attributes:\n      label: Additional Context\n      description: Add any other context about the problem here.\n      placeholder: Feel free to add any other context/information/screenshots/etc... that you think might be relevant to this issue in here."
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: feature_request.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\nname: ✨ Feature request\ndescription: Suggest an idea for this project\nlabels: enhancement\nbody:\n  - type: markdown\n    attributes:\n      value: |\n        Thanks for taking the time to fill out this feature request!\n        Before you continue filling out this request, please take a moment to check that your feature has not been [already requested on GitHub][issue search] 🙌\n        **Note:** If you are seeking community support or have a question, please consider starting a new thread via [GitHub discussions][discussions] or the [NGINX Community forum][forum].\n        [issue search]: https://github.com/nginx/ansible-role-nginx/issues\n        [discussions]: https://github.com/nginx/ansible-role-nginx/discussions\n        [forum]: https://community.nginx.org\n  - type: textarea\n    id: overview\n    attributes:\n      label: Feature Overview\n      description: A clear and concise description of what the feature request is.\n      placeholder: I would like the NGINX Ansible role to be able to do \"X\".\n    validations:\n      required: true\n  - type: textarea\n    id: alternatives\n    attributes:\n      label: Alternatives Considered\n      description: Detail any potential alternative solutions/workarounds you've used or considered.\n      placeholder: I have done/might be able to do \"X\" in the NGINX Ansible role by doing \"Y\".\n  - type: textarea\n    id: context\n    attributes:\n      label: Additional Context\n      description: Add any other context about the problem here.\n      placeholder: Feel free to add any other context/information/screenshots/etc... that you think might be relevant to this feature request here."
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: f5_cla.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\nname: F5 CLA\non:\n  issue_comment:\n    types: [created]\n  pull_request_target:\n    types: [opened, closed, synchronize]\npermissions: read-all\njobs:\n  f5-cla:\n    name: F5 CLA\n    runs-on: ubuntu-24.04\n    permissions:\n      actions: write\n      pull-requests: write\n      statuses: write\n    steps:\n      - name: Run F5 Contributor License Agreement (CLA) assistant\n        if: (github.event.comment.body == 'recheck' || github.event.comment.body == 'I have hereby read the F5 CLA and agree to its terms') || github.event_name == 'pull_request_target'\n        uses: contributor-assistant/github-action@ca4a40a7d1004f18d9960b404b97e5f30a505a08 # v2.6.1\n        with:\n          # Path to the CLA document.\n          path-to-document: https://github.com/f5/f5-cla/blob/main/docs/f5_cla.md\n          # Custom CLA messages.\n          custom-notsigned-prcomment: '🎉 Thank you for your contribution! It appears you have not yet signed the [F5 Contributor License Agreement (CLA)](https://github.com/f5/f5-cla/blob/main/docs/f5_cla.md), which is required for your changes to be incorporated into an F5 Open Source Software (OSS) project. Please kindly read the [F5 CLA](https://github.com/f5/f5-cla/blob/main/docs/f5_cla.md) and reply on a new comment with the following text to agree:'\n          custom-pr-sign-comment: 'I have hereby read the F5 CLA and agree to its terms'\n          custom-allsigned-prcomment: '✅ All required contributors have signed the F5 CLA for this PR. Thank you!'\n          # Remote repository storing CLA signatures.\n          remote-organization-name: f5\n          remote-repository-name: f5-cla-data\n          # Branch where CLA signatures are stored.\n          branch: main\n          path-to-signatures: signatures/signatures.json\n          # Comma separated list of usernames for maintainers or any other individuals who should not be prompted for a CLA.\n          # NOTE: You will want to edit the usernames to suit your project needs.\n          allowlist: bot*\n          # Do not lock PRs after a merge.\n          lock-pullrequest-aftermerge: false\n        env:\n          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}\n          PERSONAL_ACCESS_TOKEN: ${{ secrets.F5_CLA_TOKEN }}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: galaxy.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\nname: Ansible Galaxy Role Import\non:\n  release:\n    types: [published]\n  workflow_dispatch:\npermissions:\n  contents: read\n  id-token: write\njobs:\n  ansible-galaxy:\n    if: github.repository == 'nginx/ansible-role-nginx'\n    name: Import role to Ansible Galaxy\n    runs-on: ubuntu-24.04\n    steps:\n      - name: Check out the codebase\n        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0\n      - name: Set up Python 3\n        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0\n        with:\n          python-version: 3.13\n      - name: Install Ansible core\n        run: pip3 install -r .github/workflows/requirements/requirements_ansible.txt\n      - name: Get secrets from Azure\n        uses: nginx/ci-self-hosted/.github/actions/get-from-vault@5c3e1f8b51f66a851fdba80f70e19cf966199730\n        with:\n          client-id: ${{ secrets.SYSENG_CLIENT_ID }}\n          tenant-id: ${{ secrets.SYSENG_TENANT_ID }}\n          vault-name: ${{ secrets.SYSENG_VAULT_NAME }}\n          secret-names: \"github-ansible-galaxy-api-key\"\n          env-names: \"GALAXY_API_KEY\"\n      - name: Import role releases to Ansible Galaxy\n        run: ansible-galaxy role import --api-key ${{ env.GALAXY_API_KEY }} $(echo ${{ github.repository }} | cut -d/ -f1) $(echo ${{ github.repository }} | cut -d/ -f2)"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: molecule.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\nname: Molecule CI/CD\non:\n  pull_request:\n    branches: [main]\n  push:\n    branches: [main]\n    tags-ignore: [\"**\"]\n  merge_group:\n  schedule:\n    - cron: \"0 0 1 * *\"\n  workflow_dispatch:\npermissions: read-all\njobs:\n  ansible-lint:\n    name: Ansible Lint\n    runs-on: ubuntu-24.04\n    steps:\n      - name: Check out the codebase\n        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0\n      - name: Set up Python 3\n        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0\n        with:\n          python-version: 3.x\n      - name: Install Ansible core and Ansible Lint\n        run: pip3 install -r .github/workflows/requirements/requirements_ansible_lint.txt\n      - name: Install Ansible core collection dependencies\n        run: ansible-galaxy install -r .github/workflows/requirements/requirements_collections.yml\n      - name: Run Ansible Lint\n        run: ansible-lint --force-color\n  molecule:\n    name: Molecule\n    runs-on: ubuntu-24.04\n    needs: ansible-lint\n    strategy:\n      fail-fast: false\n      matrix:\n        scenario:\n          - default\n          - distribution\n          - downgrade\n          - source\n          - source-version\n          - stable\n          - uninstall\n          - upgrade\n          - version\n    steps:\n      - name: Check out the codebase\n        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0\n      - name: Set up Python 3\n        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0\n        with:\n          python-version: 3.13\n      - name: Install Ansible core and Molecule\n        run: pip3 install -r .github/workflows/requirements/requirements_molecule.txt\n      - name: Install Ansible core collection dependencies\n        run: ansible-galaxy install -r .github/workflows/requirements/requirements_collections.yml\n      - name: Run Molecule tests\n        run: molecule test -s ${{ matrix.scenario }}\n        env:\n          PY_COLORS: 1\n          ANSIBLE_FORCE_COLOR: 1\n  molecule-plus-agent:\n    name: Molecule (Plus & Agent)\n    runs-on: ubuntu-24.04\n    needs: ansible-lint\n    permissions:\n      contents: read\n      id-token: write\n    if: github.repository == 'nginx/ansible-role-nginx' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)\n    strategy:\n      fail-fast: false\n      matrix:\n        scenario:\n          - agent\n          - downgrade-plus\n          - plus\n          - uninstall-plus\n          - upgrade-plus\n    steps:\n      - name: Check out the codebase\n        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0\n      - name: Set up Python 3\n        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0\n        with:\n          python-version: 3.13\n      - name: Install Ansible core and Molecule\n        run: pip3 install -r .github/workflows/requirements/requirements_molecule.txt\n      - name: Install Ansible core collection dependencies\n        run: ansible-galaxy install -r .github/workflows/requirements/requirements_collections.yml\n      - name: Get agent-related secrets from Azure\n        if: ${{ contains(matrix.scenario, 'agent') }}\n        uses: nginx/ci-self-hosted/.github/actions/get-from-vault@5c3e1f8b51f66a851fdba80f70e19cf966199730\n        with:\n          client-id: ${{ secrets.SYSENG_CLIENT_ID }}\n          tenant-id: ${{ secrets.SYSENG_TENANT_ID }}\n          vault-name: ${{ secrets.SYSENG_VAULT_NAME }}\n          secret-names: \"github-ansible-agent-data-plane-key, github-ansible-one-token, github-ansible-one-tenant\"\n          env-names: \"AGENT_DATA_PLANE_KEY, ONE_API_TOKEN, ONE_TENANT\"\n      - name: Get plus-related secrets from Azure\n        if: ${{ contains(matrix.scenario, 'plus') }}\n        uses: nginx/ci-self-hosted/.github/actions/get-from-vault@5c3e1f8b51f66a851fdba80f70e19cf966199730\n        with:\n          client-id: ${{ secrets.SYSENG_CLIENT_ID }}\n          tenant-id: ${{ secrets.SYSENG_TENANT_ID }}\n          vault-name: ${{ secrets.NGINX_COMMON_VAULT_NAME }}\n          secret-names: \"nginx-pkg-certificate, nginx-pkg-key, nginx-pkg-jwt\"\n          env-names: \"NGINX_CRT, NGINX_KEY, NGINX_JWT\"\n      - name: Run Molecule tests\n        run: molecule test -s ${{ matrix.scenario }}\n        env:\n          PY_COLORS: 1\n          ANSIBLE_FORCE_COLOR: 1"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: ossf_scorecard.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n# This workflow uses actions that are not certified by GitHub. They are provided by a third-party and are governed by separate terms of service, privacy policy, and support documentation.\nname: OSSF Scorecard\non:\n  # For Branch-Protection check. Only the default branch is supported. See https://github.com/ossf/scorecard/blob/main/docs/checks.md#branch-protection.\n  branch_protection_rule:\n  # To guarantee Maintained check is occasionally updated. See https://github.com/ossf/scorecard/blob/main/docs/checks.md#maintained.\n  schedule:\n    - cron: \"0 0 * * 1\"\n  push:\n    branches: [main]\n  workflow_dispatch:\n# Declare default permissions as read only.\npermissions: read-all\njobs:\n  analysis:\n    name: Scorecard analysis\n    runs-on: ubuntu-24.04\n    permissions:\n      # Needed if using Code Scanning alerts.\n      security-events: write\n      # Needed for GitHub OIDC token if publish_results is true.\n      id-token: write\n    steps:\n      - name: Check out the codebase\n        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0\n        with:\n          persist-credentials: false\n      - name: Run analysis\n        uses: ossf/scorecard-action@2d1146689b8cda280b9bc96326124645441f03bc # v2.4.4\n        with:\n          results_file: results.sarif\n          results_format: sarif\n          # Publish the results for public repositories to enable scorecard badges. For more details, see https://github.com/ossf/scorecard-action#publishing-results.\n          publish_results: true\n      # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF format to the repository Actions tab.\n      - name: Upload artifact\n        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1\n        with:\n          name: SARIF file\n          path: results.sarif\n          retention-days: 5\n      # Upload the results to GitHub's code scanning dashboard.\n      - name: Upload SARIF results to code scanning\n        uses: github/codeql-action/upload-sarif@8aad20d150bbac5944a9f9d289da16a4b0d87c1e # v4.36.2\n        with:\n          sarif_file: results.sarif"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: release.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\nname: Release Drafter\non:\n  push:\n    branches: [main]\n  pull_request_target:\n    types: [opened, reopened, synchronize]\n  workflow_dispatch:\npermissions: read-all\njobs:\n  update-release-draft:\n    name: Update release draft\n    runs-on: ubuntu-24.04\n    permissions:\n      contents: write\n      pull-requests: write\n    steps:\n      - name: Run Release Drafter\n        uses: release-drafter/release-drafter@34d80673e067bdc0c24568d3af899c216adcfaa9 # v7.7.0\n        with:\n          disable-autolabeler: ${{ github.actor == 'renovate[bot]' }}\n        env:\n          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: requirements_collections.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\ncollections:\n  - name: ansible.posix\n    version: 2.2.2\n  - name: community.general\n    version: 11.4.9\n  - name: community.crypto\n    version: 2.26.9\n  - name: community.docker\n    version: 4.8.8"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: main.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: (Handler) Systemd daemon-reload\n  ansible.builtin.systemd:\n    daemon_reload: true\n- name: (Handler) Start/reload NGINX\n  ansible.builtin.service:\n    name: nginx\n    state: reloaded\n    enabled: true\n  when:\n    - nginx_start | bool\n    - nginx_state != 'absent'\n    - not ansible_check_mode | bool\n  listen: (Handler) Run NGINX\n- name: (Handler) Check NGINX\n  ansible.builtin.command:\n    cmd: nginx -t\n  args:\n    chdir: \"{{ ((ansible_facts['system'] | lower is not search('bsd')) | ternary('/etc/nginx', '/usr/local/sbin')) }}\"\n  register: config_check\n  ignore_errors: true\n  check_mode: false\n  changed_when: false\n  when: nginx_state != 'absent' or (nginx_install_from == 'os_repository' and nginx_skip_os_install_config_check | bool)\n  listen: (Handler) Run NGINX\n- name: (Handler) Print NGINX error if syntax check fails\n  ansible.builtin.debug:\n    var: config_check['stderr_lines']\n  failed_when: config_check['rc'] != 0\n  when:\n    - config_check['stderr_lines'] is defined\n    - config_check['stderr_lines'] != []\n    - config_check['rc'] != 0\n    - nginx_state != 'absent'\n  listen: (Handler) Run NGINX\n- name: (Handler) Start NGINX Agent\n  ansible.builtin.service:\n    name: nginx-agent\n    state: restarted\n    enabled: true\n- name: (Handler) Start logrotate\n  ansible.builtin.command: logrotate -f /etc/logrotate.d/nginx\n  register: logrotate_check\n  ignore_errors: true\n  check_mode: false\n  changed_when: false\n  listen: (Handler) Run logrotate\n- name: (Handler) Print logrotate error if config check fails\n  ansible.builtin.debug:\n    var: logrotate_check['stderr_lines']\n  failed_when: logrotate_check['rc'] != 0\n  when:\n    - logrotate_check['stderr_lines'] is defined\n    - logrotate_check['stderr_lines'] != []\n    - logrotate_check['rc'] != 0\n  listen: (Handler) Run logrotate\n- name: (Handler) Start NGINX Plus HA keepalived\n  ansible.builtin.service:\n    name: keepalived\n    state: restarted\n    enabled: true"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: main.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\ngalaxy_info:\n  author: nginxinc\n  description: Official Ansible role for installing NGINX\n  role_name: nginx\n  company: F5, Inc.\n  license: Apache License, Version 2.0\n  min_ansible_version: '2.16'\n  galaxy_tags:\n    - nginx\n    - oss\n    - opensource\n    - plus\n    - web\n    - server\n    - development\n    - install\ncollections:\n  - ansible.posix\n  - community.crypto\n  - community.general"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: cleanup.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Cleanup\n  hosts: localhost\n  gather_facts: false\n  tasks:\n    - name: Cleanup NGINX Agent instances\n      block:\n        - name: Wait for containers to be up\n          ansible.builtin.wait_for_connection:\n            delay: 1\n            timeout: 2\n          ignore_errors: true\n          register: container\n        - name: Containers are not up, quit from here\n          ansible.builtin.fail:\n          when: container['failed'] | bool\n        - name: Gather facts\n          ansible.builtin.setup:\n            gather_subset:\n              - \"!all\"\n              - \"!any\"\n              - distribution\n        - name: Get list of NGINX One dangling instance IDs\n          ansible.builtin.uri:\n            url: https://{{ lookup('env', 'ONE_TENANT') }}.console.ves.volterra.io/api/nginx/one/namespaces/gh-ansible/instances?paginated=false&filter_fields=instance_status&filter_ops=IN&filter_values=unavailable\n            method: GET\n            headers:\n              Authorization: APIToken {{ lookup('env', 'ONE_API_TOKEN') }}\n          register: get_ids\n        - name: Remove dangling instances from NGINX One\n          ansible.builtin.uri:\n            url: https://{{ lookup('env', 'ONE_TENANT') }}.console.ves.volterra.io/api/nginx/one/namespaces/gh-ansible/instances/{{ item }}\n            method: DELETE\n            status_code: 204\n            headers:\n              Authorization: APIToken {{ lookup('env', 'ONE_API_TOKEN') }}\n          loop: \"{{ get_ids['json']['items'] | map(attribute='object_id') | list }}\"\n      rescue:\n        - name: It's ok we're at startup\n          ansible.builtin.meta: noop"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: converge.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Converge\n  hosts: all\n  tasks:\n    - name: Install NGINX and NGINX Agent\n      ansible.builtin.include_role:\n        name: ansible-role-nginx\n      vars:\n        nginx_agent_enable: true\n        nginx_agent_configure: true\n        nginx_agent_server:\n          host: agent.connect.nginx.com\n          port: 443\n          data_plane_key: \"{{ lookup('env', 'AGENT_DATA_PLANE_KEY') }}\"\n        nginx_agent_tls:\n          skip_verify: false\n        nginx_agent_features:\n          - certificates\n          - file-watcher\n          - metrics\n        nginx_agent_labels:\n          env: dev\n          team: ansible\n        nginx_agent_data_plane_config:\n          api_url: \"http://127.0.0.1:80/api\"\n          treat_warnings_as_errors: false"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: verify.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Verify\n  hosts: all\n  tasks:\n    - name: Check if NGINX is installed\n      ansible.builtin.package:\n        name: nginx\n        state: present\n      check_mode: true\n      register: install\n      failed_when: (install is changed) or (install is failed)\n    - name: Check if NGINX service is running\n      ansible.builtin.service:\n        name: nginx\n        state: started\n        enabled: true\n      check_mode: true\n      register: service\n      when: ansible_facts['os_family'] != \"Alpine\" # Alpine fails at the moment for unknown reasons\n      failed_when: (service is changed) or (service is failed)\n    - name: Verify NGINX is up and running\n      ansible.builtin.uri:\n        url: http://localhost\n        status_code: 200\n    - name: Check if NGINX Agent is installed\n      ansible.builtin.package:\n        name: nginx-agent\n        state: present\n      check_mode: true\n      register: install\n      failed_when: (install is changed) or (install is failed)"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: converge.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Converge\n  hosts: all\n  tasks:\n    - name: Install NGINX\n      ansible.builtin.include_role:\n        name: ansible-role-nginx\n      vars:\n        nginx_modules:\n          - geoip\n          - image-filter\n          - njs\n          - perl\n          - xslt\n        nginx_service_modify: true\n        nginx_service_timeout: 95\n        nginx_logrotate_conf_enable: true\n        nginx_logrotate_conf:\n          paths: /var/log/nginx/*.log\n          options:\n            - daily\n            - missingok\n            - rotate 14\n            - compress\n            - delaycompress\n            - notifempty\n            - sharedscripts"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: verify.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Verify\n  hosts: all\n  tasks:\n    - name: Check if NGINX is installed\n      ansible.builtin.package:\n        name: nginx\n        state: present\n      check_mode: true\n      register: install\n      failed_when: (install is changed) or (install is failed)\n    - name: Check if NGINX service is running\n      ansible.builtin.service:\n        name: nginx\n        state: started\n        enabled: true\n      check_mode: true\n      register: service\n      failed_when: (service is changed) or (service is failed)\n    - name: Verify NGINX is up and running\n      ansible.builtin.uri:\n        url: http://localhost\n        status_code: 200\n    - name: Fetch the latest mainline version of NGINX\n      ansible.builtin.uri:\n        url: https://version.nginx.com/nginx/mainline\n        return_content: true\n      register: nginx_version\n    - name: Verify the latest mainline version of NGINX has been installed\n      ansible.builtin.command: nginx -v\n      args:\n        chdir: \"{{ ((ansible_facts['system'] | lower is not search('bsd')) | ternary('/etc/nginx', '/usr/local/sbin')) }}\"\n      changed_when: false\n      register: version\n      failed_when: version is not search(nginx_version['content'] | regex_search('([0-9]+\\\\.){2}[0-9]+'))"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: converge.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Converge\n  hosts: all\n  pre_tasks:\n    - name: Set package name if Debian\n      ansible.builtin.set_fact:\n        nginx_package_name: nginx-core\n      when: ansible_facts['os_family'] == \"Debian\"\n  tasks:\n    - name: Install NGINX\n      ansible.builtin.include_role:\n        name: ansible-role-nginx\n      vars:\n        nginx_install_from: os_repository\n        nginx_distribution_package: \"{{ nginx_package_name }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: verify.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Verify\n  hosts: all\n  tasks:\n    - name: Check if NGINX is installed\n      ansible.builtin.package:\n        name: nginx\n        state: present\n      check_mode: true\n      register: install\n      when: ansible_facts['os_family'] != 'Debian'\n      failed_when: (install is changed) or (install is failed)\n    - name: Check if NGINX is installed\n      ansible.builtin.package:\n        name: nginx-core\n        state: present\n      check_mode: true\n      register: install\n      when: ansible_facts['os_family'] == 'Debian'\n      failed_when: (install is changed) or (install is failed)\n    - name: Check if NGINX service is running\n      ansible.builtin.service:\n        name: nginx\n        state: started\n        enabled: true\n      check_mode: true\n      register: service\n      failed_when: (service is changed) or (service is failed)\n    - name: Verify NGINX is up and running\n      ansible.builtin.uri:\n        url: http://localhost\n        status_code: 200\n      when: ansible_facts['distribution'] not in [\"Alpine\", \"SLES\"]\n    - name: Verify NGINX is up and running\n      ansible.builtin.uri:\n        url: http://localhost\n        status_code: 404\n      when: ansible_facts['distribution'] == 'Alpine'\n    - name: Verify NGINX is up and running\n      ansible.builtin.uri:\n        url: http://localhost\n        status_code: 403\n      when: ansible_facts['distribution'] == 'SLES'"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: converge.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Converge\n  hosts: all\n  pre_tasks:\n    - name: Set repo if Alpine\n      ansible.builtin.set_fact:\n        version: =37.0.1-r1\n        cacheable: true\n      when: ansible_facts['os_family'] == \"Alpine\"\n    - name: Set repo if Debian\n      ansible.builtin.set_fact:\n        version: =37.0.1-1~{{ ansible_facts['distribution_release'] }}\n        cacheable: true\n      when: ansible_facts['os_family'] == \"Debian\"\n    - name: Set repo if Red Hat\n      ansible.builtin.set_fact:\n        version: -37.0.1-1.{{ (ansible_facts['distribution'] == \"Amazon\") | ternary(('amzn' + ansible_facts['distribution_major_version'] | string), ('el' + ansible_facts['distribution_major_version'] | string)) }}.ngx\n        cacheable: true\n      when: ansible_facts['os_family'] == \"RedHat\"\n    - name: Set repo if SLES\n      ansible.builtin.set_fact:\n        version: =37.0.1-1.sles{{ ansible_facts['distribution_major_version'] }}.ngx\n        cacheable: true\n      when: ansible_facts['os_family'] == \"Suse\"\n  tasks:\n    - name: Install NGINX\n      ansible.builtin.include_role:\n        name: ansible-role-nginx\n      vars:\n        nginx_type: plus\n        nginx_license:\n          certificate: license/nginx-repo.crt\n          key: license/nginx-repo.key\n          jwt: license/license.jwt\n        nginx_remove_license: false\n        nginx_version: \"{{ version }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: prepare.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Prepare license\n  hosts: localhost\n  gather_facts: false\n  tasks:\n    - name: Create ephemeral license certificate file from env var\n      ansible.builtin.copy:\n        content: \"{{ lookup('env', 'NGINX_CRT') }}\"\n        dest: ../../files/license/nginx-repo.crt\n        force: false\n        mode: \"0444\"\n    - name: Create ephemeral license key file from env var\n      ansible.builtin.copy:\n        content: \"{{ lookup('env', 'NGINX_KEY') }}\"\n        dest: ../../files/license/nginx-repo.key\n        force: false\n        mode: \"0444\"\n    - name: Create ephemeral license JWT file from env var\n      ansible.builtin.copy:\n        content: \"{{ lookup('env', 'NGINX_JWT') }}\"\n        dest: ../../files/license/license.jwt\n        force: false\n        mode: \"0444\"\n- name: Prepare NGINX Plus\n  hosts: all\n  tasks:\n    - name: Install NGINX\n      ansible.builtin.include_role:\n        name: ansible-role-nginx\n      vars:\n        nginx_type: plus\n        nginx_license:\n          certificate: license/nginx-repo.crt\n          key: license/nginx-repo.key\n          jwt: license/license.jwt"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: verify.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Verify\n  hosts: all\n  tasks:\n    - name: Check if NGINX Plus is installed\n      ansible.builtin.package:\n        name: nginx-plus\n        state: present\n      check_mode: true\n      register: install\n      failed_when: (install is changed) or (install is failed)\n    - name: Check if NGINX Plus service is running\n      ansible.builtin.service:\n        name: nginx\n        state: started\n        enabled: true\n      check_mode: true\n      register: service\n      failed_when: (service is changed) or (service is failed)\n    - name: Verify NGINX Plus is up and running\n      ansible.builtin.uri:\n        url: http://localhost\n        status_code: 200\n    - name: Verify NGINX Plus has been downgraded\n      ansible.builtin.command: nginx -v\n      args:\n        chdir: \"{{ ((ansible_facts['system'] | lower is not search('bsd')) | ternary('/etc/nginx', '/usr/local/sbin')) }}\"\n      changed_when: false\n      register: current_version\n      failed_when: current_version is not search(version | regex_search('[0-9]+'))"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: converge.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Converge\n  hosts: all\n  pre_tasks:\n    - name: Set repo if Alpine\n      ansible.builtin.set_fact:\n        version: =1.31.1-r1\n        cacheable: true\n      when: ansible_facts['os_family'] == \"Alpine\"\n    - name: Set repo if Debian\n      ansible.builtin.set_fact:\n        version: =1.31.1-1~{{ ansible_facts['distribution_release'] }}\n        cacheable: true\n      when: ansible_facts['os_family'] == \"Debian\"\n    - name: Set repo if Red Hat\n      ansible.builtin.set_fact:\n        version: -1.31.1-1.{{ (ansible_facts['distribution'] == \"Amazon\") | ternary(('amzn' + ansible_facts['distribution_major_version'] | string), ('el' + ansible_facts['distribution_major_version'] | string)) }}.ngx\n        cacheable: true\n      when: ansible_facts['os_family'] == \"RedHat\"\n    - name: Set repo if SLES\n      ansible.builtin.set_fact:\n        version: =1.31.1-1.sles{{ ansible_facts['distribution_major_version'] }}.ngx\n        cacheable: true\n      when: ansible_facts['os_family'] == \"Suse\"\n  tasks:\n    - name: Install NGINX\n      ansible.builtin.include_role:\n        name: ansible-role-nginx\n      vars:\n        nginx_version: \"{{ version }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: prepare.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Prepare\n  hosts: all\n  tasks:\n    - name: Install NGINX\n      ansible.builtin.include_role:\n        name: ansible-role-nginx"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: verify.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Verify\n  hosts: all\n  tasks:\n    - name: Check if NGINX is installed\n      ansible.builtin.package:\n        name: nginx\n        state: present\n      check_mode: true\n      register: install\n      failed_when: (install is changed) or (install is failed)\n    - name: Check if NGINX service is running\n      ansible.builtin.service:\n        name: nginx\n        state: started\n        enabled: true\n      check_mode: true\n      register: service\n      failed_when: (service is changed) or (service is failed)\n    - name: Verify NGINX is up and running\n      ansible.builtin.uri:\n        url: http://localhost\n        status_code: 200\n    - name: Verify NGINX has been downgraded\n      ansible.builtin.command: nginx -v\n      args:\n        chdir: \"{{ ((ansible_facts['system'] | lower is not search('bsd')) | ternary('/etc/nginx', '/usr/local/sbin')) }}\"\n      changed_when: false\n      register: current_version\n      failed_when: current_version is not search(version | regex_search('([0-9]+\\\\.){2}[0-9]+'))"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: converge.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Converge\n  hosts: all\n  tasks:\n    - name: Install NGINX Plus\n      ansible.builtin.include_role:\n        name: ansible-role-nginx\n      vars:\n        nginx_type: plus\n        nginx_license:\n          certificate: license/nginx-repo.crt\n          key: license/nginx-repo.key\n          jwt: license/license.jwt\n        nginx_remove_license: false\n        nginx_modules:\n          - auth-spnego\n          - brotli\n          - encrypted-session\n          - geoip\n          - geoip2\n          - headers-more\n          - image-filter\n          - lua\n          - njs\n          - passenger\n          - perl\n          - prometheus\n          - rtmp\n          - set-misc\n          - subs-filter\n          - xslt\n        nginx_keepalived_enable: true\n        nginx_keepalived_conf_enable: true\n        nginx_keepalived_conf:\n          - virtual_router_id: 1\n            primary_dev: eth0\n            priority: 101\n            primary_ip: 192.168.100.100\n            secondary_ip:\n              - 192.168.100.101\n            cluster_ip:\n              - 192.168.100.150"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: prepare.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Prepare\n  hosts: localhost\n  gather_facts: false\n  tasks:\n    - name: Create ephemeral license certificate file from env var\n      ansible.builtin.copy:\n        content: \"{{ lookup('env', 'NGINX_CRT') }}\"\n        dest: ../../files/license/nginx-repo.crt\n        force: false\n        mode: \"0444\"\n    - name: Create ephemeral license key file from env var\n      ansible.builtin.copy:\n        content: \"{{ lookup('env', 'NGINX_KEY') }}\"\n        dest: ../../files/license/nginx-repo.key\n        force: false\n        mode: \"0444\"\n    - name: Create ephemeral license JWT file from env var\n      ansible.builtin.copy:\n        content: \"{{ lookup('env', 'NGINX_JWT') }}\"\n        dest: ../../files/license/license.jwt\n        force: false\n        mode: \"0444\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: verify.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Verify\n  hosts: all\n  tasks:\n    - name: Check if NGINX Plus is installed\n      ansible.builtin.package:\n        name: nginx-plus\n        state: present\n      check_mode: true\n      register: install\n      failed_when: (install is changed) or (install is failed)\n    - name: Check if NGINX Plus service is running\n      ansible.builtin.service:\n        name: nginx\n        state: started\n        enabled: true\n      check_mode: true\n      register: service\n      failed_when: (service is changed) or (service is failed)\n    - name: Verify NGINX Plus is up and running\n      ansible.builtin.uri:\n        url: http://localhost\n        status_code: 200\n    - name: Fetch the latest version of NGINX Plus\n      ansible.builtin.uri:\n        url: https://version.nginx.com/plus\n        return_content: true\n      register: nginx_version\n    - name: Verify the latest version of NGINX Plus has been installed\n      ansible.builtin.command: nginx -v\n      args:\n        chdir: \"{{ ((ansible_facts['system'] | lower is not search('bsd')) | ternary('/etc/nginx', '/usr/local/sbin')) }}\"\n      changed_when: false\n      register: version\n      failed_when: version is not search(nginx_version['content'] | regex_search('[0-9]+'))"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: converge.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Converge\n  hosts: all\n  pre_tasks:\n    - name: Set NGINX version\n      ansible.builtin.set_fact:\n        ngx_version: 1.27.2\n        cacheable: true\n  tasks:\n    - name: Install NGINX from source\n      ansible.builtin.include_role:\n        name: ansible-role-nginx\n      vars:\n        nginx_install_from: source\n        nginx_version: \"{{ ngx_version }}\"\n        nginx_static_modules: [http_ssl_module]\n        nginx_install_source_build_tools: true\n        nginx_install_source_pcre: false\n        nginx_install_source_openssl: false\n        nginx_install_source_zlib: false"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: verify.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Verify\n  hosts: all\n  tasks:\n    - name: Check if NGINX service is running\n      ansible.builtin.service:\n        name: nginx\n        state: started\n        enabled: true\n      check_mode: true\n      register: service\n      failed_when: (service is changed) or (service is failed)\n    - name: Verify NGINX is up and running\n      ansible.builtin.uri:\n        url: http://localhost\n        status_code: 200\n    - name: Verify the correct version of NGINX has been installed\n      ansible.builtin.command: nginx -v\n      args:\n        chdir: \"{{ ((ansible_facts['system'] | lower is not search('bsd')) | ternary('/etc/nginx', '/usr/local/sbin')) }}\"\n      changed_when: false\n      register: version\n      failed_when: version is not search(ngx_version | regex_search('([0-9]+\\\\.){2}[0-9]+'))"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: converge.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Converge\n  hosts: all\n  tasks:\n    - name: Install NGINX from source\n      ansible.builtin.include_role:\n        name: ansible-role-nginx\n      vars:\n        nginx_install_from: source\n        nginx_branch: stable\n        nginx_static_modules: [http_ssl_module]\n        nginx_install_source_build_tools: true\n        nginx_install_source_pcre: false\n        nginx_install_source_openssl: false\n        nginx_install_source_zlib: false"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: verify.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Verify\n  hosts: all\n  tasks:\n    - name: Check if NGINX service is running\n      ansible.builtin.service:\n        name: nginx\n        state: started\n        enabled: true\n      check_mode: true\n      register: service\n      failed_when: (service is changed) or (service is failed)\n    - name: Verify NGINX is up and running\n      ansible.builtin.uri:\n        url: http://localhost\n        status_code: 200"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: converge.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Converge\n  hosts: all\n  tasks:\n    - name: Install NGINX\n      ansible.builtin.include_role:\n        name: ansible-role-nginx\n      vars:\n        nginx_branch: stable"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: verify.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Verify\n  hosts: all\n  tasks:\n    - name: Check if NGINX is installed\n      ansible.builtin.package:\n        name: nginx\n        state: present\n      check_mode: true\n      register: install\n      failed_when: (install is changed) or (install is failed)\n    - name: Check if NGINX service is running\n      ansible.builtin.service:\n        name: nginx\n        state: started\n        enabled: true\n      check_mode: true\n      register: service\n      failed_when: (service is changed) or (service is failed)\n    - name: Verify NGINX is up and running\n      ansible.builtin.uri:\n        url: http://localhost\n        status_code: 200\n    - name: Fetch the latest stable version of NGINX\n      ansible.builtin.uri:\n        url: https://version.nginx.com/nginx/stable\n        return_content: true\n      register: nginx_version\n    - name: Verify the latest stable version of NGINX has been installed\n      ansible.builtin.command: nginx -v\n      args:\n        chdir: \"{{ ((ansible_facts['system'] | lower is not search('bsd')) | ternary('/etc/nginx', '/usr/local/sbin')) }}\"\n      changed_when: false\n      register: version\n      failed_when: version is not search(nginx_version['content'] | regex_search('([0-9]+\\\\.){2}[0-9]+'))"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: converge.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Converge\n  hosts: all\n  tasks:\n    - name: Uninstall NGINX\n      ansible.builtin.include_role:\n        name: ansible-role-nginx\n      vars:\n        nginx_type: plus\n        nginx_setup_license: false\n        nginx_setup: uninstall"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: prepare.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Prepare license\n  hosts: localhost\n  gather_facts: false\n  tasks:\n    - name: Create ephemeral license certificate file from env var\n      ansible.builtin.copy:\n        content: \"{{ lookup('env', 'NGINX_CRT') }}\"\n        dest: ../../files/license/nginx-repo.crt\n        force: false\n        mode: \"0444\"\n    - name: Create ephemeral license key file from env var\n      ansible.builtin.copy:\n        content: \"{{ lookup('env', 'NGINX_KEY') }}\"\n        dest: ../../files/license/nginx-repo.key\n        force: false\n        mode: \"0444\"\n    - name: Create ephemeral license JWT file from env var\n      ansible.builtin.copy:\n        content: \"{{ lookup('env', 'NGINX_JWT') }}\"\n        dest: ../../files/license/license.jwt\n        force: false\n        mode: \"0444\"\n- name: Prepare NGINX Plus\n  hosts: all\n  tasks:\n    - name: Install NGINX\n      ansible.builtin.include_role:\n        name: ansible-role-nginx\n      vars:\n        nginx_type: plus\n        nginx_license:\n          certificate: license/nginx-repo.crt\n          key: license/nginx-repo.key\n          jwt:\n            src: license/license.jwt"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: verify.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Verify\n  hosts: all\n  tasks:\n    - name: Check if NGINX is installed\n      ansible.builtin.package:\n        name: nginx-plus\n        state: absent\n      check_mode: true\n      register: install\n      failed_when: (install is changed) or (install is failed)"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: converge.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Converge\n  hosts: all\n  tasks:\n    - name: Uninstall NGINX\n      ansible.builtin.include_role:\n        name: ansible-role-nginx\n      vars:\n        nginx_setup: uninstall"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: prepare.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Prepare\n  hosts: all\n  tasks:\n    - name: Install NGINX\n      ansible.builtin.include_role:\n        name: ansible-role-nginx"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: verify.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Verify\n  hosts: all\n  tasks:\n    - name: Check if NGINX is installed\n      ansible.builtin.package:\n        name: nginx\n        state: absent\n      check_mode: true\n      register: install\n      failed_when: (install is changed) or (install is failed)"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: converge.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Converge\n  hosts: all\n  tasks:\n    - name: Install NGINX Plus\n      ansible.builtin.include_role:\n        name: ansible-role-nginx\n      vars:\n        nginx_type: plus\n        nginx_license:\n          certificate: license/nginx-repo.crt\n          key: license/nginx-repo.key\n          jwt:\n            src: license/license.jwt\n            dest: /etc/nginx/license.jwt\n        nginx_remove_license: false\n        nginx_setup: upgrade"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: prepare.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Prepare license\n  hosts: localhost\n  gather_facts: false\n  tasks:\n    - name: Create ephemeral license certificate file from env var\n      ansible.builtin.copy:\n        content: \"{{ lookup('env', 'NGINX_CRT') }}\"\n        dest: ../../files/license/nginx-repo.crt\n        force: false\n        mode: \"0444\"\n    - name: Create ephemeral license key file from env var\n      ansible.builtin.copy:\n        content: \"{{ lookup('env', 'NGINX_KEY') }}\"\n        dest: ../../files/license/nginx-repo.key\n        force: false\n        mode: \"0444\"\n    - name: Create ephemeral license JWT file from env var\n      ansible.builtin.copy:\n        content: \"{{ lookup('env', 'NGINX_JWT') }}\"\n        dest: ../../files/license/license.jwt\n        force: false\n        mode: \"0444\"\n- name: Prepare NGINX Plus\n  hosts: all\n  pre_tasks:\n    - name: Set repo if Alpine\n      ansible.builtin.set_fact:\n        version: =37.0.1-r1\n      when: ansible_facts['os_family'] == \"Alpine\"\n    - name: Set repo if Debian\n      ansible.builtin.set_fact:\n        version: =37.0.1-1~{{ ansible_facts['distribution_release'] }}\n      when: ansible_facts['os_family'] == \"Debian\"\n    - name: Set repo if Red Hat\n      ansible.builtin.set_fact:\n        version: -37.0.1-1.{{ (ansible_facts['distribution'] == \"Amazon\") | ternary(('amzn' + ansible_facts['distribution_major_version'] | string), ('el' + ansible_facts['distribution_major_version'] | string)) }}.ngx\n      when: ansible_facts['os_family'] == \"RedHat\"\n    - name: Set repo if SLES\n      ansible.builtin.set_fact:\n        version: =37.0.1-1.sles{{ ansible_facts['distribution_major_version'] }}.ngx\n      when: ansible_facts['os_family'] == \"Suse\"\n  tasks:\n    - name: Install NGINX\n      ansible.builtin.include_role:\n        name: ansible-role-nginx\n      vars:\n        nginx_type: plus\n        nginx_license:\n          certificate: license/nginx-repo.crt\n          key: license/nginx-repo.key\n          jwt: license/license.jwt\n        nginx_version: \"{{ version }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: verify.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Verify\n  hosts: all\n  tasks:\n    - name: Check if NGINX Plus is installed\n      ansible.builtin.package:\n        name: nginx-plus\n        state: present\n      check_mode: true\n      register: install\n      failed_when: (install is changed) or (install is failed)\n    - name: Check if NGINX Plus service is running\n      ansible.builtin.service:\n        name: nginx\n        state: started\n        enabled: true\n      check_mode: true\n      register: service\n      failed_when: (service is changed) or (service is failed)\n    - name: Verify NGINX Plus is up and running\n      ansible.builtin.uri:\n        url: http://localhost\n        status_code: 200\n    - name: Fetch NGINX Plus version\n      ansible.builtin.uri:\n        url: https://version.nginx.com/plus\n        return_content: true\n      register: nginx_version\n    - name: Verify NGINX Plus has been upgraded\n      ansible.builtin.command: nginx -v\n      args:\n        chdir: \"{{ ((ansible_facts['system'] | lower is not search('bsd')) | ternary('/etc/nginx', '/usr/local/sbin')) }}\"\n      changed_when: false\n      register: version\n      failed_when: version is not search(nginx_version['content'] | regex_search('[0-9]+'))"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: converge.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Converge\n  hosts: all\n  tasks:\n    - name: Install NGINX\n      ansible.builtin.include_role:\n        name: ansible-role-nginx\n      vars:\n        nginx_setup: upgrade"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: prepare.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Prepare\n  hosts: all\n  pre_tasks:\n    - name: Set repo if Alpine\n      ansible.builtin.set_fact:\n        version: =1.31.1-r1\n      when: ansible_facts['os_family'] == \"Alpine\"\n    - name: Set repo if Debian\n      ansible.builtin.set_fact:\n        version: =1.31.1-1~{{ ansible_facts['distribution_release'] }}\n      when: ansible_facts['os_family'] == \"Debian\"\n    - name: Set repo if Red Hat\n      ansible.builtin.set_fact:\n        version: -1.31.1-1.{{ (ansible_facts['distribution'] == \"Amazon\") | ternary(('amzn' + ansible_facts['distribution_major_version'] | string), ('el' + ansible_facts['distribution_major_version'] | string)) }}.ngx\n      when: ansible_facts['os_family'] == \"RedHat\"\n    - name: Set repo if SLES\n      ansible.builtin.set_fact:\n        version: =1.31.1-1.sles{{ ansible_facts['distribution_major_version'] }}.ngx\n      when: ansible_facts['os_family'] == \"Suse\"\n  tasks:\n    - name: Install NGINX\n      ansible.builtin.include_role:\n        name: ansible-role-nginx\n      vars:\n        nginx_version: \"{{ version }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: verify.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Verify\n  hosts: all\n  tasks:\n    - name: Check if NGINX is installed\n      ansible.builtin.package:\n        name: nginx\n        state: present\n      check_mode: true\n      register: install\n      failed_when: (install is changed) or (install is failed)\n    - name: Check if NGINX service is running\n      ansible.builtin.service:\n        name: nginx\n        state: started\n        enabled: true\n      check_mode: true\n      register: service\n      failed_when: (service is changed) or (service is failed)\n    - name: Verify NGINX is up and running\n      ansible.builtin.uri:\n        url: http://localhost\n        status_code: 200\n    - name: Fetch the latest mainline version of NGINX\n      ansible.builtin.uri:\n        url: https://version.nginx.com/nginx/mainline\n        return_content: true\n      register: nginx_version\n    - name: Verify NGINX has been upgraded to the latest mainline version\n      ansible.builtin.command: nginx -v\n      args:\n        chdir: \"{{ ((ansible_facts['system'] | lower is not search('bsd')) | ternary('/etc/nginx', '/usr/local/sbin')) }}\"\n      changed_when: false\n      register: version\n      failed_when: version is not search(nginx_version['content'] | regex_search('([0-9]+\\\\.){2}[0-9]+'))"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: converge.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Converge\n  hosts: all\n  pre_tasks:\n    - name: Set repo if Alpine\n      ansible.builtin.set_fact:\n        ngx_version: =1.31.1-r1\n        njs_version: =1.31.1.0.9.9-r1\n        cacheable: true\n      when: ansible_facts['os_family'] == \"Alpine\"\n    - name: Set repo if Debian\n      ansible.builtin.set_fact:\n        ngx_version: =1.31.1-1~{{ ansible_facts['distribution_release'] }}\n        njs_version: =1.31.1+0.9.9-1~{{ ansible_facts['distribution_release'] }}\n        cacheable: true\n      when: ansible_facts['os_family'] == \"Debian\"\n    - name: Set repo if Red Hat\n      ansible.builtin.set_fact:\n        ngx_version: -1.31.1-1.{{ (ansible_facts['distribution'] == \"Amazon\") | ternary(('amzn' + ansible_facts['distribution_major_version'] | string), ('el' + ansible_facts['distribution_major_version'] | string)) }}.ngx\n        njs_version: -1.31.1+0.9.9-1.{{ (ansible_facts['distribution'] == \"Amazon\") | ternary(('amzn' + ansible_facts['distribution_major_version'] | string), ('el' + ansible_facts['distribution_major_version'] | string)) }}.ngx\n        cacheable: true\n      when: ansible_facts['os_family'] == \"RedHat\"\n    - name: Set repo if SLES\n      ansible.builtin.set_fact:\n        ngx_version: =1.31.1-1.sles{{ ansible_facts['distribution_major_version'] }}.ngx\n        njs_version: =1.31.1+0.9.9-1.sles{{ ansible_facts['distribution_major_version'] }}.ngx\n        cacheable: true\n      when: ansible_facts['os_family'] == \"Suse\"\n  tasks:\n    - name: Install NGINX\n      ansible.builtin.include_role:\n        name: ansible-role-nginx\n      vars:\n        nginx_version: \"{{ ngx_version }}\"\n        nginx_modules:\n          - name: brotli\n            version: \"{{ ngx_version }}\"\n          - name: geoip\n          - name: image-filter\n            version: \"{{ ngx_version }}\"\n          - name: njs\n            state: present\n            version: \"{{ njs_version }}\"\n          - name: perl\n          - name: xslt\n            version: \"{{ ngx_version }}\"\n        nginx_service_modify: true\n        nginx_service_timeout: 95\n        nginx_logrotate_conf_enable: true\n        nginx_logrotate_conf:\n          paths:\n            - /var/log/nginx/*.log\n          options:\n            - daily\n            - missingok\n            - rotate 14\n            - compress\n            - delaycompress\n            - notifempty\n            - sharedscripts"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: verify.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Verify\n  hosts: all\n  tasks:\n    - name: Check if NGINX is installed\n      ansible.builtin.package:\n        name: nginx\n        state: present\n      check_mode: true\n      register: install\n      failed_when: (install is changed) or (install is failed)\n    - name: Check if NGINX service is running\n      ansible.builtin.service:\n        name: nginx\n        state: started\n        enabled: true\n      check_mode: true\n      register: service\n      failed_when: (service is changed) or (service is failed)\n    - name: Verify NGINX is up and running\n      ansible.builtin.uri:\n        url: http://localhost\n        status_code: 200\n    - name: Verify the correct version of NGINX has been installed\n      ansible.builtin.command: nginx -v\n      args:\n        chdir: \"{{ ((ansible_facts['system'] | lower is not search('bsd')) | ternary('/etc/nginx', '/usr/local/sbin')) }}\"\n      changed_when: false\n      register: version\n      failed_when: version is not search(ngx_version | regex_search('([0-9]+\\\\.){2}[0-9]+'))"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: install-agent.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Install NGINX Agent awk prerequisite\n  ansible.builtin.package:\n    name: gawk\n    state: present\n- name: (Alpine Linux/Debian/SLES OSs) Install NGINX Agent awk and nstat prerequisite\n  ansible.builtin.package:\n    name: iproute2\n    state: present\n  when: ansible_facts['os_family'] in ['Alpine', 'Debian', 'Suse']\n- name: (Red Hat OSs) Install NGINX Agent awk and nstat prerequisite\n  ansible.builtin.package:\n    name: iproute\n    state: present\n  when: ansible_facts['os_family'] == \"RedHat\"\n- name: Manage NGINX Agent repository\n  ansible.builtin.include_tasks: \"{{ role_path }}/tasks/agent/setup-{{ ansible_facts['os_family'] | lower }}.yml\"\n  when: ansible_facts['os_family'] in ['Alpine', 'Debian', 'RedHat', 'Suse']\n- name: Install NGINX Agent\n  ansible.builtin.package:\n    name: nginx-agent\n    state: present\n  notify: (Handler) Start NGINX Agent\n- name: Dynamically generate NGINX Agent static configuration file\n  ansible.builtin.template:\n    src: nginx-agent/nginx-agent.conf.j2\n    dest: /etc/nginx-agent/nginx-agent.conf\n    mode: \"0644\"\n    backup: true\n  when: nginx_agent_configure | bool\n  notify: (Handler) Start NGINX Agent"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: setup-alpine.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: (Alpine Linux) Configure NGINX Agent repository\n  ansible.builtin.lineinfile:\n    path: /etc/apk/repositories\n    insertafter: EOF\n    line: https://packages.nginx.org/nginx-agent/alpine/v{{ ansible_facts['distribution_version'] | regex_search('^[0-9]+\\.[0-9]+') }}/main"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: setup-debian.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: (Debian/Ubuntu) Configure NGINX Agent repository\n  ansible.builtin.apt_repository:\n    filename: nginx-agent\n    repo: deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg.asc] https://packages.nginx.org/nginx-agent/{{ ansible_facts['distribution'] | lower }} {{ ansible_facts['distribution_release'] | lower }} agent\n    update_cache: true\n    mode: \"0644\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: setup-redhat.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: (AlmaLinux/Amazon Linux/Oracle Linux/RHEL/Rocky Linux) Configure NGINX Agent repository\n  ansible.builtin.yum_repository:\n    name: nginx-agent\n    file: nginx-agent\n    baseurl: https://packages.nginx.org/nginx-agent/{{ (ansible_facts['distribution'] == 'Amazon') | ternary('amzn', 'centos') }}/{{ ansible_facts['distribution_major_version'] }}/$basearch\n    description: NGINX Agent\n    enabled: true\n    gpgcheck: true\n    gpgkey: https://nginx.org/keys/nginx_signing.key\n    module_hotfixes: true\n    mode: \"0644\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: setup-suse.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: (SLES) Configure NGINX Agent repository\n  community.general.zypper_repository:\n    name: nginx-agent\n    repo: https://packages.nginx.org/nginx-agent/sles/{{ ansible_facts['distribution_major_version'] }}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: debug-output.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Register NGINX config\n  ansible.builtin.command: nginx -T\n  ignore_errors: \"{{ ansible_check_mode }}\"\n  check_mode: false\n  changed_when: false\n  register: config_full\n- name: Print NGINX config\n  ansible.builtin.debug:\n    var: config_full.stdout_lines\n  when: config_full.stdout_lines is defined"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: modify-systemd.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Create override directory for NGINX systemd service\n  ansible.builtin.file:\n    path: \"{{ nginx_service_overridepath }}\"\n    state: directory\n    mode: \"0755\"\n- name: Create override for NGINX systemd service\n  ansible.builtin.template:\n    src: \"{{ role_path }}/templates/services/nginx.service.override.conf.j2\"\n    dest: \"{{ nginx_service_overridepath }}/{{ nginx_service_overridefilename }}\"\n    owner: root\n    group: root\n    mode: \"0644\"\n  when:\n    - not nginx_service_custom | bool\n    - not nginx_service_clean | bool\n  notify: (Handler) Systemd daemon-reload\n- name: Customize override for NGINX systemd service\n  ansible.builtin.copy:\n    src: \"{{ nginx_service_custom_file }}\"\n    dest: \"{{ nginx_service_overridepath }}/{{ nginx_service_overridefilename }}\"\n    owner: root\n    group: root\n    mode: \"0644\"\n  when:\n    - nginx_service_custom | bool\n    - not nginx_service_clean | bool\n  notify: (Handler) Systemd daemon-reload\n- name: Remove override for NGINX systemd service\n  ansible.builtin.file:\n    path: \"{{ nginx_service_overridepath }}\"\n    state: absent\n  when: nginx_service_clean | bool\n  notify: (Handler) Systemd daemon-reload"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: setup-logrotate.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: (Alpine Linux) Install logrotate\n  community.general.apk:\n    name: logrotate\n  when: ansible_facts['os_family'] == 'Alpine'\n- name: (Debian/Ubuntu) Install logrotate\n  ansible.builtin.apt:\n    name: logrotate\n    state: present\n  when: ansible_facts['os_family'] == 'Debian'\n- name: (Amazon Linux/Oracle Linux/RHEL) Install logrotate\n  ansible.builtin.dnf:\n    name: logrotate\n    state: present\n  when: ansible_facts['os_family'] == 'RedHat'\n- name: (SLES) Install Logrotate\n  community.general.zypper:\n    name: logrotate\n    state: present\n  when: ansible_facts['os_family'] == 'Suse'\n- name: Create logrotate config\n  ansible.builtin.template:\n    src: logrotate/nginx.j2\n    dest: /etc/logrotate.d/nginx\n    mode: \"0644\"\n  notify: (Handler) Run logrotate"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: setup-keys.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: (Alpine Linux) Set up signing key\n  when: ansible_facts['os_family'] == 'Alpine'\n  block:\n    - name: (Alpine Linux) Set up NGINX signing key URL\n      ansible.builtin.set_fact:\n        keysite: \"{{ nginx_signing_key | default(nginx_default_signing_key_rsa_pub) }}\"\n    - name: (Alpine Linux) Download NGINX signing key\n      ansible.builtin.get_url:\n        url: \"{{ keysite }}\"\n        dest: /etc/apk/keys/nginx_signing.rsa.pub\n        mode: \"0400\"\n- name: (Debian/Red Hat/SLES OSs) Set up NGINX signing key URL\n  ansible.builtin.set_fact:\n    keysite: \"{{ nginx_signing_key | default(nginx_default_signing_key_pgp) }}\"\n  when: ansible_facts['os_family'] != 'Alpine'\n- name: (Debian/Ubuntu) Add NGINX signing key\n  ansible.builtin.get_url:\n    url: \"{{ keysite }}\"\n    dest: /usr/share/keyrings/nginx-archive-keyring.gpg.asc\n    checksum: sha256:55385da31d198fa6a5012d40ae98ecb272a6c4e8fffffba94719ffd3e87de37a\n    mode: '0644'\n  when: ansible_facts['os_family'] == 'Debian'\n- name: (Red Hat/SLES OSs) Check if NGINX signing key is already imported # noqa command-instead-of-module\n  ansible.builtin.command: rpm -q gpg-pubkey --qf '%{summary}\\n'\n  register: _nginx_key_imported\n  changed_when: false\n  failed_when: false\n  when: ansible_facts['os_family'] in ['RedHat', 'Suse']\n- name: (Red Hat/SLES OSs) Download NGINX signing key\n  ansible.builtin.get_url:\n    url: \"{{ keysite }}\"\n    dest: /tmp/\n    checksum: sha256:55385da31d198fa6a5012d40ae98ecb272a6c4e8fffffba94719ffd3e87de37a\n    mode: '0644'\n  register: nginx_key\n  when:\n    - ansible_facts['os_family'] in ['RedHat', 'Suse']\n    - \"'nginx.com' not in (_nginx_key_imported.stdout | lower)\"\n- name: (Red Hat/SLES OSs) Add NGINX signing key # noqa command-instead-of-module\n  ansible.builtin.command: rpm --import /tmp/nginx_signing.key\n  when:\n    - ansible_facts['os_family'] in ['RedHat', 'Suse']\n    - \"'nginx.com' not in (_nginx_key_imported.stdout | lower)\"\n  changed_when: true\n- name: Cleanup downloads\n  ansible.builtin.file:\n    path: \"{{ nginx_key['dest'] | default('') }}\"\n    state: absent\n  when:\n    - ansible_facts['os_family'] in ['RedHat', 'Suse']\n    - \"'nginx.com' not in (_nginx_key_imported.stdout | lower)\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: main.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Validate Ansible/Jinja2 version, Ansible collections, role variables, and supported distributions\n  ansible.builtin.include_tasks: \"{{ role_path }}/tasks/validate/validate.yml\"\n  tags: nginx_validate\n- name: Set up prerequisites\n  ansible.builtin.include_tasks: \"{{ role_path }}/tasks/prerequisites/prerequisites.yml\"\n  when: nginx_state != 'absent'\n  tags: nginx_prerequisites\n- name: Set up signing keys\n  ansible.builtin.include_tasks: \"{{ role_path }}/tasks/keys/setup-keys.yml\"\n  when: (nginx_enable | bool and nginx_install_from == 'nginx_repository')\n  tags: nginx_key\n- name: \"{{ nginx_setup | capitalize }} NGINX\"\n  when: nginx_enable | bool\n  tags: nginx_enable\n  block:\n    - name: \"{{ nginx_setup | capitalize }} NGINX Open Source\"\n      ansible.builtin.include_tasks: \"{{ role_path }}/tasks/opensource/install-oss.yml\"\n      when: nginx_type == 'opensource'\n      tags: nginx_install_oss\n    - name: Set up NGINX Plus license\n      ansible.builtin.include_tasks: \"{{ role_path }}/tasks/plus/setup-license.yml\"\n      when:\n        - nginx_type == 'plus'\n        - nginx_setup_license | bool\n      tags: nginx_setup_license\n    - name: \"{{ nginx_setup | capitalize }} NGINX Plus\"\n      ansible.builtin.include_tasks: \"{{ role_path }}/tasks/plus/install-{{ ansible_facts['os_family'] | lower }}.yml\"\n      when: nginx_type == 'plus'\n      tags: nginx_install_plus\n    - name: \"{{ nginx_setup | capitalize }} NGINX dynamic modules\"\n      ansible.builtin.include_tasks: \"{{ role_path }}/tasks/modules/install-modules.yml\"\n      when:\n        - nginx_modules is defined\n        - nginx_modules | length > 0\n      tags: nginx_install_modules\n    - name: Remove NGINX Plus license\n      ansible.builtin.include_tasks: \"{{ role_path }}/tasks/plus/remove-license.yml\"\n      when:\n        - nginx_type == 'plus'\n        - nginx_remove_license | bool\n      tags: nginx_remove_license\n    - name: Modify systemd parameters\n      ansible.builtin.include_tasks: \"{{ role_path }}/tasks/config/modify-systemd.yml\"\n      when:\n        - ansible_facts['service_mgr'] == 'systemd'\n        - nginx_service_modify | bool\n      tags: nginx_modify_systemd\n- name: Trigger handlers if necessary\n  ansible.builtin.meta: flush_handlers\n- name: Debug NGINX output\n  ansible.builtin.include_tasks: \"{{ role_path }}/tasks/config/debug-output.yml\"\n  when:\n    - nginx_enable | bool\n    - nginx_debug_output | bool\n    - nginx_state != 'absent'\n  tags: nginx_debug_output\n- name: Configure logrotate for NGINX\n  ansible.builtin.include_tasks: \"{{ role_path }}/tasks/config/setup-logrotate.yml\"\n  when:\n    - nginx_logrotate_conf_enable | bool\n    - nginx_state != 'absent'\n  tags: nginx_logrotate_config\n- name: Install and configure NGINX Plus keepalived HA\n  ansible.builtin.include_tasks: \"{{ role_path }}/tasks/modules/install-packages.yml\"\n  when:\n    - nginx_keepalived_enable | bool or nginx_keepalived_conf_enable | bool\n    - nginx_type == 'plus'\n    - nginx_state != 'absent'\n  tags: nginx_keepalived\n- name: Install NGINX Agent\n  ansible.builtin.include_tasks: \"{{ role_path }}/tasks/agent/install-agent.yml\"\n  when: nginx_agent_enable | bool\n  tags: nginx_install_agent"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: install-modules.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: (AlmaLinux/Amazon Linux/Oracle Linux/RHEL/Rocky Linux) Install Brotli EPEL dependency\n  when:\n    - ansible_facts['os_family'] == \"RedHat\"\n    - ('brotli' in nginx_modules)\n    - nginx_install_epel_release | bool\n  block:\n    - name: (AlmaLinux/Amazon Linux/Oracle Linux/RHEL/Rocky Linux) Install EPEL dependency\n      when: ansible_facts['distribution'] != \"Amazon\"\n      block:\n        - name: (AlmaLinux/Oracle Linux/RHEL/Rocky Linux) Import EPEL GPG key\n          ansible.builtin.rpm_key:\n            state: present\n            key: https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-{{ ansible_facts['distribution_major_version'] }}\n        - name: (AlmaLinux/Oracle Linux/RHEL/Rocky Linux) Install EPEL\n          ansible.builtin.dnf:\n            name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_facts['distribution_major_version'] }}.noarch.rpm\n- name: Install NGINX modules\n  ansible.builtin.package:\n    name: \"nginx-{{ (nginx_type == 'plus') | ternary('plus-', '') }}module-{{ item['name'] | default(item) }}\\\n          {{ (nginx_repository is not defined and ansible_facts['os_family'] == 'Alpine' and nginx_type != 'plus') | ternary('@nginx', '') }}{{ item['version'] | default((nginx_version is defined) | ternary(nginx_version, '')) }}\"\n    state: \"{{ item['state'] | default('present') }}\"\n  loop: \"{{ nginx_modules }}\"\n  when:\n    - (item['name'] | default(item) in nginx_modules_list and nginx_type == 'opensource')\n      or (item['name'] | default(item) in nginx_plus_modules_list and nginx_type == 'plus')\n    - not (item['name'] | default(item) == \"geoip\")\n      or not ((ansible_facts['os_family'] == 'FreeBSD')\n      or (ansible_facts['os_family'] == 'RedHat' and ansible_facts['distribution'] != 'Amazon' and ansible_facts['distribution_major_version'] is version('8', '>='))\n      or (ansible_facts['distribution'] == 'Amazon' and ansible_facts['distribution_major_version'] is version('2023', '=='))\n      or (ansible_facts['os_family'] == 'Suse' and ansible_facts['distribution_major_version'] is version('16', '==')))\n    - not (item['name'] | default(item) == 'geoip2')\n      or not (ansible_facts['os_family'] == 'Suse')"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: install-packages.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Install NGINX Plus HA keepalived package\n  ansible.builtin.package:\n    name: nginx-ha-keepalived\n    state: present\n  when:\n    - nginx_keepalived_enable | bool\n    - ansible_facts['os_family'] != 'Alpine'\n    - ansible_facts['distribution'] != 'Amazon'\n  notify: (Handler) Start NGINX Plus HA keepalived\n- name: Configure NGINX Plus keepalived HA\n  ansible.builtin.template:\n    src: keepalived/keepalived.conf.tmpl.j2\n    dest: /etc/keepalived/keepalived.conf\n    mode: \"0644\"\n  when:\n    - nginx_keepalived_conf_enable | bool\n    - ansible_facts['os_family'] != 'Alpine'\n    - ansible_facts['distribution'] != 'Amazon'\n  notify: (Handler) Start NGINX Plus HA keepalived"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: install-alpine.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: (Alpine Linux) {{ (nginx_setup == 'uninstall') | ternary('Remove', 'Configure') }} NGINX repository\n  ansible.builtin.lineinfile:\n    path: /etc/apk/repositories\n    insertafter: EOF\n    line: \"{{ nginx_repository | default(nginx_default_repository_alpine) }}\"\n    state: \"{{ (nginx_state == 'uninstall') | ternary('absent', 'present') }}\"\n  when: nginx_manage_repo | bool\n- name: (Alpine Linux) {{ nginx_setup | capitalize }} NGINX\n  community.general.apk:\n    name: nginx{{ (nginx_repository is not defined and nginx_setup != 'uninstall') | ternary('@nginx', '') }}{{ nginx_version | default('') }}\n    state: \"{{ nginx_state }}\"\n    update_cache: true\n  ignore_errors: \"{{ ansible_check_mode }}\"\n  when: not (nginx_setup == 'upgrade' and nginx_version is not defined)\n  notify: (Handler) Run NGINX\n- name: (Alpine Linux) Upgrade NGINX workaround ('nginx_setup' is set to 'upgrade' and 'nginx_version' is not defined)\n  when:\n    - nginx_setup == 'upgrade'\n    - nginx_version is not defined\n  block:\n    - name: (Alpine Linux) Check if there are NGINX upgrades available\n      ansible.builtin.command: apk list --upgrade\n      register: upgrade\n      changed_when: false\n    - name: (Alpine Linux) Upgrade NGINX\n      ansible.builtin.command: apk add --upgrade nginx{{ nginx_repository is not defined | ternary('@nginx', '') }}\n      changed_when: upgrade.stdout is search('nginx')\n      when: upgrade.stdout is search('nginx')\n      notify: (Handler) Run NGINX"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: install-bsd.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: (FreeBSD) Update ports\n  when:\n    - ansible_facts['system'] == 'FreeBSD'\n    - nginx_bsd_update_ports | bool\n  block:\n    - name: (FreeBSD) Fetch ports\n      ansible.builtin.command:\n        cmd: portsnap fetch --interactive\n        creates: /var/db/portsnap/INDEX\n    - name: (FreeBSD) Extract ports\n      ansible.builtin.command:\n        cmd: portsnap extract\n        creates: /usr/ports\n- name: (DragonFlyBSD/FreeBSD/HardenedBSD) {{ nginx_setup | capitalize }} NGINX\n  when: ansible_facts['system'] in ['DragonFlyBSD', 'FreeBSD', 'HardenedBSD']\n  block:\n    - name: (DragonFlyBSD/FreeBSD/HardenedBSD) {{ nginx_setup | capitalize }} NGINX package\n      community.general.pkgng:\n        name: www/nginx{{ nginx_version | default('') }}\n        state: \"{{ nginx_state }}\"\n      when: nginx_bsd_install_packages | bool\n      notify: (Handler) Run NGINX\n    - name: (DragonFlyBSD/FreeBSD/HardenedBSD) {{ nginx_setup | capitalize }} NGINX port\n      when: not nginx_bsd_install_packages | bool\n      block:\n        - name: (FreeBSD) {{ nginx_setup | capitalize }} NGINX port\n          community.general.portinstall:\n            name: www/nginx{{ nginx_version | default('') }}\n            use_packages: \"{{ nginx_bsd_portinstall_use_packages | default(omit) }}\"\n            state: \"{{ nginx_state }}\"\n          when: ansible_facts['system'] == 'FreeBSD'\n          notify: (Handler) Run NGINX\n        - name: (DragonFlyBSD/HardenedBSD) {{ nginx_setup | capitalize }} NGINX port\n          ansible.builtin.fail:\n            msg: \"{{ ansible_facts['system'] }} {{ nginx_setup | capitalize }} NGINX port not implemented.\"\n          when: ansible_facts['system'] in ['DragonFlyBSD', 'HardenedBSD']\n- name: (OpenBSD) {{ nginx_setup | capitalize }} NGINX\n  when: ansible_facts['system'] == 'OpenBSD'\n  block:\n    - name: (OpenBSD) {{ nginx_setup | capitalize }} NGINX package\n      community.general.openbsd_pkg:\n        name: nginx{{ nginx_version | default('') }}\n        build: false\n        state: \"{{ nginx_state }}\"\n      when: nginx_bsd_install_packages | bool\n      notify: (Handler) Run NGINX\n    - name: (OpenBSD) {{ nginx_setup | capitalize }} NGINX port\n      community.general.openbsd_pkg:\n        name: nginx{{ nginx_version | default('') }}\n        build: true\n        state: \"{{ nginx_state }}\"\n      when: not nginx_bsd_install_packages | bool\n      notify: (Handler) Run NGINX\n- name: (NetBSD) {{ nginx_setup | capitalize }} NGINX\n  when: ansible_facts['system'] == 'NetBSD'\n  block:\n    - name: (NetBSD) {{ nginx_setup | capitalize }} NGINX package\n      community.general.pkgin:\n        name: nginx{{ nginx_version | default('') }}\n        state: \"{{ (nginx_state == 'uninstall') | ternary('absent', 'present') }}\"\n      when: nginx_bsd_install_packages | bool\n      notify: (Handler) Run NGINX\n    - name: (NetBSD) {{ nginx_setup | capitalize }} NGINX port\n      ansible.builtin.fail:\n        msg: \"{{ ansible_facts['system'] }} {{ nginx_setup | capitalize }} NGINX port not implemented.\"\n      when: not nginx_bsd_install_packages | bool"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: install-debian.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: (Debian/Ubuntu) {{ (nginx_setup == 'uninstall') | ternary('Remove', 'Configure') }} NGINX repository\n  ansible.builtin.apt_repository:\n    filename: nginx\n    repo: \"{{ item }}\"\n    update_cache: true\n    mode: \"0644\"\n    state: \"{{ (nginx_state == 'uninstall') | ternary('absent', 'present') }}\"\n  loop: \"{{ nginx_repository | default(nginx_default_repository_debian) }}\"\n  when: nginx_manage_repo | bool\n- name: (Debian/Ubuntu) {{ (nginx_setup == 'uninstall') | ternary('Unpin', 'Pin') }} NGINX repository\n  ansible.builtin.blockinfile:\n    path: /etc/apt/preferences.d/99nginx\n    create: true\n    block: |\n      Package: *\n      Pin: origin nginx.org\n      Pin: release o=nginx\n      Pin-Priority: 900\n    mode: \"0644\"\n    state: \"{{ (nginx_state == 'uninstall') | ternary('absent', 'present') }}\"\n  when: nginx_repository is not defined\n- name: (Debian/Ubuntu) {{ nginx_setup | capitalize }} NGINX\n  ansible.builtin.apt:\n    name: nginx{{ nginx_version | default('') }}\n    state: \"{{ nginx_state }}\"\n    update_cache: true\n    allow_downgrade: true\n  ignore_errors: \"{{ ansible_check_mode }}\"\n  notify: (Handler) Run NGINX"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: install-distribution.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: \"{{ nginx_setup | capitalize }} NGINX from the distribution's package repository\"\n  ansible.builtin.package:\n    name: \"{{ nginx_distribution_package | default('nginx' + (nginx_version | default(''))) }}\"\n    state: \"{{ nginx_state }}\"\n  notify: (Handler) Run NGINX"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: install-oss.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: \"{{ nginx_setup | capitalize }} NGINX in Linux systems\"\n  when: ansible_facts['system'] | lower is not search('bsd')\n  block:\n    - name: \"{{ nginx_setup | capitalize }} NGINX from the official package repository\"\n      ansible.builtin.include_tasks: \"{{ role_path }}/tasks/opensource/install-{{ ansible_facts['os_family'] | lower }}.yml\"\n      when: nginx_install_from == 'nginx_repository'\n    - name: \"{{ nginx_setup | capitalize }} NGINX from the distribution's package repository\"\n      ansible.builtin.include_tasks: \"{{ role_path }}/tasks/opensource/install-distribution.yml\"\n      when: nginx_install_from == 'os_repository'\n    - name: \"{{ nginx_setup | capitalize }} NGINX from source\"\n      ansible.builtin.include_tasks: \"{{ role_path }}/tasks/opensource/install-source.yml\"\n      when: nginx_install_from == 'source'\n- name: \"{{ nginx_setup | capitalize }} NGINX in Unix systems\"\n  ansible.builtin.include_tasks: \"{{ role_path }}/tasks/opensource/install-bsd.yml\"\n  when: ansible_facts['system'] | lower is search('bsd')"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: install-redhat.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: (AlmaLinux/Amazon Linux/Oracle Linux/RHEL/Rocky Linux) {{ (nginx_setup == 'uninstall') | ternary('Remove', 'Configure') }} NGINX repository\n  ansible.builtin.yum_repository:\n    name: nginx\n    baseurl: \"{{ nginx_repository | default(lookup('vars', 'nginx_default_repository_' + ((ansible_facts['distribution'] == 'Amazon') | ternary('amazon', 'redhat')))) }}\"\n    description: NGINX Repository\n    enabled: true\n    gpgcheck: true\n    mode: \"0644\"\n    module_hotfixes: true\n    priority: 9\n    state: \"{{ (nginx_state == 'uninstall') | ternary('absent', 'present') }}\"\n  when: nginx_manage_repo | bool\n- name: (AlmaLinux/Amazon Linux/Oracle Linux/RHEL/Rocky Linux) Force Yum cache refresh\n  ansible.builtin.command: dnf clean metadata\n  when: nginx_manage_repo | bool\n  changed_when: false\n- name: (AlmaLinux/Amazon Linux/Oracle Linux/RHEL/Rocky Linux) {{ nginx_setup | capitalize }} NGINX\n  ansible.builtin.dnf:\n    name: nginx{{ nginx_version | default('') }}\n    state: \"{{ nginx_state }}\"\n    update_cache: true\n    allow_downgrade: true\n  ignore_errors: \"{{ ansible_check_mode }}\"\n  notify: (Handler) Run NGINX"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: install-source.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Check for build tools\n  when: nginx_install_source_build_tools | bool\n  block:\n    - name: (Alpine Linux) Install build tools\n      community.general.apk:\n        name:\n          - alpine-sdk\n          - build-base\n          - git\n          - openrc\n          - perl\n          - python3\n          - linux-headers\n          - tar\n          - wget\n        update_cache: true\n      when: ansible_facts['os_family'] == 'Alpine'\n    - name: (AlmaLinux/Amazon Linux/Oracle Linux/RHEL/Rocky Linux) Set up build tools\n      when: ansible_facts['os_family'] == 'RedHat'\n      block:\n        - name: (RHEL 8) Install Python 3\n          ansible.builtin.dnf:\n            name:\n              - python3\n              - python3-pip\n              - python3-devel\n            update_cache: true\n          when: ansible_facts['distribution_major_version'] is version('8', '==')\n        - name: (RHEL 8) Set Python 3 as default\n          community.general.alternatives:\n            name: python\n            path: /usr/bin/python3\n            link: /usr/bin/python\n          when: ansible_facts['distribution_major_version'] is version('8', '==')\n        - name: (AlmaLinux/Amazon Linux/Oracle Linux/RHEL/Rocky Linux) Install build tools\n          ansible.builtin.dnf:\n            name:\n              - ca-certificates\n              - gcc\n              - gcc-c++\n              - gd\n              - gd-devel\n              - glibc\n              - glibc-common\n              - make\n              - perl-core\n              - tar\n              - unzip\n              - wget\n              - zlib-devel\n            update_cache: true\n    - name: (Debian/Ubuntu) Install build tools\n      ansible.builtin.apt:\n        name:\n          - build-essential\n          - checkinstall\n          - libtemplate-perl\n          - python3-minimal\n          - perl\n          - tar\n          - zlib1g-dev\n        update_cache: true\n      when: ansible_facts['os_family'] == 'Debian'\n    - name: (SLES) Install build tools\n      community.general.zypper:\n        name:\n          - awk\n          - gcc\n          - gzip\n          - make\n          - tar\n          - zlib-devel\n        update_cache: true\n      when: ansible_facts['os_family'] == 'Suse'\n- name: Check for source installs\n  block:\n    - name: Check for PCRE install\n      ansible.builtin.stat:\n        path: /tmp/pcre-{{ pcre_version }}\n      register: pcre_result\n    - name: Check for ZLib install\n      ansible.builtin.stat:\n        path: /tmp/zlib-{{ zlib_version }}\n      register: zlib_result\n    - name: Check for OpenSSL install\n      ansible.builtin.stat:\n        path: /tmp/openssl-{{ openssl_version }}\n      register: openssl_result\n- name: Install PCRE dependecy from package\n  when: not nginx_install_source_pcre | bool\n  block:\n    - name: (Alpine Linux) Install PCRE dependency from package\n      community.general.apk:\n        name: \"{{ (pcre_release == 2) | ternary('pcre2-dev', 'pcre-dev') }}\"\n        update_cache: true\n      when: ansible_facts['os_family'] == 'Alpine'\n    - name: (AlmaLinux/Amazon Linux/Oracle Linux/RHEL/Rocky Linux) Install PCRE dependency from package\n      ansible.builtin.dnf:\n        name: \"{{ (pcre_release == 2) | ternary('pcre2-devel', 'pcre-devel') }}\"\n        update_cache: true\n      when: ansible_facts['os_family'] == 'RedHat'\n    - name: (Debian/Ubuntu) Install PCRE dependency from package\n      ansible.builtin.apt:\n        name: \"{{ (pcre_release == 2) | ternary('libpcre2-dev', 'libpcre3-dev') }}\"\n        update_cache: true\n      when: ansible_facts['os_family'] == 'Debian'\n    - name: (SLES) Install PCRE dependency from package\n      community.general.zypper:\n        name: \"{{ (pcre_release == 2) | ternary('pcre2-devel', 'pcre-devel') }}\"\n        update_cache: true\n      when: ansible_facts['os_family'] == 'Suse'\n- name: Install PCRE dependence from source\n  when:\n    - not pcre_result['stat']['exists'] | bool\n    - nginx_install_source_pcre | bool\n    - not ansible_check_mode | bool\n  block:\n    - name: Download PCRE dependency\n      ansible.builtin.get_url:\n        url: \"{{ (pcre_release == 2) | ternary('https://github.com/PCRE2Project/pcre2/releases/download/pcre2-' ~ pcre_version ~ '/pcre2-' ~ pcre_version ~ '.tar.gz', 'https://ftp.exim.org/pub/pcre/pcre-' ~ pcre_version ~ '.tar.gz') }}\"\n        dest: /tmp\n        mode: \"0600\"\n      register: pcre_source\n    - name: Ensure PCRE directory exists\n      ansible.builtin.file:\n        path: /tmp/pcre-{{ pcre_version }}\n        state: directory\n        mode: \"0700\"\n    - name: Unpack PCRE dependency\n      ansible.builtin.unarchive:\n        copy: false\n        src: \"{{ pcre_source['dest'] }}\"\n        dest: /tmp/pcre-{{ pcre_version }}/\n        mode: \"0700\"\n        extra_opts: [--strip-components=1]\n    - name: Configure PCRE dependency\n      ansible.builtin.command:\n        cmd: ./configure\n        chdir: /tmp/pcre-{{ pcre_version }}\n        creates: /tmp/makefile\n    - name: Make PCRE dependency\n      community.general.make:\n        chdir: /tmp/pcre-{{ pcre_version }}\n    - name: Install PCRE dependency\n      community.general.make:\n        chdir: /tmp/pcre-{{ pcre_version }}\n        target: install\n- name: Install ZLib dependency from package\n  when: not nginx_install_source_zlib | bool\n  block:\n    - name: (Alpine Linux) Install ZLib dependency from package\n      community.general.apk:\n        name: zlib-dev\n        update_cache: true\n      when: ansible_facts['os_family'] == 'Alpine'\n    - name: (AlmaLinux/Amazon Linux/Oracle Linux/RHEL/Rocky Linux) Install ZLib dependency from package\n      ansible.builtin.dnf:\n        name: zlib-devel\n        update_cache: true\n      when: ansible_facts['os_family'] == 'RedHat'\n    - name: (Debian/Ubuntu) Install ZLib dependency from package\n      ansible.builtin.apt:\n        name: zlib1g-dev\n        update_cache: true\n      when: ansible_facts['os_family'] == 'Debian'\n    - name: (SLES) Install ZLib dependency from package\n      community.general.zypper:\n        name: zlib-devel\n        update_cache: true\n      when: ansible_facts['os_family'] == 'Suse'\n- name: Install ZLib dependency from source\n  when:\n    - not zlib_result['stat']['exists'] | bool\n    - nginx_install_source_zlib | bool\n    - not ansible_check_mode | bool\n  block:\n    - name: Download ZLib dependency\n      ansible.builtin.get_url:\n        url: https://github.com/madler/zlib/releases/download/v{{ zlib_version }}/zlib-{{ zlib_version }}.tar.gz\n        dest: /tmp\n        mode: \"0600\"\n      register: zlib_source\n    - name: Ensure ZLib directory exists\n      ansible.builtin.file:\n        path: /tmp/zlib-{{ zlib_version }}\n        state: directory\n        mode: \"0700\"\n    - name: Unpack ZLib dependency\n      ansible.builtin.unarchive:\n        copy: false\n        src: \"{{ zlib_source['dest'] }}\"\n        dest: /tmp/zlib-{{ zlib_version }}\n        mode: \"0700\"\n        extra_opts: [--strip-components=1]\n    - name: Configure ZLib dependency\n      ansible.builtin.command:\n        cmd: ./configure\n        chdir: /tmp/zlib-{{ zlib_version }}\n        creates: /tmp/makefile\n    - name: Make ZLib dependency\n      community.general.make:\n        chdir: /tmp/zlib-{{ zlib_version }}\n    - name: Install ZLib dependency\n      community.general.make:\n        chdir: /tmp/zlib-{{ zlib_version }}\n        target: install\n- name: Install OpenSSL dependency from package\n  when: not nginx_install_source_openssl | bool\n  block:\n    - name: (Alpine Linux) Install OpenSSL dependency from package\n      community.general.apk:\n        name: openssl-dev\n        update_cache: true\n      when: ansible_facts['os_family'] == 'Alpine'\n    - name: (AlmaLinux/Amazon Linux/Oracle Linux/RHEL/Rocky Linux) Install OpenSSL dependency from package\n      ansible.builtin.dnf:\n        name: openssl-devel\n        update_cache: true\n      when: ansible_facts['os_family'] == 'RedHat'\n    - name: (Debian/Ubuntu) Install OpenSSL dependency from package\n      ansible.builtin.apt:\n        name: libssl-dev\n        update_cache: true\n      when: ansible_facts['os_family'] == 'Debian'\n    - name: (SLES) Install OpenSSL dependency from package\n      community.general.zypper:\n        name: openssl-devel\n        update_cache: true\n      when: ansible_facts['os_family'] == 'Suse'\n- name: Install OpenSSL dependency from source\n  when:\n    - not openssl_result['stat']['exists'] | bool\n    - nginx_install_source_openssl | bool\n    - not ansible_check_mode | bool\n  block:\n    - name: Download OpenSSL dependency\n      ansible.builtin.get_url:\n        url: https://github.com/openssl/openssl/archive/refs/tags/openssl-{{ openssl_version }}.tar.gz\n        dest: /tmp/{{ openssl_version }}.tar.gz\n        mode: \"0600\"\n      register: openssl_source\n    - name: Ensure OpenSSL directory exists\n      ansible.builtin.file:\n        path: /tmp/openssl-{{ openssl_version }}\n        state: directory\n        mode: \"0700\"\n    - name: Unpack OpenSSL dependency\n      ansible.builtin.unarchive:\n        copy: false\n        src: \"{{ openssl_source['dest'] }}\"\n        dest: /tmp/openssl-{{ openssl_version }}\n        mode: \"0700\"\n        extra_opts: [--strip-components=1]\n    - name: Configure OpenSSL dependency\n      ansible.builtin.command:\n        cmd: ./config --prefix=/usr/local/openssl --openssldir=/usr/local/openssl shared zlib\n        chdir: /tmp/openssl-{{ openssl_version }}\n        creates: /tmp/makefile\n    - name: Make OpenSSL dependency\n      community.general.make:\n        chdir: /tmp/openssl-{{ openssl_version }}\n    - name: Install OpenSSL dependency\n      community.general.make:\n        chdir: /tmp/openssl-{{ openssl_version }}\n        target: install\n- name: Get latest NGINX version\n  when: nginx_version is undefined\n  block:\n    - name: Fetch NGINX latest version\n      ansible.builtin.uri:\n        url: https://version.nginx.com/nginx/{{ nginx_branch }}\n        return_content: true\n      check_mode: false\n      register: nginx_latest_version\n    - name: Set NGINX version\n      ansible.builtin.set_fact:\n        nginx_version: \"{{ (nginx_latest_version['content'] | regex_search('([0-9]+\\\\.){2}[0-9]+')) }}\"\n- name: Check for NGINX install\n  ansible.builtin.stat:\n    path: /usr/sbin/nginx\n    follow: true\n  register: nginx_result\n- name: Add NGINX group\n  ansible.builtin.group:\n    name: nginx\n- name: Add NGINX user\n  ansible.builtin.user:\n    name: nginx\n    group: nginx\n    comment: nginx user\n    home: /var/cache/nginx\n    shell: /sbin/nologin\n- name: Install NGINX\n  when:\n    - not nginx_result['stat']['exists'] | bool\n    - not ansible_check_mode | bool\n  block:\n    - name: Download NGINX\n      ansible.builtin.get_url:\n        url: https://nginx.org/download/nginx-{{ nginx_version }}.tar.gz\n        dest: /tmp/nginx-{{ nginx_version }}.tar.gz\n        mode: \"0600\"\n      register: nginx_source\n    - name: Unpack NGINX\n      ansible.builtin.unarchive:\n        copy: false\n        src: \"{{ nginx_source.dest }}\"\n        dest: /tmp\n        mode: \"0755\"\n    - name: Set static modules\n      ansible.builtin.set_fact:\n        nginx_install_source_static_modules: \"{{ nginx_install_source_static_modules | default('') + ' --with-' + item }}\"\n      loop: \"{{ nginx_static_modules }}\"\n    - name: Configure NGINX\n      ansible.builtin.command:\n        cmd: >-\n          ./configure\n          --conf-path=/etc/nginx/nginx.conf\n          --error-log-path=/var/log/nginx/error.log\n          --http-log-path=/var/log/nginx/access.log\n          --lock-path=/var/lock/nginx.lock\n          --modules-path=/usr/lib/nginx/modules\n          --prefix=/usr\n          --pid-path=/var/run/nginx.pid\n          --user=nginx\n          --with-mail=dynamic\n          --with-stream\n          {{ nginx_install_source_pcre | ternary('--with-pcre=../pcre-' + pcre_version | string, '') }}\n          {{ nginx_install_source_zlib | ternary('--with-zlib=../zlib-' + zlib_version | string, '') }}\n          {{ nginx_install_source_openssl | ternary('--with-openssl=../openssl-' + openssl_version | string, '') }}\n          {{ nginx_install_source_static_modules | default('') }}\n        chdir: /tmp/nginx-{{ nginx_version }}\n        creates: /tmp/makefile\n      register: nginx_configure\n    - name: Make NGINX\n      community.general.make:\n        chdir: /tmp/nginx-{{ nginx_version }}\n    - name: Install NGINX\n      community.general.make:\n        chdir: /tmp/nginx-{{ nginx_version }}\n        target: install\n    - name: Set up systemd\n      when: ansible_facts['service_mgr'] == 'systemd'\n      notify: (Handler) Run NGINX\n      block:\n        - name: Upload systemd NGINX service file\n          ansible.builtin.copy:\n            src: services/nginx.systemd\n            dest: \"{{ (ansible_facts['os_family'] == 'Suse') | ternary('usr/lib/systemd/system/nginx.service', '/lib/systemd/system/nginx.service') }}\"\n            owner: root\n            group: root\n            mode: \"0644\"\n        - name: Enable systemd NGINX service file\n          ansible.builtin.systemd:\n            daemon_reload: true\n            name: nginx\n            state: restarted\n            enabled: true\n    - name: Set up Upstart\n      when: ansible_facts['service_mgr'] == 'upstart'\n      notify: (Handler) Run NGINX\n      block:\n        - name: Upload Upstart NGINX service file\n          ansible.builtin.copy:\n            src: services/nginx.upstart\n            dest: /etc/init.d/nginx\n            owner: root\n            group: root\n            mode: \"0755\"\n        - name: Upload Upstart NGINX service conf file\n          ansible.builtin.copy:\n            src: services/nginx.conf.upstart\n            dest: /etc/init/nginx.conf\n            owner: root\n            group: root\n            mode: \"0644\"\n        - name: Enable Upstart NGINX service reload # noqa no-changed-when\n          ansible.builtin.command: initctl reload-configuration\n        - name: Start Upstart NGINX service reload # noqa no-changed-when\n          ansible.builtin.command: nginx\n    - name: Upload SysVinit NGINX service file\n      ansible.builtin.copy:\n        src: services/nginx.sysvinit\n        dest: /etc/init.d/nginx\n        owner: root\n        group: root\n        mode: \"0755\"\n      when: ansible_facts['service_mgr'] == 'sysvinit'\n      notify: (Handler) Run NGINX\n    - name: Set up OpenRC\n      when: ansible_facts['service_mgr'] == 'openrc'\n      notify: (Handler) Run NGINX\n      block:\n        - name: Enable OpenRC\n          ansible.builtin.copy:\n            content: \"\"\n            dest: /run/openrc/softlevel\n            force: false\n            owner: root\n            mode: \"0644\"\n        - name: Upload OpenRC NGINX service file\n          ansible.builtin.copy:\n            src: services/nginx.openrc\n            dest: /etc/init.d/nginx\n            owner: root\n            group: root\n            mode: \"0755\"\n        - name: Enable OpenRC NGINX service # noqa no-changed-when\n          ansible.builtin.command: rc-update add nginx default\n- name: Cleanup downloads\n  ansible.builtin.file:\n    path: \"{{ item }}\"\n    state: absent\n  loop:\n    - \"{{ pcre_source['dest'] }}\"\n    - \"{{ zlib_source['dest'] }}\"\n    - \"{{ openssl_source['dest'] }}\"\n    - \"{{ nginx_source['dest'] }}\"\n  when: item is defined"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: install-suse.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: (SLES) {{ (nginx_setup == 'uninstall') | ternary('Remove', 'Configure') }} NGINX repository\n  community.general.zypper_repository:\n    name: nginx-{{ nginx_branch }}\n    repo: \"{{ nginx_repository | default(nginx_default_repository_suse) }}\"\n    state: \"{{ (nginx_state == 'uninstall') | ternary('absent', 'present') }}\"\n  when: nginx_manage_repo | bool\n- name: (SLES) {{ nginx_setup | capitalize }} NGINX\n  community.general.zypper:\n    name: nginx{{ nginx_version | default('') }}\n    state: \"{{ nginx_state }}\"\n    update_cache: true\n    oldpackage: true\n  ignore_errors: \"{{ ansible_check_mode }}\"\n  notify: (Handler) Run NGINX"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: install-alpine.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: (Alpine Linux) {{ nginx_license_status is defined | ternary('Remove', 'Configure') }} NGINX Plus repository\n  ansible.builtin.lineinfile:\n    path: /etc/apk/repositories\n    insertafter: EOF\n    line: \"{{ nginx_repository | default(nginx_plus_default_repository_alpine) }}\"\n    state: \"{{ nginx_license_status | default((nginx_setup == 'uninstall') | ternary('absent', 'present')) }}\"\n  when: nginx_manage_repo | bool\n- name: (Alpine Linux) {{ nginx_setup | capitalize }} NGINX Plus\n  community.general.apk:\n    name: nginx-plus{{ nginx_version | default('') }}\n    repository: \"{{ nginx_repository | default(nginx_plus_default_repository_alpine) }}\"\n    state: \"{{ nginx_state }}\"\n  ignore_errors: \"{{ ansible_check_mode }}\"\n  when: nginx_license_status is not defined\n  notify: (Handler) Run NGINX"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: install-debian.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: (Debian/Ubuntu) {{ nginx_license_status is defined | ternary('Remove', 'Configure') }} NGINX Plus license verification\n  ansible.builtin.blockinfile:\n    path: /etc/apt/apt.conf.d/90nginx\n    create: true\n    block: |\n      Acquire::https::{{ (nginx_repository | default(nginx_plus_default_repository_debian)) | regex_search('(?<=https://)[^/]*') }}::Verify-Peer \"true\";\n      Acquire::https::{{ (nginx_repository | default(nginx_plus_default_repository_debian)) | regex_search('(?<=https://)[^/]*') }}::Verify-Host \"true\";\n      Acquire::https::{{ (nginx_repository | default(nginx_plus_default_repository_debian)) | regex_search('(?<=https://)[^/]*') }}::SslCert     \"/etc/ssl/nginx/nginx-repo.crt\";\n      Acquire::https::{{ (nginx_repository | default(nginx_plus_default_repository_debian)) | regex_search('(?<=https://)[^/]*') }}::SslKey      \"/etc/ssl/nginx/nginx-repo.key\";\n    state: \"{{ nginx_license_status | default((nginx_setup == 'uninstall') | ternary('absent', 'present')) }}\"\n    mode: \"0444\"\n- name: (Debian/Ubuntu) {{ nginx_license_status is defined | ternary('Remove', 'Configure') }} NGINX Plus repository\n  ansible.builtin.apt_repository:\n    filename: nginx-plus\n    repo: \"{{ nginx_repository | default(nginx_plus_default_repository_debian) }}\"\n    update_cache: false\n    state: \"{{ nginx_license_status | default((nginx_setup == 'uninstall') | ternary('absent', 'present')) }}\"\n    mode: \"0644\"\n  when: nginx_manage_repo | bool\n- name: (Debian/Ubuntu) {{ nginx_setup | capitalize }} NGINX Plus\n  ansible.builtin.apt:\n    name: nginx-plus{{ nginx_version | default('') }}\n    state: \"{{ nginx_state }}\"\n    update_cache: true\n    allow_downgrade: true\n  ignore_errors: \"{{ ansible_check_mode }}\"\n  when: nginx_license_status is not defined\n  notify: (Handler) Run NGINX"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: install-freebsd.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: (FreeBSD) {{ nginx_license_status is defined | ternary('Remove', 'Configure') }} NGINX Plus license verification\n  ansible.builtin.blockinfile:\n    path: /usr/local/etc/pkg.conf\n    block: |\n      PKG_ENV: { SSL_NO_VERIFY_PEER: \"1\",\n      SSL_CLIENT_CERT_FILE: \"/etc/ssl/nginx/nginx-repo.crt\",\n      SSL_CLIENT_KEY_FILE: \"/etc/ssl/nginx/nginx-repo.key\" }\n    state: \"{{ nginx_license_status | default('present') }}\"\n- name: (FreeBSD) {{ nginx_license_status is defined | ternary('Remove', 'Configure') }} NGINX Plus repository\n  ansible.builtin.blockinfile:\n    path: /etc/pkg/nginx-plus.conf\n    create: true\n    block: |\n      nginx-plus: {\n      URL: {{ nginx_repository | default(nginx_plus_default_repository_freebsd) }}\n      ENABLED: yes\n      MIRROR_TYPE: SRV\n      }\n    state: \"{{ nginx_license_status | default('present') }}\"\n    mode: \"0644\"\n  when: nginx_manage_repo | bool\n- name: (FreeBSD) {{ nginx_setup | capitalize }} NGINX Plus\n  community.general.pkgng:\n    name: nginx-plus{{ nginx_version | default('') }}\n    state: \"{{ nginx_state }}\"\n  when: nginx_license_status is not defined\n  notify: (Handler) Run NGINX"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: install-redhat.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: (AlmaLinux/Amazon Linux/Oracle Linux/RHEL/Rocky Linux) {{ (nginx_license_status is defined or nginx_setup == 'uninstall') | ternary('Remove', 'Configure') }} NGINX Plus repository\n  ansible.builtin.yum_repository:\n    name: nginx-plus\n    baseurl: \"{{ nginx_repository | default(lookup('vars', 'nginx_plus_default_repository_' + ((ansible_facts['distribution'] == 'Amazon') | ternary('amazon', 'redhat')))) }}\"\n    description: NGINX Plus Repository\n    sslclientcert: /etc/ssl/nginx/nginx-repo.crt\n    sslclientkey: /etc/ssl/nginx/nginx-repo.key\n    enabled: true\n    gpgcheck: true\n    state: \"{{ nginx_license_status | default((nginx_setup == 'uninstall') | ternary('absent', 'present')) }}\"\n    mode: \"0644\"\n  when: nginx_manage_repo | bool\n- name: (AlmaLinux/Amazon Linux/Oracle Linux/RHEL/Rocky Linux) Force Yum cache refresh\n  ansible.builtin.command: dnf clean metadata\n  when: nginx_manage_repo | bool\n  changed_when: false\n- name: (AlmaLinux/Amazon Linux/Oracle Linux/RHEL/Rocky Linux) {{ nginx_setup | capitalize }} NGINX Plus\n  ansible.builtin.dnf:\n    name: nginx-plus{{ nginx_version | default('') }}\n    state: \"{{ nginx_state }}\"\n    update_cache: true\n    allow_downgrade: true\n  ignore_errors: \"{{ ansible_check_mode }}\"\n  when: nginx_license_status is not defined\n  notify: (Handler) Run NGINX"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: install-suse.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: (SLES) {{ nginx_license_status is defined | ternary('Remove', 'Configure') }} NGINX Plus repository\n  community.general.zypper_repository:\n    name: nginx-plus\n    repo: \"{{ nginx_repository | default(nginx_plus_default_repository_suse) }}\"\n    state: \"{{ nginx_license_status | default((nginx_setup == 'uninstall') | ternary('absent', 'present')) }}\"\n  when: nginx_manage_repo | bool\n- name: (SLES) {{ nginx_setup | capitalize }} NGINX Plus\n  community.general.zypper:\n    name: nginx-plus{{ nginx_version | default('') }}\n    state: \"{{ nginx_state }}\"\n    update_cache: true\n    oldpackage: true\n  ignore_errors: \"{{ ansible_check_mode }}\"\n  when: nginx_license_status is not defined\n  notify: (Handler) Run NGINX"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: remove-license.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Set NGINX Plus license state to absent\n  ansible.builtin.set_fact:\n    nginx_license_status: absent\n- name: (Debian/Red Hat/SLES OSs) Delete NGINX Plus license\n  ansible.builtin.file:\n    path: /etc/ssl/nginx\n    state: absent\n  when: ansible_facts['distribution'] != 'Alpine'\n- name: (Alpine Linux) Delete NGINX Plus license\n  ansible.builtin.file:\n    path: \"{{ item }}\"\n    state: absent\n  loop:\n    - /etc/apk/cert.key\n    - /etc/apk/cert.pem\n  when: ansible_facts['distribution'] == 'Alpine'\n- name: Remove NGINX Plus repository data\n  ansible.builtin.include_tasks: \"{{ role_path }}/tasks/plus/install-{{ ansible_facts['os_family'] | lower }}.yml\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: setup-license.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: (Alpine Linux) Set up NGINX Plus license\n  when: ansible_facts['os_family'] == \"Alpine\"\n  block:\n    - name: Install cryptography package\n      ansible.builtin.package:\n        name: py3-cryptography\n    - name: (Alpine Linux) Create APK directory\n      ansible.builtin.file:\n        path: /etc/apk\n        state: directory\n        mode: \"0755\"\n    - name: (Alpine Linux) Copy NGINX Plus certificate\n      ansible.builtin.copy:\n        src: \"{{ nginx_license['certificate'] }}\"\n        dest: /etc/apk/cert.pem\n        decrypt: true\n        mode: \"0444\"\n    - name: (Alpine Linux) Copy NGINX Plus key\n      ansible.builtin.copy:\n        src: \"{{ nginx_license['key'] }}\"\n        dest: /etc/apk/cert.key\n        decrypt: true\n        mode: \"0444\"\n    - name: (Alpine Linux) Check that NGINX Plus certificate is valid\n      community.crypto.x509_certificate_info:\n        path: /etc/apk/cert.pem\n      register: cert\n    - name: (Alpine Linux) Check that NGINX Plus key is valid\n      community.crypto.openssl_privatekey_info:\n        path: /etc/apk/cert.key\n      register: key\n    - name: (Alpine Linux) Check that NGINX Plus license is valid\n      ansible.builtin.assert:\n        that:\n          - cert['expired'] == false\n          - cert['public_key'] == key['public_key']\n        success_msg: Your NGINX Plus license is valid!\n        fail_msg: Something went wrong! Make sure your NGINX Plus license is valid!\n- name: (Debian/Red Hat/SLES OSs) Set up NGINX Plus license\n  when: ansible_facts['os_family'] != 'Alpine'\n  block:\n    - name: (Debian/Red Hat/SLES OSs) Create SSL directory\n      ansible.builtin.file:\n        path: /etc/ssl/nginx\n        state: directory\n        mode: \"0755\"\n    - name: (Debian/Red Hat/SLES OSs) Copy NGINX Plus certificate and license key\n      ansible.builtin.copy:\n        src: \"{{ item }}\"\n        dest: /etc/ssl/nginx\n        decrypt: true\n        mode: \"0444\"\n      loop:\n        - \"{{ nginx_license['certificate'] }}\"\n        - \"{{ nginx_license['key'] }}\"\n    - name: (Debian/Red Hat/SLES OSs) Install cryptography package\n      ansible.builtin.package:\n        name: \"{{ (ansible_python['version']['major'] == 3) | ternary('python3-cryptography', 'python2-cryptography') }}\"\n      when: not (ansible_facts['distribution'] == \"OracleLinux\" and ansible_facts['distribution_major_version'] == \"8\")\n    - name: (OracleLinux 8) Install cryptography package\n      ansible.builtin.package:\n        name: \"python3.11-cryptography\"\n      when:\n        - ansible_facts['distribution'] == \"OracleLinux\"\n        - ansible_facts['distribution_major_version'] == \"8\"\n    - name: (Debian/Red Hat/SLES OSs) Check that NGINX Plus certificate is valid\n      community.crypto.x509_certificate_info:\n        path: /etc/ssl/nginx/nginx-repo.crt\n      register: cert\n    - name: (Debian/Red Hat/SLES OSs) Check that NGINX Plus key is valid\n      community.crypto.openssl_privatekey_info:\n        path: /etc/ssl/nginx/nginx-repo.key\n      register: key\n    - name: (Debian/Red Hat/SLES OSs) Check that NGINX Plus license is valid\n      ansible.builtin.assert:\n        that:\n          - cert['expired'] == false\n          - cert['public_key'] == key['public_key']\n        success_msg: Your NGINX Plus license is valid!\n        fail_msg: Something went wrong! Make sure your NGINX Plus license is valid!\n    - name: (SLES) Create NGINX Plus license bundle\n      when: ansible_facts['os_family'] == 'Suse'\n      block:\n        - name: (SLES) Check combined NGINX Plus license bundle exists\n          ansible.builtin.stat:\n            path: /etc/ssl/nginx/nginx-repo-bundle.crt\n          register: bundle\n        - name: (SLES) Combine NGINX Plus certificate and license key\n          ansible.builtin.assemble:\n            src: /etc/ssl/nginx\n            dest: /etc/ssl/nginx/nginx-repo-bundle.crt\n            mode: \"0444\"\n          when: not bundle['stat']['exists']\n- name: Set up NGINX Plus JWT\n  block:\n    - name: Check if NGINX Plus is being installed or upgraded\n      ansible.builtin.package_facts:\n    - name: Obtain version of NGINX Plus if it's already installed\n      when: \"'nginx-plus' in ansible_facts['packages']\"\n      block:\n        - name: Check NGINX Plus version\n          ansible.builtin.command: nginx -v\n          register: nginx_plus_version\n          changed_when: false\n        - name: Parse NGINX Plus version\n          ansible.builtin.set_fact:\n            nginx_plus_installed_version: \"{{ nginx_plus_version['stderr'] | regex_search('nginx-plus-r(\\\\d+)', '\\\\1') | first }}\"\n    - name: Obtain version of NGINX Plus to be installed (if set)\n      ansible.builtin.set_fact:\n        nginx_plus_target_version: \"{{ nginx_version | regex_search('(\\\\d+)', '\\\\1') | first }}\"\n      when: nginx_version is defined\n    - name: Set up JWT\n      when:\n        - nginx_setup in ['install', 'upgrade']\n        - nginx_plus_installed_version is defined and (nginx_setup == 'upgrade' or nginx_plus_target_version is defined and nginx_plus_target_version is version('33', '>='))\n          or nginx_plus_installed_version is not defined and (nginx_plus_target_version is not defined or nginx_plus_target_version is version('33', '>='))\n      block:\n        - name: Create NGINX Plus main directory\n          ansible.builtin.file:\n            path: /etc/nginx\n            state: directory\n            mode: \"0755\"\n        - name: Copy NGINX Plus JWT\n          ansible.builtin.copy:\n            src: \"{{ nginx_license['jwt']['src'] | default(nginx_license['jwt']) }}\"\n            dest: \"{{ nginx_license['jwt']['dest'] | default((ansible_facts['os_family'] == 'FreeBSD') | ternary('/usr/local/etc/nginx/license.jwt', '/etc/nginx/license.jwt')) }}\"\n            decrypt: true\n            mode: \"0444\"\n        - name: Verify NGINX Plus JWT claims\n          block:\n            - name: Read JWT file\n              ansible.builtin.slurp:\n                src: \"{{ nginx_license['jwt']['dest'] | default((ansible_facts['os_family'] == 'FreeBSD') | ternary('/usr/local/etc/nginx/license.jwt', '/etc/nginx/license.jwt')) }}\"\n              register: jwt_file\n            - name: Decode JWT payload using base64url\n              ansible.builtin.set_fact:\n                jwt_payload_encoded: \"{{ (jwt_file['content'] | b64decode | split('.'))[1] }}\"\n            - name: Decode JWT payload using base64url\n              ansible.builtin.set_fact:\n                jwt_payload: >-\n                  {{\n                    jwt_payload_encoded\n                    | regex_replace('-', '+')\n                    | regex_replace('_', '/')\n                    | regex_replace('\\s*$', '=' * (4 - jwt_payload_encoded | length % 4))\n                    | b64decode\n                    | from_json\n                  }}\n            - name: Assert JWT payload 'iss', 'aud', 'iat', and 'f5_sat' claims\n              ansible.builtin.assert:\n                that:\n                  - jwt_payload['iss'] == 'F5 Inc.'\n                  - jwt_payload['aud'] == 'urn:f5:teem'\n                  - (ansible_facts['date_time']['epoch'] | int) >= jwt_payload['iat']\n                  - (ansible_facts['date_time']['epoch'] | int) <= jwt_payload['f5_sat']\n                success_msg: Your NGINX Plus license JWT is valid!\n                fail_msg: Something went wrong! Make sure your NGINX Plus license JWT is valid!"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: install-dependencies.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: (Alpine Linux) Install dependencies\n  community.general.apk:\n    name: \"{{ nginx_alpine_dependencies }}\"\n    update_cache: true\n    state: latest # noqa package-latest\n  when: ansible_facts['os_family'] == 'Alpine'\n- name: (Debian/Ubuntu) Install dependencies\n  ansible.builtin.apt:\n    name: \"{{ nginx_debian_dependencies }}\"\n    update_cache: true\n    state: latest # noqa package-latest\n  when: ansible_facts['os_family'] == 'Debian'\n- name: Amazon Linux Install dependencies\n  ansible.builtin.dnf:\n    name: \"{{ nginx_amazon_dependencies }}\"\n    update_cache: true\n    state: latest # noqa package-latest\n  when: ansible_facts['distribution'] == 'Amazon'\n- name: (Oracle Linux/RHEL) Install dependencies\n  ansible.builtin.dnf:\n    name: \"{{ nginx_redhat_dependencies }}\"\n    update_cache: true\n    state: latest # noqa package-latest\n  when: ansible_facts['os_family'] == 'RedHat' and ansible_facts['distribution'] != 'Amazon'\n- name: (SLES) Install dependencies\n  community.general.zypper:\n    name: \"{{ nginx_sles_dependencies }}\"\n    update_cache: true\n    state: latest # noqa package-latest\n  when: ansible_facts['os_family'] == 'Suse'\n- name: (FreeBSD) Install dependencies\n  when: ansible_facts['distribution'] == 'FreeBSD'\n  block:\n    - name: (FreeBSD) Install dependencies using package(s)\n      community.general.pkgng:\n        name: \"{{ nginx_freebsd_dependencies }}\"\n        state: latest # noqa package-latest\n      when: nginx_bsd_install_packages | bool\n    - name: (FreeBSD) Install dependencies using port(s)\n      community.general.portinstall:\n        name: \"{{ item }}\"\n        use_packages: \"{{ nginx_bsd_portinstall_use_packages | default(omit) }}\"\n        state: latest # noqa package-latest\n      loop: \"{{ nginx_freebsd_dependencies }}\"\n      when: not nginx_bsd_install_packages | bool"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: prerequisites.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Install dependencies\n  ansible.builtin.include_tasks: \"{{ role_path }}/tasks/prerequisites/install-dependencies.yml\"\n- name: Set up SELinux\n  when:\n    - nginx_selinux | bool\n    - \"'selinux' in ansible_facts\"\n    - ansible_facts['os_family'] in ['RedHat', 'Suse']\n    - ansible_facts['distribution'] != 'Amazon'\n  block:\n    - name: Check if SELinux is enabled\n      ansible.builtin.debug:\n        msg: You need to enable SELinux, if it was disabled you need to reboot\n      when: ansible_facts['selinux'] is undefined\n    - name: Configure SELinux\n      ansible.builtin.include_tasks: \"{{ role_path }}/tasks/prerequisites/setup-selinux.yml\"\n      when: ansible_facts['selinux']['mode'] is defined"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: setup-selinux.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: (RHEL) Install dependencies\n  ansible.builtin.dnf:\n    name:\n      - libselinux-utils\n      - policycoreutils\n      - selinux-policy-targeted\n  when: ansible_facts['os_family'] == \"RedHat\"\n- name: Set SELinux mode to permissive\n  ansible.posix.selinux:\n    state: permissive\n    policy: targeted\n- name: Allow SELinux HTTP network connections\n  ansible.posix.seboolean:\n    name: \"{{ item }}\"\n    state: true\n    persistent: true\n  loop:\n    - httpd_can_network_connect\n    - httpd_can_network_relay\n- name: Allow SELinux TCP connections on specific ports\n  community.general.seport:\n    ports: \"{{ nginx_selinux_tcp_ports }}\"\n    proto: tcp\n    setype: http_port_t\n    state: present\n  when: nginx_selinux_tcp_ports is defined\n- name: Allow SELinux UDP connections on specific ports\n  community.general.seport:\n    ports: \"{{ nginx_selinux_udp_ports }}\"\n    proto: udp\n    setype: http_port_t\n    state: present\n  when: nginx_selinux_udp_ports is defined\n- name: Create SELinux NGINX Plus module\n  ansible.builtin.template:\n    src: \"{{ role_path }}/templates/selinux/nginx-plus-module.te.j2\"\n    dest: \"{{ nginx_selinux_tempdir }}/nginx-plus-module.te\"\n    mode: \"0644\"\n  register: nginx_selinux_module\n- name: Check SELinux NGINX Plus module\n  ansible.builtin.command: checkmodule -M -m -o {{ nginx_selinux_tempdir }}/nginx-plus-module.mod {{ nginx_selinux_tempdir }}/nginx-plus-module.te\n  args:\n    creates: \"{{ nginx_selinux_tempdir }}/nginx-plus-module.mod\"\n  changed_when: false\n- name: Compile SELinux NGINX Plus module\n  ansible.builtin.command: semodule_package -o {{ nginx_selinux_tempdir }}/nginx-plus-module.pp -m {{ nginx_selinux_tempdir }}/nginx-plus-module.mod\n  args:\n    creates: \"{{ nginx_selinux_tempdir }}/nginx-plus-module.pp\"\n  changed_when: false\n- name: Import SELinux NGINX Plus module\n  ansible.builtin.command: semodule -i {{ nginx_selinux_tempdir }}/nginx-plus-module.pp # noqa no-handler\n  changed_when: false\n  when: nginx_selinux_module['changed'] | bool\n- name: Set SELinux mode to enforcing\n  ansible.posix.selinux:\n    state: enforcing\n    policy: targeted\n  when: nginx_selinux_enforcing | bool"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: validate.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Verify you are using a supported Ansible version on your Ansible host\n  ansible.builtin.assert:\n    that:\n      - ansible_version['full'] is version(nginx_ansible_version, '>=')\n    success_msg: Ansible {{ ansible_version['full'] }} is supported.\n    fail_msg: Ansible {{ ansible_version['full'] }} has reached End of Life (EoL). Please upgrade to a supported Ansible release. Check the README for more details.\n  delegate_to: localhost\n  ignore_errors: true # noqa ignore-errors\n- name: Extract the version of Jinja2 installed on your Ansible host\n  ansible.builtin.command: ansible --version\n  register: jinja2_version\n  changed_when: false\n  delegate_to: localhost\n  become: false\n  check_mode: false\n- name: Verify that you are using a supported Jinja2 version on your Ansible host\n  ansible.builtin.assert:\n    that: (jinja2_version['stdout'] | regex_search('jinja version = ([\\\\d.]+)', '\\\\1') | first) is version(nginx_jinja2_version, '>=')\n    success_msg: Jinja2 {{ jinja2_version['stdout'] | regex_search('jinja version = ([\\d.]+)', '\\1') | first }} is supported.\n    fail_msg: Jinja2 {{ jinja2_version['stdout'] | regex_search('jinja version = ([\\d.]+)', '\\1') | first }} is not supported. Please upgrade to Jinja2 3.1. Check the README for more details.\n  delegate_to: localhost\n  become: false\n- name: Extract the list of Ansible collections installed on your Ansible host\n  ansible.builtin.command: ansible-galaxy collection list\n  register: collection_list\n  changed_when: false\n  delegate_to: localhost\n  become: false\n  check_mode: false\n- name: Verify that the 'community.general' Ansible collection is installed on your Ansible host\n  ansible.builtin.assert:\n    that: collection_list is search('community.general')\n    success_msg: The 'community.general' Ansible collection is installed.\n    fail_msg: The 'community.general' Ansible collection is not installed. Please install the 'community.general' Ansible collection. Check the README for more details.\n  delegate_to: localhost\n  become: false\n- name: Verify that the 'ansible.posix' Ansible collection is installed on your Ansible host\n  ansible.builtin.assert:\n    that: lookup('community.general.collection_version', 'ansible.posix') != 'none'\n    success_msg: The 'ansible.posix' Ansible collection is installed.\n    fail_msg: The 'ansible.posix' Ansible collection is not installed. Please install the 'ansible.posix' Ansible collection. Check the README for more details.\n  when: nginx_selinux | bool\n  delegate_to: localhost\n  become: false\n- name: Verify that the 'community.crypto' Ansible collection is installed on your Ansible host\n  ansible.builtin.assert:\n    that: lookup('community.general.collection_version', 'community.crypto') != 'none'\n    success_msg: The 'community.crypto' Ansible collection is installed.\n    fail_msg: The 'community.crypto' Ansible collection is not installed. Please install the 'community.crypto' Ansible collection. Check the README for more details.\n  when: nginx_type == 'plus'\n  delegate_to: localhost\n  become: false\n- name: Verify that 'nginx_setup' parameter is a valid value\n  ansible.builtin.assert:\n    that: nginx_setup in nginx_setup_vars\n    success_msg: The value you used for 'nginx_setup', {{ nginx_setup }}, is valid.\n    fail_msg: The value you used for 'nginx_setup', {{ nginx_setup }}, is not valid. The valid values are [{{ nginx_setup_vars | join(', ') }}].\n  when: nginx_enable | bool\n  delegate_to: localhost\n  become: false\n  ignore_errors: true # noqa ignore-errors\n- name: Verify that 'nginx_branch' parameter is a valid value\n  ansible.builtin.assert:\n    that: nginx_branch in nginx_branch_vars\n    success_msg: The value you used for 'nginx_branch', {{ nginx_branch }}, is valid.\n    fail_msg: The value you used for 'nginx_branch', {{ nginx_branch }}, is not allowed. The valid values are [{{ nginx_branch_vars | join(', ') }}].\n  when: nginx_enable | bool\n  delegate_to: localhost\n  become: false\n  ignore_errors: true # noqa ignore-errors\n- name: Verify that 'nginx_install_from' parameter is a valid value\n  ansible.builtin.assert:\n    that: nginx_install_from in nginx_install_from_vars\n    success_msg: The value you used for 'nginx_install_from', {{ nginx_install_from }} is valid.\n    fail_msg: The value you used for 'nginx_install_from', {{ nginx_install_from }}, is not valid. The valid values are [{{ nginx_install_from_vars | join(', ') }}].\n  when: nginx_enable | bool\n  delegate_to: localhost\n  become: false\n  ignore_errors: true # noqa ignore-errors\n- name: Verify whether you are using a supported NGINX distribution\n  ansible.builtin.assert:\n    that:\n      - ansible_facts['distribution'] | lower in nginx_distributions.keys() | list\n      - (ansible_facts['distribution_version'] | regex_search('\\\\d{1,2}\\\\.\\\\d{2}') | float in nginx_distributions[ansible_facts['distribution'] | lower]['versions'] | map('float') if ansible_facts['distribution'] | lower in ['alpine', 'ubuntu'] else ansible_facts['distribution_major_version'] in nginx_distributions[ansible_facts['distribution'] | lower]['versions'] | string)\n      - ansible_facts['architecture'] in nginx_distributions[ansible_facts['distribution'] | lower]['architectures']\n    success_msg: Your distribution, {{ nginx_distributions[ansible_facts['distribution'] | lower]['name'] }} {{ ansible_facts['distribution_version'] }} ({{ ansible_facts['architecture'] }}), is supported by NGINX {{ (nginx_type == 'opensource') | ternary('Open Source', 'Plus') }}.\n    fail_msg: Your distribution, {{ nginx_distributions[ansible_facts['distribution'] | lower]['name'] }} {{ ansible_facts['distribution_version'] }} ({{ ansible_facts['architecture'] }}), is not supported by NGINX {{ (nginx_type == 'opensource') | ternary('Open Source', 'Plus') }}.\n  when:\n    - nginx_enable | bool\n    - (nginx_install_from == \"nginx_repository\" or nginx_type == \"plus\")\n  ignore_errors: true # noqa ignore-errors\n- name: Verify that you are installing a supported NGINX dynamic module\n  ansible.builtin.assert:\n    that: (nginx_modules | difference(nginx_modules_list) == [] if nginx_type == 'opensource') or (nginx_modules | difference(nginx_plus_modules_list) == [] if nginx_type == 'plus')\n    success_msg: The NGINX module(s) you are installing are supported.\n    fail_msg: The NGINX module(s) you are installing are not supported. Please check the README for more details.\n  when:\n    - nginx_enable | bool\n    - nginx_modules is defined\n    - nginx_modules | length > 0\n  delegate_to: localhost\n  become: false\n  ignore_errors: true # noqa ignore-errors"
       }
     ]
   }

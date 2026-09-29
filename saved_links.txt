@@ -23,3 +23,7 @@ https://github.com/nginx/ansible-role-nginx
 https://docs.ansible.com/ansible/latest/collections/community/mysql/mysql_db_module.html
 https://ivanpiskunov.medium.com/keeping-secrets-in-hashicorp-vault-for-ansible-fa0e8d731f03
 https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/managing_idm_users_groups_hosts_and_access_control_rules/managing-user-accounts-using-ansible-playbooks_managing-users-groups-hosts
+https://github.com/hongxiaolong/ansible-nginx
+https://docs.ansible.com/projects/ansible/latest/collections/community/mysql/index.html
+https://github.com/AvalancheDev/Hashicorp-Vault-Ansible
+https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/user_module.html

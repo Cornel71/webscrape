@@ -3790,5 +3790,125 @@
         "value": "---\n  - name: Install unzip\n    package:\n      name: unzip\n      update_cache: yes\n    become: true\n  - name: Download and install vault binary\n    unarchive:\n      src: \"https://releases.hashicorp.com/vault/{{ vault_version }}/vault_{{ vault_version }}_linux_amd64.zip\"\n      dest: /usr/bin/\n      remote_src: True\n    become: true\n  - name: Create vault config directory\n    file: state=directory path=/etc/opt/vault/\n    become: true\n  - name: Copy vault config to server\n    copy: src=vaultconfig.hcl dest=/etc/opt/vault/\n    become: true\n  - name: Copy vault service to server\n    copy: src=vault.service dest=/usr/lib/systemd/system/vault.service\n    become: true\n  - name: Start vault service\n    systemd:\n      state: started\n      name: vault\n      daemon_reload: yes\n    become: true\n  - pause:\n      seconds: 15\n  - name: Initialize the vault\n    command: vault operator init\n    register: keys\n    environment:\n      VAULT_ADDR: \"http://127.0.0.1:8200\"\n  - debug: msg=\"{{ keys }}\""
       }
     ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: 0_terraform.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: apply terraform code\n  terraform:\n    project_path: ./terraform\n    state: present\n    force_init: yes\n  register: terraform\n  notify:\n    - pause\n- name: add vault_a to inventory\n  add_host:\n    name: \"{{ item }}\"\n    groups:\n      - vault_a\n      - vault\n  loop: \"{{ terraform.outputs.vault_a.value }}\"\n- name: add vault_b to inventory\n  add_host:\n    name: \"{{ item }}\"\n    groups:\n      - vault_b\n      - vault\n  loop: \"{{ terraform.outputs.vault_b.value }}\"\n- name: add loadbalancer_a to inventory\n  add_host:\n    name: \"{{ item }}\"\n    groups:\n      - loadbalancer_a\n      - loadbalancers\n  loop: \"{{ terraform.outputs.loadbalancer_a.value }}\"\n- name: add loadbalancer_b to inventory\n  add_host:\n    name: \"{{ item }}\"\n    groups:\n      - loadbalancer_b\n      - loadbalancers\n  loop: \"{{ terraform.outputs.loadbalancer_b.value }}\"\n- name: add loadbalancer to inventory\n  add_host:\n    name: \"{{ item }}\"\n    groups:\n      - loadbalancer\n      - loadbalancers\n  loop: \"{{ terraform.outputs.loadbalancer.value }}\"\n# - name: wait a moment to allow dns updates\n#   pause:\n#     seconds: 15"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: 1_install_vault.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "#!/usr/bin/env ansible-playbook\n---\n- name: create infrastructure\n  hosts: localhost\n  gather_facts: no\n  tasks:\n    - name: include 0_terraform\n      include: 0_terraform.yml\n  handlers:\n    - name: pause\n      pause:\n        seconds: 15\n- name: install shared components\n  hosts: all\n  become: yes\n  gather_facts: no\n  roles:\n    - role: robertdebock.bootstrap\n    - role: robertdebock.core_dependencies\n    - role: robertdebock.common\n    - role: robertdebock.digitalocean_agent\n- name: install vault components\n  hosts: vault\n  become: yes\n  gather_facts: yes\n  roles:\n    - role: robertdebock.users\n    - role: robertdebock.hashicorp\n    - role: robertdebock.service\n    - role: robertdebock.environment\n    - role: robertdebock.logrotate\n- name: install vault-a components\n  hosts: vault_a\n  become: yes\n  gather_facts: no\n  roles:\n    - role: robertdebock.vault\n      vault_show_unseal_information: yes\n  post_tasks:\n    - name: save a unseal keys and root token in group_vars\n      template:\n        src: vault.yml.j2\n        dest: group_vars/vault_a/vault.yml\n      when:\n        - vault_init_output is defined\n        - vault_init_output.unseal_keys_b64 is defined\n        - vault_init_output is defined\n        - vault_init_output.root_token is defined\n      delegate_to: localhost\n      become: no\n      run_once: yes\n- name: install vault-b components\n  hosts: vault_b\n  become: yes\n  gather_facts: no\n  roles:\n    - role: robertdebock.vault\n      vault_show_unseal_information: yes\n  post_tasks:\n    - name: save a unseal keys and root token in group_vars\n      template:\n        src: vault.yml.j2\n        dest: group_vars/vault_b/vault.yml\n      when:\n        - vault_init_output is defined\n        - vault_init_output.unseal_keys_b64 is defined\n        - vault_init_output is defined\n        - vault_init_output.root_token is defined\n      delegate_to: localhost\n      become: no\n      run_once: yes\n- name: install loadbalancer components\n  hosts: loadbalancers\n  become: yes\n  gather_facts: yes\n  roles:\n    - role: robertdebock.haproxy\n    - role: robertdebock.keepalived"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: 2_backup_vault.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "#!/usr/bin/env ansible-playbook\n---\n- name: create infrastructure\n  hosts: localhost\n  gather_facts: no\n  tasks:\n    - name: include 0_terraform\n      include: 0_terraform.yml\n  handlers:\n    - name: pause\n      pause:\n        seconds: 15\n- name: backup vault\n  hosts: vault\n  become: yes\n  gather_facts: yes\n  roles:\n    - role: robertdebock.vault\n      vault_make_backup: yes"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: 3_upgrade_vault.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "#!/usr/bin/env ansible-playbook\n---\n- name: create infrastructure\n  hosts: localhost\n  gather_facts: no\n  tasks:\n    - name: include 0_terraform\n      include: 0_terraform.yml\n  handlers:\n    - name: pause\n      pause:\n        seconds: 15\n- name: upgrade vault to 1.8.1\n  hosts: vault\n  become: yes\n  gather_facts: yes\n  serial: 1\n  tasks:\n    - name: stop vault\n      service:\n        name: vault\n        state: stopped\n    - name: install vault 1.8.1\n      include_role:\n        name: robertdebock.hashicorp\n      vars:\n        hashicorp_products:\n          - name: vault\n            version: 1.8.1\n            type: \"{{ vault_type }}\"\n    - name: start vault\n      service:\n        name: vault\n        state: started\n    - name: unseal vault\n      command: vault operator unseal {{ item }}\n      environment:\n        VAULT_ADDR: \"{{ vault_api_addr }}\"\n      loop: \"{{ vault_init_output.unseal_keys_b64 | default(vault_unseal_keys) }}\"\n      loop_control:\n        label: \"hidden\"\n      no_log: yes\n      register: vault_unseal_vault\n      until:\n        - vault_unseal_vault is succeeded\n      retries: 3"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: 4_setup_dr.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "#!/usr/bin/env ansible-playbook\n---\n- name: create infrastructure\n  hosts: localhost\n  gather_facts: no\n  tasks:\n    - name: include 0_terraform\n      include: 0_terraform.yml\n  handlers:\n    - name: pause\n      pause:\n        seconds: 15\n- name: setup vault primary cluster\n  hosts: vault-a-0.meinit.nl\n  become: yes\n  gather_facts: yes\n  tasks:\n    - name: make cluster primary\n      block:\n        - name: check dr status\n          command:\n            cmd: vault read sys/replication/status -format=yaml\n          changed_when: no\n          environment:\n            VAULT_ADDR: \"{{ vault_api_addr }}\"\n            VAULT_TOKEN: \"{{ vault_root_token }}\"\n          register: dr_status\n        - name: save dr state in yaml\n          set_fact:\n            dr_status_yaml: \"{{ dr_status.stdout | from_yaml }}\"\n        - name: dr enable primary\n          command:\n            cmd: vault write -f sys/replication/dr/primary/enable\n          environment:\n            VAULT_ADDR: \"{{ vault_api_addr }}\"\n            VAULT_TOKEN: \"{{ vault_root_token }}\"\n          when:\n            - dr_status_yaml.data.dr.mode != \"primary\"\n    - name: generate token for secondary cluster\n      block:\n        - name: check secondary status\n          command:\n            cmd: vault read sys/replication/dr/status -format=yaml\n          changed_when: no\n          register: secondary_status\n          environment:\n            VAULT_ADDR: \"{{ vault_api_addr }}\"\n            VAULT_TOKEN: \"{{ vault_root_token }}\"\n        - name: save secondary state in yaml\n          set_fact:\n            secondaries: \"{{ secondary_status.stdout | from_yaml }}\"\n        - name: make secondary token\n          command: vault write sys/replication/dr/primary/secondary-token id=\"secondary\" -format=yaml\n          register: vault_secondary_token_raw\n          environment:\n            VAULT_ADDR: \"{{ vault_api_addr }}\"\n            VAULT_TOKEN: \"{{ vault_root_token }}\"\n          when:\n            -  '\"secondary\" not in secondaries.data.known_secondaries'\n    - name: save token for secondary cluster\n      set_fact:\n        vault_secondary_token: \"{{ vault_secondary_token_raw.stdout | from_yaml }}\"\n      when:\n        - vault_secondary_token_raw.stdout is defined\n- name: setup vault secondary cluster\n  hosts: vault-b-0.meinit.nl\n  become: yes\n  gather_facts: yes\n  tasks:\n    - name: join primary as secondary\n      command: vault write sys/replication/dr/secondary/enable token=\"{{ hostvars['vault-a-0.meinit.nl']['vault_secondary_token']['wrap_info']['token'] }}\"\n      environment:\n        VAULT_ADDR: \"{{ vault_api_addr }}\"\n        VAULT_TOKEN: \"{{ vault_root_token }}\"\n      when:\n        - hostvars['vault-a-0.meinit.nl']['vault_secondary_token']['wrap_info']['token'] is defined"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: 5_generate_failover_token.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "#!/usr/bin/env ansible-playbook\n---\n- name: create infrastructure\n  hosts: localhost\n  gather_facts: no\n  tasks:\n    - name: include 0_terraform\n      include: 0_terraform.yml\n  handlers:\n    - name: pause\n      pause:\n        seconds: 15\n- name: generate failover token\n  hosts: vault-a-0.meinit.nl\n  become: yes\n  gather_facts: yes\n  tasks:\n    - name: place vault policy dr-secondary-promotion\n      copy:\n        dest: /root/dr-secondary-promotion.policy\n        content: |\n          path \"sys/replication/dr/secondary/promote\" {\n            capabilities = [ \"update\" ]\n          }\n    - name: write vault policy dr-secondary-promotion\n      command: vault policy write dr-secondary-promotion /root/dr-secondary-promotion.policy\n      environment:\n        VAULT_ADDR: \"{{ vault_api_addr }}\"\n        VAULT_TOKEN: \"{{ vault_root_token }}\"\n    - name: create vault role failover-handler\n      command: vault write auth/token/roles/failover-handler allowed_policies=dr-secondary-promotion orphan=true renewable=false token_type=batch\n      environment:\n        VAULT_ADDR: \"{{ vault_api_addr }}\"\n        VAULT_TOKEN: \"{{ vault_root_token }}\"\n    - name: create token for failover-handler\n      command: vault token create -role=failover-handler -ttl=8h -format=yaml\n      register: vault_create_failover_token_raw\n      environment:\n        VAULT_ADDR: \"{{ vault_api_addr }}\"\n        VAULT_TOKEN: \"{{ vault_root_token }}\"\n    - name: save vault_create_failover_token\n      set_fact:\n        vault_create_failover_token: \"{{ vault_create_failover_token_raw.stdout | from_yaml }}\"\n    - name: show failover-handler token\n      debug:\n        msg: \"{{ vault_create_failover_token.auth.client_token }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: 6_setup_audit_log.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "#!/usr/bin/env ansible-playbook\n---\n- name: create infrastructure\n  hosts: localhost\n  gather_facts: no\n  tasks:\n    - name: include 0_terraform\n      include: 0_terraform.yml\n  handlers:\n    - name: pause\n      pause:\n        seconds: 15\n- name: configure audit log\n  hosts: vault-a-0.meinit.nl\n  become: no\n  gather_facts: yes\n  tasks:\n    - name: make /var/log/vault\n      file:\n        path: /var/log/vault\n        state: directory\n        owner: \"{{ vault_owner }}\"\n        group: \"{{ vault_group }}\"\n    - name: check audit logs\n      command:\n        cmd: vault audit list --format=yaml\n      environment:\n        VAULT_ADDR: \"{{ vault_api_addr }}\"\n        VAULT_TOKEN: \"{{ vault_root_token }}\"\n      register: vault_audit_list\n      changed_when: no\n    - name: save audit status in yaml\n      set_fact:\n        vault_audit_list_yaml: \"{{ vault_audit_list.stdout | from_yaml }}\"\n    - name: enable audit logs\n      command:\n        cmd: vault audit enable file file_path={{ vault_audit_path }}\n      environment:\n        VAULT_ADDR: \"{{ vault_api_addr }}\"\n        VAULT_TOKEN: \"{{ vault_root_token }}\"\n      when:\n        - vault.vault_audit_list['file/'] is defined\n        - vault_audit_list_yaml['file/']options.file_path != {{ vault_audit_path }}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: 9_reset_clusters.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "#!/usr/bin/env ansible-playbook\n---\n- name: create infrastructure\n  hosts: localhost\n  gather_facts: no\n  tasks:\n    - name: include 0_terraform\n      include: 0_terraform.yml\n  handlers:\n    - name: pause\n      pause:\n        seconds: 15\n- name: reset clusters\n  hosts: vault\n  become: yes\n  gather_facts: no\n  tasks:\n    - name: stop vault\n      service:\n        name: vault\n        state: stopped\n    - name: remove raft storage\n      file:\n        path: /vault/data\n        state: absent"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: 9_restart_and_unseal.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "#!/usr/bin/env ansible-playbook\n---\n- name: create infrastructure\n  hosts: localhost\n  gather_facts: no\n  tasks:\n    - name: include 0_terraform\n      include: 0_terraform.yml\n  handlers:\n    - name: pause\n      pause:\n        seconds: 15\n- name: restart and unseal vault\n  hosts: vault\n  become: yes\n  gather_facts: yes\n  serial: 1\n  tasks:\n    - name: restart vault\n      service:\n        name: vault\n        state: restarted\n    - name: unseal vault\n      command: vault operator unseal {{ item }}\n      register: vault_unseal_vault\n      until: vault_unseal_vault is succeeded\n      retries: 3\n      environment:\n        VAULT_ADDR: \"{{ vault_api_addr }}\"\n      loop: \"{{ vault_init_output.unseal_keys_b64 | default(vault_unseal_keys) }}\"\n      loop_control:\n        label: \"hidden\"\n      no_log: yes\n- name: show ha status\n  hosts: vault-*-0.meinit.nl\n  become: yes\n  gather_facts: no\n  tasks:\n    - name: get peers list\n      command: vault operator raft list-peers\n      register: vault_list_peers\n      environment:\n        VAULT_ADDR: \"{{ vault_api_addr }}\"\n        VAULT_TOKEN: \"{{ vault_root_token }}\"\n    - name: show peers\n      debug:\n        msg: \"{{ vault_list_peers.stdout }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: requirements.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\nroles:\n  - name: robertdebock.bootstrap\n  - name: robertdebock.common\n  - name: robertdebock.core_dependencies\n  - name: robertdebock.digitalocean_agent\n  - name: robertdebock.environment\n  - name: robertdebock.haproxy\n  - name: robertdebock.hashicorp\n  - name: robertdebock.keepalived\n  - name: robertdebock.logrotate\n  - name: robertdebock.service\n  - name: robertdebock.users\n  - name: robertdebock.vault"
+      }
+    ]
   }
 ]

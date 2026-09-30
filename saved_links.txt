@@ -27,3 +27,7 @@ https://github.com/hongxiaolong/ansible-nginx
 https://docs.ansible.com/projects/ansible/latest/collections/community/mysql/index.html
 https://github.com/AvalancheDev/Hashicorp-Vault-Ansible
 https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/user_module.html
+https://medium.com/@JleeCloudEngineer/how-to-install-nginx-using-ansible-playbook-on-ubuntu-vm-to-display-custom-html-page-fe8e7be4b1bc
+https://docs.ansible.com/projects/ansible/latest/collections/community/mysql/mysql_db_module.html
+https://github.com/robertdebock/ansible-playbook-vault
+https://blog.stackademic.com/ansible-to-create-multiple-users-and-assign-different-password-to-them-b6c93cdfdc39?gi=bac0e17cccc3

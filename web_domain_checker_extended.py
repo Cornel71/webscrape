@@ -5,14 +5,12 @@ import socket
 import time
 from datetime import datetime, timezone
 from urllib.parse import urlsplit, urlunsplit
-
 import dns.exception
 import dns.resolver
 import requests
 import tldextract
 import whois
 from ddgs import DDGS
-
 
 INPUT_FILE = "subjects.txt"
 OUTPUT_FILE = "results.csv"
@@ -599,13 +597,9 @@ def main():
             if not is_allowed_tld(domain):
                 print(f"  Skipped (not .{ALLOWED_TLD}): {domain}")
                 continue
-            unique_key = (
-                subject.lower(),
-                domain,
-            )
-            if unique_key in seen:
+            if domain in seen:
                 continue
-            seen.add(unique_key)
+            seen.add(domain)
             print(f"  Checking: {domain}")
 
             base = {

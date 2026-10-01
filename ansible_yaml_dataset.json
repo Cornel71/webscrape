@@ -1323,6 +1323,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: Add Users and Groups using Ansible User Module"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Manage user accounts across multiple environments\n  hosts: all\n  vars_files:\n    - users.yml\n    - environments.yml\n  tasks:\n    - name: Ensure users exist\n      user:\n        name: \"{{ item.name }}\"\n        state: present\n        generate_ssh_key: yes\n        ssh_key_type: rsa\n        ssh_key_bits: 4096\n      loop: \"{{ users }}\"\n      notify:\n        - Add SSH key for user\n    - name: Ensure user is part of required groups\n      user:\n        name: \"{{ item }}\"\n        groups: \"{{ groups }}\"\n        append: yes\n      loop: \"{{ environment_users }}\"\n      when: environment_users is defined\n    - name: Add users to sudoers if required\n      lineinfile:\n        path: /etc/sudoers.d/{{ item }}\n        state: \"{{ 'present' if item in sudo_users else 'absent' }}\"\n        create: yes\n        line: \"{{ item }} ALL=(ALL) NOPASSWD:ALL\"\n        validate: 'visudo -cf %s'\n      loop: \"{{ environment_users }}\"\n      when: sudo_users is defined\n    - name: Remove users not in the current environment\n      user:\n        name: \"{{ item }}\"\n        state: absent\n        remove: yes\n      loop: \"{{ removed_users }}\"\n      when: removed_users is defined\n  handlers:\n    - name: Add SSH key for user\n      authorized_key:\n        user: \"{{ item.name }}\"\n        state: present\n        key: \"{{ item.ssh_key }}\"\n      loop: \"{{ users }}\"\n  vars:\n    environment_users: \"{{ environments | selectattr('name', 'equalto', ansible_hostname) | map(attribute='users') | first }}\"\n    sudo_users: \"{{ environments | selectattr('name', 'equalto', ansible_hostname) | map(attribute='sudo') | first }}\"\n    removed_users: \"{{ users | map(attribute='name') | difference(environment_users | map(attribute='dev') | list | union(environment_users | map(attribute='qa') | list | union(environment_users | map(attribute='prod') | list))) }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Ansible Playbook for: ci.yml"
       },
       {

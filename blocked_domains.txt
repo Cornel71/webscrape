@@ -1,3 +1,5 @@
 wikipedia.org
 ec.europa.eu
 linkedin.com
+google.com
+youtube.com

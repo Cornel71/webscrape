@@ -1,9 +1,11 @@
 import csv
 import ipaddress
+import os
 import socket
 import time
 from datetime import datetime, timezone
 from urllib.parse import urlsplit, urlunsplit
+
 import dns.exception
 import dns.resolver
 import requests
@@ -13,9 +15,10 @@ from ddgs import DDGS
 
 
 INPUT_FILE = "subjects.txt"
-BLOCKED_DOMAINS_FILE = "blocked_domains.txt"
 OUTPUT_FILE = "results.csv"
 RESULTS_PER_SUBJECT = 20
+ALLOWED_TLD = "ro"
+SERPAPI_KEY = os.environ.get("SERPAPI_API_KEY", "").strip()
 DELAY_BETWEEN_SEARCHES = 3
 DELAY_BETWEEN_IP_LOOKUPS = 1
 DELAY_BETWEEN_WHOIS_LOOKUPS = 2
@@ -47,7 +50,6 @@ MAIL_PROVIDERS = {
 USER_AGENT = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 13_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36")
 session = requests.Session()
 session.headers.update({"User-Agent": USER_AGENT})
-
 resolver = dns.resolver.Resolver()
 resolver.timeout = DNS_TIMEOUT
 resolver.lifetime = DNS_TIMEOUT
@@ -129,46 +131,12 @@ def extract_domain(value: str) -> str:
     except ValueError:
         return ""
 
-def load_blocked_domains(filename: str) -> set[str]:
+def is_allowed_tld(domain: str) -> bool:
     """
-    Load blocked domains from a text file.
-
-    Blank lines and lines beginning with # are ignored.
-    Both domains and URLs are accepted.
+    True only for hostnames under the allowed TLD (e.g. example.ro,
+    shop.example.com.ro). Rejects look-alikes such as example.ro.evil.com.
     """
-    blocked_domains = set()
-    try:
-        with open(filename, "r", encoding="utf-8") as file:
-            for line in file:
-                line = line.strip()
-                if not line or line.startswith("#"):
-                    continue
-                domain = extract_domain(line)
-                if domain:
-                    blocked_domains.add(domain)
-    except FileNotFoundError:
-        print(f"Blocklist not found: {filename}")
-        print("Continuing without blocked domains.")
-    return blocked_domains
-
-def is_blocked_domain(domain: str, blocked_domains: set[str],) -> bool:
-    """
-    Block an exact domain and all of its subdomains.
-    For example, blocking example.com also blocks:
-        www.example.com
-        shop.example.com
-    But it does not block:
-        example.com.evil-site.com
-    """
-    domain = domain.lower().rstrip(".")
-    for blocked_domain in blocked_domains:
-        blocked_domain = blocked_domain.lower().rstrip(".")
-        if (
-            domain == blocked_domain
-            or domain.endswith("." + blocked_domain)
-        ):
-            return True
-    return False
+    return domain.lower().rstrip(".").endswith("." + ALLOWED_TLD)
 
 
 def resolve_domain(domain: str) -> list[str]:
@@ -500,19 +468,60 @@ def get_domain_info(domain: str) -> dict:
     return info
 
 
+def search_serpapi(subject: str) -> list[dict]:
+    """
+    Google search through SerpAPI. Returns results in the same
+    shape as DDGS: {"title": ..., "href": ...}.
+    """
+    response = session.get(
+        "https://serpapi.com/search.json",
+        params={
+            "engine": "google",
+            "q": f"{subject} site:.{ALLOWED_TLD}",
+            "api_key": SERPAPI_KEY,
+            "num": RESULTS_PER_SUBJECT,
+            "google_domain": "google.ro",
+            "gl": "ro",
+            "hl": "ro",
+        },
+        timeout=30,
+    )
+    response.raise_for_status()
+    data = response.json()
+    if data.get("error"):
+        raise RuntimeError(data["error"])
+    return [
+        {"title": item.get("title", ""), "href": item.get("link", "")}
+        for item in data.get("organic_results", [])
+        if item.get("link")
+    ]
+
+def search_ddgs(subject: str) -> list[dict]:
+    """
+    DuckDuckGo search.
+    """
+    with DDGS() as search_client:
+        results = search_client.text(
+            query=f"{subject} site:.{ALLOWED_TLD}",
+            region="ro-ro",
+            safesearch="moderate",
+            max_results=RESULTS_PER_SUBJECT,
+        )
+        return list(results)
+
 def search_subject(subject: str) -> list[dict]:
     """
-    Search the web for one subject.
+    Search the web for one subject: Google via SerpAPI if a key is
+    configured (falling back to DuckDuckGo on failure), else DuckDuckGo.
     """
+    if SERPAPI_KEY:
+        try:
+            return search_serpapi(subject)
+        except Exception as exc:
+            print(f"SerpAPI error for '{subject}': {exc}")
+            print("  Falling back to DuckDuckGo.")
     try:
-        with DDGS() as search_client:
-            results = search_client.text(
-                query=subject,
-                region="us-en",
-                safesearch="moderate",
-                max_results=RESULTS_PER_SUBJECT,
-            )
-            return list(results)
+        return search_ddgs(subject)
     except Exception as exc:
         print(f"Search error for '{subject}': {exc}")
         return []
@@ -558,12 +567,9 @@ FIELDNAMES = [
 ]
 
 def main():
-    blocked_domains = load_blocked_domains(
-        BLOCKED_DOMAINS_FILE
-    )
-    print(
-        f"Loaded {len(blocked_domains)} blocked domain(s)."
-    )
+    engine = "Google (SerpAPI)" if SERPAPI_KEY else "DuckDuckGo"
+    print(f"Search engine: {engine}")
+    print(f"Keeping only .{ALLOWED_TLD} domains.")
     try:
         with open(INPUT_FILE, "r", encoding="utf-8") as file:
             subjects = [
@@ -590,11 +596,8 @@ def main():
             domain = extract_domain(clean_url)
             if not domain:
                 continue
-            if is_blocked_domain(
-                domain,
-                blocked_domains,
-            ):
-                print(f"  Blocked domain: {domain}")
+            if not is_allowed_tld(domain):
+                print(f"  Skipped (not .{ALLOWED_TLD}): {domain}")
                 continue
             unique_key = (
                 subject.lower(),

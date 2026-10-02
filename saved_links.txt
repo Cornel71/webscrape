@@ -31,3 +31,7 @@ https://medium.com/@JleeCloudEngineer/how-to-install-nginx-using-ansible-playboo
 https://docs.ansible.com/projects/ansible/latest/collections/community/mysql/mysql_db_module.html
 https://github.com/robertdebock/ansible-playbook-vault
 https://blog.stackademic.com/ansible-to-create-multiple-users-and-assign-different-password-to-them-b6c93cdfdc39?gi=bac0e17cccc3
+https://kaliex.co/ansible-in-2025-nginx-deployment-on-ubuntu-24-04-vps/
+https://www.geeksforgeeks.org/devops/how-to-install-mysql-using-ansible-playbook/
+https://docs.ansible.com/projects/ansible/latest/collections/community/hashi_vault/index.html
+https://stackoverflow.com/questions/37200337/is-there-anyway-to-run-multiple-ansible-playbooks-as-multiple-users-more-efficie

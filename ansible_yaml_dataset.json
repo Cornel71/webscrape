@@ -3922,5 +3922,17 @@
         "value": "---\nroles:\n  - name: robertdebock.bootstrap\n  - name: robertdebock.common\n  - name: robertdebock.core_dependencies\n  - name: robertdebock.digitalocean_agent\n  - name: robertdebock.environment\n  - name: robertdebock.haproxy\n  - name: robertdebock.hashicorp\n  - name: robertdebock.keepalived\n  - name: robertdebock.logrotate\n  - name: robertdebock.service\n  - name: robertdebock.users\n  - name: robertdebock.vault"
       }
     ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: Best Practices with Ansible: Nginx Deployment on Ubuntu - Kaliex"
+      },
+      {
+        "from": "gpt",
+        "value": "# ❌ playbooks/nginx.yml\n- name: Deploy Nginx on Ubuntu 24.04\n  hosts: webservers\n  become: true\n  roles:\n    - nginx\n# ✅ roles/nginx/tasks/main.yml\n- name: Install Nginx\n  apt:\n    name: nginx\n    state: present\n    update_cache: true\n- name: Start and enable Nginx\n  service:\n    name: nginx\n    state: started\n    enabled: true"
+      }
+    ]
   }
 ]

@@ -13,7 +13,8 @@ import whois
 from ddgs import DDGS
 
 INPUT_FILE = "subjects.txt"
-OUTPUT_FILE = "results.csv"
+OUTPUT_FILE = f"results_{datetime.now():%Y%m%d}.csv"
+#OUTPUT_FILE = "results.csv"
 RESULTS_PER_SUBJECT = 20
 ALLOWED_TLD = "ro"
 SERPAPI_KEY = os.environ.get("SERPAPI_API_KEY", "").strip()

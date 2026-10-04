@@ -26,7 +26,7 @@ jobs:
     - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install dnspython requests tldextract python-whois ddgs csv
+        pip install dnspython requests tldextract python-whois ddgs
 
     - name: Run Scraper Script
       env:

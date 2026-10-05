@@ -36,3 +36,6 @@ https://www.geeksforgeeks.org/devops/how-to-install-mysql-using-ansible-playbook
 https://docs.ansible.com/projects/ansible/latest/collections/community/hashi_vault/index.html
 https://stackoverflow.com/questions/37200337/is-there-anyway-to-run-multiple-ansible-playbooks-as-multiple-users-more-efficie
 https://builder.aws.com/content/3De3wpktkg1mTQQBg6esmnL0VX4/ansible-playbooks-automating-nginx-web-server-configuration
+https://medium.com/@sandeepkumardarla001/automating-mysql-db-server-setup-with-ansible-step-by-step-iteration-based-201ee35cd2f8
+https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/getting_started_with_hashicorp_and_ansible_automation_platform/vault-product
+https://www.geeksforgeeks.org/devops/create-user-using-ansible-playbook/

@@ -3934,5 +3934,17 @@
         "value": "# ❌ playbooks/nginx.yml\n- name: Deploy Nginx on Ubuntu 24.04\n  hosts: webservers\n  become: true\n  roles:\n    - nginx\n# ✅ roles/nginx/tasks/main.yml\n- name: Install Nginx\n  apt:\n    name: nginx\n    state: present\n    update_cache: true\n- name: Start and enable Nginx\n  service:\n    name: nginx\n    state: started\n    enabled: true"
       }
     ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: Ansible Nginx: Install, Configure & Automate | AnsiblePilot"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Configure nginx virtual hosts\n  hosts: webservers\n  become: true\n  vars:\n    sites:\n      - name: myapp.example.com\n        root: /var/www/myapp\n        port: 80\n      - name: api.example.com\n        root: /var/www/api\n        port: 80\n  tasks:\n    - name: Create document roots\n      ansible.builtin.file:\n        path: \"{{ item.root }}\"\n        state: directory\n        owner: www-data\n        group: www-data\n        mode: '0755'\n      loop: \"{{ sites }}\"\n    - name: Deploy virtual host configs\n      ansible.builtin.template:\n        src: vhost.conf.j2\n        dest: \"/etc/nginx/sites-available/{{ item.name }}.conf\"\n      loop: \"{{ sites }}\"\n      notify: reload nginx\n    - name: Enable virtual hosts\n      ansible.builtin.file:\n        src: \"/etc/nginx/sites-available/{{ item.name }}.conf\"\n        dest: \"/etc/nginx/sites-enabled/{{ item.name }}.conf\"\n        state: link\n      loop: \"{{ sites }}\"\n      notify: reload nginx\n  handlers:\n    - name: reload nginx\n      ansible.builtin.service:\n        name: nginx\n        state: reloaded"
+      }
+    ]
   }
 ]

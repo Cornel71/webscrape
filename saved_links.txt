@@ -40,3 +40,5 @@ https://medium.com/@sandeepkumardarla001/automating-mysql-db-server-setup-with-a
 https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/getting_started_with_hashicorp_and_ansible_automation_platform/vault-product
 https://www.geeksforgeeks.org/devops/create-user-using-ansible-playbook/
 https://www.ansiblepilot.com/articles/ansible-nginx-automation-guide
+https://blog.devgenius.io/how-to-install-nginx-using-ansible-playbook-48e2aa74f944
+https://www.techtransit.org/install-mysql-database-server-through-ansible-playbook/

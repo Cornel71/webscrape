@@ -34,9 +34,24 @@ jobs:
       run: |
         python web_domain_checker_extended.py
 
-    - name: Upload Results as Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: domain-scraping-results
-        path: results_*.csv
-        retention-days: 7
+    - name: Commit and push results
+      run: |
+        shopt -s nullglob
+        files=(results_*.csv)
+
+        if ((${#files[@]} == 0)); then
+          echo "No results_*.csv files found."
+          exit 1
+        fi
+
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git add -- "${files[@]}"
+
+        if git diff --cached --quiet; then
+          echo "No changes to commit."
+          exit 0
+        fi
+
+        git commit -m "Update domain scraping results"
+        git push origin "HEAD:${GITHUB_REF_NAME}"

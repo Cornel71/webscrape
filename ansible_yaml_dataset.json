@@ -1323,18 +1323,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: hashi_vault - retrieve secrets from HashiCorp's vault -- Ansible Documentation"
-      },
-      {
-        "from": "gpt",
-        "value": "- debug:\n    msg: \"{{ lookup('hashi_vault', 'secret=secret/hello:value token=c975b780-d1be-8016-866b-01d0f9b688a5 url=http://myvault:8200')}}\"\n- name: Return all secrets from a path\n  debug:\n    msg: \"{{ lookup('hashi_vault', 'secret=secret/hello token=c975b780-d1be-8016-866b-01d0f9b688a5 url=http://myvault:8200')}}\"\n- name: Vault that requires authentication via LDAP\n  debug:\n      msg: \"{{ lookup('hashi_vault', 'secret=secret/hello:value auth_method=ldap mount_point=ldap username=myuser password=mypas url=http://myvault:8200')}}\"\n- name: Vault that requires authentication via username and password\n  debug:\n      msg: \"{{ lookup('hashi_vault', 'secret=secret/hello:value auth_method=userpass username=myuser password=mypas url=http://myvault:8200')}}\"\n- name: Using an ssl vault\n  debug:\n      msg: \"{{ lookup('hashi_vault', 'secret=secret/hola:value token=c975b780-d1be-8016-866b-01d0f9b688a5 url=https://myvault:8200 validate_certs=False')}}\"\n- name: using certificate auth\n  debug:\n      msg: \"{{ lookup('hashi_vault', 'secret=secret/hi:value token=xxxx-xxx-xxx url=https://myvault:8200 validate_certs=True cacert=/cacert/path/ca.pem')}}\"\n- name: authenticate with a Vault app role\n  debug:\n      msg: \"{{ lookup('hashi_vault', 'secret=secret/hello:value auth_method=approle role_id=myroleid secret_id=mysecretid url=http://myvault:8200')}}\"\n- name: Return all secrets from a path in a namespace\n  debug:\n    msg: \"{{ lookup('hashi_vault', 'secret=secret/hello token=c975b780-d1be-8016-866b-01d0f9b688a5 url=http://myvault:8200 namespace=teama/admins')}}\"\n# to work with kv v2 (vault api - for kv v2 -  GET method requires that PATH should be \"secret/data/:path\")\n- name: Return all kv v2 secrets from a path\n  debug:\n    msg: \"{{ lookup('hashi_vault', 'secret=secret/data/hello token=my_vault_token url=http://myvault_url:8200') }}\""
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Ansible Playbook for: Add Users and Groups using Ansible User Module"
       },
       {

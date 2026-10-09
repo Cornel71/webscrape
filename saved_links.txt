@@ -42,3 +42,6 @@ https://www.geeksforgeeks.org/devops/create-user-using-ansible-playbook/
 https://www.ansiblepilot.com/articles/ansible-nginx-automation-guide
 https://blog.devgenius.io/how-to-install-nginx-using-ansible-playbook-48e2aa74f944
 https://www.techtransit.org/install-mysql-database-server-through-ansible-playbook/
+https://github.com/robertdebock/ansible-role-mysql
+https://developer.hashicorp.com/validated-patterns/vault/integrate-vault-ssh-with-ansible-automation-platform
+https://github.com/dad1755/ansible-user-management

@@ -46,3 +46,5 @@ https://github.com/robertdebock/ansible-role-mysql
 https://developer.hashicorp.com/validated-patterns/vault/integrate-vault-ssh-with-ansible-automation-platform
 https://github.com/dad1755/ansible-user-management
 https://github.com/nikhiljojo08/Ansible-create-users-loop-in-playbook
+https://docs.ansible.com/projects/ansible/latest/collections/community/hashi_vault/docsite/user_guide.html
+https://github.com/gbirke/ansible-create-users

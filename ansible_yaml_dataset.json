@@ -4246,5 +4246,17 @@
         "value": "-\n  name: Install nginx and server static website\n  hosts: servers\n  become: yes\n  tasks:\n    - name: Install nginx\n      apt:\n        name: nginx\n        state: latest\n    - name: Start nginx\n      service:\n        name: nginx\n        state: started\n        enabled: yes\n    - name: Deploy web page\n      copy:\n        src: index.html\n        dest: /var/www/html"
       }
     ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: Ansible with MySQL MariaDB -- Complete Automation Guide"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Ansible with MySQL MariaDB\n  hosts: all\n  become: true\n  vars:\n    target_env: production\n  tasks:\n    - name: Ensure dependencies installed\n      ansible.builtin.package:\n        name: \"{{ item }}\"\n        state: present\n      loop:\n        - python3\n        - python3-pip\n    - name: Configure service\n      ansible.builtin.template:\n        src: config.j2\n        dest: /etc/service/config.yml\n        mode: '0644'\n      notify: Restart service\n  handlers:\n    - name: Restart service\n      ansible.builtin.service:\n        name: myservice\n        state: restarted"
+      }
+    ]
   }
 ]

@@ -49,3 +49,6 @@ https://github.com/nikhiljojo08/Ansible-create-users-loop-in-playbook
 https://docs.ansible.com/projects/ansible/latest/collections/community/hashi_vault/docsite/user_guide.html
 https://github.com/gbirke/ansible-create-users
 https://neha1302.hashnode.dev/ansible-playbook-nginx-installation-and-webpage-deployment
+https://medium.com/@raeesyaqubqazi/ansible-playbooks-explained-automate-nginx-docker-setup-easily-1389c7845573
+https://www.ansiblebyexample.com/articles/ansible-with-mysql-mariadb-complete-automation-guide
+https://github.com/s11mani/integrate_hashicorp_ansible

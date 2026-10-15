@@ -52,3 +52,5 @@ https://neha1302.hashnode.dev/ansible-playbook-nginx-installation-and-webpage-de
 https://medium.com/@raeesyaqubqazi/ansible-playbooks-explained-automate-nginx-docker-setup-easily-1389c7845573
 https://www.ansiblebyexample.com/articles/ansible-with-mysql-mariadb-complete-automation-guide
 https://github.com/s11mani/integrate_hashicorp_ansible
+https://github.com/hemenxyz/Mysql-ansible-playbook
+https://binadit.com/tutorials/configure-ansible-vault-secrets-management-with-hashicorp-vault

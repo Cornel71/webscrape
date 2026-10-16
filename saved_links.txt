@@ -54,3 +54,4 @@ https://www.ansiblebyexample.com/articles/ansible-with-mysql-mariadb-complete-au
 https://github.com/s11mani/integrate_hashicorp_ansible
 https://github.com/hemenxyz/Mysql-ansible-playbook
 https://binadit.com/tutorials/configure-ansible-vault-secrets-management-with-hashicorp-vault
+https://stackoverflow.com/questions/57314773/adding-multiple-users-to-a-linux-system-with-ansible

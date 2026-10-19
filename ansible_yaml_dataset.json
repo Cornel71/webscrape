@@ -2679,11 +2679,11 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: Ansible/Nginx Playbook - charlesreid1"
+        "value": "Ansible Playbook for: playbook.yml"
       },
       {
         "from": "gpt",
-        "value": "- name: Configure webserver with nginx and tls\n  hosts: webservers\n  become: True\n  vars:\n    key_file: /etc/nginx/ssl/nginx.key\n    cert_file: /etc/nginx/ssl/nginx.crt\n    conf_file: /etc/nginx/sites-available/default\n    server_name: localhost\n  tasks:\n    - name: Install nginx\n      apt: name=nginx update_cache=yes cache_valid_time=3600\n    - name: create directories for ssl certificates\n      file: path=/etc/nginx/ssl state=directory\n    - name: copy TLS key\n      copy: src=files/nginx.key dest={{ key_file }} owner=root mode=0600\n      notify: restart nginx\n    - name: copy TLS certificate\n      copy: src=files/nginx.crt dest={{ cert_file }}\n      notify: restart nginx\n    - name: copy nginx config file\n      template: src=templates/nginx.conf.j2 dest={{ conf_file }}\n      notify: restart nginx\n    - name: enable configuration\n      file: dest=/etc/nginx/sites-enabled/default src={{ conf_file }} state=link\n      notify: restart nginx\n    - name: copy index.html\n      template: src=templates/index.html.j2 dest=/usr/share/nginx/html/index.html\n             mode=0644\n  handlers:\n    - name: restart nginx\n      service: name=nginx state=restarted"
+        "value": "---\n- name: Install MySQL\n  hosts: mysql-service\n  tasks:\n    - name: Install MySQL\n      action: $ansible_pkg_mgr pkg=mysql-server state=installed\n    - name: Add Python MySQL DB\n      action: $ansible_pkg_mgr pkg=python-mysqldb state=installed\n- name: Configure MySQL\n  hosts: mysql-service\n  tasks:\n    - name: Configure my.cnf\n      copy: src=./files/my.cnf\n            dest=/etc/mysql/my.cnf\n            owner=root\n            group=root\n            mode=0640\n      notify:\n        - restart mysql\n    - name: Add mysql-user\n      mysql_user: name=mysql_service\n                  password=12345\n                  priv=*.*:ALL\n                  state=present\n      notify:\n        - start mysql\n  handlers:\n    - name: start mysql\n      service: name=mysql\n               enabled=yes\n               state=started\n    - name: restart mysql\n      service: name=mysql\n               enabled=yes\n               state=restarted\n# /sbin/iptables -A INPUT -i eth0 -s 192.168.33.0/24 -p tcp --destination-port 3306 -j ACCEPT\n# service iptables save"
       }
     ]
   },
@@ -2691,11 +2691,11 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: playbook.yml"
+        "value": "Ansible Playbook for: community.hashi_vault.hashi_vault lookup - Retrieve secrets from HashiCorp's Vault -- Ansible Community Documentation"
       },
       {
         "from": "gpt",
-        "value": "---\n- name: Install MySQL\n  hosts: mysql-service\n  tasks:\n    - name: Install MySQL\n      action: $ansible_pkg_mgr pkg=mysql-server state=installed\n    - name: Add Python MySQL DB\n      action: $ansible_pkg_mgr pkg=python-mysqldb state=installed\n- name: Configure MySQL\n  hosts: mysql-service\n  tasks:\n    - name: Configure my.cnf\n      copy: src=./files/my.cnf\n            dest=/etc/mysql/my.cnf\n            owner=root\n            group=root\n            mode=0640\n      notify:\n        - restart mysql\n    - name: Add mysql-user\n      mysql_user: name=mysql_service\n                  password=12345\n                  priv=*.*:ALL\n                  state=present\n      notify:\n        - start mysql\n  handlers:\n    - name: start mysql\n      service: name=mysql\n               enabled=yes\n               state=started\n    - name: restart mysql\n      service: name=mysql\n               enabled=yes\n               state=restarted\n# /sbin/iptables -A INPUT -i eth0 -s 192.168.33.0/24 -p tcp --destination-port 3306 -j ACCEPT\n# service iptables save"
+        "value": "- ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/hello:value token=c975b780-d1be-8016-866b-01d0f9b688a5 url=http://myvault:8200') }}\"\n- name: Return all secrets from a path\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/hello token=c975b780-d1be-8016-866b-01d0f9b688a5 url=http://myvault:8200') }}\"\n- name: Vault that requires authentication via LDAP\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/hello:value auth_method=ldap mount_point=ldap username=myuser password=mypas') }}\"\n- name: Vault that requires authentication via username and password\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/hola:val auth_method=userpass username=myuser password=psw url=http://vault:8200') }}\"\n- name: Connect to Vault using TLS\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/hola:value token=c975b780-d1be-8016-866b-01d0f9b688a5 validate_certs=False') }}\"\n- name: using certificate auth\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/hi:val token=xxxx url=https://vault:8200 validate_certs=True cacert=/cacert/path/ca.pem') }}\"\n- name: Authenticate with a Vault app role\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/hello:value auth_method=approle role_id=myroleid secret_id=mysecretid') }}\"\n- name: Return all secrets from a path in a namespace\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/hello token=c975b780-d1be-8016-866b-01d0f9b688a5 namespace=teama/admins') }}\"\n# When using KV v2 the PATH should include \"data\" between the secret engine mount and path (e.g. \"secret/data/:path\")\n# see: https://www.vaultproject.io/api/secret/kv/kv-v2.html#read-secret-version\n- name: Return latest KV v2 secret from path\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/data/hello token=my_vault_token url=http://myvault_url:8200') }}\"\n# The following examples show more modern syntax, with parameters specified separately from the term string.\n- name: secret= is not required if secret is first\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/hello token=<token> url=http://myvault_url:8200') }}\"\n- name: options can be specified as parameters rather than put in term string\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/hello', token=my_token_var, url='http://myvault_url:8200') }}\"\n# return_format (or its alias 'as') can control how secrets are returned to you\n- name: return secrets as a dict (default)\n  ansible.builtin.set_fact:\n    my_secrets: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/manysecrets', token=my_token_var, url='http://myvault_url:8200') }}\"\n- ansible.builtin.debug:\n    msg: \"{{ my_secrets['secret_key'] }}\"\n- ansible.builtin.debug:\n    msg: \"Secret '{{ item.key }}' has value '{{ item.value }}'\"\n  loop: \"{{ my_secrets | dict2items }}\"\n- name: return secrets as values only\n  ansible.builtin.debug:\n    msg: \"A secret value: {{ item }}\"\n  loop: \"{{ query('community.hashi_vault.hashi_vault', 'secret/data/manysecrets', token=my_token_var, url='http://vault_url:8200', return_format='values') }}\"\n- name: return raw secret from API, including metadata\n  ansible.builtin.set_fact:\n    my_secret: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/hello:value', token=my_token_var, url='http://myvault_url:8200', as='raw') }}\"\n- ansible.builtin.debug:\n    msg: \"This is version {{ my_secret['metadata']['version'] }} of hello:value. The secret data is {{ my_secret['data']['data']['value'] }}\"\n# AWS IAM authentication method\n# uses Ansible standard AWS options\n- name: authenticate with aws_iam\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/hello:value', auth_method='aws_iam', role_id='myroleid', profile=my_boto_profile) }}\"\n# JWT auth\n- name: Authenticate with a JWT\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/hola:val', auth_method='jwt', role_id='myroleid', jwt='myjwt', url='https://vault:8200') }}\"\n#GCP auth\n- name: Authenticate with GCP\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/hola:val', auth_method='gcp', role_id='myroleid', jwt='myjwt', url='https://vault:8200') }}\"\n# Disabling Token Validation\n# Use this when your token does not have the lookup-self capability. Usually this is applied to all tokens via the default policy.\n# However you can choose to create tokens without applying the default policy, or you can modify your default policy not to include it.\n# When disabled, your invalid or expired token will be indistinguishable from insufficent permissions.\n- name: authenticate without token validation\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/hello:value', token=my_token, token_validate=False) }}\"\n# \"none\" auth method does no authentication and does not send a token to the Vault address.\n# One example of where this could be used is with a Vault agent where the agent will handle authentication to Vault.\n# https://www.vaultproject.io/docs/agent\n- name: authenticate with vault agent\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/hello:value', auth_method='none', url='http://127.0.0.1:8100') }}\"\n# Use a proxy\n- name: use a proxy with login/password\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=... token=... url=https://... proxies=https://user:pass@myproxy:8080') }}\"\n- name: 'use a socks proxy (need some additional dependencies, see: https://requests.readthedocs.io/en/master/user/advanced/#socks )'\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret=... token=... url=https://... proxies=socks5://myproxy:1080') }}\"\n- name: use proxies with a dict (as param)\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', '...', proxies={'http': 'http://myproxy1', 'https': 'http://myproxy2'}) }}\"\n- name: use proxies with a dict (as param, pre-defined var)\n  vars:\n    prox:\n      http: http://myproxy1\n      https: https://myproxy2\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', '...', proxies=prox }}\"\n- name: use proxies with a dict (as direct ansible var)\n  vars:\n    ansible_hashi_vault_proxies:\n      http: http://myproxy1\n      https: https://myproxy2\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', '...' }}\"\n- name: use proxies with a dict (in the term string, JSON syntax)\n  ansible.builtin.debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', '... proxies={\\\"http\\\":\\\"http://myproxy1\\\",\\\"https\\\":\\\"http://myproxy2\\\"}') }}\"\n- name: use ansible vars to supply some options\n  vars:\n    ansible_hashi_vault_url: 'https://myvault:8282'\n    ansible_hashi_vault_auth_method: token\n  set_fact:\n    secret1: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/secret1') }}\"\n    secret2: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/secret2') }}\"\n- name: use a custom timeout\n  debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/secret1', timeout=120) }}\"\n- name: use a custom timeout and retry on failure 3 times (with collection retry defaults)\n  vars:\n    ansible_hashi_vault_timeout: 5\n    ansible_hashi_vault_retries: 3\n  debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/secret1') }}\"\n- name: retry on failure (with custom retry settings and no warnings)\n  vars:\n    ansible_hashi_vault_retries:\n      total: 6\n      backoff_factor: 0.9\n      status_forcelist: [500, 502]\n      allowed_methods:\n        - GET\n        - PUT\n  debug:\n    msg: \"{{ lookup('community.hashi_vault.hashi_vault', 'secret/data/secret1', retry_action='warn') }}\""
       }
     ]
   },
@@ -3807,6 +3807,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: ansible.builtin.user module - Manage user accounts -- Ansible Community Documentation"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Add the user 'johnd' with a specific uid and a primary group of 'admin'\n  ansible.builtin.user:\n    name: johnd\n    comment: John Doe\n    uid: 1040\n    group: admin\n- name: Create a user 'johnd' with a home directory\n  ansible.builtin.user:\n    name: johnd\n    create_home: yes\n- name: Add the user 'james' with a bash shell, appending the group 'admins' and 'developers' to the user's groups\n  ansible.builtin.user:\n    name: james\n    shell: /bin/bash\n    groups: admins,developers\n    append: yes\n- name: Remove the user 'johnd'\n  ansible.builtin.user:\n    name: johnd\n    state: absent\n    remove: yes\n- name: Create a 2048-bit SSH key for user jsmith in ~jsmith/.ssh/id_rsa\n  ansible.builtin.user:\n    name: jsmith\n    generate_ssh_key: yes\n    ssh_key_bits: 2048\n    ssh_key_file: .ssh/id_rsa\n- name: Added a consultant whose account you want to expire\n  ansible.builtin.user:\n    name: james18\n    shell: /bin/zsh\n    groups: developers\n    expires: 1422403387\n- name: Starting at Ansible 2.6, modify user, remove expiry time\n  ansible.builtin.user:\n    name: james18\n    expires: -1\n- name: Set maximum expiration date for password\n  ansible.builtin.user:\n    name: ram19\n    password_expire_max: 10\n- name: Set minimum expiration date for password\n  ansible.builtin.user:\n    name: pushkar15\n    password_expire_min: 5\n- name: Set number of warning days for password expiration\n  ansible.builtin.user:\n    name: jane157\n    password_expire_warn: 30\n- name: Set number of days after password expires until account is disabled\n  ansible.builtin.user:\n    name: jimholden2016\n    password_expire_account_disable: 15"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Ansible Playbook for: 0_terraform.yml"
       },
       {
@@ -4095,11 +4107,347 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: add_sudo.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Add user to sudoers #task description\n  hosts: cockpit # refer to host.ini\n  become: yes #run this task with sudo\n  tasks:\n    - name: Grant passwordless sudo access #task description\n      ansible.builtin.lineinfile: #lineinfile add line into /etc/sudoers.d\n        path: /etc/sudoers.d/testuser # username\n        line: 'testuser ALL=(ALL) NOPASSWD: /usr/sbin/passwd' #insert this line to sudoers.d\n        create: yes #create\n        mode: '0440'\n        validate: 'visudo -cf %s' #validate it"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: bulk_user_creation.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Bulk user creation from CSV\n  hosts: cockpit\n  become: yes\n  tasks:\n    - name: Read users from CSV\n      ansible.builtin.read_csv:\n        path: \"{{ playbook_dir }}/files/users.csv\"\n      register: users\n      delegate_to: localhost\n      run_once: true\n    - name: Create users\n      ansible.builtin.user:\n        name: \"{{ item.username }}\"\n        uid: \"{{ item.uid }}\"\n        home: \"{{ item.home }}\"\n        shell: \"{{ item.shell }}\"\n        password: \"{{ item.password | password_hash('sha512') }}\"\n        state: present\n        create_home: yes\n      loop: \"{{ users.list }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: create_group.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Create a group and add users\n  hosts: cockpit\n  become: yes\n  tasks:\n    - name: Create group with specific GID\n      ansible.builtin.group: #fqcn fully qualified collection name for managing group\n        name: testgroup #group name\n        gid: 2001 #group id\n        state: present #create if not present\n    - name: Add users to group\n      ansible.builtin.user: #fqcn for managing user\n        name: \"{{ item }}\"\n        groups: testgroup\n        append: yes\n      loop:\n        - testuser\n        - anotheruser"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: create_user.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Create a new user #this task description\n  hosts: cockpit #cockpit group refer to host.ini\n  become: yes #run this task with sudo at target host\n  tasks:\n    - name: Create user with specific UID, home directory, and shell #this task description\n      ansible.builtin.user: #FQCN, fully qualified collection name for manage user\n        name: testuser #this task description\n        uid: 1001 #set user uuid\n        home: /home/testuser #set user home directory\n        shell: /bin/bash #set bash\n        state: present #set user\n        create_home: yes #create home directory"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: delete_user.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Delete a user #this task name\n  hosts: cockpit #cockpit group refer to host.ini\n  become: yes #run this with sudo at targer host\n  tasks:\n    - name: Delete user and home directory #this task name\n      ansible.builtin.user: #FQCN - fully qualified action name to manage user\n        name: testuser #username\n        state: absent #absent refer to removes this user\n        remove: yes #this one refer to homedirectory"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: get_user.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Fetch logged-in users from a host\n  hosts: cockpit\n  become: yes\n  tasks:\n    - name: Run who command to get logged-in users\n      ansible.builtin.command: who\n      register: who_output\n    - name: Display logged-in users\n      ansible.builtin.debug:\n        msg: \"{{ who_output.stdout_lines }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: lock_user.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Lock or unlock user accounts\n  hosts: cockpit\n  become: yes\n  tasks:\n    - name: Lock user account\n      ansible.builtin.user:\n        name: testuser\n        password_lock: yes"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: manage_password.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Manage user passwords\n  hosts: cockpit\n  become: yes\n  vars: #define users and their hashed password\n    users:\n      - username: testuser\n        password: \"{{ 'jx90dx97' | password_hash('sha512') }}\"\n      - username: anotheruser\n        password: \"{{ 'anotherpass' | password_hash('sha512') }}\"\n  tasks:\n    - name: Update user passwords\n      ansible.builtin.user:\n        name: \"{{ item.username }}\"\n        password: \"{{ item.password }}\"\n        update_password: always\n      loop: \"{{ users }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: manage_user_attributes.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Manage user attributes\n  hosts: cockpit\n  become: yes\n  tasks:\n    - name: Update user attributes\n      ansible.builtin.user:\n        name: testuser\n        shell: /bin/zsh\n        comment: \"Test User\" #update GECOS - user information\n        expires: \"{{ (ansible_date_time.epoch | int) + (30 * 24 * 60 * 60) }}\" #expires date"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: remove_group.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Remove a group\n  hosts: cockpit\n  become: yes\n  tasks:\n    - name: Remove users from group\n      ansible.builtin.user:\n        name: \"{{ item }}\"\n        groups: \"\"\n        append: no\n      loop:\n        - testuser\n        - anotheruser\n    - name: Delete group\n      ansible.builtin.group:\n        name: testgroup\n        state: absent"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: unlock_user.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Lock or unlock user accounts\n  hosts: cockpit\n  become: yes\n  tasks:\n    #- name: Lock user account\n    #  ansible.builtin.user:\n    #    name: testuser\n    #    password_lock: yes\n    - name: Unlock user account\n      ansible.builtin.user:\n        name: testuser\n        password_lock: no"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: create_users_example.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n# Example playbook that shows how to create users from the generated ansible variable file\n- hosts: all\n  tasks:\n      - name: Load passwords from vault\n        include_vars: user_passwords.yml\n      - name: Create users\n        user: name=\"{{item.key}}\" password=\"{{item.value}}\" shell=\"/bin/bash\" update_password=on_create\n        with_dict: \"{{ user_passwords }}\"\n        register: user_results\n      - name: Force password renewal for newly created users\n        command: chage -d 0 {{item.item.key}} # item.item is the key/value pair from the dict in the previous task\n        when: \"{{item.changed == true}}\"\n        with_items: \"{{ user_results.results }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: Ansible Playbook: Nginx Installation and Webpage Deployment"
+      },
+      {
+        "from": "gpt",
+        "value": "-\n  name: Install nginx and server static website\n  hosts: servers\n  become: yes\n  tasks:\n    - name: Install nginx\n      apt:\n        name: nginx\n        state: latest\n    - name: Start nginx\n      service:\n        name: nginx\n        state: started\n        enabled: yes\n    - name: Deploy web page\n      copy:\n        src: index.html\n        dest: /var/www/html"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Ansible Playbook for: Ansible with MySQL MariaDB -- Complete Automation Guide"
       },
       {
         "from": "gpt",
         "value": "---\n- name: Ansible with MySQL MariaDB\n  hosts: all\n  become: true\n  vars:\n    target_env: production\n  tasks:\n    - name: Ensure dependencies installed\n      ansible.builtin.package:\n        name: \"{{ item }}\"\n        state: present\n      loop:\n        - python3\n        - python3-pip\n    - name: Configure service\n      ansible.builtin.template:\n        src: config.j2\n        dest: /etc/service/config.yml\n        mode: '0644'\n      notify: Restart service\n  handlers:\n    - name: Restart service\n      ansible.builtin.service:\n        name: myservice\n        state: restarted"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: ci.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\nname: CI\n'on':\n  pull_request:\n  push:\n    branches:\n      - master\n  schedule:\n    - cron: \"0 1 * * 3\"\ndefaults:\n  run:\n    working-directory: 'geerlingguy.mysql'\njobs:\n  lint:\n    name: Lint\n    runs-on: ubuntu-latest\n    steps:\n      - name: Check out the codebase.\n        uses: actions/checkout@v2\n        with:\n          path: 'geerlingguy.mysql'\n      - name: Set up Python 3.\n        uses: actions/setup-python@v2\n        with:\n          python-version: '3.x'\n      - name: Install test dependencies.\n        run: pip3 install yamllint\n      - name: Lint code.\n        run: |\n          yamllint .\n  molecule:\n    name: Molecule\n    runs-on: ubuntu-latest\n    strategy:\n      matrix:\n        distro:\n          - rockylinux8\n          - rockylinux9\n          - ubuntu2204\n          - ubuntu2004\n          - debian12\n          - debian11\n    steps:\n      - name: Check out the codebase.\n        uses: actions/checkout@v2\n        with:\n          path: 'geerlingguy.mysql'\n      - name: Set up Python 3.\n        uses: actions/setup-python@v2\n        with:\n          python-version: '3.x'\n      - name: Install test dependencies.\n        run: pip3 install ansible molecule molecule-plugins[docker] docker\n      # See: https://github.com/geerlingguy/ansible-role-mysql/issues/422\n      - name: Disable AppArmor on Debian.\n        run: |\n            set -x\n            sudo apt-get install apparmor-profiles\n            sudo ln -s /etc/apparmor.d/usr.sbin.mysqld /etc/apparmor.d/disable/\n            sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld\n        if: ${{ startsWith(matrix.distro, 'debian') }}\n      - name: Run Molecule tests.\n        run: molecule test\n        env:\n          PY_COLORS: '1'\n          ANSIBLE_FORCE_COLOR: '1'\n          MOLECULE_DISTRO: ${{ matrix.distro }}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: release.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n# This workflow requires a GALAXY_API_KEY secret present in the GitHub\n# repository or organization.\n#\n# See: https://github.com/marketplace/actions/publish-ansible-role-to-galaxy\n# See: https://github.com/ansible/galaxy/issues/46\nname: Release\n'on':\n  push:\n    tags:\n      - '*'\ndefaults:\n  run:\n    working-directory: 'geerlingguy.mysql'\njobs:\n  release:\n    name: Release\n    runs-on: ubuntu-latest\n    steps:\n      - name: Check out the codebase.\n        uses: actions/checkout@v2\n        with:\n          path: 'geerlingguy.mysql'\n      - name: Set up Python 3.\n        uses: actions/setup-python@v2\n        with:\n          python-version: '3.x'\n      - name: Install Ansible.\n        run: pip3 install ansible-core\n      - name: Trigger a new import on Galaxy.\n        run: >-\n          ansible-galaxy role import --api-key ${{ secrets.GALAXY_API_KEY }}\n          $(echo ${{ github.repository }} | cut -d/ -f1) $(echo ${{ github.repository }} | cut -d/ -f2)"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: stale.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\nname: Close inactive issues\n'on':\n  schedule:\n    - cron: \"55 20 * * 6\"  # semi-random time\njobs:\n  close-issues:\n    runs-on: ubuntu-latest\n    permissions:\n      issues: write\n      pull-requests: write\n    steps:\n      - uses: actions/stale@v8\n        with:\n          days-before-stale: 120\n          days-before-close: 60\n          exempt-issue-labels: bug,pinned,security,planned\n          exempt-pr-labels: bug,pinned,security,planned\n          stale-issue-label: \"stale\"\n          stale-pr-label: \"stale\"\n          stale-issue-message: |\n            This issue has been marked 'stale' due to lack of recent activity. If there is no further activity, the issue will be closed in another 30 days. Thank you for your contribution!\n            Please read [this blog post](https://www.jeffgeerling.com/blog/2020/enabling-stale-issue-bot-on-my-github-repositories) to see the reasons why I mark issues as stale.\n          close-issue-message: |\n            This issue has been closed due to inactivity. If you feel this is in error, please reopen the issue or file a new issue with the relevant details.\n          stale-pr-message: |\n            This pr has been marked 'stale' due to lack of recent activity. If there is no further activity, the issue will be closed in another 30 days. Thank you for your contribution!\n            Please read [this blog post](https://www.jeffgeerling.com/blog/2020/enabling-stale-issue-bot-on-my-github-repositories) to see the reasons why I mark issues as stale.\n          close-pr-message: |\n            This pr has been closed due to inactivity. If you feel this is in error, please reopen the issue or file a new issue with the relevant details.\n          repo-token: ${{ secrets.GITHUB_TOKEN }}"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: main.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: restart mysql\n  ansible.builtin.service:\n    name: \"{{ mysql_daemon }}\"\n    state: restarted\n    sleep: 5"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: converge.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Converge\n  hosts: all\n  become: true\n  roles:\n    - role: geerlingguy.mysql\n  post_tasks:\n    - name: Make sure we can connect to MySQL via Unix socket.\n      ansible.builtin.command: \"mysql -u root -proot -e 'show databases;'\"\n      changed_when: false\n    - name: Make sure we can connect to MySQL via TCP.\n      ansible.builtin.command: \"mysql -u root -proot -h 127.0.0.1 -e 'show databases;'\"\n      changed_when: false"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: configure.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Get MySQL version.\n  ansible.builtin.command: 'mysql --version'\n  register: mysql_cli_version\n  changed_when: false\n  check_mode: false\n- name: Copy my.cnf global MySQL configuration.\n  ansible.builtin.template:\n    src: my.cnf.j2\n    dest: \"{{ mysql_config_file }}\"\n    owner: root\n    group: root\n    mode: 0644\n    force: \"{{ overwrite_global_mycnf }}\"\n  notify: restart mysql\n- name: Verify mysql include directory exists.\n  ansible.builtin.file:\n    path: \"{{ mysql_config_include_dir }}\"\n    state: directory\n    owner: root\n    group: root\n    mode: 0755\n  when: mysql_config_include_files | length\n- name: Copy my.cnf override files into include directory.\n  ansible.builtin.template:\n    src: \"{{ item.src }}\"\n    dest: \"{{ mysql_config_include_dir }}/{{ item.src | basename }}\"\n    owner: root\n    group: root\n    mode: 0644\n    force: \"{{ item.force | default(False) }}\"\n  with_items: \"{{ mysql_config_include_files }}\"\n  notify: restart mysql\n- name: Create slow query log file (if configured).\n  ansible.builtin.command: \"touch {{ mysql_slow_query_log_file }}\"\n  args:\n    creates: \"{{ mysql_slow_query_log_file }}\"\n  when: mysql_slow_query_log_enabled\n- name: Create datadir if it does not exist\n  ansible.builtin.file:\n    path: \"{{ mysql_datadir }}\"\n    state: directory\n    owner: mysql\n    group: mysql\n    mode: 0755\n    setype: mysqld_db_t\n- name: Set ownership on slow query log file (if configured).\n  ansible.builtin.file:\n    path: \"{{ mysql_slow_query_log_file }}\"\n    state: file\n    owner: mysql\n    group: \"{{ mysql_log_file_group }}\"\n    mode: 0640\n  when: mysql_slow_query_log_enabled\n- name: Create error log file (if configured).\n  ansible.builtin.command: \"touch {{ mysql_log_error }}\"\n  args:\n    creates: \"{{ mysql_log_error }}\"\n  when:\n    - mysql_log | default(true)\n    - mysql_log_error | default(false)\n  tags: ['skip_ansible_galaxy']\n- name: Set ownership on error log file (if configured).\n  ansible.builtin.file:\n    path: \"{{ mysql_log_error }}\"\n    state: file\n    owner: mysql\n    group: \"{{ mysql_log_file_group }}\"\n    mode: 0640\n  when:\n    - mysql_log | default(true)\n    - mysql_log_error | default(false)\n  tags: ['skip_ansible_galaxy']\n- name: Ensure MySQL is started and enabled on boot.\n  ansible.builtin.service:\n    name: \"{{ mysql_daemon }}\"\n    state: started\n    enabled: \"{{ mysql_enabled_on_startup }}\"\n  register: mysql_service_configuration"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: databases.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Ensure MySQL databases are present.\n  mysql_db:\n    name: \"{{ item.name }}\"\n    collation: \"{{ item.collation | default('utf8_general_ci') }}\"\n    encoding: \"{{ item.encoding | default('utf8') }}\"\n    state: \"{{ item.state | default('present') }}\"\n    target: \"{{ item.target | default(omit) }}\"\n  with_items: \"{{ mysql_databases }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: main.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n# Variable configuration.\n- ansible.builtin.include_tasks: variables.yml\n# Setup/install tasks.\n- ansible.builtin.include_tasks: setup-RedHat.yml\n  when: ansible_os_family == 'RedHat'\n- ansible.builtin.include_tasks: setup-Debian.yml\n  when: ansible_os_family == 'Debian'\n- ansible.builtin.include_tasks: setup-Archlinux.yml\n  when: ansible_os_family == 'Archlinux'\n- name: Check if MySQL packages were installed.\n  ansible.builtin.set_fact:\n    mysql_install_packages: \"{{ (rh_mysql_install_packages is defined and rh_mysql_install_packages.changed)\n      or (deb_mysql_install_packages is defined and deb_mysql_install_packages.changed)\n      or (arch_mysql_install_packages is defined and arch_mysql_install_packages.changed) }}\"\n# Configure MySQL.\n- ansible.builtin.include_tasks: configure.yml\n- ansible.builtin.include_tasks: secure-installation.yml\n- ansible.builtin.include_tasks: databases.yml\n- ansible.builtin.include_tasks: users.yml\n- ansible.builtin.include_tasks: replication.yml"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: replication.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Ensure replication user exists on master.\n  mysql_user:\n    name: \"{{ mysql_replication_user.name }}\"\n    host: \"{{ mysql_replication_user.host | default('%') }}\"\n    password: \"{{ mysql_replication_user.password }}\"\n    priv: \"{{ mysql_replication_user.priv | default('*.*:REPLICATION SLAVE,REPLICATION CLIENT') }}\"\n    state: present\n  when:\n    - mysql_replication_role == 'master'\n    - mysql_replication_user.name is defined\n    - (mysql_replication_master | length) > 0\n  tags: ['skip_ansible_galaxy']\n- name: Check slave replication status.\n  mysql_replication:\n    mode: getreplica\n    login_user: \"{{ mysql_root_username }}\"\n    login_password: \"{{ mysql_root_password }}\"\n  ignore_errors: true\n  register: slave\n  when:\n    - mysql_replication_role == 'slave'\n    - (mysql_replication_master | length) > 0\n  tags: ['skip_ansible_galaxy']\n- name: Check master replication status.\n  mysql_replication:\n    mode: getprimary\n  delegate_to: \"{{ mysql_replication_master_inventory_host }}\"\n  register: master\n  when:\n    - (slave.Is_Slave is defined and not slave.Is_Slave) or (slave.Is_Replica is defined and not slave.Is_Replica) or (slave.Is_Slave is not defined and slave.Is_Replica is not defined and slave is failed)\n    - mysql_replication_role == 'slave'\n    - (mysql_replication_master | length) > 0\n  tags: ['skip_ansible_galaxy']\n- name: Configure replication on the slave.\n  mysql_replication:\n    mode: changeprimary\n    master_host: \"{{ mysql_replication_master }}\"\n    master_user: \"{{ mysql_replication_user.name }}\"\n    master_password: \"{{ mysql_replication_user.password }}\"\n    master_log_file: \"{{ master.File }}\"\n    master_log_pos: \"{{ master.Position }}\"\n  ignore_errors: true\n  when:\n    - (slave.Is_Slave is defined and not slave.Is_Slave) or (slave.Is_Replica is defined and not slave.Is_Replica) or (slave.Is_Slave is not defined and slave.Is_Replica is not defined and slave is failed)\n    - mysql_replication_role == 'slave'\n    - mysql_replication_user.name is defined\n    - (mysql_replication_master | length) > 0\n- name: Start replication.\n  mysql_replication:\n    mode: startreplica\n  when:\n    - (slave.Is_Slave is defined and slave.Is_Slave) or (slave.Is_Replica is defined and slave.Is_Replica) or (slave.Is_Slave is not defined and slave.Is_Replica is not defined and slave is failed)\n    - mysql_replication_role == 'slave'\n    - (mysql_replication_master | length) > 0\n  tags: ['skip_ansible_galaxy']"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: secure-installation.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Ensure default user is present.\n  mysql_user:\n    name: \"{{ mysql_user_name }}\"\n    host: 'localhost'\n    password: \"{{ mysql_user_password }}\"\n    priv: '*.*:ALL,GRANT'\n    state: present\n  when: mysql_user_name != mysql_root_username\n# Has to be after the password assignment, for idempotency.\n- name: Copy user-my.cnf file with password credentials.\n  ansible.builtin.template:\n    src: \"user-my.cnf.j2\"\n    dest: \"{{ mysql_user_home }}/.my.cnf\"\n    owner: \"{{ mysql_user_name }}\"\n    mode: 0600\n  when: >\n    mysql_user_name != mysql_root_username\n    and (mysql_install_packages | bool or mysql_user_password_update)\n- name: Disallow root login remotely\n  ansible.builtin.command: 'mysql -NBe \"{{ item }}\"'\n  with_items:\n    - DELETE FROM mysql.user WHERE User='{{ mysql_root_username }}' AND Host NOT IN ('localhost', '127.0.0.1', '::1')\n  changed_when: false\n- name: Get list of hosts for the root user.\n  ansible.builtin.command: mysql -NBe\n    \"SELECT Host\n    FROM mysql.user\n    WHERE User = '{{ mysql_root_username }}'\n    ORDER BY (Host='localhost') ASC\"\n  register: mysql_root_hosts\n  changed_when: false\n  check_mode: false\n  when: mysql_install_packages | bool or mysql_root_password_update\n# Note: We do not use mysql_user for this operation, as it doesn't always update\n# the root password correctly. See: https://goo.gl/MSOejW\n# Set root password for MySQL >= 5.7.x.\n- name: Update MySQL root password for localhost root account (5.7.x).\n  ansible.builtin.shell: >\n    mysql -u root -NBe\n    \"ALTER USER '{{ mysql_root_username }}'@'{{ item }}'\n     IDENTIFIED WITH mysql_native_password BY '{{ mysql_root_password }}'; FLUSH PRIVILEGES;\"\n  with_items: \"{{ mysql_root_hosts.stdout_lines|default([]) }}\"\n  when: >\n    ((mysql_install_packages | bool) or mysql_root_password_update)\n    and ('5.7.' in mysql_cli_version.stdout or '8.0.' in mysql_cli_version.stdout)\n# Set root password for MySQL < 5.7.x.\n- name: Update MySQL root password for localhost root account (< 5.7.x).\n  ansible.builtin.shell: >\n    mysql -NBe\n    'SET PASSWORD FOR \"{{ mysql_root_username }}\"@\"{{ item }}\" = PASSWORD(\"{{ mysql_root_password }}\"); FLUSH PRIVILEGES;'\n  with_items: \"{{ mysql_root_hosts.stdout_lines|default([]) }}\"\n  when: >\n    ((mysql_install_packages | bool) or mysql_root_password_update)\n    and ('5.7.' not in mysql_cli_version.stdout and '8.0.' not in mysql_cli_version.stdout)\n# Has to be after the root password assignment, for idempotency.\n- name: Copy .my.cnf file with root password credentials.\n  ansible.builtin.template:\n    src: \"root-my.cnf.j2\"\n    dest: \"{{ mysql_root_home }}/.my.cnf\"\n    owner: root\n    group: root\n    mode: 0600\n  when: mysql_install_packages | bool or mysql_root_password_update\n- name: Get list of hosts for the anonymous user.\n  ansible.builtin.command: mysql -NBe \"SELECT Host FROM mysql.user WHERE User = ''\"\n  register: mysql_anonymous_hosts\n  changed_when: false\n  check_mode: false\n- name: Remove anonymous MySQL users.\n  mysql_user:\n    name: \"\"\n    host: \"{{ item }}\"\n    state: absent\n  with_items: \"{{ mysql_anonymous_hosts.stdout_lines|default([]) }}\"\n- name: Remove MySQL test database.\n  mysql_db:\n    name: 'test'\n    state: absent"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: setup-Archlinux.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Ensure MySQL Python libraries are installed.\n  community.general.pacman:\n    name: mysql-python\n    state: present\n- name: Ensure MySQL packages are installed.\n  community.general.pacman:\n    name: \"{{ mysql_packages }}\"\n    state: present\n  register: arch_mysql_install_packages\n- name: Run mysql_install_db if MySQL packages were changed.\n  ansible.builtin.command: mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql\n  when: arch_mysql_install_packages.changed\n  tags: ['skip_ansible_lint']"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: setup-Debian.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Check if MySQL is already installed.\n  ansible.builtin.stat:\n    path: \"{{ mysql_config_file }}\"\n  register: mysql_installed\n- name: Update apt cache if MySQL is not yet installed.\n  ansible.builtin.apt:\n    update_cache: yes\n  changed_when: False\n  when: not mysql_installed.stat.exists\n- name: Ensure MySQL Python libraries are installed.\n  ansible.builtin.apt:\n    name: \"{{ mysql_python_package_debian }}\"\n    state: present\n- name: Ensure MySQL packages are installed.\n  ansible.builtin.apt:\n    name: \"{{ mysql_packages }}\"\n    state: present\n    policy_rc_d: 101\n  register: deb_mysql_install_packages\n# Because Ubuntu starts MySQL as part of the install process, we need to stop\n# mysql and remove the logfiles in case the user set a custom log file size.\n- name: Ensure MySQL is stopped after initial install.\n  ansible.builtin.service:\n    name: \"{{ mysql_daemon }}\"\n    state: stopped\n  when: not mysql_installed.stat.exists\n- name: Delete innodb log files created by apt package after initial install.\n  ansible.builtin.file:\n    path: \"{{ mysql_datadir }}/{{ item }}\"\n    state: absent\n  with_items:\n    - ib_logfile0\n    - ib_logfile1\n  when: >\n    not mysql_installed.stat.exists\n    and ansible_distribution_major_version | int < 12"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: setup-RedHat.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Ensure MySQL packages are installed.\n  ansible.builtin.yum:\n    name: \"{{ mysql_packages }}\"\n    state: present\n    enablerepo: \"{{ mysql_enablerepo | default(omit, true) }}\"\n  register: rh_mysql_install_packages"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: users.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Ensure MySQL users are present.\n  mysql_user:\n    name: \"{{ item.name }}\"\n    host: \"{{ item.host | default('localhost') }}\"\n    password: \"{{ item.password }}\"\n    priv: \"{{ item.priv | default('*.*:USAGE') }}\"\n    state: \"{{ item.state | default('present') }}\"\n    append_privs: \"{{ item.append_privs | default('no') }}\"\n    encrypted: \"{{ item.encrypted | default('no') }}\"\n  with_items: \"{{ mysql_users }}\"\n  no_log: true"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: variables.yml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n# Variable configuration.\n- name: Include OS-specific variables.\n  ansible.builtin.include_vars: \"{{ item }}\"\n  with_first_found:\n    - files:\n        - \"vars/{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml\"\n        - \"vars/{{ ansible_os_family }}.yml\"\n      skip: true\n- name: Define mysql_packages.\n  ansible.builtin.set_fact:\n    mysql_packages: \"{{ __mysql_packages | list }}\"\n  when: mysql_packages is not defined\n- name: Define mysql_daemon.\n  ansible.builtin.set_fact:\n    mysql_daemon: \"{{ __mysql_daemon }}\"\n  when: mysql_daemon is not defined\n- name: Define mysql_slow_query_log_file.\n  ansible.builtin.set_fact:\n    mysql_slow_query_log_file: \"{{ __mysql_slow_query_log_file }}\"\n  when: mysql_slow_query_log_file is not defined\n- name: Define mysql_log_error.\n  ansible.builtin.set_fact:\n    mysql_log_error: \"{{ __mysql_log_error }}\"\n  when: mysql_log_error is not defined\n- name: Define mysql_syslog_tag.\n  ansible.builtin.set_fact:\n    mysql_syslog_tag: \"{{ __mysql_syslog_tag }}\"\n  when: mysql_syslog_tag is not defined\n- name: Define mysql_pid_file.\n  ansible.builtin.set_fact:\n    mysql_pid_file: \"{{ __mysql_pid_file }}\"\n  when: mysql_pid_file is not defined\n- name: Define mysql_config_file.\n  ansible.builtin.set_fact:\n    mysql_config_file: \"{{ __mysql_config_file }}\"\n  when: mysql_config_file is not defined\n- name: Define mysql_config_include_dir.\n  ansible.builtin.set_fact:\n    mysql_config_include_dir: \"{{ __mysql_config_include_dir }}\"\n  when: mysql_config_include_dir is not defined\n- name: Define mysql_socket.\n  ansible.builtin.set_fact:\n    mysql_socket: \"{{ __mysql_socket }}\"\n  when: mysql_socket is not defined\n- name: Define mysql_supports_innodb_large_prefix.\n  ansible.builtin.set_fact:\n    mysql_supports_innodb_large_prefix: \"{{ __mysql_supports_innodb_large_prefix }}\"\n  when: mysql_supports_innodb_large_prefix is not defined"
       }
     ]
   },

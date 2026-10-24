@@ -58,3 +58,4 @@ https://stackoverflow.com/questions/57314773/adding-multiple-users-to-a-linux-sy
 https://medium.com/@kelom.x/ansible-mysql-installation-2513d0f70faf
 https://wiki.linux-server-admin.com/software/webserver/nginx/setup/ansible
 https://stackoverflow.com/questions/58113653/using-ansible-loop-to-create-multiple-users-undefined-error
+https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_intro.html

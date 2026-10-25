@@ -2679,18 +2679,6 @@
     "conversations": [
       {
         "from": "human",
-        "value": "Ansible Playbook for: Ansible/Nginx Playbook - charlesreid1"
-      },
-      {
-        "from": "gpt",
-        "value": "- name: Configure webserver with nginx and tls\n  hosts: webservers\n  become: True\n  vars:\n    key_file: /etc/nginx/ssl/nginx.key\n    cert_file: /etc/nginx/ssl/nginx.crt\n    conf_file: /etc/nginx/sites-available/default\n    server_name: localhost\n  tasks:\n    - name: Install nginx\n      apt: name=nginx update_cache=yes cache_valid_time=3600\n    - name: create directories for ssl certificates\n      file: path=/etc/nginx/ssl state=directory\n    - name: copy TLS key\n      copy: src=files/nginx.key dest={{ key_file }} owner=root mode=0600\n      notify: restart nginx\n    - name: copy TLS certificate\n      copy: src=files/nginx.crt dest={{ cert_file }}\n      notify: restart nginx\n    - name: copy nginx config file\n      template: src=templates/nginx.conf.j2 dest={{ conf_file }}\n      notify: restart nginx\n    - name: enable configuration\n      file: dest=/etc/nginx/sites-enabled/default src={{ conf_file }} state=link\n      notify: restart nginx\n    - name: copy index.html\n      template: src=templates/index.html.j2 dest=/usr/share/nginx/html/index.html\n             mode=0644\n  handlers:\n    - name: restart nginx\n      service: name=nginx state=restarted"
-      }
-    ]
-  },
-  {
-    "conversations": [
-      {
-        "from": "human",
         "value": "Ansible Playbook for: playbook.yml"
       },
       {
@@ -4448,6 +4436,18 @@
       {
         "from": "gpt",
         "value": "---\n- name: Deploy application with dynamic Vault secrets\n  hosts: app_servers\n  become: true\n  vars:\n    vault_addr: \"https://vault.internal.example.com:8200\"\n  tasks:\n    - name: Fetch database credentials from Vault\n      ansible.builtin.set_fact:\n        db_creds: \"{{ lookup('community.hashi_vault.hashi_vault',\n          'secret=ansible/data/app/db:data',\n          url=vault_addr,\n          auth_method='approle',\n          role_id=vault_role_id,\n          secret_id=vault_secret_id) }}\"\n      no_log: true\n    - name: Write application environment file\n      ansible.builtin.template:\n        src: templates/app.env.j2\n        dest: /etc/myapp/app.env\n        owner: myapp\n        group: myapp\n        mode: '0640'\n      no_log: true"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: Nginx Ansible Deployment | Compile N Run"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n# Install Nginx\n- name: Install Nginx package\n  apt:\n    name: \"{{ nginx_package_name }}\"\n    state: present\n    update_cache: yes\n  become: yes\n  tags:\n    - nginx\n    - install\n# Ensure directories exist\n- name: Ensure Nginx configuration directories exist\n  file:\n    path: \"{{ item }}\"\n    state: directory\n    owner: root\n    group: root\n    mode: 0755\n  with_items:\n    - \"{{ nginx_conf_dir }}\"\n    - \"{{ nginx_conf_dir }}/sites-available\"\n    - \"{{ nginx_conf_dir }}/sites-enabled\"\n    - \"{{ nginx_conf_dir }}/conf.d\"\n  become: yes\n  tags:\n    - nginx\n    - configuration\n# Configure Nginx main configuration\n- name: Configure Nginx main configuration\n  template:\n    src: nginx.conf.j2\n    dest: \"{{ nginx_conf_dir }}/nginx.conf\"\n    owner: root\n    group: root\n    mode: 0644\n  become: yes\n  notify: restart nginx\n  tags:\n    - nginx\n    - configuration\n# Configure default site\n- name: Configure default site\n  template:\n    src: \"{{ nginx_default_site_template }}\"\n    dest: \"{{ nginx_conf_dir }}/sites-available/default\"\n    owner: root\n    group: root\n    mode: 0644\n  when: nginx_default_site_enabled\n  become: yes\n  notify: restart nginx\n  tags:\n    - nginx\n    - configuration\n# Enable default site\n- name: Enable default site\n  file:\n    src: \"{{ nginx_conf_dir }}/sites-available/default\"\n    dest: \"{{ nginx_conf_dir }}/sites-enabled/default\"\n    state: link\n  when: nginx_default_site_enabled\n  become: yes\n  notify: restart nginx\n  tags:\n    - nginx\n    - configuration\n# Start and enable Nginx service\n- name: Ensure Nginx service is running and enabled\n  service:\n    name: \"{{ nginx_service_name }}\"\n    state: \"{{ nginx_service_state }}\"\n    enabled: \"{{ nginx_service_enabled }}\"\n  become: yes\n  tags:\n    - nginx\n    - service"
       }
     ]
   }

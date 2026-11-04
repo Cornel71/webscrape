@@ -2679,6 +2679,18 @@
     "conversations": [
       {
         "from": "human",
+        "value": "Ansible Playbook for: Ansible/Nginx Playbook - charlesreid1"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: Configure webserver with nginx and tls\n  hosts: webservers\n  become: True\n  vars:\n    key_file: /etc/nginx/ssl/nginx.key\n    cert_file: /etc/nginx/ssl/nginx.crt\n    conf_file: /etc/nginx/sites-available/default\n    server_name: localhost\n  tasks:\n    - name: Install nginx\n      apt: name=nginx update_cache=yes cache_valid_time=3600\n    - name: create directories for ssl certificates\n      file: path=/etc/nginx/ssl state=directory\n    - name: copy TLS key\n      copy: src=files/nginx.key dest={{ key_file }} owner=root mode=0600\n      notify: restart nginx\n    - name: copy TLS certificate\n      copy: src=files/nginx.crt dest={{ cert_file }}\n      notify: restart nginx\n    - name: copy nginx config file\n      template: src=templates/nginx.conf.j2 dest={{ conf_file }}\n      notify: restart nginx\n    - name: enable configuration\n      file: dest=/etc/nginx/sites-enabled/default src={{ conf_file }} state=link\n      notify: restart nginx\n    - name: copy index.html\n      template: src=templates/index.html.j2 dest=/usr/share/nginx/html/index.html\n             mode=0644\n  handlers:\n    - name: restart nginx\n      service: name=nginx state=restarted"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
         "value": "Ansible Playbook for: playbook.yml"
       },
       {

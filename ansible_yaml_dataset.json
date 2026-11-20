@@ -6646,5 +6646,257 @@
         "value": "from __future__ import (absolute_import, division, print_function)\n__metaclass__ = type\nclass dummy_cursor_class():\n    \"\"\"Dummy class for returning an answer for SELECT VERSION().\"\"\"\n    def __init__(self, output, ret_val_type='dict'):\n        self.output = output\n        self.ret_val_type = ret_val_type\n    def execute(self, query):\n        pass\n    def fetchone(self):\n        if self.ret_val_type == 'dict':\n            return {'version': self.output}\n        elif self.ret_val_type == 'list':\n            return [self.output]"
       }
     ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: add_hosts.yaml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: add slave local hosts file\n  shell: \"{{ item }}\"\n  with_items:\n     - cp -a /etc/hosts /etc/hosts.bak\n     - echo > /etc/hosts\n     - echo \"127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4\" > /etc/hosts\n     - echo \"::1         localhost localhost.localdomain localhost6 localhost6.localdomain6\" >> /etc/hosts\n     - cat /tmp/hosts >> /etc/hosts\n#    - echo {{ master_ip }} {{ business_name }}-master >> {{ get_url_dir }}{{ business_name }}.hosts\n#    - echo {{ ansible_default_ipv4['address'] }} {{business_name}}-slave >> {{ get_url_dir }}{{ business_name }}.hosts\n#    - cat {{ get_url_dir }}{{ business_name }}.hosts >> /etc/hosts\n#- name: register to var on slave\n#  shell: \"cat {{ get_url_dir }}{{ business_name }}.hosts\"\n#  register: register_hosts_info\n#- name: delegate to master hosts file\n#  shell: \"echo '{{ register_hosts_info.stdout }}' >> /etc/hosts\"\n#  delegate_to: \"{{ master_ip }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: download.yaml"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: download jemalloc on all nodes\n  get_url:\n    url: \"{{ jemalloc }}\"\n    dest: \"{{ get_url_dir }}\"\n- name: download mysql on all nodes\n  get_url:\n    url: \"{{ mysql_group_rpm }}\"\n    dest: \"{{ get_url_dir }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: main.yaml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: add hosts file on mgr nodes\n  include: add_hosts.yaml\n- name: set hosts file on mgr nodes\n  include: set_host.yaml\n- name: template rep change master to sql exec on other nodes\n  template: src=rep_change_other.j2 dest=/tmp/rep_change_other.sql\n- name: template rep change master to sql exec on primary node\n  template: src=rep_change_primary.j2 dest=/tmp/rep_change_primary.sql\n- name: wget rpm\n  include: download.yaml\n- name: yum dependent\n  include: yum_install.yaml\n- name: install jemalloc and mysql\n  include: mysql_jemalloc_install.yaml\n- name: rep_mysql.yaml\n  include: rep_mysql.yaml"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: mysql_jemalloc_install.yaml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: install jemalloc on mgr nodes\n  vars:\n    - jemalloc_rpm: \"{{ jemalloc | regex_search('jemalloc.*.rpm') }}\"\n  shell: \"cd {{ get_url_dir }};{{ item }}\"\n  with_items:\n    - rpm -ivh {{ jemalloc_rpm }} --force\n    - cp -a /usr/local/jemalloc/lib/libjemalloc.so.2 /usr/lib/\n- name: install mysql on mgr nodes\n  vars:\n    - mysql_group: \"{{ mysql_group_rpm | regex_search('mysql_group.*.rpm') }}\"\n  shell: \"cd {{ get_url_dir }};{{ item }}\"\n  with_items:\n    - rpm -ivh {{ mysql_group }} --force\n    - mkdir -p /var/lib/mysql/\n    - if [ ! -e /var/lib/mysql/mysql.sock ];then ln -s /tmp/mysql.sock /var/lib/mysql/mysql.sock; fi\n    - chown -R mysql:mysql /var/lib/mysql\n- name: check online mgr node's num\n  shell: \"cat /etc/hosts | grep '{{ online_exec_ip.stdout }}' | awk -F '-' 'END{print $NF}'|grep -E '[0-9]'\"\n  register: online_mgr_num\n- name: check online host num and change server id parameter\n  vars:\n    - slave_host_num_int: \"{{ online_mgr_num.stdout | int + 3 }}\"\n  shell: \"{{ item }}\"\n  with_items:\n    - if [ \"{{ online_mgr_num.stdout | int }}\" -gt \"1\" ];then systemctl stop mysqld;sed -i 's/server-id.*/server-id={{ slave_host_num_int }}/' /app/mysql/my.cnf;sleep 1;rm -rf /data/mysql/auto.cnf;systemctl start mysqld; fi"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: rep_mysql.yaml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: MGR Change Master To On Primary node\n  mysql_db:\n    state: import\n    name: all\n    target: /tmp/rep_change_primary.sql\n  when: \"(online_mgr_num.stdout) == '1'\"\n- name: MGR Change Master To On other nodes\n  mysql_db:\n    state: import\n    name: all\n    target: /tmp/rep_change_other.sql\n  when: \"(online_mgr_num.stdout) != '1'\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: set_host.yaml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: cat hostname on online host\n  shell: \"cat /etc/hosts|grep '{{ online_exec_ip.stdout }}'|awk -F ' ' 'END{print $2}'\"\n  register: online_hostname\n- name: set hostname on mgr nodes\n  shell: \"hostnamectl set-hostname {{ online_hostname.stdout }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: yum_install.yaml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: installed dependent on slave\n  yum:\n    name:\n    - bc\n    - numactl\n    - numactl-devel\n    - bison\n    - ncurses\n    - ncurses-devel\n    - expect\n    - net-tools\n    state: present"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: add_hosts.yaml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: add slave local hosts file\n  shell: \"{{ item }}\"\n  with_items:\n     - cp -a /etc/hosts /etc/hosts.bak\n     - echo > /etc/hosts\n     - echo \"127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4\" > /etc/hosts\n     - echo \"::1         localhost localhost.localdomain localhost6 localhost6.localdomain6\" >> /etc/hosts\n     - cat /tmp/hosts >> /etc/hosts\n#    - echo {{ master_ip }} {{ business_name }}-master >> {{ get_url_dir }}{{ business_name }}.hosts\n#    - echo {{ ansible_default_ipv4['address'] }} {{business_name}}-slave >> {{ get_url_dir }}{{ business_name }}.hosts\n#    - cat {{ get_url_dir }}{{ business_name }}.hosts >> /etc/hosts\n#- name: register to var on slave\n#  shell: \"cat {{ get_url_dir }}{{ business_name }}.hosts\"\n#  register: register_hosts_info\n#- name: delegate to master hosts file\n#  shell: \"echo '{{ register_hosts_info.stdout }}' >> /etc/hosts\"\n#  delegate_to: \"{{ master_ip }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: download.yaml"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: download jemalloc on slave\n  get_url:\n    url: \"{{ jemalloc }}\"\n    dest: \"{{ get_url_dir }}\"\n- name: download mysql on master\n  get_url:\n    url: \"{{ mysql_master_rpm }}\"\n    dest: \"{{ get_url_dir }}\"\n  when: \"(online_exec_ip.stdout) == (master_host_info)\"\n- name: download mysql on slave\n  get_url:\n    url: \"{{ mysql_slave_rpm }}\"\n    dest: \"{{ get_url_dir }}\"\n  when: \"(online_exec_ip.stdout) != (master_host_info)\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: main.yaml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: system init scripts\n  include: system_init.yaml\n- name: install python-netaddr for ipv4 filter on ansible host(local)\n  yum:\n    name:\n      - python-netaddr\n  connection: local\n- name: set online exec ip info\n  shell: \"echo {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}\"\n  register: online_exec_ip\n- name: template hosts file create\n  template: src=group_hosts.j2 dest=/tmp/hosts\n- name: add hosts file on slave and delegate to master\n  include: add_hosts.yaml\n- name: set hostname on slave\n  include: set_host.yaml\n- name: wget rpm\n  include: download.yaml\n- name: yum dependent\n  include: yum_install.yaml\n- name: install jemalloc and mysql\n  include: mysql_jemalloc_install.yaml\n- name: install python-pip and mysql-python PyMySQL\n  include: py_install.yaml\n- name: rep_mysql.yaml\n  include: rep_mysql.yaml"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: mysql_jemalloc_install.yaml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: install jemalloc on all\n  vars:\n    - jemalloc_rpm: \"{{ jemalloc | regex_search('jemalloc.*.rpm') }}\"\n  shell: \"cd {{ get_url_dir }};{{ item }}\"\n  with_items:\n    - rpm -ivh {{ jemalloc_rpm }} --force\n    - cp -a /usr/local/jemalloc/lib/libjemalloc.so.2 /usr/lib/\n- name: install mysql on master\n  vars:\n    - mysql_master: \"{{ mysql_master_rpm | regex_search('mysql_master.*.rpm') }}\"\n  shell: \"cd {{ get_url_dir }};{{ item }}\"\n  with_items:\n    - rpm -ivh {{ mysql_master }} --force\n    - mkdir -p /var/lib/mysql/\n    - if [ ! -e /var/lib/mysql/mysql.sock ];then ln -s /tmp/mysql.sock /var/lib/mysql/mysql.sock; fi\n    - chown -R mysql:mysql /var/lib/mysql\n  when: \"(online_exec_ip.stdout) == (master_host_info)\"\n- name: install mysql on slave\n  vars:\n    - mysql_slave: \"{{ mysql_slave_rpm | regex_search('mysql_slave.*.rpm') }}\"\n  shell: \"cd {{ get_url_dir }};{{ item }}\"\n  with_items:\n    - rpm -ivh {{ mysql_slave }} --force\n    - mkdir -p /var/lib/mysql/\n    - if [ ! -e /var/lib/mysql/mysql.sock ];then ln -s /tmp/mysql.sock /var/lib/mysql/mysql.sock; fi\n    - chown -R mysql:mysql /var/lib/mysql\n  when: \"(online_exec_ip.stdout) != (master_host_info)\"\n- name: check slave host num\n  shell: \"cat /etc/hosts | grep '{{ online_exec_ip.stdout }}' | awk -F '-' 'END{print $NF}'|grep -E '[0-9]'\"\n  register: slave_host_num\n  when: \"(online_exec_ip.stdout) != (master_host_info)\"\n- name: check server_id num and change my.cnf parameter on all slve\n  vars:\n    - server_id: \"3\"\n    - slave_host_num_int: \"{{ slave_host_num.stdout | int + 2 }}\"\n  shell: \"{{ item }}\"\n  with_items:\n    - if [ \"{{ slave_host_num.stdout | int }}\" -gt \"1\" ];then systemctl stop mysqld;sed -i 's/server-id.*/server-id={{ slave_host_num_int }}/' /app/mysql/my.cnf;sleep 1;rm -rf /data/mysql/auto.cnf;systemctl start mysqld; fi\n  when: \"(online_exec_ip.stdout) != (master_host_info)\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: py_install.yaml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: install python\n  yum:\n    name:\n      - python\n      - python3\n      - python-pip\n      - python-devel\n      - mysql-devel\n  when: \"(online_exec_ip.stdout) == (master_host_info)\"\n- name: install mysql-devel(libmysqlclient)\n  shell: \"if [ ! -e /usr/lib/libmysqlclient.so ];then ln -s /usr/lib64/mysql/libmysqlclient.so /usr/lib/libmysqlclient.so; fi\"\n  ignore_errors: yes\n  when: \"(online_exec_ip.stdout) != (master_host_info)\"\n- name: pip install pymysql(2.x 3.x) mysqldb(mysql-python 2.x)\n  shell: \"{{ item }}\"\n  with_items:\n    - pip install PyMySQL\n    - pip3 install PyMySQL\n    - pip install mysql-python\n  register: python_pip_filed_info\n  ignore_errors: yes\n  when: \"(online_exec_ip.stdout) != (master_host_info)\"\n- name: if pip install filed exec this\n  yum:\n    name:\n      - MySQL-python\n      - python36-PyMySQL\n      - python2-PyMySQL\n  ignore_errors: yes\n  when: \"'FAILED' in python_pip_filed_info.stderr\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: rep_mysql.yaml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: check master hostname\n  shell: \"cat /etc/hosts|grep '{{ master_host_info }}'|awk -F ' ' 'END{print $2}'\"\n  register: master_hostname_info\n- name: get master gtid\n  mysql_replication:\n    mode: getmaster\n    login_user: root\n    login_password: \"{{ mysql_pass }}\"\n    login_unix_socket: \"{{ mysql_socket }}\"\n    master_host: \"{{ master_host_info }}\"\n    master_user: \"{{ rep_user }}\"\n    master_password: \"{{ rep_password }}\"\n    master_auto_position: \"yes\"\n  when: \"(online_exec_ip.stdout) != (master_host_info)\"\n- name: Configure replication on the slave.\n  mysql_replication:\n    mode: changemaster\n    login_user: root\n    login_password: \"{{ mysql_pass }}\"\n    login_unix_socket: \"{{ mysql_socket }}\"\n    master_host: \"{{ master_hostname_info.stdout }}\"\n    master_user: \"{{ rep_user }}\"\n    master_password: \"{{ rep_password }}\"\n    master_auto_position: \"yes\"\n    master_connect_retry: \"1\"\n  when: \"(online_exec_ip.stdout) != (master_host_info)\"\n- name: Start slave\n  mysql_replication:\n    mode: startslave\n    login_user: root\n    login_password: \"{{ mysql_pass }}\"\n    login_unix_socket: \"{{ mysql_socket }}\"\n  when: \"(online_exec_ip.stdout) != (master_host_info)\"\n- name: Get Slave\n  mysql_replication:\n    mode: getslave\n    login_user: root\n    login_password: \"{{ mysql_pass }}\"\n    login_unix_socket: \"{{ mysql_socket }}\"\n  register: slave_status\n  when: \"(online_exec_ip.stdout) != (master_host_info)\"\n- name: show slave status\n  debug: var=slave_status verbosity=0\n  when: \"(online_exec_ip.stdout) != (master_host_info)\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: set_host.yaml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: set hostname on master\n  shell: \"hostnamectl set-hostname {{ business_name }}-master-0\"\n  when: (online_exec_ip.stdout) == (master_host_info) and business_name is defined\n- name: slave num hostname\n  shell: \"cat /etc/hosts|grep '{{ online_exec_ip.stdout }}'|awk -F '-' 'END{print $NF}'|grep -E '[0-9]'\"\n  register: slave_num_hostname\n  when: \"(online_exec_ip.stdout) != (master_host_info)\"\n- name: set hostname on slave\n  shell: \"hostnamectl set-hostname {{ business_name }}-slave-{{ slave_num_hostname.stdout | int }}\"\n  when: (online_exec_ip.stdout) != (master_host_info) and business_name is defined"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: system_init.yaml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: copy system_init.sh to host\n  copy:\n    src： system_init.sh\n    dest： \"{{ get_url_dir }}\"\n- name: bash system_init.sh script\n  shell: \"cd {{ get_url_dir }};bash system_init.sh\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: yum_install.yaml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: installed dependent on slave\n  yum:\n    name:\n    - bc\n    - numactl\n    - numactl-devel\n    - bison\n    - ncurses\n    - ncurses-devel\n    - expect\n    - net-tools\n    state: present"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: site.yaml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- hosts: \"{{ hosts }}\"\n  remote_user: root\n  roles:\n    - { role: replica, when: mysql_roles  == \"replica\" }\n    - { role: test, when: mysql_roles == \"test\" }\n    - { role: mgr, when: mysql_roles == \"mgr\" }"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: download.yaml"
+      },
+      {
+        "from": "gpt",
+        "value": "- name: download jemalloc on test\n  get_url:\n    url: \"{{ jemalloc }}\"\n    dest: \"{{ get_url_dir }}\"\n- name: download mysql on test\n  get_url:\n    url: \"{{ mysql_test_rpm }}\"\n    dest: \"{{ get_url_dir }}\""
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: main.yaml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: wget test rpm on test\n  include: download.yaml\n- name: yum dependent on test\n  include: yum_install.yaml\n- name: install jemalloc and mysql on test\n  include: mysql_jemalloc_install.yaml"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: mysql_jemalloc_install.yaml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: install jemalloc on test\n  vars:\n    - jemalloc_rpm: \"{{ jemalloc | regex_search('jemalloc.*.rpm') }}\"\n  shell: \"cd {{ get_url_dir }};{{ item }}\"\n  with_items:\n    - rpm -ivh {{ jemalloc_rpm }} --force\n    - cp -a /usr/local/jemalloc/lib/libjemalloc.so.2 /usr/lib/\n- name: install mysql on test\n  vars:\n    - mysql_test: \"{{ mysql_test_rpm | regex_search('mysql_test.*.rpm') }}\"\n  shell: \"cd {{ get_url_dir }};{{ item }}\"\n  with_items:\n    - rpm -ivh {{ mysql_test }} --force"
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: yum_install.yaml"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: installed dependent on test\n  yum:\n    name:\n    - bc\n    - numactl\n    - numactl-devel\n    - bison\n    - ncurses\n    - ncurses-devel\n    - expect\n    - net-tools\n    state: present"
+      }
+    ]
   }
 ]

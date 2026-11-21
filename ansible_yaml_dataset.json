@@ -6898,5 +6898,17 @@
         "value": "---\n- name: installed dependent on test\n  yum:\n    name:\n    - bc\n    - numactl\n    - numactl-devel\n    - bison\n    - ncurses\n    - ncurses-devel\n    - expect\n    - net-tools\n    state: present"
       }
     ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: Roles -- Ansible Community Documentation"
+      },
+      {
+        "from": "gpt",
+        "value": "# roles/example/tasks/main.yml\n- name: Install the correct web server for RHEL\n  ansible.builtin.import_tasks: redhat.yml\n  when: ansible_facts['os_family']|lower == 'redhat'\n- name: Install the correct web server for Debian\n  ansible.builtin.import_tasks: debian.yml\n  when: ansible_facts['os_family']|lower == 'debian'\n# roles/example/tasks/redhat.yml\n- name: Install web server\n  ansible.builtin.yum:\n    name: \"httpd\"\n    state: present\n# roles/example/tasks/debian.yml\n- name: Install web server\n  ansible.builtin.apt:\n    name: \"apache2\"\n    state: present"
+      }
+    ]
   }
 ]

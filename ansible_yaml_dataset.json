@@ -6910,5 +6910,17 @@
         "value": "# roles/example/tasks/main.yml\n- name: Install the correct web server for RHEL\n  ansible.builtin.import_tasks: redhat.yml\n  when: ansible_facts['os_family']|lower == 'redhat'\n- name: Install the correct web server for Debian\n  ansible.builtin.import_tasks: debian.yml\n  when: ansible_facts['os_family']|lower == 'debian'\n# roles/example/tasks/redhat.yml\n- name: Install web server\n  ansible.builtin.yum:\n    name: \"httpd\"\n    state: present\n# roles/example/tasks/debian.yml\n- name: Install web server\n  ansible.builtin.apt:\n    name: \"apache2\"\n    state: present"
       }
     ]
+  },
+  {
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ansible Playbook for: Ansible hashicorp.vault Module Example: Dynamic Secrets"
+      },
+      {
+        "from": "gpt",
+        "value": "---\n- name: Fetch secrets from Vault\n  hosts: localhost\n  gather_facts: false\n  vars:\n    vault_addr: \"https://vault.internal.example.com:8200\"\n  tasks:\n    - name: Read a static application secret\n      community.hashi_vault.vault_kv2_get:\n        url: \"{{ vault_addr }}\"\n        auth_method: token\n        token: \"{{ lookup('env', 'VAULT_TOKEN') }}\"\n        engine_mount_point: secret\n        path: app/database\n      register: db_static_secret\n    - name: Request a dynamic database credential\n      community.hashi_vault.vault_read:\n        url: \"{{ vault_addr }}\"\n        auth_method: token\n        token: \"{{ lookup('env', 'VAULT_TOKEN') }}\"\n        path: database/creds/readonly-role\n      register: db_dynamic_creds\n    - name: Show the dynamic credential lease details\n      ansible.builtin.debug:\n        msg: >\n          Username: {{ db_dynamic_creds.data.data.username }},\n          lease duration: {{ db_dynamic_creds.data.lease_duration }}s\n    - name: Configure the app with the dynamic credential\n      ansible.builtin.template:\n        src: templates/app-db.conf.j2\n        dest: /etc/myapp/db.conf\n        mode: \"0600\"\n      vars:\n        db_user: \"{{ db_dynamic_creds.data.data.username }}\"\n        db_password: \"{{ db_dynamic_creds.data.data.password }}\""
+      }
+    ]
   }
 ]

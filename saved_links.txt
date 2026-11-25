@@ -65,3 +65,4 @@ https://ansible.build/roles/nginx/
 https://github.com/ansible-collections/ansible.mysql
 https://github.com/baijiu1/ansible-playbook-mysql
 https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_reuse_roles.html
+https://www.ansiblebyexample.com/articles/ansible-hashicorpvault-module-example-dynamic-secrets-in-a-playbook
